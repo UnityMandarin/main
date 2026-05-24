@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Mandarin Center</title>
+    <style>
+        /* --- GLOBAL STYLES --- */
+        :root {
+            --primary-red: #D32F2F; /* Matches your logo */
+            --bg-color: #f7f7f7; /* Soft off-white background */
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', serif; /* Gives a classy, educational feel */
+            font-weight: normal;
+        }
+
+       /* --- NAVIGATION BAR --- */
+        header {
+            background-color: #FFFDE0; /* Matches the pale yellow logo background */
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--primary-red);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background-color: white;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: var(--primary-red);
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            color: #666;
+        }
+
+        .cta-button {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #b71c1c;
+        }
+
+        /* --- OUR APPROACH SECTION (YOUR SCREENSHOT) --- */
+        .approach-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .approach-section > h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .grid {
+            display: flex;
+            gap: 40px;
+        }
+
+        .card {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .card > p {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card ul {
+            text-align: left;
+            padding-left: 20px;
+            font-size: 14px;
+        }
+
+        .card li {
+            margin-bottom: 12px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+        /* --- RESPONSIVE DESIGN (FOR PHONES) --- */
+        @media (max-width: 800px) {
+            .grid {
+                flex-direction: column;
+            }
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-container" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+            <img src="logo.png" alt="Unity Mandarin Center Logo" style="height: 50px; width: auto; border-radius: 50%;">
+            <span class="logo-text" style="font-family: 'Georgia', serif; font-size: 24px; font-weight: bold; color: #D32F2F;">Unity Mandarin Center</span>
+        </a>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Our Programs</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to Unity Mandarin Center</h1>
+        <p>Empowering children through language, academic support, and vibrant cultural exploration.</p>
+        <a href="#" class="cta-button">Enroll Today</a>
+    </section>
+
+    <section class="approach-section">
+        <h2>Our Approach</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <img src="linguistic.jpg" alt="Linguistic Immersion">
+                <h3>Linguistic Immersion</h3>
+                <p>Language is best learned when it is lived. Instead of rigid memorization and grammar drills, we focus on natural acquisition in a supportive, fully immersive environment.</p>
+                <ul>
+                    <li><strong>Interactive Learning:</strong> Building fluency through structured exploration, conversations, and group games.</li>
+                    <li><strong>Real-World Context:</strong> Integrating Mandarin into daily routines to make learning practical and engaging.</li>
+                    <li><strong>Confident Communication:</strong> Empowering children to speak, think, and express themselves naturally.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <img src="academic.jpg" alt="Academic Support">
+                <h3>Academic Support</h3>
+                <p>Balancing schoolwork and language learning can be challenging. We provide a dedicated, quiet environment where students can complete their homework with confidence.</p>
+                <ul>
+                    <li><strong>Expert Guidance:</strong> Targeted assistance from experienced educators to help students master core subjects.</li>
+                    <li><strong>Stress Reduction:</strong> Minimizes after-school stress for families by managing curriculum needs during program hours.</li>
+                    <li><strong>Lifelong Habits:</strong> Fosters independent study skills that set children up for long-term academic success.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <img src="cultural.jpg" alt="Cultural Creative">
+                <h3>Cultural Creative</h3>
+                <p>True fluency goes hand-in-hand with cultural understanding. We bring the vibrant traditions of the Chinese-speaking world to life by connecting language learning directly to creative expression.</p>
+                <ul>
+                    <li><strong>Traditional Arts:</strong> Hands-on exploration of rich history and heritage through calligraphy and brush painting.</li>
+                    <li><strong>Immersive Expression:</strong> Engaging students through traditional music, storytelling, and interactive arts.</li>
+                    <li><strong>Seasonal Celebrations:</strong> Participating in cultural holiday traditions to foster a lifelong global perspective and deeper appreciation.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Unity Mandarin Center. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
