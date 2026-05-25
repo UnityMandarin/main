@@ -597,6 +597,41 @@ footer {
     from { opacity: 0; transform: translateY(-4px); }
     to { opacity: 1; transform: translateY(0); }
 }
+        /* Decorative Chinese Knot Hanger Elements */
+.knot-hanger-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 50px;
+    flex-shrink: 0;
+}
+
+.knot-line {
+    width: 2px;
+    background-color: #BFA36A; /* Subtle Jade/Gold metallic accent tone */
+}
+.knot-line.top-line { height: 15px; }
+.knot-line.bottom-line { height: 25px; }
+
+.knot-ornament {
+    color: #BFA36A;
+    font-size: 14px;
+    line-height: 1;
+    margin: -2px 0;
+}
+
+.pillar-number.decoration-badge {
+    background: radial-gradient(circle, #85D4A5 0%, #6EBF8E 100%);
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 700;
+    width: 46px;
+    height: 46px;
+    border: 2px solid #BFA36A;
+    box-shadow: 0 3px 10px rgba(110, 191, 142, 0.35), inset 0 0 0 2px rgba(255,255,255,0.2);
+    margin: 2px 0;
+}
     </style>
 </head>
 <body>
@@ -628,14 +663,21 @@ footer {
         <section class="page-hero">
             <h1>Unity Mandarin: Why Us</h1>
             <p class="subtitle">A community-centered Mandarin enrichment program for SFUSD elementary students</p>
-            <div class="slogan-badge">Learn Mandarin, Bridge Cultures.</div>
+            <div class="slogan-badge">Learn Mandarin, Connect Cultures.</div>
         </section>
 
        <section class="pillars-list">
             
             <article class="pillar-card">
                 <div class="pillar-header">
-                    <div class="pillar-number">1</div>
+                    <div class="knot-hanger-wrapper">
+                        <div class="knot-line top-line"></div>
+                        <div class="knot-ornament">&#10059;</div>
+                        <div class="pillar-number decoration-badge">1</div>
+                        <div class="knot-ornament">&#10059;</div>
+                        <div class="knot-line bottom-line"></div>
+                    </div>
+                    
                     <h2>Safety & Seamless Transition:<br>Aligned with SFUSD After-School Standards</h2>
                 </div>
                 <p class="pillar-body">
@@ -657,6 +699,7 @@ footer {
                         We believe child safety, professional accountability, and family trust are the foundation of any successful after-school program.
                     </div>
                 </div>
+
                 <button type="button" class="expand-btn" onclick="togglePillar(1)">
                     <span id="btn-text-1">Read More Guidelines</span> <span id="btn-arrow-1">▼</span>
                 </button>
