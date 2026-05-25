@@ -566,6 +566,37 @@ footer {
         font-size: 22px;
     }
 }
+        /* Expandable Content Interactive Button System */
+.expand-btn {
+    background-color: transparent;
+    border: 1.5px solid var(--brand-orange);
+    color: var(--brand-orange);
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    transition: var(--transition-smooth);
+}
+
+.expand-btn:hover {
+    background-color: var(--brand-orange);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px var(--brand-orange-glow);
+}
+
+.pillar-expandable-content {
+    animation: fadeInSmooth 0.35s ease forwards;
+}
+
+@keyframes fadeInSmooth {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
     </style>
 </head>
 <body>
@@ -600,7 +631,7 @@ footer {
             <div class="slogan-badge">Learn Mandarin, Bridge Cultures.</div>
         </section>
 
-        <section class="pillars-list">
+       <section class="pillars-list">
             
             <article class="pillar-card">
                 <div class="pillar-header">
@@ -610,19 +641,26 @@ footer {
                 <p class="pillar-body">
                     We ensure a smooth handoff from regular classes to our after-school program. If students need to attend other on-campus activities, our teachers will safely escort them to designated venues on site. We take full responsibility for student supervision and transportation within the school campus to keep every child safe.
                 </p>
-                <ul class="feature-list-grid">
-                    <li>Live Scan fingerprint background check (DOJ-compliant)</li>
-                    <li>Tuberculosis (TB) risk assessment and health clearance</li>
-                    <li>Mandated Reporter training (child abuse prevention, per California state law)</li>
-                    <li>CPR and first aid certification</li>
-                    <li>Child safety and youth protection training</li>
-                    <li>Emergency response and safety procedure training</li>
-                    <li>Student arrival and dismissal protocols</li>
-                    <li>Classroom supervision and staff conduct guidelines</li>
-                </ul>
-                <div class="pillar-footer-note">
-                    We believe child safety, professional accountability, and family trust are the foundation of any successful after-school program.
+                
+                <div id="pillar-details-1" class="pillar-expandable-content" style="display: none; margin-top: 20px;">
+                    <ul class="feature-list-grid">
+                        <li>Live Scan fingerprint background check (DOJ-compliant)</li>
+                        <li>Tuberculosis (TB) risk assessment and health clearance</li>
+                        <li>Mandated Reporter training (child abuse prevention, per California state law)</li>
+                        <li>CPR and first aid certification</li>
+                        <li>Child safety and youth protection training</li>
+                        <li>Emergency response and safety procedure training</li>
+                        <li>Student arrival and dismissal protocols</li>
+                        <li>Classroom supervision and staff conduct guidelines</li>
+                    </ul>
+                    <div class="pillar-footer-note">
+                        We believe child safety, professional accountability, and family trust are the foundation of any successful after-school program.
+                    </div>
                 </div>
+
+                <button type="button" class="expand-btn" onclick="togglePillar(1)">
+                    <span id="btn-text-1">Read More Guidelines</span> <span id="btn-arrow-1">▼</span>
+                </button>
             </article>
 
             <article class="pillar-card">
@@ -633,13 +671,20 @@ footer {
                 <p class="pillar-body">
                     We use the Brightwheel platform, a widely adopted digital management system for children’s education programs in the U.S., to ensure transparent and efficient communication between home and school.
                 </p>
-                <ul class="feature-list-grid">
-                    <li>Student check-in / check-out notifications</li>
-                    <li>Class reminders and curriculum updates</li>
-                    <li>Photos and highlights of student activities</li>
-                    <li>Paperless billing and payment management</li>
-                    <li>Direct instant messaging with program staff</li>
-                </ul>
+
+                <div id="pillar-details-2" class="pillar-expandable-content" style="display: none; margin-top: 20px;">
+                    <ul class="feature-list-grid">
+                        <li>Student check-in / check-out notifications</li>
+                        <li>Class reminders and curriculum updates</li>
+                        <li>Photos and highlights of student activities</li>
+                        <li>Paperless billing and payment management</li>
+                        <li>Direct instant messaging with program staff</li>
+                    </ul>
+                </div>
+
+                <button type="button" class="expand-btn" onclick="togglePillar(2)">
+                    <span id="btn-text-2">Read More Details</span> <span id="btn-arrow-2">▼</span>
+                </button>
             </article>
 
             <article class="pillar-card">
@@ -650,9 +695,16 @@ footer {
                 <p class="pillar-body">
                     Our teaching team consists of experienced local educators with deep knowledge of Bay Area school culture and after-school programs. They bring hands-on experience from SFUSD partner schools and local community schools across San Francisco.
                 </p>
-                <p class="pillar-body" style="margin-bottom: 0;">
-                    Our team understands SFUSD’s academic standards, cultural norms, and school-family partnership practices. We design our Mandarin curriculum to support diverse learners while building cultural competence and long-term confidence in the language.
-                </p>
+
+                <div id="pillar-details-3" class="pillar-expandable-content" style="display: none; margin-top: 20px;">
+                    <p class="pillar-body" style="margin-bottom: 0; padding-top: 10px; border-top: 1px dashed rgba(114, 208, 155, 0.4);">
+                        Our team understands SFUSD’s academic standards, cultural norms, and school-family partnership practices. We design our Mandarin curriculum to support diverse learners while building cultural competence and long-term confidence in the language.
+                    </p>
+                </div>
+
+                <button type="button" class="expand-btn" onclick="togglePillar(3)">
+                    <span id="btn-text-3">Read More About Our Team</span> <span id="btn-arrow-3">▼</span>
+                </button>
             </article>
 
             <article class="pillar-card">
@@ -663,9 +715,16 @@ footer {
                 <p class="pillar-body">
                     All lead teaching staff demonstrate advanced Mandarin language proficiency, verified by the Putonghua Shuiping Ceshi (PSC) Level 2-A certification (the national standard for professional Mandarin instruction).
                 </p>
-                <p class="pillar-body" style="margin-bottom: 0;">
-                    For educators with strong local teaching experience who are in the process of completing full certification, we conduct rigorous internal assessments of pronunciation and classroom language use before they begin working with students. We believe consistent, clear, and natural Mandarin modeling is essential for building students’ long-term confidence in the language.
-                </p>
+
+                <div id="pillar-details-4" class="pillar-expandable-content" style="display: none; margin-top: 20px;">
+                    <p class="pillar-body" style="margin-bottom: 0; padding-top: 10px; border-top: 1px dashed rgba(114, 208, 155, 0.4);">
+                        For educators with strong local teaching experience who are in the process of completing full certification, we conduct rigorous internal assessments of pronunciation and classroom language use before they begin working with students. We believe consistent, clear, and natural Mandarin modeling is essential for building students’ long-term confidence in the language.
+                    </p>
+                </div>
+
+                <button type="button" class="expand-btn" onclick="togglePillar(4)">
+                    <span id="btn-text-4">Read More Standards</span> <span id="btn-arrow-4">▼</span>
+                </button>
             </article>
 
             <article class="pillar-card">
@@ -676,9 +735,16 @@ footer {
                 <p class="pillar-body">
                     We select staff based not only on professional credentials and safety clearances but also on their ability to connect with students, communicate effectively, and build trusting relationships with families.
                 </p>
-                <p class="pillar-body" style="margin-bottom: 0;">
-                    As a community-based program, we actively incorporate feedback from local families and school communities into our program design and staff selection process.
-                </p>
+
+                <div id="pillar-details-5" class="pillar-expandable-content" style="display: none; margin-top: 20px;">
+                    <p class="pillar-body" style="margin-bottom: 0; padding-top: 10px; border-top: 1px dashed rgba(114, 208, 155, 0.4);">
+                        As a community-based program, we actively incorporate feedback from local families and school communities into our program design and staff selection process.
+                    </p>
+                </div>
+
+                <button type="button" class="expand-btn" onclick="togglePillar(5)">
+                    <span id="btn-text-5">Read More Alignment</span> <span id="btn-arrow-5">▼</span>
+                </button>
             </article>
 
         </section>
@@ -726,6 +792,22 @@ footer {
             var nav = document.getElementById("main-nav");
             nav.classList.toggle("is-open");
         }
+        // Interactive Panel Toggle Handler for Individual Content Display
+function togglePillar(id) {
+    var details = document.getElementById("pillar-details" + id);
+    var textNode = document.getElementById("btn-text" + id);
+    var arrowNode = document.getElementById("btn-arrow" + id);
+    
+    if (details.style.display === "none") {
+        details.style.display = "block";
+        textNode.innerText = textNode.innerText.replace("Read More", "Hide Details");
+        arrowNode.innerText = "▲";
+    } else {
+        details.style.display = "none";
+        textNode.innerText = textNode.innerText.replace("Hide Details", "Read More");
+        arrowNode.innerText = "▼";
+    }
+}
     </script>
 </body>
 </html>
