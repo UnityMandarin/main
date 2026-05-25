@@ -6,29 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
    /* =========================================
-   GLOBAL THEME & DESIGN SYSTEM VARIABLES
+   GLOBAL THEME & MODERN TYPOGRAPHY
    ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@500;700&display=swap');
 
 :root {
-    /* Brand Accent Colors */
-    --brand-orange: #FF5722;      
-    --brand-orange-hover: #E64A19;
-    --brand-orange-alpha: rgba(255, 87, 34, 0.1);
+    /* Brand Design Tokens */
+    --brand-orange: #FF5722;
+    --mint-nav: #D1F7DB;          /* Base Mint Green */
+    --mint-nav-light: #E6FCEF;    /* Soft gradient transition color */
+    --text-main: #1C3325;         /* Deep dark jade font for excellent readability */
     
-    /* Background Canvas Colors */
-    --mint-light: #E8FBF0;        
-    --mint-nav: #D1F7DB;          /* RESTORED: Bright, solid mint green for the header */
-    --scroll-jade: #58B983;       /* Refined rich jade accent */
-    
-    /* Premium Typography Font Stack */
-    --font-heading: 'Playfair Display', 'Times New Roman', serif;
-    --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
-    
-    /* Text Color Tokens */
-    --text-main: #1A2A3A;         
-    --text-muted: #4A5D6E;        
-    --max-width: 1280px;
+    /* Font Configurations */
+    --font-heading: 'Noto Serif SC', serif;
+    --font-ui: 'Inter', system-ui, sans-serif;
 }
 
 body {
@@ -37,23 +28,17 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    
-    /* Locked Warm Parchment Background Base */
     background-color: #f3efe3 !important; 
-    background-image: none !important;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    overflow-x: hidden;
+    margin: 0;
 }
 
 /* =========================================
-   NAVIGATION HEADER (SOLID MINT GREEN)
+   RESTRUCTURED & ULTRA-STREAMLINED HEADER
    ========================================= */
 header {
-    background-color: #D1F7DB !important; /* Forces header to be exactly your mint green */
-    padding: 0 40px;
-    height: 70px; /* Locked compact height to keep it slim */
+    background: linear-gradient(to bottom, var(--mint-nav), var(--mint-nav-light)) !important;
+    padding: 0 5%;
+    height: 65px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -61,55 +46,53 @@ header {
     top: 0;
     z-index: 100;
     
-    /* Distinct structural depth shadows and jade borders */
-    border-bottom: 2px solid rgba(88, 185, 131, 0.4); 
-    box-shadow: 0 4px 20px rgba(88, 185, 131, 0.25); 
+    /* Blends the header into the parchment background seamlessly */
+    border-bottom: 1px solid rgba(88, 185, 131, 0.3);
+    box-shadow: 0 4px 20px rgba(243, 239, 227, 0.6), 0 2px 8px rgba(88, 185, 131, 0.08);
 }
 
-/* Fixed container constraint for the logo image */
+/* Unified Logo Design */
 .logo-group {
     display: flex;
     align-items: center;
+    gap: 10px;
     height: 100%;
-    text-decoration: none;
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.logo-group:hover {
-    transform: scale(1.03); /* Small interaction pop on hover */
 }
 
 .logo-group img, header img {
-    height: 42px; /* Enforces a crisp size so the logo never pushes the header bigger */
+    height: 42px;
     width: auto;
-    display: block;
-    border-radius: 4px;
+    object-fit: contain;
 }
 
-/* Modernized Inline Navigation Link System */
+/* Clean, Modern Navigation Links */
 nav {
     display: flex;
-    align-items: center;
-    gap: 6px;
-    height: 100%;
+    gap: 8px;
 }
 
 nav a {
     font-family: var(--font-ui);
     text-decoration: none;
-    color: #1C3325; /* Dark forest green for readable contrast on the mint background */
-    font-weight: 600;
+    color: var(--text-main);
+    font-weight: 500;
     font-size: 14px;
-    letter-spacing: 0.2px;
     padding: 8px 16px;
-    border-radius: 20px; 
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
+/* Soft interaction style that bridges the orange accent with the mint bar */
 nav a:hover {
+    color: var(--brand-orange);
+    background-color: rgba(255, 87, 34, 0.05);
+}
+
+/* Active Page Indication */
+nav a.active-page {
     color: #FFFFFF;
-    background-color: var(--brand-orange); /* Vibrant orange pill shape background on hover */
-    box-shadow: 0 4px 10px rgba(255, 87, 34, 0.2);
+    background-color: var(--brand-orange);
+    font-weight: 600;
 }
         /* =========================================
            HERO SECTION WITH STATIC BANNER IMAGE
