@@ -4,15 +4,21 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unity Mandarin Center</title>
+    <title>Unity Mandarin Center | 同心中文</title>
     <style>
         /* =========================================
-           GLOBAL & VARIABLES
+           GLOBAL THEME & DESIGN SYSTEM SYSTEM VARIABLES
            ========================================= */
         :root {
-            --brand-orange: #FF5722; 
-            --mint-green: #D1F7DB; 
-            --text-dark: #333333;
+            --brand-orange: #FF5722;      /* Main vibrant brand orange */
+            --brand-orange-hover: #E64A19;/* Darker warm shade for interactive hover */
+            --mint-light: #E8FBF0;        /* Pastel soft backdrop mint */
+            --mint-nav: #D1F7DB;          /* Distinct screen-matched navigation mint */
+            --scroll-jade: #72D09B;       /* Secondary structural accent jade */
+            --text-main: #2C3E50;         /* Primary clean dark charcoal reading font */
+            --text-muted: #5A6B7C;        /* Sub-copy secondary gray */
+            --paper-bg: #FCFAF2;          /* Traditional ivory scroll canvas coloring */
+            --max-width: 1280px;
         }
 
         * {
@@ -21,354 +27,669 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Times New Roman', Times, Georgia, serif;
-            color: #1a1a1a;
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-            
-            /* Lighter mint green canvas background */
-            background-color: #f5faf6; 
-            
-            /* Ambient lighting blend layered on top */
-            background-image: 
-                radial-gradient(
-                    circle at 50% 35%, 
-                    #ffffff 0%, 
-                    rgba(245, 250, 246, 0.6) 40%, 
-                    rgba(245, 250, 246, 0) 70%
-                );
-
+            background-color: #F6FCF8;
+            /* Radial soft light simulation layer */
+            background-image: radial-gradient(circle at 50% 30%, #FFFFFF 0%, rgba(209, 247, 219, 0.25) 50%, rgba(246, 252, 248, 0) 100%);
             background-repeat: no-repeat;
-            background-size: 100% 100%;
             background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* --- ACCESSIBILITY HELPER --- */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
 
         /* =========================================
-           DESKTOP (PC) STYLES
+           NAVIGATION HEADER
            ========================================= */
-           
-        /* --- HEADER & NAVIGATION --- */
         header {
-            background-color: var(--mint-green); 
-            padding: 15px 50px;
+            background-color: var(--mint-nav);
+            padding: 15px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(168, 223, 181, 0.3);
-            z-index: 10;
+            box-shadow: 0 4px 20px rgba(168, 223, 181, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(114, 208, 155, 0.3);
         }
 
-        header img {
-            height: 65px; 
-            width: auto; 
+        .logo-group {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 14px;
+            transition: transform 0.2s ease;
+        }
+
+        .logo-group:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-group img {
+            height: 65px;
+            width: auto;
             display: block;
-            transition: height 0.3s ease;
+        }
+
+        .logo-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-meta .zh-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--brand-orange);
+            font-family: 'STKaiti', 'Kaiti SC', Georgia, serif;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
+        .logo-meta .en-title {
+            font-size: 13px;
+            font-family: Arial, sans-serif;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            font-weight: bold;
         }
 
         nav {
             display: flex;
             align-items: center;
+            gap: 30px;
         }
 
         nav a {
-            margin-left: 20px;
             text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            display: inline-block;
-            transition: color 0.2s ease;
+            color: #334E3B;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 0.3px;
+            position: relative;
+            padding: 6px 0;
+            transition: color 0.25s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2.5px;
+            background-color: var(--brand-orange);
+            transition: width 0.25s ease, left 0.25s ease;
+            border-radius: 2px;
         }
 
         nav a:hover {
             color: var(--brand-orange);
         }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-            background-color: transparent; 
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-            color: var(--brand-orange); 
-            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
-        }
-
-        .hero p {
-            font-size: 20px;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            color: #444;
-        }
-
-        .cta-button {
-            background-color: var(--brand-orange); 
-            color: white;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            transition: transform 0.2s, background-color 0.3s;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
-        }
-
-        .cta-button:hover {
-            background-color: #e64a19; 
-            transform: translateY(-2px);
-        }
-
-        /* --- APPROACH SECTION --- */
-        .approach-section {
-            padding: 40px 40px 60px 40px;
-            max-width: 1260px;
-            margin: 0 auto;
-            z-index: 2;
-        }
-
-        .approach-section > h2 {
-            text-align: center;
-            font-size: 36px;
-            color: var(--brand-orange); 
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .title-divider {
-            width: 180px;
-            height: 2px;
-            background-color: #a8dfb5; 
-            margin: 0 auto 45px auto;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
-            margin-bottom: 50px;
-        }
-
-        /* Premium Minimalist Card Design */
-        .card {
-            background-color: #ffffff;
-            border-left: 1px solid #c4ebd0;
-            border-right: 1px solid #c4ebd0;
-            padding: 24px 20px 22px 20px;
-            position: relative;
-            box-shadow: 0 12px 28px rgba(168, 223, 181, 0.15), 0 3px 8px rgba(0,0,0,0.02);
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 22px 45px rgba(255, 87, 34, 0.12);
-        }
-
-        /* Scroll Top Endbar Bracket */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -4px;
-            right: -4px;
-            height: 6px;
-            background: linear-gradient(to right, #a8dfb5 0%, var(--brand-orange) 3%, var(--brand-orange) 97%, #a8dfb5 100%);
-            border-radius: 2px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* Scroll Bottom Endbar Bracket */
-        .card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -4px;
-            right: -4px;
-            height: 6px;
-            background: linear-gradient(to right, #a8dfb5 0%, var(--brand-orange) 3%, var(--brand-orange) 97%, #a8dfb5 100%);
-            border-radius: 2px;
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* Scroll Corner Framing Loops */
-        .corner-frame {
-            position: absolute;
-            top: 12px;
-            bottom: 12px;
-            left: 8px;
-            right: 8px;
-            border: 1px solid rgba(168, 223, 181, 0.35);
-            pointer-events: none;
-        }
-        .corner-frame::before, .corner-frame::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border: 1.5px solid #a8dfb5;
-        }
-        .corner-frame::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-        .corner-frame::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
-
-        .card img {
+        nav a:hover::after {
             width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border: 1px solid #a8dfb5;
-            margin-bottom: 18px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-        }
-
-        .card h3 {
-            color: var(--brand-orange); 
-            font-size: 1.35rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .card p.intro-text {
-            font-family: Arial, sans-serif;
-            font-size: 0.9rem;
-            line-height: 1.45;
-            color: #2b2b2b;
-            margin-bottom: 14px;
-            padding: 0 4px;
-        }
-
-        .more-info {
-            display: none;
-            text-align: left;
-            border-top: 1px dashed rgba(168, 223, 181, 0.5);
-            padding-top: 12px;
-            margin-bottom: 16px;
-        }
-
-        .card ul {
-            text-align: left;
-            padding-left: 20px;
-            font-family: Arial, sans-serif;
-            font-size: 0.88rem;
-            color: #444444;
-        }
-
-        .card li {
-            margin-bottom: 12px;
-            line-height: 1.45;
-        }
-
-        .learn-more-btn {
-            background-color: transparent;
-            border: 1px solid #a8dfb5;
-            color: var(--brand-orange); 
-            padding: 7px 20px;
-            font-family: 'Times New Roman', serif;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            margin-top: auto;
-            align-self: center;
-            z-index: 5;
-            transition: all 0.2s ease;
-        }
-
-        .learn-more-btn:hover {
-            background-color: var(--brand-orange);
-            border-color: var(--brand-orange);
-            color: #ffffff;
-        }
-
-        .commitment-ribbon {
-            background: linear-gradient(to right, #1a2e22, #112117);
-            color: var(--mint-green);
-            padding: 18px;
-            font-size: 1.25rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 25px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        footer {
-            background-color: #26332a;
-            color: #e2f3e7;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: auto;
-            z-index: 10;
+            left: 0;
         }
 
         /* =========================================
-           MOBILE (PHONES/TABLETS) STYLES
+           HERO SECTION WITH 3D CSS SCROLL
            ========================================= */
-        @media (max-width: 800px) {
-            
-            /* Header adjustments for smaller screens */
+        .hero-section {
+            padding: 70px 20px 90px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .scroll-frame {
+            display: flex;
+            align-items: stretch;
+            max-width: 1050px;
+            width: 100%;
+            margin: 0 auto;
+            filter: drop-shadow(0 20px 40px rgba(114, 208, 155, 0.25));
+            position: relative;
+        }
+
+        /* 3D Cylindrical Scroll Shaft Components */
+        .scroll-shaft {
+            width: 34px;
+            background: linear-gradient(to right, #4DAF77 0%, var(--scroll-jade) 25%, #8CE3B2 50%, var(--scroll-jade) 75%, #398F5E 100%);
+            border-radius: 4px;
+            position: relative;
+            z-index: 5;
+            flex-shrink: 0;
+            box-shadow: inset 1px 0 2px rgba(255,255,255,0.2), 2px 0 5px rgba(0,0,0,0.15);
+        }
+
+        /* Traditional Cast Roller Dowel Finials */
+        .scroll-shaft::before, .scroll-shaft::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 44px;
+            height: 16px;
+            background: linear-gradient(to right, #398F5E, #A1ECC4, #2D754C);
+            border-radius: 4px;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 3px 6px rgba(0,0,0,0.2);
+        }
+
+        .scroll-shaft::before { top: -15px; border-bottom: 2px solid #2D754C; }
+        .scroll-shaft::after { bottom: -15px; border-top: 2px solid #2D754C; }
+
+        /* Core Paper Parchment Body */
+        .scroll-canvas {
+            background-color: var(--paper-bg);
+            background-image: linear-gradient(to right, #E3D9BC 0%, var(--paper-bg) 5%, var(--paper-bg) 95%, #E3D9BC 100%);
+            border-top: 3px solid #E6DCBF;
+            border-bottom: 3px solid #E6DCBF;
+            padding: 60px 80px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Intricate Inner Structural Bordering Frame */
+        .scroll-canvas-inner {
+            position: absolute;
+            top: 18px;
+            bottom: 18px;
+            left: 18px;
+            right: 18px;
+            border: 1.5px solid rgba(114, 208, 155, 0.55);
+            pointer-events: none;
+            border-radius: 2px;
+        }
+
+        /* Corner filigree decorative accent simulation */
+        .scroll-canvas-inner::before, .scroll-canvas-inner::after {
+            content: '♦';
+            position: absolute;
+            color: var(--scroll-jade);
+            font-size: 14px;
+            background-color: var(--paper-bg);
+            line-height: 1;
+            padding: 0 4px;
+        }
+        .scroll-canvas-inner::before { top: -8px; left: 12px; }
+        .scroll-canvas-inner::after { bottom: -8px; right: 12px; }
+
+        .scroll-canvas h1 {
+            font-size: 52px;
+            color: var(--brand-orange);
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.9);
+        }
+
+        /* Structured Outer Motto container */
+        .motto-bracket {
+            border: 1.5px solid rgba(114, 208, 155, 0.7);
+            padding: 16px 45px;
+            margin: 15px 0 35px 0;
+            background-color: rgba(209, 247, 219, 0.15);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .motto-bracket::before, .motto-bracket::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 1.5px solid var(--brand-orange);
+        }
+        .motto-bracket::before { top: -4px; left: -4px; border-right: none; border-bottom: none; }
+        .motto-bracket::after { bottom: -4px; right: -4px; border-left: none; border-top: none; }
+
+        .motto-eng {
+            font-size: 26px;
+            font-weight: 500;
+            color: #34495E;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .motto-zho {
+            font-size: 28px;
+            font-family: 'STKaiti', 'Kaiti SC', Georgia, serif;
+            font-weight: bold;
+            color: var(--brand-orange);
+            letter-spacing: 4px;
+        }
+
+        .cta-action {
+            background-color: #35945F;
+            color: #FFFFFF;
+            padding: 14px 45px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            z-index: 10;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 6px 16px rgba(53, 148, 95, 0.3);
+            display: inline-block;
+        }
+
+        .cta-action:hover {
+            background-color: #2A794D;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(53, 148, 95, 0.45);
+        }
+
+        /* =========================================
+           CORE ACADEMIC APPROACH SECTION
+           ========================================= */
+        .approach-block {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 40px 40px 80px 40px;
+        }
+
+        .section-header-group {
+            text-align: center;
+            margin-bottom: 55px;
+            position: relative;
+        }
+
+        .section-header-group h2 {
+            font-size: 40px;
+            color: var(--brand-orange);
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .decorative-rule {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .decorative-rule .line {
+            width: 80px;
+            height: 2px;
+            background-color: var(--scroll-jade);
+        }
+
+        .decorative-rule .node {
+            color: var(--brand-orange);
+            font-size: 14px;
+        }
+
+        /* Grid Architecture layout setup */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Individual Academic Presentation Card structures */
+        .feature-card {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(114, 208, 155, 0.25);
+            border-radius: 8px;
+            padding: 35px 25px 30px 25px;
+            position: relative;
+            box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(255, 87, 34, 0.12);
+            border-color: rgba(255, 87, 34, 0.3);
+        }
+
+        /* Colorful top-accent stylized framing divider */
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(to right, var(--scroll-jade), var(--brand-orange), var(--scroll-jade));
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .img-frame {
+            width: 100%;
+            height: 230px;
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(114, 208, 155, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        /* Fallback colored box placeholders if images aren't found locally */
+        .img-frame .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--mint-light);
+            color: #3E8A5B;
+            font-weight: bold;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover .img-frame img {
+            transform: scale(1.04);
+        }
+
+        .feature-card h3 {
+            color: var(--text-main);
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 14px;
+            letter-spacing: -0.3px;
+        }
+
+        .feature-card p.intro-body {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.55;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* Collapsible Advanced Information Nodes */
+        .drawer-content {
+            display: none;
+            text-align: left;
+            border-top: 1px dashed rgba(114, 208, 155, 0.4);
+            padding-top: 18px;
+            margin-bottom: 22px;
+            animation: fadeIn 0.3s ease both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .drawer-content ul {
+            list-style: none;
+        }
+
+        .drawer-content li {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #3E4E5E;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .drawer-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #35945F;
+            font-weight: bold;
+        }
+
+        .drawer-content li strong {
+            color: var(--text-main);
+        }
+
+        .toggle-card-btn {
+            background-color: var(--mint-light);
+            border: 1px solid var(--scroll-jade);
+            color: #225C3B;
+            padding: 10px 28px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-self: center;
+            outline: none;
+        }
+
+        .toggle-card-btn:hover {
+            background-color: var(--brand-orange);
+            border-color: var(--brand-orange);
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
+        }
+
+        /* Banner Ribbon Structure Element */
+        .value-ribbon {
+            background: linear-gradient(135deg, #1C3325 0%, #0E1B13 100%);
+            border-left: 5px solid var(--brand-orange);
+            border-right: 5px solid var(--brand-orange);
+            border-radius: 6px;
+            color: var(--mint-nav);
+            padding: 24px;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin-top: 20px;
+        }
+
+        /* =========================================
+           EXPANDED FOOTER COMPONENT METERING
+           ========================================= */
+        footer {
+            background-color: #142219;
+            color: #CFEAD6;
+            padding: 50px 40px 30px 40px;
+            border-top: 4px solid var(--scroll-jade);
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            max-width: var(--max-width);
+            margin: 0 auto 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col h4 {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--brand-orange);
+        }
+
+        .footer-col p {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            opacity: 0.85;
+        }
+
+        .contact-listing {
+            list-style: none;
+        }
+
+        .contact-listing li {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .contact-listing .icon {
+            color: var(--brand-orange);
+            flex-shrink: 0;
+        }
+
+        .links-listing {
+            list-style: none;
+        }
+
+        .links-listing li {
+            margin-bottom: 10px;
+        }
+
+        .links-listing a {
+            font-family: Arial, sans-serif;
+            color: #CFEAD6;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease, padding-left 0.2s ease;
+            display: inline-block;
+        }
+
+        .links-listing a:hover {
+            color: var(--brand-orange);
+            padding-left: 4px;
+        }
+
+        .copyright-bar {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            opacity: 0.5;
+        }
+
+        /* =========================================
+           RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
+           ========================================= */
+        @media (max-width: 900px) {
             header {
-                flex-direction: column; /* Stacks logo above navigation */
-                gap: 12px;
-                padding: 15px 20px;     
-                text-align: center;
+                flex-direction: column;
+                gap: 16px;
+                padding: 20px;
             }
-            
-            /* Shrink logo slightly so it fits nicely */
-            header img {
-                height: 50px !important; 
-                margin: 0 auto;
-            }
-            
-            /* Group and center the navigation links */
+
             nav {
+                width: 100%;
                 justify-content: center;
-                flex-wrap: wrap;       /* Lets links wrap to a second row if cramped */
-                gap: 15px;             
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            .scroll-canvas {
+                padding: 40px 30px;
+            }
+
+            .scroll-canvas h1 {
+                font-size: 34px;
+            }
+
+            .motto-bracket {
+                padding: 12px 20px;
                 width: 100%;
             }
-            
-            /* Remove desktop margins and resize text */
-            nav a {
-                margin-left: 0 !important; 
-                font-size: 0.95rem;
+
+            .motto-eng {
+                font-size: 19px;
             }
 
-            /* Stack grid columns so they become 1 vertical row */
-            .grid {
+            .motto-zho {
+                font-size: 21px;
+                letter-spacing: 2px;
+            }
+
+            .scroll-shaft {
+                width: 24px;
+            }
+
+            .scroll-shaft::before, .scroll-shaft::after {
+                width: 32px;
+                height: 12px;
+            }
+
+            .scroll-shaft::before { top: -11px; }
+            .scroll-shaft::after { bottom: -11px; }
+
+            .cards-grid {
                 grid-template-columns: 1fr;
+                gap: 30px;
             }
 
-            /* Adjust hero text size */
-            .hero h1 {
-                font-size: 38px;
-            }
-            
-            .hero {
-                padding: 50px 20px;
+            .approach-block {
+                padding: 30px 20px 60px 20px;
             }
 
-            /* Simplify background on mobile for performance and readability */
-            body {
-                background-image: none; 
-                background-color: #f5faf6;
-            }
-            
-            .approach-section {
-                padding: 30px 20px 50px 20px;
+            .section-header-group h2 {
+                font-size: 32px;
             }
         }
     </style>
@@ -376,10 +697,14 @@
 <body>
 
     <header>
-        <a href="#">
-            <img src="header-logo.jpg" alt="Unity Mandarin Center 同心中文">
+        <a href="#" class="logo-group" aria-label="Unity Mandarin Center Homepage">
+            <img src="header-logo.jpg" alt="Unity Mandarin Center Logo Thumbnail">
+            <div class="logo-meta">
+                <span class="zh-title">同心中文</span>
+                <span class="en-title">Unity Mandarin Center</span>
+            </div>
         </a>
-        <nav>
+        <nav aria-label="Main Site Navigation">
             <a href="#">Home</a>
             <a href="#">About Us</a>
             <a href="#">Our Programs</a>
@@ -387,87 +712,143 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Learn, Grow, and Excel Together</h1>
-        <p>同心共学，相伴成长.</p>
-        <a href="#" class="cta-button">Enroll Today</a>
-    </section>
-
-    <section class="approach-section">
-        <h2>Our Approach</h2>
-        <div class="title-divider"></div>
-        
-        <div class="grid">
-            <div class="card">
-                <div class="corner-frame"></div>
-                <img src="linguistic.jpg" alt="Linguistic Immersion">
-                <h3>Linguistic Immersion</h3>
-                <p class="intro-text">Language is best learned when it is lived. Instead of rigid memorization and grammar drills, we focus on natural acquisition in a supportive, fully immersive environment.</p>
+    <main>
+        <section class="hero-section">
+            <div class="scroll-frame">
+                <div class="scroll-shaft" aria-hidden="true"></div>
                 
-                <div class="more-info" id="info1">
-                    <ul>
-                        <li><strong>Interactive Learning:</strong> Building fluency through structured exploration, conversations, and group games.</li>
-                        <li><strong>Real-World Context:</strong> Integrating Mandarin into daily routines to make learning practical and engaging.</li>
-                        <li><strong>Confident Communication:</strong> Empowering children to speak, think, and express themselves naturally.</li>
-                    </ul>
+                <div class="scroll-canvas">
+                    <div class="scroll-canvas-inner" aria-hidden="true"></div>
+                    
+                    <h1>Welcome to Unity Mandarin Center</h1>
+                    
+                    <div class="motto-bracket">
+                        <p class="motto-eng">Learn, Grow, and Excel Together</p>
+                        <p class="motto-zho">同心共学，爱上中文</p>
+                    </div>
+                    
+                    <a href="#" class="cta-action">Enroll Today</a>
                 </div>
-                <button class="learn-more-btn" onclick="toggleHomeCard('info1', this)">Learn More</button>
+                
+                <div class="scroll-shaft" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <section class="approach-block">
+            <div class="section-header-group">
+                <h2>Our Approach</h2>
+                <div class="decorative-rule" aria-hidden="true">
+                    <div class="line"></div>
+                    <div class="node">❀</div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            
+            <div class="cards-grid">
+                <article class="feature-card">
+                    <div class="img-frame">
+                        <img src="linguistic.jpg" alt="Children conversing joyfully in a localized classroom immersion environment" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder" style="display:none;">Linguistic Immersion</div>
+                    </div>
+                    <h3>Linguistic Immersion</h3>
+                    <p class="intro-body">Language is best learned when it is lived. Instead of rigid memorization and vocabulary drills, we emphasize natural acquisition inside a rich, fully conversational setting.</p>
+                    
+                    <div class="drawer-content" id="drawer-immersion">
+                        <ul>
+                            <li><strong>Interactive Dialogues:</strong> Cultivating dynamic natural conversation fluency through team exploration, role play, and shared group projects.</li>
+                            <li><strong>Everyday Frameworks:</strong> Integrating Mandarin vocabulary tracks natively into scheduled activity blocks to optimize processing retention.</li>
+                            <li><strong>Empowered Expression:</strong> Prompting students to confidently formulate and vocalize conceptual thoughts natively.</li>
+                        </ul>
+                    </div>
+                    <button class="toggle-card-btn" aria-expanded="false" onclick="toggleAcademicDrawer('drawer-immersion', this)">Learn More</button>
+                </article>
+
+                <article class="feature-card">
+                    <div class="img-frame">
+                        <img src="academic.jpg" alt="Tutor assisting student with curriculum task workflows" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder" style="display:none;">Academic Support</div>
+                    </div>
+                    <h3>Academic Support</h3>
+                    <p class="intro-body">Balancing standard schoolwork requirements and auxiliary language tracks can be difficult. We offer a structured, focused setting where students manage homework tasks with precision.</p>
+                    
+                    <div class="drawer-content" id="drawer-academic">
+                        <ul>
+                            <li><strong>Professional Direction:</strong> Individualized support parameters from qualified instructors to process tricky core subjects.</li>
+                            <li><strong>Home Balance:</strong> Alleviates evening family study strain by target-resolving daily assignments inside programmatic blocks.</li>
+                            <li><strong>Study Competencies:</strong> Building self-sufficient study habits that cultivate long-term self-reliance.</li>
+                        </ul>
+                    </div>
+                    <button class="toggle-card-btn" aria-expanded="false" onclick="toggleAcademicDrawer('drawer-academic', this)">Learn More</button>
+                </article>
+
+                <article class="feature-card">
+                    <div class="img-frame">
+                        <img src="cultural.jpg" alt="Students exploring traditional art brushwork mechanics" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder" style="display:none;">Cultural Creative</div>
+                    </div>
+                    <h3>Cultural Creative</h3>
+                    <p class="intro-body">True literacy extends deep beyond standard grammar. We celebrate the vivid traditions of the Chinese-speaking world by linking technical mechanics to artistic innovation.</p>
+                    
+                    <div class="drawer-content" id="drawer-cultural">
+                        <ul>
+                            <li><strong>Classical Mediums:</strong> Tactical, hands-on workshop immersion sessions involving ink stone arts, brush work, and ancient calligraphy practices.</li>
+                            <li><strong>Dynamic Narratives:</strong> Enriching structural language understanding through traditional folklore metrics, performing arts, and musical themes.</li>
+                            <li><strong>Seasonal Events:</strong> Engaging in historic annual festival markers to secure a broad, globally inclusive cultural awareness matrix.</li>
+                        </ul>
+                    </div>
+                    <button class="toggle-card-btn" aria-expanded="false" onclick="toggleAcademicDrawer('drawer-cultural', this)">Learn More</button>
+                </article>
             </div>
 
-            <div class="card">
-                <div class="corner-frame"></div>
-                <img src="academic.jpg" alt="Academic Support">
-                <h3>Academic Support</h3>
-                <p class="intro-text">Balancing schoolwork and language learning can be challenging. We provide a dedicated, quiet environment where students can complete their homework with confidence.</p>
-                
-                <div class="more-info" id="info2">
-                    <ul>
-                        <li><strong>Expert Guidance:</strong> Targeted assistance from experienced educators to help students master core subjects.</li>
-                        <li><strong>Stress Reduction:</strong> Minimizes after-school stress for families by managing curriculum needs during program hours.</li>
-                        <li><strong>Lifelong Habits:</strong> Fosters independent study skills that set children up for long-term academic success.</li>
-                    </ul>
-                </div>
-                <button class="learn-more-btn" onclick="toggleHomeCard('info2', this)">Learn More</button>
+            <div class="value-ribbon">
+                Our Commitment to Your Child's Success
             </div>
-
-            <div class="card">
-                <div class="corner-frame"></div>
-                <img src="cultural.jpg" alt="Cultural Creative">
-                <h3>Cultural Creative</h3>
-                <p class="intro-text">True fluency goes hand-in-hand with cultural understanding. We bring the vibrant traditions of the Chinese-speaking world to life by connecting language learning directly to creative expression.</p>
-                
-                <div class="more-info" id="info3">
-                    <ul>
-                        <li><strong>Traditional Arts:</strong> Hands-on exploration of rich history and heritage through calligraphy and brush painting.</li>
-                        <li><strong>Immersive Expression:</strong> Engaging students through traditional music, storytelling, and interactive arts.</li>
-                        <li><strong>Seasonal Celebrations:</strong> Participating in cultural holiday traditions to foster a lifelong global perspective and deeper appreciation.</li>
-                    </ul>
-                </div>
-                <button class="learn-more-btn" onclick="toggleHomeCard('info3', this)">Learn More</button>
-            </div>
-        </div>
-
-        <div class="commitment-ribbon">
-            Our Commitment to Your Child's Success
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Unity Mandarin Center. All rights reserved.</p>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Unity Mandarin Center</h4>
+                <p>Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Access</h4>
+                <ul class="links-listing">
+                    <li><a href="#">About Program Architecture</a></li>
+                    <li><a href="#">Enrollment Metrics</a></li>
+                    <li><a href="#">Parent Resource Portals</a></li>
+                    <li><a href="#">Academic Calendars</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Details</h4>
+                <ul class="contact-listing">
+                    <li><span class="icon" aria-hidden="true">📞</span><span>(401) 456-7890</span></li>
+                    <li><span class="icon" aria-hidden="true">✉️</span><span>contact@unitymandarin.com</span></li>
+                    <li><span class="icon" aria-hidden="true">📍</span><span>190 Ocean Stown, CA 90803</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            &copy; 2026 Unity Mandarin Center. All rights reserved.
+        </div>
     </footer>
 
     <script>
-        function toggleHomeCard(infoId, button) {
-            var infoPanel = document.getElementById(infoId);
-            if (infoPanel.style.display === "none" || infoPanel.style.display === "") {
-                infoPanel.style.display = "block";
-                button.textContent = "Close Details";
+        function toggleAcademicDrawer(drawerId, triggerButton) {
+            var targetDrawer = document.getElementById(drawerId);
+            
+            if (targetDrawer.style.display === "block") {
+                targetDrawer.style.display = "none";
+                triggerButton.textContent = "Learn More";
+                triggerButton.setAttribute("aria-expanded", "false");
             } else {
-                infoPanel.style.display = "none";
-                button.textContent = "Learn More";
+                targetDrawer.style.display = "block";
+                triggerButton.textContent = "Close Details";
+                triggerButton.setAttribute("aria-expanded", "true");
             }
         }
     </script>
-
 </body>
 </html>
