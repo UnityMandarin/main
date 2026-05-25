@@ -5,94 +5,214 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-   /* =========================================
-   GLOBAL THEME & MODERN TYPOGRAPHY
-   ========================================= */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@500;700&display=swap');
+   /* ==========================================================================
+   GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
 :root {
-    /* Brand Design Tokens */
+    /* Color Palette: Brand Accents & Identity */
     --brand-orange: #FF5722;
-    --mint-nav: #D1F7DB;          /* Base Mint Green */
-    --mint-nav-light: #E6FCEF;    /* Soft gradient transition color */
-    --text-main: #1C3325;         /* Deep dark jade font for excellent readability */
+    --brand-orange-hover: #E64A19;
+    --brand-orange-glow: rgba(255, 87, 34, 0.15);
+    --brand-orange-subtle: rgba(255, 87, 34, 0.04);
     
-    /* Font Configurations */
-    --font-heading: 'Noto Serif SC', serif;
-    --font-ui: 'Inter', system-ui, sans-serif;
+    /* Color Palette: Contextual Mint Tones */
+    --mint-nav-core: #D1F7DB;
+    --mint-nav-light: #EBFDF2;
+    --mint-nav-border: rgba(88, 185, 131, 0.35);
+    --mint-shadow-tint: rgba(88, 185, 131, 0.12);
+    
+    /* Typography & Font Tokens */
+    --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
+    --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Structural Contrast Text Colors */
+    --text-primary: #1C3325;
+    --text-secondary: #3A5243;
+    --text-navbar-link: #243E2E;
+    
+    /* Layout Sizing Defaults */
+    --header-height: 72px;
+    --max-content-width: 1440px;
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* ==========================================================================
+   BASE CORE BODY RESET & CANVAS GROUNDING
+   ========================================================================== */
 body {
-    font-family: var(--font-heading);
-    color: var(--text-main);
+    font-family: var(--font-editorial);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #f3efe3 !important; 
-    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    /* Locked Warm Parchment Base - Prevent Color Leaks */
+    background-color: #f3efe3 !important;
+    background-image: none !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
 }
 
-/* =========================================
-   RESTRUCTURED & ULTRA-STREAMLINED HEADER
-   ========================================= */
+/* ==========================================================================
+   ADVANCED NAVIGATION HEADER FRAMEWORK
+   ========================================================================== */
 header {
-    background: linear-gradient(to bottom, var(--mint-nav), var(--mint-nav-light)) !important;
-    padding: 0 5%;
-    height: 65px;
+    /* Uses a premium down-fading gradient to soften the transition into the page canvas */
+    background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+    height: var(--header-height);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Structural Depth System: Eliminates the isolated look */
+    border-bottom: 1px solid var(--mint-nav-border);
+    box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
+                0 2px 10px var(--mint-shadow-tint);
+    
+    /* Performance Layering */
+    will-change: transform;
+    transition: var(--transition-smooth);
+}
+
+/* Internal Layout Constraining Wrapper */
+.header-container {
+    width: 100%;
+    max-width: var(--max-content-width);
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    
-    /* Blends the header into the parchment background seamlessly */
-    border-bottom: 1px solid rgba(88, 185, 131, 0.3);
-    box-shadow: 0 4px 20px rgba(243, 239, 227, 0.6), 0 2px 8px rgba(88, 185, 131, 0.08);
+    box-sizing: border-box;
 }
 
-/* Unified Logo Design */
+/* ==========================================================================
+   BRAND LOGO WRAPPER AND MICRO-INTERACTIONS
+   ========================================================================== */
 .logo-group {
     display: flex;
     align-items: center;
-    gap: 10px;
+    text-decoration: none;
+    height: var(--header-height);
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.logo-group:hover {
+    transform: translateY(-1px);
+}
+
+.logo-group img, 
+header img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+    transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   MODERNIZED INLINE NAVIGATION SYSTEM
+   ========================================================================== */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* Tight item spacing for balanced distribution */
     height: 100%;
 }
 
-.logo-group img, header img {
-    height: 42px;
-    width: auto;
-    object-fit: contain;
-}
-
-/* Clean, Modern Navigation Links */
-nav {
-    display: flex;
-    gap: 8px;
-}
-
+/* Base Stylings for Modern Nav-Links */
 nav a {
-    font-family: var(--font-ui);
+    font-family: var(--font-interface);
     text-decoration: none;
-    color: var(--text-main);
-    font-weight: 500;
+    color: var(--text-navbar-link);
+    font-weight: 600;
     font-size: 14px;
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    letter-spacing: 0.15px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+    box-sizing: border-box;
 }
 
-/* Soft interaction style that bridges the orange accent with the mint bar */
+/* Interactive Hover States */
 nav a:hover {
     color: var(--brand-orange);
-    background-color: rgba(255, 87, 34, 0.05);
+    background-color: var(--brand-orange-subtle);
 }
 
-/* Active Page Indication */
+/* Micro-indicator underline effect adding fine design depth */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 18px;
+    right: 18px;
+    height: 2px;
+    background-color: var(--brand-orange);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: var(--transition-smooth);
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Focus and Active State Management */
+nav a:focus-visible {
+    outline: 2px solid var(--brand-orange);
+    outline-offset: -2px;
+}
+
+/* Active Class Configuration if explicitly on the current page */
 nav a.active-page {
     color: #FFFFFF;
     background-color: var(--brand-orange);
-    font-weight: 600;
+    box-shadow: 0 4px 12px var(--brand-orange-glow);
+}
+
+nav a.active-page::after {
+    display: none; /* Turn off underline if link background is fully filled */
+}
+
+/* Special Case Styling for the 'Contact' Button to look like a CTA */
+nav a[href*="contact"],
+nav a:last-of-type {
+    background-color: transparent;
+    border: 1.5px solid var(--brand-orange);
+    color: var(--brand-orange);
+    margin-left: 8px;
+    padding: 8px 20px;
+}
+
+nav a[href*="contact"]:hover,
+nav a:last-of-type:hover {
+    background-color: var(--brand-orange);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px var(--brand-orange-glow);
+    transform: translateY(-1px);
+}
+
+nav a[href*="contact"]:hover::after,
+nav a:last-of-type:hover::after {
+    display: none;
 }
         /* =========================================
            HERO SECTION WITH STATIC BANNER IMAGE
