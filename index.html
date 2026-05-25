@@ -57,13 +57,26 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-interface);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     
-    /* Locked Warm Parchment Base - Prevent Color Leaks */
-    background-color: #f3efe3 !important;
-    background-image: none !important;
-    background-repeat: no-repeat;
+    /* BOTH PIECES WORK TOGETHER HERE: */
+    background-color: #f3efe3;            /* Solid cream base layer */
+    background-image: url('why-us-bg.png'); /* Transparent image layer on top */
+    
+    background-repeat: repeat; 
+    background-position: center top;
     background-attachment: fixed;
+    background-size: 100% auto; 
     overflow-x: hidden;
+}
 }
 
 /* ==========================================================================
