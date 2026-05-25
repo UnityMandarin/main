@@ -4,6 +4,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Mandarin Center</title>
     <style>
    /* ==========================================================================
    GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
@@ -22,6 +23,8 @@
     --mint-nav-light: #EBFDF2;
     --mint-nav-border: rgba(88, 185, 131, 0.35);
     --mint-shadow-tint: rgba(88, 185, 131, 0.12);
+    --mint-light: #E8FBF0;
+    --scroll-jade: #72D09B;
     
     /* Typography & Font Tokens */
     --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
@@ -31,10 +34,13 @@
     --text-primary: #1C3325;
     --text-secondary: #3A5243;
     --text-navbar-link: #243E2E;
+    --text-main: #2C3E50;
+    --text-muted: #5A6B7C;
     
     /* Layout Sizing Defaults */
     --header-height: 72px;
     --max-content-width: 1440px;
+    --max-width: 1280px;
     --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -64,9 +70,8 @@ body {
    ADVANCED NAVIGATION HEADER FRAMEWORK
    ========================================================================== */
 header {
-    /* Uses a premium down-fading gradient to soften the transition into the page canvas */
     background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
-    height: var(--header-height);
+    min-height: var(--header-height);
     position: sticky;
     top: 0;
     left: 0;
@@ -76,17 +81,14 @@ header {
     justify-content: center;
     align-items: center;
     
-    /* Structural Depth System: Eliminates the isolated look */
     border-bottom: 1px solid var(--mint-nav-border);
     box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
                 0 2px 10px var(--mint-shadow-tint);
     
-    /* Performance Layering */
     will-change: transform;
     transition: var(--transition-smooth);
 }
 
-/* Internal Layout Constraining Wrapper */
 .header-container {
     width: 100%;
     max-width: var(--max-content-width);
@@ -95,6 +97,7 @@ header {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
+    flex-wrap: wrap; /* Allows menu to wrap on mobile */
 }
 
 /* ==========================================================================
@@ -129,11 +132,10 @@ header img {
 nav {
     display: flex;
     align-items: center;
-    gap: 4px; /* Tight item spacing for balanced distribution */
+    gap: 4px; 
     height: 100%;
 }
 
-/* Base Stylings for Modern Nav-Links */
 nav a {
     font-family: var(--font-interface);
     text-decoration: none;
@@ -151,13 +153,11 @@ nav a {
     box-sizing: border-box;
 }
 
-/* Interactive Hover States */
 nav a:hover {
     color: var(--brand-orange);
     background-color: var(--brand-orange-subtle);
 }
 
-/* Micro-indicator underline effect adding fine design depth */
 nav a::after {
     content: '';
     position: absolute;
@@ -175,13 +175,11 @@ nav a:hover::after {
     transform: scaleX(1);
 }
 
-/* Focus and Active State Management */
 nav a:focus-visible {
     outline: 2px solid var(--brand-orange);
     outline-offset: -2px;
 }
 
-/* Active Class Configuration if explicitly on the current page */
 nav a.active-page {
     color: #FFFFFF;
     background-color: var(--brand-orange);
@@ -189,10 +187,9 @@ nav a.active-page {
 }
 
 nav a.active-page::after {
-    display: none; /* Turn off underline if link background is fully filled */
+    display: none; 
 }
 
-/* Special Case Styling for the 'Contact' Button to look like a CTA */
 nav a[href*="contact"],
 nav a:last-of-type {
     background-color: transparent;
@@ -214,376 +211,427 @@ nav a[href*="contact"]:hover::after,
 nav a:last-of-type:hover::after {
     display: none;
 }
-        /* =========================================
-           HERO SECTION WITH STATIC BANNER IMAGE
-           ========================================= */
-        .hero-section {
-            padding: 60px 20px 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
-        .hero-banner-img {
-            width: 100%;
-            max-width: 1050px;
-            height: auto;
-            display: block;
-            filter: drop-shadow(0 20px 40px rgba(114, 208, 155, 0.25));
-        }
+/* ==========================================================================
+   MOBILE MENU TOGGLE BUTTON (Hidden on Desktop)
+   ========================================================================== */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1001;
+}
 
-        /* =========================================
-           CORE ACADEMIC APPROACH SECTION
-           ========================================= */
-        .approach-block {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 40px 40px 80px 40px;
-        }
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition-smooth);
+}
 
-        .section-header-group {
-            text-align: center;
-            margin-bottom: 55px;
-            position: relative;
-        }
+/* =========================================
+   HERO SECTION WITH STATIC BANNER IMAGE
+   ========================================= */
+.hero-section {
+    padding: 60px 20px 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .section-header-group h2 {
-            font-size: 40px;
-            color: var(--brand-orange);
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
+.hero-banner-img {
+    width: 100%;
+    max-width: 1050px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 20px 40px rgba(114, 208, 155, 0.25));
+}
 
-        .decorative-rule {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
+/* =========================================
+   CORE ACADEMIC APPROACH SECTION
+   ========================================= */
+.approach-block {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 40px 40px 80px 40px;
+}
 
-        .decorative-rule .line {
-            width: 80px;
-            height: 2px;
-            background-color: var(--scroll-jade);
-        }
+.section-header-group {
+    text-align: center;
+    margin-bottom: 55px;
+    position: relative;
+}
 
-        .decorative-rule .node {
-            color: var(--brand-orange);
-            font-size: 14px;
-        }
+.section-header-group h2 {
+    font-size: 40px;
+    color: var(--brand-orange);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
 
-        /* Grid Architecture layout setup */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
-        }
+.decorative-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
 
-        /* Individual Academic Presentation Card structures */
-        .feature-card {
-            background-color: #FFFFFF;
-            border: 1px solid rgba(114, 208, 155, 0.25);
-            border-radius: 8px;
-            padding: 35px 25px 30px 25px;
-            position: relative;
-            box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-        }
+.decorative-rule .line {
+    width: 80px;
+    height: 2px;
+    background-color: var(--scroll-jade);
+}
 
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 45px rgba(255, 87, 34, 0.12);
-            border-color: rgba(255, 87, 34, 0.3);
-        }
+.decorative-rule .node {
+    color: var(--brand-orange);
+    font-size: 14px;
+}
 
-        /* Colorful top-accent stylized framing divider */
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 6px;
-            background: linear-gradient(to right, var(--scroll-jade), var(--brand-orange), var(--scroll-jade));
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
 
-        .img-frame {
-            width: 100%;
-            height: 230px;
-            overflow: hidden;
-            border-radius: 4px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(114, 208, 155, 0.2);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            position: relative;
-        }
+.feature-card {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(114, 208, 155, 0.25);
+    border-radius: 8px;
+    padding: 35px 25px 30px 25px;
+    position: relative;
+    box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
 
-        /* Fallback colored box placeholders if images aren't found locally */
-        .img-frame .image-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--mint-light);
-            color: #3E8A5B;
-            font-weight: bold;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(255, 87, 34, 0.12);
+    border-color: rgba(255, 87, 34, 0.3);
+}
 
-        .img-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(to right, var(--scroll-jade), var(--brand-orange), var(--scroll-jade));
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
 
-        .feature-card:hover .img-frame img {
-            transform: scale(1.04);
-        }
+.img-frame {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(114, 208, 155, 0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    position: relative;
+}
 
-        .feature-card h3 {
-            color: var(--text-main);
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 14px;
-            letter-spacing: -0.3px;
-        }
+.img-frame .image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--mint-light);
+    color: #3E8A5B;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-        .feature-card p.intro-body {
-            font-family: Arial, sans-serif;
-            font-size: 15px;
-            line-height: 1.55;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
+.img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
 
-        /* Collapsible Advanced Information Nodes */
-        .drawer-content {
-            display: none;
-            text-align: left;
-            border-top: 1px dashed rgba(114, 208, 155, 0.4);
-            padding-top: 18px;
-            margin-bottom: 22px;
-            animation: fadeIn 0.3s ease both;
-        }
+.feature-card:hover .img-frame img {
+    transform: scale(1.04);
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.feature-card h3 {
+    color: var(--text-main);
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+}
 
-        .drawer-content ul {
-            list-style: none;
-        }
+.feature-card p.intro-body {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
 
-        .drawer-content li {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-            color: #3E4E5E;
-            margin-bottom: 12px;
-            position: relative;
-            padding-left: 18px;
-        }
+.drawer-content {
+    display: none;
+    text-align: left;
+    border-top: 1px dashed rgba(114, 208, 155, 0.4);
+    padding-top: 18px;
+    margin-bottom: 22px;
+    animation: fadeIn 0.3s ease both;
+}
 
-        .drawer-content li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #35945F;
-            font-weight: bold;
-        }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .drawer-content li strong {
-            color: var(--text-main);
-        }
+.drawer-content ul {
+    list-style: none;
+    padding: 0;
+}
 
-        .toggle-card-btn {
-            background-color: var(--mint-light);
-            border: 1px solid var(--scroll-jade);
-            color: #225C3B;
-            padding: 10px 28px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            align-self: center;
-            outline: none;
-        }
+.drawer-content li {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #3E4E5E;
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 18px;
+}
 
-        .toggle-card-btn:hover {
-            background-color: var(--brand-orange);
-            border-color: var(--brand-orange);
-            color: #FFFFFF;
-            box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
-        }
+.drawer-content li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #35945F;
+    font-weight: bold;
+}
 
-        /* Banner Ribbon Structure Element */
-        .value-ribbon {
-            background: linear-gradient(135deg, #1C3325 0%, #0E1B13 100%);
-            border-left: 5px solid var(--brand-orange);
-            border-right: 5px solid var(--brand-orange);
-            border-radius: 6px;
-            color: var(--mint-nav);
-            padding: 24px;
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            margin-top: 20px;
-        }
+.drawer-content li strong {
+    color: var(--text-main);
+}
 
-        /* =========================================
-           EXPANDED FOOTER COMPONENT METERING
-           ========================================= */
-        footer {
-            background-color: #142219;
-            color: #CFEAD6;
-            padding: 50px 40px 30px 40px;
-            border-top: 4px solid var(--scroll-jade);
-            margin-top: auto;
-        }
+.toggle-card-btn {
+    background-color: var(--mint-light);
+    border: 1px solid var(--scroll-jade);
+    color: #225C3B;
+    padding: 10px 28px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-self: center;
+    outline: none;
+}
 
-        .footer-grid {
-            max-width: var(--max-width);
-            margin: 0 auto 40px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 40px;
-        }
+.toggle-card-btn:hover {
+    background-color: var(--brand-orange);
+    border-color: var(--brand-orange);
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
+}
 
-        .footer-col h4 {
-            color: #FFFFFF;
-            font-size: 18px;
-            font-family: Arial, sans-serif;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
+.value-ribbon {
+    background: linear-gradient(135deg, #1C3325 0%, #0E1B13 100%);
+    border-left: 5px solid var(--brand-orange);
+    border-right: 5px solid var(--brand-orange);
+    border-radius: 6px;
+    color: var(--mint-nav-core);
+    padding: 24px;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    margin-top: 20px;
+}
 
-        .footer-col h4::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--brand-orange);
-        }
+/* =========================================
+   EXPANDED FOOTER COMPONENT METERING
+   ========================================= */
+footer {
+    background-color: #142219;
+    color: #CFEAD6;
+    padding: 50px 40px 30px 40px;
+    border-top: 4px solid var(--scroll-jade);
+    margin-top: auto;
+}
 
-        .footer-col p {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 12px;
-            opacity: 0.85;
-        }
+.footer-grid {
+    max-width: var(--max-width);
+    margin: 0 auto 40px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+}
 
-        .contact-listing {
-            list-style: none;
-        }
+.footer-col h4 {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 8px;
+    letter-spacing: 0.5px;
+}
 
-        .contact-listing li {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--brand-orange);
+}
 
-        .contact-listing .icon {
-            color: var(--brand-orange);
-            flex-shrink: 0;
-        }
+.footer-col p {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    opacity: 0.85;
+}
 
-        .links-listing {
-            list-style: none;
-        }
+.contact-listing, .links-listing {
+    list-style: none;
+    padding: 0;
+}
 
-        .links-listing li {
-            margin-bottom: 10px;
-        }
+.contact-listing li {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
 
-        .links-listing a {
-            font-family: Arial, sans-serif;
-            color: #CFEAD6;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s ease, padding-left 0.2s ease;
-            display: inline-block;
-        }
+.contact-listing .icon {
+    color: var(--brand-orange);
+    flex-shrink: 0;
+}
 
-        .links-listing a:hover {
-            color: var(--brand-orange);
-            padding-left: 4px;
-        }
+.links-listing li {
+    margin-bottom: 10px;
+}
 
-        .copyright-bar {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            text-align: center;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            opacity: 0.5;
-        }
+.links-listing a {
+    font-family: Arial, sans-serif;
+    color: #CFEAD6;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+    display: inline-block;
+}
 
-        /* =========================================
-           RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
-           ========================================= */
-        @media (max-width: 900px) {
-            header {
-                flex-direction: column;
-                gap: 16px;
-                padding: 20px;
-            }
+.links-listing a:hover {
+    color: var(--brand-orange);
+    padding-left: 4px;
+}
 
-            nav {
-                width: 100%;
-                justify-content: center;
-                gap: 20px;
-                flex-wrap: wrap;
-            }
+.copyright-bar {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    opacity: 0.5;
+}
 
-            nav a {
-                font-size: 14px;
-            }
+/* =========================================
+   RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
+   ========================================= */
+@media (max-width: 900px) {
+    /* Header & Mobile Navigation Breakpoint */
+    .header-container {
+        padding: 10px 20px;
+    }
 
-            .hero-section {
-                padding: 30px 15px;
-            }
+    .mobile-menu-btn {
+        display: flex; /* Display hamburger button */
+    }
 
-            .cards-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
+    nav {
+        display: none; /* Hide default inline menu */
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 0;
+        border-top: 1px solid rgba(88, 185, 131, 0.2);
+        margin-top: 10px;
+    }
 
-            .approach-block {
-                padding: 30px 20px 60px 20px;
-            }
+    /* Toggled class via JavaScript */
+    nav.is-open {
+        display: flex;
+        animation: slideDown 0.3s ease forwards;
+    }
 
-            .section-header-group h2 {
-                font-size: 32px;
-            }
-        }
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    nav a {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    nav a::after {
+        display: none; /* Disable underline effect on mobile */
+    }
+
+    nav a[href*="contact"],
+    nav a:last-of-type {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    /* General Body Adjustments */
+    .hero-section {
+        padding: 30px 15px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .approach-block {
+        padding: 30px 20px 60px 20px;
+    }
+
+    .section-header-group h2 {
+        font-size: 32px;
+    }
+    
+    .value-ribbon {
+        font-size: 16px;
+        padding: 18px;
+    }
+}
     </style>
 </head>
 <body>
@@ -594,7 +642,13 @@ nav a:last-of-type:hover::after {
             <img src="your-logo-file.png" alt="Unity Mandarin Center Logo">
         </a>
         
-        <nav>
+        <button class="mobile-menu-btn" aria-label="Toggle Menu" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav id="main-nav">
             <a href="index.html" class="active-page">Home</a>
             <a href="about.html">About us</a>
             <a href="program.html">Program</a>
@@ -712,6 +766,7 @@ nav a:last-of-type:hover::after {
     </footer>
 
     <script>
+        // Existing Card Drawer Function
         function toggleAcademicDrawer(drawerId, triggerButton) {
             var targetDrawer = document.getElementById(drawerId);
             
@@ -724,6 +779,12 @@ nav a:last-of-type:hover::after {
                 triggerButton.textContent = "Close Details";
                 triggerButton.setAttribute("aria-expanded", "true");
             }
+        }
+
+        // New Mobile Nav Toggle Function
+        function toggleMobileMenu() {
+            var nav = document.getElementById("main-nav");
+            nav.classList.toggle("is-open");
         }
     </script>
 </body>
