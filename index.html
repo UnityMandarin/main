@@ -17,7 +17,6 @@
             --scroll-jade: #72D09B;       /* Secondary structural accent jade */
             --text-main: #2C3E50;         /* Primary clean dark charcoal reading font */
             --text-muted: #5A6B7C;        /* Sub-copy secondary gray */
-            --paper-bg: #FCFAF2;          /* Traditional ivory scroll canvas coloring */
             --max-width: 1280px;
         }
 
@@ -153,161 +152,21 @@
         }
 
         /* =========================================
-           HERO SECTION WITH 3D CSS SCROLL
+           HERO SECTION WITH STATIC BANNER IMAGE
            ========================================= */
         .hero-section {
-            padding: 70px 20px 90px 20px;
+            padding: 60px 20px 40px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
 
-        .scroll-frame {
-            display: flex;
-            align-items: stretch;
+        .hero-banner-img {
+            width: 100%;
             max-width: 1050px;
-            width: 100%;
-            margin: 0 auto;
+            height: auto;
+            display: block;
             filter: drop-shadow(0 20px 40px rgba(114, 208, 155, 0.25));
-            position: relative;
-        }
-
-        /* 3D Cylindrical Scroll Shaft Components */
-        .scroll-shaft {
-            width: 34px;
-            background: linear-gradient(to right, #4DAF77 0%, var(--scroll-jade) 25%, #8CE3B2 50%, var(--scroll-jade) 75%, #398F5E 100%);
-            border-radius: 4px;
-            position: relative;
-            z-index: 5;
-            flex-shrink: 0;
-            box-shadow: inset 1px 0 2px rgba(255,255,255,0.2), 2px 0 5px rgba(0,0,0,0.15);
-        }
-
-        /* Traditional Cast Roller Dowel Finials */
-        .scroll-shaft::before, .scroll-shaft::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 44px;
-            height: 16px;
-            background: linear-gradient(to right, #398F5E, #A1ECC4, #2D754C);
-            border-radius: 4px;
-            box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 3px 6px rgba(0,0,0,0.2);
-        }
-
-        .scroll-shaft::before { top: -15px; border-bottom: 2px solid #2D754C; }
-        .scroll-shaft::after { bottom: -15px; border-top: 2px solid #2D754C; }
-
-        /* Core Paper Parchment Body */
-        .scroll-canvas {
-            background-color: var(--paper-bg);
-            background-image: linear-gradient(to right, #E3D9BC 0%, var(--paper-bg) 5%, var(--paper-bg) 95%, #E3D9BC 100%);
-            border-top: 3px solid #E6DCBF;
-            border-bottom: 3px solid #E6DCBF;
-            padding: 60px 80px;
-            width: 100%;
-            z-index: 2;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Intricate Inner Structural Bordering Frame */
-        .scroll-canvas-inner {
-            position: absolute;
-            top: 18px;
-            bottom: 18px;
-            left: 18px;
-            right: 18px;
-            border: 1.5px solid rgba(114, 208, 155, 0.55);
-            pointer-events: none;
-            border-radius: 2px;
-        }
-
-        /* Corner filigree decorative accent simulation */
-        .scroll-canvas-inner::before, .scroll-canvas-inner::after {
-            content: '♦';
-            position: absolute;
-            color: var(--scroll-jade);
-            font-size: 14px;
-            background-color: var(--paper-bg);
-            line-height: 1;
-            padding: 0 4px;
-        }
-        .scroll-canvas-inner::before { top: -8px; left: 12px; }
-        .scroll-canvas-inner::after { bottom: -8px; right: 12px; }
-
-        .scroll-canvas h1 {
-            font-size: 52px;
-            color: var(--brand-orange);
-            font-weight: bold;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-            line-height: 1.15;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.9);
-        }
-
-        /* Structured Outer Motto container */
-        .motto-bracket {
-            border: 1.5px solid rgba(114, 208, 155, 0.7);
-            padding: 16px 45px;
-            margin: 15px 0 35px 0;
-            background-color: rgba(209, 247, 219, 0.15);
-            border-radius: 4px;
-            position: relative;
-        }
-
-        .motto-bracket::before, .motto-bracket::after {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border: 1.5px solid var(--brand-orange);
-        }
-        .motto-bracket::before { top: -4px; left: -4px; border-right: none; border-bottom: none; }
-        .motto-bracket::after { bottom: -4px; right: -4px; border-left: none; border-top: none; }
-
-        .motto-eng {
-            font-size: 26px;
-            font-weight: 500;
-            color: #34495E;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .motto-zho {
-            font-size: 28px;
-            font-family: 'STKaiti', 'Kaiti SC', Georgia, serif;
-            font-weight: bold;
-            color: var(--brand-orange);
-            letter-spacing: 4px;
-        }
-
-        .cta-action {
-            background-color: #35945F;
-            color: #FFFFFF;
-            padding: 14px 45px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            z-index: 10;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.25s ease, box-shadow 0.25s ease;
-            box-shadow: 0 6px 16px rgba(53, 148, 95, 0.3);
-            display: inline-block;
-        }
-
-        .cta-action:hover {
-            background-color: #2A794D;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 22px rgba(53, 148, 95, 0.45);
         }
 
         /* =========================================
@@ -645,39 +504,9 @@
                 font-size: 14px;
             }
 
-            .scroll-canvas {
-                padding: 40px 30px;
+            .hero-section {
+                padding: 30px 15px;
             }
-
-            .scroll-canvas h1 {
-                font-size: 34px;
-            }
-
-            .motto-bracket {
-                padding: 12px 20px;
-                width: 100%;
-            }
-
-            .motto-eng {
-                font-size: 19px;
-            }
-
-            .motto-zho {
-                font-size: 21px;
-                letter-spacing: 2px;
-            }
-
-            .scroll-shaft {
-                width: 24px;
-            }
-
-            .scroll-shaft::before, .scroll-shaft::after {
-                width: 32px;
-                height: 12px;
-            }
-
-            .scroll-shaft::before { top: -11px; }
-            .scroll-shaft::after { bottom: -11px; }
 
             .cards-grid {
                 grid-template-columns: 1fr;
@@ -714,24 +543,7 @@
 
     <main>
         <section class="hero-section">
-            <div class="scroll-frame">
-                <div class="scroll-shaft" aria-hidden="true"></div>
-                
-                <div class="scroll-canvas">
-                    <div class="scroll-canvas-inner" aria-hidden="true"></div>
-                    
-                    <h1>Unity Mandarin Center</h1>
-                    
-                    <div class="motto-bracket">
-                        <p class="motto-eng">Learn, Grow, and Excel Together</p>
-                        <p class="motto-zho">同心共学，爱上中文</p>
-                    </div>
-                    
-                    <a href="#" class="cta-action">Enroll Today</a>
-                </div>
-                
-                <div class="scroll-shaft" aria-hidden="true"></div>
-            </div>
+            <img src="scroll-banner.png" alt="Unity Mandarin Center - Learn and Grow Together (同心共学，爱上中文)" class="hero-banner-img">
         </section>
 
         <section class="approach-block">
