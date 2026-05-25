@@ -14,17 +14,51 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text-dark);
-            background-color: var(--bg-color);
-            line-height: 1.6;
-        }
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            
+            /* BASE BG COLOR: Plain, clean, premium ivory canvas in the middle */
+            background-color: #fdfbf7; 
+            
+            /* EXPANDED SYSTEM: Multi-Layered Side Silk & Studio Light System */
+            background-image: 
+                /* LAYER 1: Soft center studio lighting spotlight glow (makes content pop) */
+                radial-gradient(
+                    circle at 50% 35%, 
+                    #ffffff 0%, 
+                    rgba(253, 251, 247, 0.5) 40%, 
+                    rgba(253, 251, 247, 0) 70%
+                ),
+                /* LAYER 2: Left-Side Silk Ribbon Curtain & Shadow Creases */
+                linear-gradient(
+                    to right, 
+                    #cca766 0%,    /* Deep golden edge boundary */
+                    #dcc08a 2%,    /* High-contrast fabric highlight */
+                    #cca766 3.5%,  /* First drape shadow dip */
+                    #ebd9b4 6%,    /* Soft reflection ridge */
+                    #f5ebd4 10%,   /* Transition smoothing slope */
+                    rgba(253, 251, 247, 0) 15% /* Crisp fade out into the plain center */
+                ),
+                /* LAYER 3: Right-Side Silk Ribbon Curtain & Shadow Creases */
+                linear-gradient(
+                    to left, 
+                    #cca766 0%,    /* Deep golden edge boundary */
+                    #dcc08a 2%,    /* High-contrast fabric highlight */
+                    #cca766 3.5%,  /* First drape shadow dip */
+                    #ebd9b4 6%,    /* Soft reflection ridge */
+                    #f5ebd4 10%,   /* Transition smoothing slope */
+                    rgba(253, 251, 247, 0) 15% /* Crisp fade out into the plain center */
+                );
 
-        h1, h2, h3 {
-            font-family: 'Georgia', serif; /* Gives a classy, educational feel */
-            font-weight: normal;
+            /* PERFORMANCE VALUES: Locks graphics beautifully in place during scroll */
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
         }
 
        /* --- NAVIGATION BAR --- */
