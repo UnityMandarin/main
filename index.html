@@ -18,7 +18,7 @@
     
     /* Background Canvas Colors */
     --mint-light: #E8FBF0;        
-    --mint-nav: #D1F7DB;          /* Polished light mint green header */
+    --mint-nav: #D1F7DB;          /* RESTORED: Bright, solid mint green for the header */
     --scroll-jade: #58B983;       /* Refined rich jade accent */
     
     /* Premium Typography Font Stack */
@@ -26,8 +26,8 @@
     --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
     
     /* Text Color Tokens */
-    --text-main: #1A2A3A;         /* Deeper dark slate for optimal reading contrast */
-    --text-muted: #4A5D6E;        /* Balanced text-gray for descriptions */
+    --text-main: #1A2A3A;         
+    --text-muted: #4A5D6E;        
     --max-width: 1280px;
 }
 
@@ -39,7 +39,7 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     
-    /* Locked Warm Background Base */
+    /* Locked Warm Parchment Background Base */
     background-color: #f3efe3 !important; 
     background-image: none !important;
     background-repeat: no-repeat;
@@ -48,12 +48,12 @@ body {
 }
 
 /* =========================================
-   NAVIGATION HEADER (PREMIUM SLIM DESIGN)
+   NAVIGATION HEADER (SOLID MINT GREEN)
    ========================================= */
 header {
-    background-color: var(--mint-nav) !important; 
+    background-color: #D1F7DB !important; /* Forces header to be exactly your mint green */
     padding: 0 40px;
-    height: 70px; /* Locked compact height to guarantee it stays beautifully slim */
+    height: 70px; /* Locked compact height to keep it slim */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -61,14 +61,12 @@ header {
     top: 0;
     z-index: 100;
     
-    /* Modern structural depth borders & shadows */
-    border-bottom: 1px solid rgba(88, 185, 131, 0.25); 
-    box-shadow: 0 4px 30px rgba(20, 34, 25, 0.04), 
-                0 1px 3px rgba(88, 185, 131, 0.08);
-    backdrop-filter: blur(8px); /* Subtle premium glass texture effect */
+    /* Distinct structural depth shadows and jade borders */
+    border-bottom: 2px solid rgba(88, 185, 131, 0.4); 
+    box-shadow: 0 4px 20px rgba(88, 185, 131, 0.25); 
 }
 
-/* Fixed container constraint for the logo */
+/* Fixed container constraint for the logo image */
 .logo-group {
     display: flex;
     align-items: center;
@@ -78,47 +76,40 @@ header {
 }
 
 .logo-group:hover {
-    transform: scale(1.03); /* Tiny micro-interaction pop */
+    transform: scale(1.03); /* Small interaction pop on hover */
 }
 
 .logo-group img, header img {
-    height: 42px; /* Uniform height constraint to stop header layout inflation */
+    height: 42px; /* Enforces a crisp size so the logo never pushes the header bigger */
     width: auto;
     display: block;
     border-radius: 4px;
 }
 
-/* Modernized Inline Menu Navigation Link System */
+/* Modernized Inline Navigation Link System */
 nav {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     height: 100%;
 }
 
 nav a {
     font-family: var(--font-ui);
     text-decoration: none;
-    color: #243647;
-    font-weight: 500;
+    color: #1C3325; /* Dark forest green for readable contrast on the mint background */
+    font-weight: 600;
     font-size: 14px;
     letter-spacing: 0.2px;
     padding: 8px 16px;
-    border-radius: 20px; /* Pill-shaped tab style toggles on hover */
+    border-radius: 20px; 
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
 }
 
 nav a:hover {
-    color: var(--brand-orange);
-    background-color: rgba(255, 87, 34, 0.06); /* Soft warm hover highlight background bubble */
-}
-
-/* Make active or selected page links look clearly distinct */
-nav a.active-page {
     color: #FFFFFF;
-    background-color: var(--brand-orange);
-    font-weight: 600;
+    background-color: var(--brand-orange); /* Vibrant orange pill shape background on hover */
+    box-shadow: 0 4px 10px rgba(255, 87, 34, 0.2);
 }
         /* =========================================
            HERO SECTION WITH STATIC BANNER IMAGE
