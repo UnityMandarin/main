@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* =========================================
+    /* =========================================
    GLOBAL THEME & DESIGN SYSTEM SYSTEM VARIABLES
    ========================================= */
 :root {
     --brand-orange: #FF5722;      /* Main vibrant brand orange */
     --brand-orange-hover: #E64A19;/* Darker warm shade for interactive hover */
     --mint-light: #E8FBF0;        /* Pastel soft backdrop mint */
-    --mint-nav: #f3efe3;          /* CHANGED: Swapped light green for your exact background hex */
+    --mint-nav: #D1F7DB;          /* RESTORED: Light mint green for the navigation bar */
     --scroll-jade: #72D09B;       /* Secondary structural accent jade */
     --text-main: #2C3E50;         /* Primary clean dark charcoal reading font */
     --text-muted: #5A6B7C;        /* Sub-copy secondary gray */
@@ -26,120 +26,29 @@ body {
     flex-direction: column;
     min-height: 100vh;
     
-    /* FORCE IMMUTABLE SOLID BACKGROUND OVERRIDES */
+    /* Keeps the overall page background clean, solid #f3efe3 with NO green gradient leaks */
     background-color: #f3efe3 !important; 
     background-image: none !important;
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow-x: hidden;
 }
-        /* --- ACCESSIBILITY HELPER --- */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
 
-        /* =========================================
-           NAVIGATION HEADER
-           ========================================= */
-        header {
-            background-color: var(--mint-nav);
-            padding: 15px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(168, 223, 181, 0.25);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(114, 208, 155, 0.3);
-        }
-
-        .logo-group {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 14px;
-            transition: transform 0.2s ease;
-        }
-
-        .logo-group:hover {
-            transform: scale(1.02);
-        }
-
-        .logo-group img {
-            height: 65px;
-            width: auto;
-            display: block;
-        }
-
-        .logo-meta {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-meta .zh-title {
-            font-size: 26px;
-            font-weight: bold;
-            color: var(--brand-orange);
-            font-family: 'STKaiti', 'Kaiti SC', Georgia, serif;
-            letter-spacing: 2px;
-            line-height: 1.1;
-        }
-
-        .logo-meta .en-title {
-            font-size: 13px;
-            font-family: Arial, sans-serif;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-            font-weight: bold;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #334E3B;
-            font-family: Arial, sans-serif;
-            font-size: 15px;
-            font-weight: bold;
-            letter-spacing: 0.3px;
-            position: relative;
-            padding: 6px 0;
-            transition: color 0.25s ease;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2.5px;
-            background-color: var(--brand-orange);
-            transition: width 0.25s ease, left 0.25s ease;
-            border-radius: 2px;
-        }
-
-        nav a:hover {
-            color: var(--brand-orange);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-            left: 0;
-        }
-
+/* =========================================
+   NAVIGATION HEADER
+   ========================================= */
+header {
+    background-color: var(--mint-nav) !important; /* Uses the mint green variable */
+    padding: 15px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(168, 223, 181, 0.25); /* Re-added matching mint shadow */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(114, 208, 155, 0.3); /* Re-added clean mint border */
+}
         /* =========================================
            HERO SECTION WITH STATIC BANNER IMAGE
            ========================================= */
