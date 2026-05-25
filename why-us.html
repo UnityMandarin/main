@@ -657,7 +657,6 @@ footer {
                         We believe child safety, professional accountability, and family trust are the foundation of any successful after-school program.
                     </div>
                 </div>
-
                 <button type="button" class="expand-btn" onclick="togglePillar(1)">
                     <span id="btn-text-1">Read More Guidelines</span> <span id="btn-arrow-1">▼</span>
                 </button>
@@ -681,7 +680,6 @@ footer {
                         <li>Direct instant messaging with program staff</li>
                     </ul>
                 </div>
-
                 <button type="button" class="expand-btn" onclick="togglePillar(2)">
                     <span id="btn-text-2">Read More Details</span> <span id="btn-arrow-2">▼</span>
                 </button>
@@ -701,7 +699,6 @@ footer {
                         Our team understands SFUSD’s academic standards, cultural norms, and school-family partnership practices. We design our Mandarin curriculum to support diverse learners while building cultural competence and long-term confidence in the language.
                     </p>
                 </div>
-
                 <button type="button" class="expand-btn" onclick="togglePillar(3)">
                     <span id="btn-text-3">Read More About Our Team</span> <span id="btn-arrow-3">▼</span>
                 </button>
@@ -721,7 +718,6 @@ footer {
                         For educators with strong local teaching experience who are in the process of completing full certification, we conduct rigorous internal assessments of pronunciation and classroom language use before they begin working with students. We believe consistent, clear, and natural Mandarin modeling is essential for building students’ long-term confidence in the language.
                     </p>
                 </div>
-
                 <button type="button" class="expand-btn" onclick="togglePillar(4)">
                     <span id="btn-text-4">Read More Standards</span> <span id="btn-arrow-4">▼</span>
                 </button>
@@ -741,7 +737,6 @@ footer {
                         As a community-based program, we actively incorporate feedback from local families and school communities into our program design and staff selection process.
                     </p>
                 </div>
-
                 <button type="button" class="expand-btn" onclick="togglePillar(5)">
                     <span id="btn-text-5">Read More Alignment</span> <span id="btn-arrow-5">▼</span>
                 </button>
@@ -786,30 +781,33 @@ footer {
         </div>
     </footer>
 <script>
-        // Mobile Navigation Toggle
-        function toggleMobileMenu() {
-            var nav = document.getElementById("main-nav");
-            nav.classList.toggle("is-open");
-        }
+    // Mobile Navigation Toggle
+    function toggleMobileMenu() {
+        var nav = document.getElementById("main-nav");
+        if (nav) nav.classList.toggle("is-open");
+    }
 
-        // Fixed Button Panel Expand/Collapse Function
-        function togglePillar(id) {
-            var details = document.getElementById("pillar-details-" + id);
-            var textNode = document.getElementById("btn-text-" + id);
-            var arrowNode = document.getElementById("btn-arrow-" + id);
-            
-            if (!details || !textNode || !arrowNode) return; // Safeguard
-            
-            if (details.style.display === "none" || details.style.display === "") {
-                details.style.display = "block";
-                textNode.textContent = textNode.textContent.replace("Read More", "Hide Details");
-                arrowNode.textContent = "▲";
-            } else {
-                details.style.display = "none";
-                textNode.textContent = textNode.textContent.replace("Hide Details", "Read More");
-                arrowNode.textContent = "▼";
-            }
+    // Fixed Button Panel Expand/Collapse Function
+    function togglePillar(id) {
+        // Coerce id to string and trim any accidental invisible characters
+        var cleanId = String(id).trim();
+        
+        var details = document.getElementById("pillar-details-" + cleanId);
+        var textNode = document.getElementById("btn-text-" + cleanId);
+        var arrowNode = document.getElementById("btn-arrow-" + cleanId);
+        
+        if (!details || !textNode || !arrowNode) return; // Safeguard
+        
+        if (details.style.display === "none" || details.style.display === "") {
+            details.style.display = "block";
+            textNode.textContent = textNode.textContent.replace("Read More", "Hide Details");
+            arrowNode.textContent = "▲";
+        } else {
+            details.style.display = "none";
+            textNode.textContent = textNode.textContent.replace("Hide Details", "Read More");
+            arrowNode.textContent = "▼";
         }
-    </script>
+    }
+</script>
 </body>
 </html>
