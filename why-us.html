@@ -785,29 +785,31 @@ footer {
             &copy; 2026 Unity Mandarin Center. All rights reserved.
         </div>
     </footer>
-
-    <script>
-        // Global Mobile Navigation Toggle Component Handler
+<script>
+        // Mobile Navigation Toggle
         function toggleMobileMenu() {
             var nav = document.getElementById("main-nav");
             nav.classList.toggle("is-open");
         }
-        // Interactive Panel Toggle Handler for Individual Content Display
-function togglePillar(id) {
-    var details = document.getElementById("pillar-details" + id);
-    var textNode = document.getElementById("btn-text" + id);
-    var arrowNode = document.getElementById("btn-arrow" + id);
-    
-    if (details.style.display === "none") {
-        details.style.display = "block";
-        textNode.innerText = textNode.innerText.replace("Read More", "Hide Details");
-        arrowNode.innerText = "▲";
-    } else {
-        details.style.display = "none";
-        textNode.innerText = textNode.innerText.replace("Hide Details", "Read More");
-        arrowNode.innerText = "▼";
-    }
-}
+
+        // Fixed Button Panel Expand/Collapse Function
+        function togglePillar(id) {
+            var details = document.getElementById("pillar-details-" + id);
+            var textNode = document.getElementById("btn-text-" + id);
+            var arrowNode = document.getElementById("btn-arrow-" + id);
+            
+            if (!details || !textNode || !arrowNode) return; // Safeguard
+            
+            if (details.style.display === "none" || details.style.display === "") {
+                details.style.display = "block";
+                textNode.textContent = textNode.textContent.replace("Read More", "Hide Details");
+                arrowNode.textContent = "▲";
+            } else {
+                details.style.display = "none";
+                textNode.textContent = textNode.textContent.replace("Hide Details", "Read More");
+                arrowNode.textContent = "▼";
+            }
+        }
     </script>
 </body>
 </html>
