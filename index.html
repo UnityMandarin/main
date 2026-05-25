@@ -42,7 +42,6 @@
     --max-content-width: 1440px;
     --max-width: 1280px;
     --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
 
 /* ==========================================================================
    BASE CORE BODY RESET & CANVAS GROUNDING
@@ -66,10 +65,11 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Layer 1 (Bottom): The solid cream color fills the whole screen */
+    background-color: #f3efe3;
     
-    /* BOTH PIECES WORK TOGETHER HERE: */
-    background-color: #f3efe3;            /* Solid cream base layer */
-    background-image: url('why-us-bg.png'); /* Transparent image layer on top */
+    /* Layer 2 (Top): The transparent image floats on top of the color */
+    background-image: url('why-us-bg.png'); 
     
     background-repeat: repeat; 
     background-position: center top;
