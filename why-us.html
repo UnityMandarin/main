@@ -644,6 +644,19 @@ footer {
     gap: 20px;
     margin-bottom: 20px;
 }
+        .why-us-header-container {
+    width: 100%;
+    max-width: 1200px; /* Limits the max width so it doesn't get too giant on huge monitors */
+    margin: 0 auto;    /* Centers the banner horizontally on the page */
+    padding: 20px;     /* Gives it some breathing room from the edges */
+    box-sizing: border-box;
+}
+
+.why-us-banner-img {
+    width: 100%;       /* Makes the banner fluid and fully responsive */
+    height: auto;      /* Maintains the original proportions so it doesn't distort */
+    display: block;    /* Removes unnecessary baseline spacing beneath images */
+}
     </style>
 </head>
 <body>
@@ -673,9 +686,9 @@ footer {
 
     <main class="why-us-container">
         <section class="page-hero">
-            <h1>Unity Mandarin: Why Us</h1>
-            <p class="subtitle">A community-centered Mandarin enrichment program for SFUSD elementary students</p>
-            <div class="slogan-badge">Learn Mandarin, Connect Cultures</div>
+            <div class="why-us-header-container">
+    <img src="why-us-banner.png" alt="Unity Mandarin: Why Us" class="why-us-banner-img">
+</div>
         </section>
 
        <section class="pillars-list">
