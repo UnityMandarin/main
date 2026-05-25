@@ -6,44 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* =========================================
-           GLOBAL THEME & DESIGN SYSTEM SYSTEM VARIABLES
-           ========================================= */
-        :root {
-            --brand-orange: #FF5722;      /* Main vibrant brand orange */
-            --brand-orange-hover: #E64A19;/* Darker warm shade for interactive hover */
-            --mint-light: #E8FBF0;        /* Pastel soft backdrop mint */
-            --mint-nav: #D1F7DB;          /* Distinct screen-matched navigation mint */
-            --scroll-jade: #72D09B;       /* Secondary structural accent jade */
-            --text-main: #2C3E50;         /* Primary clean dark charcoal reading font */
-            --text-muted: #5A6B7C;        /* Sub-copy secondary gray */
-            --max-width: 1280px;
-        }
+   GLOBAL THEME & DESIGN SYSTEM SYSTEM VARIABLES
+   ========================================= */
+:root {
+    --brand-orange: #FF5722;      /* Main vibrant brand orange */
+    --brand-orange-hover: #E64A19;/* Darker warm shade for interactive hover */
+    --mint-light: #E8FBF0;        /* Pastel soft backdrop mint */
+    --mint-nav: #f3efe3;          /* CHANGED: Swapped light green for your exact background hex */
+    --scroll-jade: #72D09B;       /* Secondary structural accent jade */
+    --text-main: #2C3E50;         /* Primary clean dark charcoal reading font */
+    --text-muted: #5A6B7C;        /* Sub-copy secondary gray */
+    --max-width: 1280px;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-       body {
+body {
     font-family: 'Times New Roman', Times, Georgia, serif;
     color: var(--text-main);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     
-    /* Updated background canvas settings */
-    background-color: #f3efe3; 
-    background-image: radial-gradient(circle at 50% 30%, #ffffff 0%, rgba(209, 247, 219, 0.35) 60%, rgba(243, 239, 227, 0) 100%);
+    /* FORCE IMMUTABLE SOLID BACKGROUND OVERRIDES */
+    background-color: #f3efe3 !important; 
+    background-image: none !important;
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow-x: hidden;
 }
-
         /* --- ACCESSIBILITY HELPER --- */
         .sr-only {
             position: absolute;
