@@ -1,0 +1,357 @@
+/* ==========================================
+   1. 基础重置与全局样式（融入国风宣纸底色）
+   ========================================== */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Georgia, serif;
+    color: #2C3026;         /* 舒适的深黛绿黑，代替纯黑 */
+    background-color: #F9F6F0; /* 极具质感的古典淡雅宣纸色，代替冷白 */
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ==========================================
+   2. Header 顶部视觉样式（重塑为传统艺术风）
+   ========================================== */
+.hero-banner {
+    /* 替换原本烈烈的现代红橙渐变，改为淡雅的暖色绢布底色，并带有双线包边 */
+    background: #F4EFE6;
+    color: #4A533C;
+    text-align: center;
+    padding: 70px 20px 50px 20px;
+    position: relative;
+    border-bottom: 3px double #4A533C;
+    overflow: hidden;
+}
+
+/* 在顶部正中融入第一组古风对称祥云，奠定国风基调 */
+.hero-banner::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 40px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M10 20 C 15 12, 25 12, 30 18 C 35 12, 45 12, 50 20 C 55 12, 65 12, 70 18 C 75 12, 85 12, 90 20' fill='none' stroke='%234A533C' stroke-width='1.5'/%3E%3Cpath d='M35 15 C 40 8, 45 8, 50 15 C 55 8, 60 8, 65 15' fill='none' stroke='%23D98855' stroke-width='1'/%3E%3C/svg%3E") no-repeat center;
+    opacity: 0.7;
+}
+
+.hero-banner h1 { 
+    margin: 0; 
+    font-size: 2.6rem; 
+    color: #4A533C; /* 沉稳的国风墨绿 */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.hero-banner .subtitle { 
+    margin-top: 15px; 
+    font-size: 1.15rem; 
+    color: #5A634E;
+    opacity: 0.95;
+}
+
+.assessment-badge {
+    display: inline-block;
+    margin-top: 25px;
+    background-color: #4A533C;
+    border: 1px solid #4A533C;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(74, 83, 60, 0.15);
+}
+
+/* ==========================================
+   3. 下拉菜单选择区（卡片托白与精细聚焦）
+   ========================================== */
+.matcher-section {
+    background-color: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(74, 83, 60, 0.05);
+    margin: -35px auto 40px auto;
+    border-top: 4px solid #4A533C; /* 主色调镶边 */
+    position: relative;
+    z-index: 10;
+}
+
+.matcher-section h2 { 
+    margin-top: 0; 
+    color: #4A533C; 
+    font-size: 1.5rem;
+}
+
+label { 
+    display: block; 
+    margin-bottom: 12px; 
+    font-weight: bold; 
+    color: #3D4432;
+}
+
+select {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border: 2px solid #E2E8F0;
+    border-radius: 8px;
+    outline: none;
+    background-color: #FFF;
+    cursor: pointer;
+    color: #2C3026;
+    transition: all 0.25s ease;
+}
+
+select:focus { 
+    border-color: #4A533C; /* 聚焦时变为墨绿色 */
+    box-shadow: 0 0 0 3px rgba(74, 83, 60, 0.1);
+}
+
+.hint { 
+    font-size: 0.88rem; 
+    color: #7A8270; 
+    margin-top: 10px; 
+}
+
+/* ==========================================
+   4. WHY US 板块（根据第二张图的全新卷云纹样定制）
+   ========================================== */
+.why-us-section {
+    text-align: center;
+    margin: 50px 0;
+    padding: 35px 20px;
+    background: #FFF;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(74, 83, 60, 0.04);
+}
+
+/* 嵌入全新图案的卷云与山脉融合构型 */
+.why-us-title-area {
+    position: relative;
+    padding-top: 55px;
+    margin-bottom: 30px;
+}
+
+.why-us-title-area::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 380px;
+    height: 60px;
+    /* 精心调整的居中式层叠祥云與尖峰远山花纹(Pattern 2) */
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Cpath d='M20 35 L40 20 L60 35 L80 15 L100 35' fill='none' stroke='%23E2E5DD' stroke-width='1'/%3E%3Ccircle cx='60' cy='18' r='4' fill='%23D98855' opacity='0.7'/%3E%3Cpath d='M40 25 C50 15, 70 15, 80 25 C85 20, 95 20, 100 28' fill='none' stroke='%234A533C' stroke-width='1.3'/%3E%3Cpath d='M20 28 C25 20, 35 20, 45 28' fill='none' stroke='%234A533C' stroke-width='1.3'/%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+}
+
+.why-us-title {
+    font-family: Georgia, serif;
+    font-size: 2.1rem;
+    color: #4A533C;
+    letter-spacing: 2px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.why-us-sub {
+    font-size: 0.9rem;
+    color: #D98855;
+    letter-spacing: 4px;
+    margin-top: 4px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+    text-align: left;
+}
+
+.benefit-card {
+    padding: 25px;
+    background: #FCFAF7;
+    border-radius: 8px;
+    border-bottom: 3px solid #EAE5DA;
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-4px);
+    border-bottom-color: #4A533C;
+}
+
+.benefit-card h4 {
+    margin-top: 0;
+    color: #4A533C;
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.benefit-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555A4E;
+}
+
+/* ==========================================
+   5. 价格卡片网格布局（多方案状态适配）
+   ========================================== */
+.pricing-grid {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 40px;
+    min-height: 180px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.placeholder-text {
+    align-self: center;
+    color: #8C9482;
+    font-style: italic;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 40px 0;
+}
+
+.price-card {
+    background: white;
+    border: 1px solid #E6E2D8;
+    border-radius: 12px;
+    padding: 30px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 520px;
+    box-shadow: 0 10px 25px rgba(74, 83, 60, 0.03);
+    border-top: 5px solid #CBD5E1;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+}
+
+.price-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 重塑原始的卡片多色条状态为国风意蕴色 */
+.price-card.option-one { border-top-color: #4A533C; }                       /* 经典墨绿 */
+.price-card.option-two { border-top-color: #2E5C43; background-color: #F4FAF6; } /* 竹青色 */
+.price-card.option-elite { border-top-color: #D98855; }                     /* 敦煌橙 */
+
+.price-card h3 { 
+    margin-top: 0; 
+    font-size: 1.35rem; 
+    color: #4A533C;
+}
+
+.price-card .price { 
+    font-size: 2.6rem; 
+    font-weight: bold; 
+    color: #D98855; /* 价格数字使用朱砂橙突出 */
+    margin: 15px 0; 
+}
+
+.price-card .price span { 
+    font-size: 0.95rem; 
+    font-weight: normal; 
+    color: #7A8270; 
+}
+
+.price-card ul { 
+    padding-left: 20px; 
+    color: #41473A; 
+}
+
+.price-card ul li { 
+    margin-bottom: 12px; 
+}
+
+/* 高价值特征标签 */
+.value-badge {
+    background-color: #FFFCEB;
+    border: 1px solid #F3E3A4;
+    color: #8A6517;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 12px;
+    display: inline-block;
+}
+
+/* ==========================================
+   6. 告示板样式（柔和暖金警告色）
+   ========================================== */
+.notice-board {
+    background-color: #FAF4E8; /* 柔和的银杏暖黄 */
+    border-left: 4px solid #D98855;
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
+.notice-board h3 { 
+    margin-top: 0; 
+    color: #8C4318; 
+    font-size: 1.3rem;
+}
+
+.notice-item { 
+    margin-bottom: 22px; 
+}
+
+.notice-item:last-child { 
+    margin-bottom: 0; 
+}
+
+.notice-item strong { 
+    color: #4A533C; 
+    display: block; 
+    margin-bottom: 6px; 
+    font-size: 1.05rem;
+}
+
+.notice-item p { 
+    margin: 0; 
+    font-size: 0.93rem; 
+    color: #6E533F; 
+    line-height: 1.7;
+}
+
+.notice-item.highlight-item {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px dashed #D98855;
+    box-shadow: 0 4px 10px rgba(217, 136, 85, 0.05);
+}
+
+/* ==========================================
+   7. 页脚样式（深绿沉淀）
+   ========================================== */
+.site-footer {
+    text-align: center;
+    padding: 45px 20px;
+    background-color: #353B2B; /* 用深黛绿代替无趣的纯黑，呼应国风主题 */
+    color: #C0C5BA;
+    margin-top: 60px;
+    font-size: 0.92rem;
+    border-top: 2px solid #4A533C;
+}
+
+.site-footer p { 
+    margin: 8px 0; 
+}
+
+.site-footer strong {
+    color: #FFF;
+}
