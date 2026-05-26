@@ -7,11 +7,11 @@
     <style>
         /* --- Core Base Styles --- */
         :root {
-            --primary-color: #4A533C; /* Traditional elegant dark green */
+            --primary-color: #2E5C43; /* Reinstated elegant mint/forest green */
             --bg-cream: #F9F6F0;      /* Textured rice-paper style light background */
             --text-dark: #2C3026;
             --accent-orange: #D98855; /* Traditional accent orange */
-            --shadow: 0 4px 15px rgba(74, 83, 60, 0.08);
+            --shadow: 0 4px 15px rgba(46, 92, 67, 0.08);
         }
 
         body {
@@ -30,9 +30,9 @@
             padding: 0 15px;
         }
 
-        /* --- Hero Banner Design --- */
+        /* --- Hero Banner Design (Mint Green Accented) --- */
         .hero-banner {
-            background-color: #F4EFE6;
+            background-color: #EBF2EE; /* Mint-tinted light background */
             position: relative;
             padding: 60px 0 40px 0;
             text-align: center;
@@ -40,7 +40,7 @@
             overflow: hidden;
         }
 
-        /* Symmetrical Dunhuang-inspired auspicious cloud pattern */
+        /* Symmetrical Dunhuang-inspired auspicious cloud pattern matching the mint theme */
         .hero-banner::before {
             content: "";
             position: absolute;
@@ -49,7 +49,7 @@
             transform: translateX(-50%);
             width: 280px;
             height: 50px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M10 20 C 15 12, 25 12, 30 18 C 35 12, 45 12, 50 20 C 55 12, 65 12, 70 18 C 75 12, 85 12, 90 20' fill='none' stroke='%234A533C' stroke-width='1.5'/%3E%3Cpath d='M35 15 C 40 8, 45 8, 50 15 C 55 8, 60 8, 65 15' fill='none' stroke='%23D98855' stroke-width='1'/%3E%3C/svg%3E") no-repeat center;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M10 20 C 15 12, 25 12, 30 18 C 35 12, 45 12, 50 20 C 55 12, 65 12, 70 18 C 75 12, 85 12, 90 20' fill='none' stroke='%232E5C43' stroke-width='1.5'/%3E%3Cpath d='M35 15 C 40 8, 45 8, 50 15 C 55 8, 60 8, 65 15' fill='none' stroke='%23D98855' stroke-width='1'/%3E%3C/svg%3E") no-repeat center;
             opacity: 0.8;
         }
 
@@ -63,7 +63,7 @@
 
         .subtitle {
             font-size: 1.15rem;
-            color: #5A634E;
+            color: #3B5446;
             margin-bottom: 25px;
         }
 
@@ -74,7 +74,7 @@
             padding: 10px 24px;
             border-radius: 50px;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(74, 83, 60, 0.2);
+            box-shadow: 0 4px 10px rgba(46, 92, 67, 0.2);
             animation: pulse 2s infinite;
         }
 
@@ -106,7 +106,7 @@
             width: 100%;
             padding: 14px;
             font-size: 1rem;
-            border: 2px solid #D0C9BC;
+            border: 2px solid #CBD5E1;
             border-radius: 8px;
             background-color: #FCFAf7;
             color: var(--text-dark);
@@ -116,12 +116,12 @@
 
         select:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(74, 83, 60, 0.15);
+            box-shadow: 0 0 0 3px rgba(46, 92, 67, 0.15);
         }
 
         .hint {
             font-size: 0.9rem;
-            color: #7A8270;
+            color: #64748B;
             margin-top: 10px;
         }
 
@@ -134,9 +134,9 @@
             text-align: center;
             padding: 40px;
             background: rgba(255,255,255,0.6);
-            border: 2px dashed #D0C9BC;
+            border: 2px dashed #CBD5E1;
             border-radius: 12px;
-            color: #7A8270;
+            color: #64748B;
             font-style: italic;
         }
 
@@ -153,7 +153,7 @@
             margin-top: 0;
             color: var(--primary-color);
             font-size: 1.4rem;
-            border-bottom: 1px dashed #D0C9BC;
+            border-bottom: 1px dashed #CBD5E1;
             padding-bottom: 10px;
         }
 
@@ -166,86 +166,8 @@
 
         .price-tag span {
             font-size: 1rem;
-            color: #7A8270;
+            color: #64748B;
             font-weight: normal;
-        }
-
-        /* --- Core Highlights: WHY US Section --- */
-        .why-us-section {
-            text-align: center;
-            margin: 60px 0;
-            padding: 40px 20px;
-            background: #FFF;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        /* Symmetrical mountain and rolling cloud graphic background */
-        .why-us-title-area {
-            position: relative;
-            padding-top: 65px;
-            margin-bottom: 30px;
-        }
-
-        .why-us-title-area::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 400px;
-            height: 70px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Cpath d='M20 35 L40 20 L60 35 L80 15 L100 35' fill='none' stroke='%23D0C9BC' stroke-width='1'/%3E%3Ccircle cx='60' cy='18' r='5' fill='%23D98855' opacity='0.7'/%3E%3Cpath d='M40 25 C50 15, 70 15, 80 25 C85 20, 95 20, 100 28' fill='none' stroke='%234A533C' stroke-width='1.5'/%3E%3Cpath d='M20 28 C25 20, 35 20, 45 28' fill='none' stroke='%234A533C' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat center;
-            background-size: contain;
-        }
-
-        .why-us-title {
-            font-family: Georgia, serif;
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            letter-spacing: 2px;
-            margin: 0;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .why-us-sub {
-            font-size: 0.95rem;
-            color: var(--accent-orange);
-            letter-spacing: 4px;
-            margin-top: 5px;
-            text-transform: uppercase;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-            text-align: left;
-        }
-
-        .benefit-card {
-            padding: 25px;
-            background: #FCFAf7;
-            border-radius: 8px;
-            border-bottom: 3px solid #EAE5DA;
-            transition: transform 0.3s;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-5px);
-            border-bottom-color: var(--primary-color);
-        }
-
-        .benefit-card h4 {
-            margin-top: 0;
-            color: var(--primary-color);
-            font-size: 1.15rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         /* --- Notice Board Styles --- */
@@ -320,9 +242,7 @@
         /* --- Mobile Responsive Grid Adaptations --- */
         @media (max-width: 768px) {
             .hero-banner h1 { font-size: 1.8rem; }
-            .matcher-section, .why-us-section, .notice-board { padding: 20px; }
-            .why-us-title-area::before { width: 300px; }
-            .why-us-title { font-size: 1.8rem; }
+            .matcher-section, .notice-board { padding: 20px; }
         }
     </style>
 </head>
@@ -355,28 +275,6 @@
 
         <section id="pricing-container" class="pricing-grid">
             <div class="placeholder-text">Please select a dismissal time above. The system will automatically retrieve your dedicated schedule and tuition options.</div>
-        </section>
-
-        <section class="why-us-section">
-            <div class="why-us-title-area">
-                <div class="why-us-title">WHY US</div>
-                <div class="why-us-sub">Why Families Choose UMC</div>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <h4>💡 Seamless Schedule Alignment</h4>
-                    <p>We tailor our care perfectly to various SFUSD schedules (including Wednesday early dismissals). Our dedicated staff provides hassle-free school gate pickup or on-site transitions, giving working parents total peace of mind.</p>
-                </div>
-                <div class="benefit-card">
-                    <h4>🎯 Day 1 Diagnostic Placement</h4>
-                    <p>We do not generalize student placement. On the first day of school, our academic team conducts an multi-dimensional Mandarin assessment across listening, speaking, reading, and recognition to match your child with their optimal language cohort.</p>
-                </div>
-                <div class="benefit-card">
-                    <h4>🧬 High-Frequency 5-Day Immersion</h4>
-                    <p>We strictly enforce a continuous 5-day weekly attendance framework. Continuous language input is mathematically and linguistically proven to help K-5 students build natural Mandarin cognitive loops and prevent knowledge fade.</p>
-                </div>
-            </div>
         </section>
 
         <section class="notice-board">
@@ -460,7 +358,7 @@
                         <h3>✨ Perfect Match: ${data.title}</h3>
                         <p><strong>🕒 Program Hours:</strong> ${data.hours}</p>
                         <div class="price-tag">${data.price} <span>/ Month (Standard Tuition Estimate)</span></div>
-                        <p style="color: #5A634E; margin-bottom: 0;">💡 <em>${data.note}</em></p>
+                        <p style="color: #3B5446; margin-bottom: 0;">💡 <em>${data.note}</em></p>
                     </div>
                 `;
             } else {
