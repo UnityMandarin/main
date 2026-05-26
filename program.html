@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMC After-School Program | Unity Mandarin</title>
     <style>
-        /* --- 核心基础样式 --- */
+        /* --- Core Base Styles --- */
         :root {
-            --primary-color: #4A533C; /* 汲取自图片的古风墨绿色 */
-            --bg-cream: #F9F6F0;      /* 宣纸感淡雅底色 */
+            --primary-color: #4A533C; /* Traditional elegant dark green */
+            --bg-cream: #F9F6F0;      /* Textured rice-paper style light background */
             --text-dark: #2C3026;
-            --accent-orange: #D98855; /* 祥云同款点缀橙 */
+            --accent-orange: #D98855; /* Traditional accent orange */
             --shadow: 0 4px 15px rgba(74, 83, 60, 0.08);
         }
 
         body {
-            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Georgia, serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, Georgia, serif;
             background-color: var(--bg-cream);
             color: var(--text-dark);
             margin: 0;
@@ -30,7 +30,7 @@
             padding: 0 15px;
         }
 
-        /* --- 国风 Hero Banner 头部设计 --- */
+        /* --- Hero Banner Design --- */
         .hero-banner {
             background-color: #F4EFE6;
             position: relative;
@@ -40,7 +40,7 @@
             overflow: hidden;
         }
 
-        /* 模拟顶部对称的敦煌风祥云花纹 */
+        /* Symmetrical Dunhuang-inspired auspicious cloud pattern */
         .hero-banner::before {
             content: "";
             position: absolute;
@@ -49,7 +49,6 @@
             transform: translateX(-50%);
             width: 280px;
             height: 50px;
-            /* 这里使用 SVG 绘制对称国风云纹 */
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M10 20 C 15 12, 25 12, 30 18 C 35 12, 45 12, 50 20 C 55 12, 65 12, 70 18 C 75 12, 85 12, 90 20' fill='none' stroke='%234A533C' stroke-width='1.5'/%3E%3Cpath d='M35 15 C 40 8, 45 8, 50 15 C 55 8, 60 8, 65 15' fill='none' stroke='%23D98855' stroke-width='1'/%3E%3C/svg%3E") no-repeat center;
             opacity: 0.8;
         }
@@ -79,7 +78,7 @@
             animation: pulse 2s infinite;
         }
 
-        /* --- 智能匹配工具 Section --- */
+        /* --- Smart Interactive Tool Section --- */
         .matcher-section {
             background: #FFF;
             padding: 35px;
@@ -126,7 +125,7 @@
             margin-top: 10px;
         }
 
-        /* --- 动态价格看板结果展示 --- */
+        /* --- Dynamic Tuition Display Board --- */
         .pricing-grid {
             margin: 40px 0;
         }
@@ -171,7 +170,7 @@
             font-weight: normal;
         }
 
-        /* --- 核心亮点板块: WHY US (根据您的图片生成) --- */
+        /* --- Core Highlights: WHY US Section --- */
         .why-us-section {
             text-align: center;
             margin: 60px 0;
@@ -182,7 +181,7 @@
             position: relative;
         }
 
-        /* 还原图片效果：上方居中的连绵祥云与远山意境 */
+        /* Symmetrical mountain and rolling cloud graphic background */
         .why-us-title-area {
             position: relative;
             padding-top: 65px;
@@ -197,7 +196,6 @@
             transform: translateX(-50%);
             width: 400px;
             height: 70px;
-            /* 采用第二张图的集中式叠峦祥云花纹结构 */
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Cpath d='M20 35 L40 20 L60 35 L80 15 L100 35' fill='none' stroke='%23D0C9BC' stroke-width='1'/%3E%3Ccircle cx='60' cy='18' r='5' fill='%23D98855' opacity='0.7'/%3E%3Cpath d='M40 25 C50 15, 70 15, 80 25 C85 20, 95 20, 100 28' fill='none' stroke='%234A533C' stroke-width='1.5'/%3E%3Cpath d='M20 28 C25 20, 35 20, 45 28' fill='none' stroke='%234A533C' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat center;
             background-size: contain;
         }
@@ -250,7 +248,7 @@
             gap: 8px;
         }
 
-        /* --- 家长须知 Notice Board --- */
+        /* --- Notice Board Styles --- */
         .notice-board {
             background: #FFF;
             padding: 35px;
@@ -292,7 +290,7 @@
             border-left: 4px solid var(--accent-orange);
         }
 
-        /* --- 页脚 Site Footer --- */
+        /* --- Site Footer Styles --- */
         .site-footer {
             background-color: var(--primary-color);
             color: #EDECE8;
@@ -307,7 +305,7 @@
             font-size: 1.1rem;
         }
 
-        /* --- 动画效果 --- */
+        /* --- Animations --- */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.03); }
@@ -319,7 +317,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 移动端响应式适配 --- */
+        /* --- Mobile Responsive Grid Adaptations --- */
         @media (max-width: 768px) {
             .hero-banner h1 { font-size: 1.8rem; }
             .matcher-section, .why-us-section, .notice-board { padding: 20px; }
@@ -333,78 +331,78 @@
     <header class="hero-banner">
         <div class="container">
             <h1>SFUSD On-Site After-School Program</h1>
-            <p class="subtitle">独家对口旧金山公立小学作息 | 面向 K-5 年级沉浸式中文与全包托管 (Fall 2026)</p>
-            <div class="assessment-badge">📢 开学第一天：专享免费 Mandarin 分级测评与科学分班</div>
+            <p class="subtitle">Perfect Alignment with SFUSD Public School Schedules | K-5 Immersive Mandarin & All-Inclusive Childcare (Fall 2026)</p>
+            <div class="assessment-badge">📢 First Day of School: Free Professional Mandarin Placement Assessment</div>
         </div>
     </header>
 
     <main class="container">
         
         <section class="matcher-section">
-            <h2>🔍 寻找您学校的专属托管方案</h2>
-            <label for="dismissal-time">请选择您孩子所在公立小学的下午放学时间：</label>
+            <h2>🔍 Find Your School's Dedicated Plan</h2>
+            <label for="dismissal-time">Select your child's public school dismissal time:</label>
             <select id="dismissal-time" onchange="updateProgramView()">
-                <option value="" disabled selected>-- 请选择放学时间 / Select Dismissal Time --</option>
-                <option value="tier1">2:05 PM (周三 12:50 PM 提早放学) —— 如：W小学、West Portal、Gordon Lau</option>
-                <option value="tier2">2:40 PM (周三 1:25 PM 提早放学) —— 如：Alice Fong Yu 基础段</option>
-                <option value="tier3">2:55 PM (周三 1:40 PM 提早放学) —— 如：Sloat (斯洛特) 小学</option>
-                <option value="tier4">3:15 PM (周三 2:00 PM 提早放学)</option>
-                <option value="tier5">3:30 PM (周三 2:15 PM 提早放学)</option>
-                <option value="tier6">3:45 PM / 4:00 PM (周三 2:30/2:45 PM 提早放学)</option>
+                <option value="" disabled selected>-- Select Dismissal Time --</option>
+                <option value="tier1">2:05 PM (Wednesday Early Dismissal at 12:50 PM)</option>
+                <option value="tier2">2:40 PM (Wednesday Early Dismissal at 1:25 PM)</option>
+                <option value="tier3">2:55 PM (Wednesday Early Dismissal at 1:40 PM)</option>
+                <option value="tier4">3:15 PM (Wednesday Early Dismissal at 2:00 PM)</option>
+                <option value="tier5">3:30 PM (Wednesday Early Dismissal at 2:15 PM)</option>
+                <option value="tier6">3:45 PM / 4:00 PM (Wednesday Early Dismissal at 2:30/2:45 PM)</option>
             </select>
-            <p class="hint">* 提示：如果不确定学校放学时间，请查看学区寄发的 Welcome Letter 或联系我们。</p>
+            <p class="hint">* Note: If you are unsure of your school's dismissal schedule, please check the Welcome Letter sent by the school district or contact us directly.</p>
         </section>
 
         <section id="pricing-container" class="pricing-grid">
-            <div class="placeholder-text">请在上方选择放学时间，系统将自动匹配专属课时与学费方案。</div>
+            <div class="placeholder-text">Please select a dismissal time above. The system will automatically retrieve your dedicated schedule and tuition options.</div>
         </section>
 
         <section class="why-us-section">
             <div class="why-us-title-area">
                 <div class="why-us-title">WHY US</div>
-                <div class="why-us-sub">缘 何 择 吾</div>
+                <div class="why-us-sub">Why Families Choose UMC</div>
             </div>
             
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <h4>💡 真正无缝的作息对接</h4>
-                    <p>紧贴 SFUSD 各大公立小学的不同放学时刻表（包含周三提早放学），提供专人校内接送或无缝看护，彻底解放双职工家长的心力。</p>
+                    <h4>💡 Seamless Schedule Alignment</h4>
+                    <p>We tailor our care perfectly to various SFUSD schedules (including Wednesday early dismissals). Our dedicated staff provides hassle-free school gate pickup or on-site transitions, giving working parents total peace of mind.</p>
                 </div>
                 <div class="benefit-card">
-                    <h4>🎯 首日科学测评与分班</h4>
-                    <p>拒绝盲目排班。开学第一天即进行专业全方位中文听说认读分级测评，确保每一个孩子都能进入最适配的语言梯度级别。</p>
+                    <h4>🎯 Day 1 Diagnostic Placement</h4>
+                    <p>We do not generalize student placement. On the first day of school, our academic team conducts an multi-dimensional Mandarin assessment across listening, speaking, reading, and recognition to match your child with their optimal language cohort.</p>
                 </div>
                 <div class="benefit-card">
-                    <h4>🧬 高频5天沉浸式环境</h4>
-                    <p>严格执行全周五天连续输入政策。坚信唯有高频的纯正中文环境，才能真正帮助 K-5 阶段的孩子建立起稳固的中文思维逻辑。</p>
+                    <h4>🧬 High-Frequency 5-Day Immersion</h4>
+                    <p>We strictly enforce a continuous 5-day weekly attendance framework. Continuous language input is mathematically and linguistically proven to help K-5 students build natural Mandarin cognitive loops and prevent knowledge fade.</p>
                 </div>
             </div>
         </section>
 
         <section class="notice-board">
-            <h3>⚠️ UMC 课后托管家长重要须知</h3>
+            <h3>⚠️ Important Guidelines for UMC After-School Parents</h3>
             <div class="notice-item highlight-item">
-                <strong>🎯 开学第一天：免费中文分级测评 (First Day Mandarin Assessment)</strong>
-                <p>为了做到真正的因材施教，在秋季开学的第一天（First Day of School），我们的专业教师团队将对每一位到校的新生进行免费的中文水平分级测评。测评涵盖听说认读，不为打分，只为精准定位。我们将根据第一天的测评实际结果进行科学分班，确保孩子从第二天起进入最适合其语言基础的班级，享受量身定制的教学进度。</p>
+                <strong>🎯 Day 1 Milestone: Free Mandarin Assessment & Track Assignment</strong>
+                <p>To ensure differentiated instructions, our teaching faculty hosts diagnostic Chinese literacy and conversational assessments for every newly enrolled child on the first day of the academic fall semester. This assessment maps out current proficiency metrics to balance class structures, guaranteeing that your child moves into a precisely calibrated learning environment from Day 2 onwards.</p>
             </div>
             <div class="notice-item">
-                <strong>1. 招生对象与年级限制 (Grade Restrictions)</strong>
-                <p>本校内站点精准服务于公立小学的 Kindergarten（幼儿园）至 5th Grade（五年级）的学生。因场地及看护资源限制，暂无法接收 TK（过渡幼儿园）阶段的学生。</p>
+                <strong>1. Eligible Grade Groups & Restrictions</strong>
+                <p>This campus-integrated program provides specialized services for children from Kindergarten through 5th Grade. Due to facilities parameters and licensing supervisor-to-student ratios, we are currently unable to accept TK (Transitional Kindergarten) students.</p>
             </div>
             <div class="notice-item">
-                <strong>2. 语言连续性政策 (Essential Linguistic Continuity)</strong>
-                <p>为了保证沉浸式语言的习得效果与核心课程进度的连贯性，UMC 项目严格不设每周 2 天或 3 天的零散切分计划。全周五天的高频输入是孩子建立中文思维、拒绝学后即忘的关键。</p>
+                <strong>2. Core Linguistic Continuity Requirement</strong>
+                <p>To secure a complete immersive ecosystem and prevent pacing disruptions, the UMC program does not offer fragmented 2-day or 3-day enrollment fractions. Consistent 5-day high-frequency immersion is critical for long-term native processing fluency.</p>
             </div>
             <div class="notice-item">
-                <strong>3. 价格最终公布说明</strong>
-                <p>本页面所示价格为标准学费看板。临时紧急托管（Drop-in $25/小时）可作应急参考。具体收费标准及招生优惠最终以开学前正式招生大印发文件为准。</p>
+                <strong>3. Tuition Schedule Finalization Policy</strong>
+                <p>Rates dynamic-mapped below outline standard recurring tuition profiles. Emergency drop-in provisions ($25/hour) are available for urgent scenarios. Binding structural financial details and multi-tier enrollment promotions are anchored to the final admissions packages distributed prior to active semester openings.</p>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <p>想要锁定您孩子学校所属时间段的稀缺托管名额？</p>
-        <p><strong>Founder & Program Director (创始人兼项目总监)</strong></p>
+        <p>Ready to secure one of our limited after-school spots matching your child's school schedule?</p>
+        <p><strong>Founder & Program Director</strong></p>
         <p>🌐 www.unitymandarin.com | Unity Mandarin Enrichment Center © 2026-2027</p>
     </footer>
 
@@ -414,45 +412,44 @@
             const selectedValue = selectElement.value;
             const container = document.getElementById('pricing-container');
             
-            // 根据不同放学梯队动态生成对应的学费及看护时长卡片
             let content = '';
             
             const database = {
                 tier1: {
-                    title: "方案 A：针对 2:05 PM 放学学校 (如 W小学、West Portal、Gordon Lau)",
-                    hours: "周一、二、四、五：2:05 PM - 6:00 PM | 周三：12:50 PM - 6:00 PM",
+                    title: "Plan A: Designed for 2:05 PM Dismissals",
+                    hours: "Mon, Tue, Thu, Fri: 2:05 PM - 6:00 PM | Wed: 12:50 PM - 6:00 PM",
                     price: "$680",
-                    note: "包含周三超长延伸看护与核心中文精读课程。"
+                    note: "Includes extended Wednesday childcare and our core Mandarin intensive curriculum."
                 },
                 tier2: {
-                    title: "方案 B：针对 2:40 PM 放学学校 (如 Alice Fong Yu 基础段)",
-                    hours: "周一、二、四、五：2:40 PM - 6:00 PM | 周三：1:25 PM - 6:00 PM",
+                    title: "Plan B: Designed for 2:40 PM Dismissals",
+                    hours: "Mon, Tue, Thu, Fri: 2:40 PM - 6:00 PM | Wed: 1:25 PM - 6:00 PM",
                     price: "$630",
-                    note: "完美对接学校大门，无缝衔接每日中文主题课堂。"
+                    note: "Direct coordination at the school gateway for a seamless shift into daily immersive learning blocks."
                 },
                 tier3: {
-                    title: "方案 C：针对 2:55 PM 放学学校 (如 Sloat 斯洛特小学)",
-                    hours: "周一、二、四、五：2:55 PM - 6:00 PM | 周三：1:40 PM - 6:00 PM",
+                    title: "Plan C: Designed for 2:55 PM Dismissals",
+                    hours: "Mon, Tue, Thu, Fri: 2:55 PM - 6:00 PM | Wed: 1:40 PM - 6:00 PM",
                     price: "$610",
-                    note: "定制接送流线，最大化课后语言黄金吸收期。"
+                    note: "Custom transit pathways designed to capture your child's golden afternoon language retention window."
                 },
                 tier4: {
-                    title: "方案 D：针对 3:15 PM 放学学校",
-                    hours: "周一、二、四、五：3:15 PM - 6:00 PM | 周三：2:00 PM - 6:00 PM",
+                    title: "Plan D: Designed for 3:15 PM Dismissals",
+                    hours: "Mon, Tue, Thu, Fri: 3:15 PM - 6:00 PM | Wed: 2:00 PM - 6:00 PM",
                     price: "$580",
-                    note: "高效时间管理，精细化作业辅导与国学熏陶。"
+                    note: "Optimized scheduling featuring highly focused homework supervision and cultural arts infusion."
                 },
                 tier5: {
-                    title: "方案 E：针对 3:30 PM 放学学校",
-                    hours: "周一、二、四、五：3:30 PM - 6:00 PM | 周三：2:15 PM - 6:00 PM",
+                    title: "Plan E: Designed for 3:30 PM Dismissals",
+                    hours: "Mon, Tue, Thu, Fri: 3:30 PM - 6:00 PM | Wed: 2:15 PM - 6:00 PM",
                     price: "$550",
-                    note: "高性价比全包托管，重点攻坚中文口语与书写。"
+                    note: "Exceptional comprehensive childcare value balancing spoken fluency and character writing mechanics."
                 },
                 tier6: {
-                    title: "方案 F：针对 3:45 PM / 4:00 PM 放学学校",
-                    hours: "周一、二、四、五：放学 - 6:00 PM | 周三：提早放学时间 - 6:00 PM",
+                    title: "Plan F: Designed for 3:45 PM / 4:00 PM Dismissals",
+                    hours: "Mon, Tue, Thu, Fri: School Dismissal - 6:00 PM | Wed: Early Dismissal - 6:00 PM",
                     price: "$490",
-                    note: "针对晚放学学校设计的专属冲刺看护方案。"
+                    note: "Our specialized high-efficiency sprint cohort tailored specifically for later school dismissal brackets."
                 }
             };
 
@@ -460,14 +457,14 @@
                 const data = database[selectedValue];
                 content = `
                     <div class="result-card">
-                        <h3>✨ 完美匹配：${data.title}</h3>
-                        <p><strong>🕒 托管时间段：</strong>${data.hours}</p>
-                        <div class="price-tag">${data.price} <span>/ 每月 (标准学费参考)</span></div>
+                        <h3>✨ Perfect Match: ${data.title}</h3>
+                        <p><strong>🕒 Program Hours:</strong> ${data.hours}</p>
+                        <div class="price-tag">${data.price} <span>/ Month (Standard Tuition Estimate)</span></div>
                         <p style="color: #5A634E; margin-bottom: 0;">💡 <em>${data.note}</em></p>
                     </div>
                 `;
             } else {
-                content = `<div class="placeholder-text">暂无此时间段的预设方案，请联系我们的课程主任进行独立定制。</div>`;
+                content = `<div class="placeholder-text">No standard configuration found for this time bracket. Please connect with our Admissions Director for a custom scheduling model.</div>`;
             }
             
             container.innerHTML = content;
