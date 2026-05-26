@@ -765,6 +765,55 @@
         height: 4px;
         background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
     }
+        /* Decorative Integrated Title Styling */
+    .integrated-title {
+        font-family: var(--font-editorial);
+        font-size: 24px;
+        color: var(--text-primary);
+        margin: 0 0 20px 0;
+        padding: 12px 16px;
+        background: linear-gradient(90deg, var(--mint-nav-light) 0%, transparent 100%);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Decorative Card Framework */
+    .decorated-card {
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Dual-Gradient Top Accent Line */
+    .decorated-card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
+    }
+
+    /* Vertical Inner Accent Line */
+    .card-accent-line {
+        position: absolute;
+        top: 4px; left: 0; bottom: 0;
+        width: 4px;
+        background-color: rgba(114, 208, 155, 0.3);
+    }
+
+    /* Absolute Background Watermark Graphics */
+    .card-watermark {
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+        font-size: 75px;
+        opacity: 0.04;
+        pointer-events: none;
+        user-select: none;
+        line-height: 1;
+        font-family: var(--font-editorial);
+    }
     </style>
 </head>
 <body>
@@ -799,61 +848,73 @@
     </section>
 
     <section class="about-lead-card decorated-card">
+        <div class="card-accent-line"></div>
         <h2 style="font-family: var(--font-editorial); font-size: 28px; color: var(--text-primary); margin: 0 0 8px 0;">Unity Mandarin Enrichment Center</h2>
         <h3>Built by Families, Rooted in Community</h3>
-        <p style="margin-bottom: 0;">
+        <p style="margin-bottom: 0; position: relative; z-index: 2;">
             Unity Mandarin Enrichment Center (同心中文) is a community-based nonprofit organization founded by experienced Mandarin educators, youth program leaders, and SFUSD parent volunteers. We are dedicated to partnering with local elementary schools to support students’ learning, well-being, and meaningful engagement beyond the school day.
         </p>
+        <div class="card-watermark">同心</div>
     </section>
 
     <section class="about-lead-card decorated-card" style="margin-bottom: 55px;">
+        <div class="card-accent-line"></div>
         <div class="integrated-title">🌱 Our Mission</div>
-        <p>
+        <p style="position: relative; z-index: 2;">
             We aim to provide a warm, inclusive, and student-centered after-school environment where children can develop Mandarin language skills while building confidence, curiosity, and positive peer relationships.
         </p>
-        <p style="margin-bottom: 0;">
+        <p style="margin-bottom: 0; position: relative; z-index: 2;">
             Our programs are designed to complement the school day by offering structured, engaging, and developmentally appropriate learning experiences for K–5 students.
         </p>
+        <div class="card-watermark">🌱</div>
     </section>
 
     <section class="about-lead-card decorated-card" style="margin-bottom: 55px; padding-bottom: 30px;">
+        <div class="card-accent-line"></div>
         <div class="integrated-title">📚 Program Focus</div>
-        <p style="margin-bottom: 30px;">Our Mandarin enrichment program supports students through:</p>
-        <ul class="feature-list-grid" style="margin-bottom: 10px;">
+        <p style="margin-bottom: 30px; position: relative; z-index: 2;">Our Mandarin enrichment program supports students through:</p>
+        <ul class="feature-list-grid" style="margin-bottom: 10px; position: relative; z-index: 2;">
             <li>Age-appropriate Mandarin language development with a focus on clear and natural pronunciation.</li>
             <li>Interactive learning experiences that encourage participation, communication, and engagement.</li>
             <li>Consistent routines that help students feel safe, comfortable, and supported.</li>
             <li>Opportunities for collaborative learning and positive peer interaction.</li>
             <li>Activities that connect language learning with culture, creativity, and real-life contexts.</li>
         </ul>
+        <div class="card-watermark">📚</div>
     </section>
 
     <section class="about-lead-card decorated-card" style="margin-bottom: 55px; padding-bottom: 30px;">
+        <div class="card-accent-line"></div>
         <div class="integrated-title">🤝 School & Family Partnership</div>
-        <p style="margin-bottom: 30px;">We value strong and ongoing collaboration with school staff and families. Our team prioritizes:</p>
-        <ul class="feature-list-grid" style="margin-bottom: 10px;">
+        <p style="margin-bottom: 30px; position: relative; z-index: 2;">We value strong and ongoing collaboration with school staff and families. Our team prioritizes:</p>
+        <ul class="feature-list-grid" style="margin-bottom: 10px; position: relative; z-index: 2;">
             <li>Clear and consistent communication with school leadership and program coordinators.</li>
             <li>Responsive partnership with families and caregivers.</li>
             <li>Alignment with school expectations, schedules, and campus culture.</li>
             <li>A supportive and respectful approach to student needs and school community values.</li>
         </ul>
+        <div class="card-watermark">🤝</div>
     </section>
 
     <section class="about-lead-card decorated-card" style="margin-bottom: 55px;">
+        <div class="card-accent-line"></div>
         <div class="integrated-title">🧡 Our Commitment to Students</div>
-        <p style="margin-bottom: 0;">
+        <p style="margin-bottom: 0; position: relative; z-index: 2;">
             We believe children learn best when they feel safe, supported, and encouraged. Our instructors are committed to creating a positive classroom environment where students feel comfortable participating, expressing themselves, and developing confidence in Mandarin.
         </p>
+        <div class="card-watermark">🧡</div>
     </section>
 
     <section class="about-lead-card decorated-card" style="margin-bottom: 55px;">
+        <div class="card-accent-line"></div>
         <div class="integrated-title">🌍 Community-Based Approach</div>
-        <p>
+        <p style="position: relative; z-index: 2;">
             As a nonprofit rooted in San Francisco’s westside school communities, we are committed to being a reliable and collaborative partner that supports both students and the broader school community.
         </p>
-        <p style="margin-bottom: 0;">
+        <p style="margin-bottom: 0; position: relative; z-index: 2;">
             We strive to contribute positively to the schools we serve through consistency, care, and long-term partnership.
         </p>
+        <div class="card-watermark">🌍</div>
     </section>
 
     <h3 class="section-title">Meet Our Team</h3>
