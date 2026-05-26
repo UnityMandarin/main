@@ -44,7 +44,7 @@
         --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-  /* ==========================================================================
+    /* ==========================================================================
        BASE CORE BODY RESET & CANVAS GROUNDING
        ========================================================================== */
     body {
@@ -80,7 +80,8 @@
             background-attachment: scroll !important;
         }
     }
-        =============================================
+
+    /* ==========================================================================
        ADVANCED NAVIGATION HEADER FRAMEWORK
        ========================================================================== */
     header {
@@ -229,9 +230,9 @@
         transition: var(--transition-smooth);
     }
 
-    /* ==========================================
+    /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
-       ========================================== */
+       ========================================================================== */
     .about-container {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -246,7 +247,7 @@
 
     .about-header-container {
         width: 100%;
-        max-width: 600px; /* Reduced for better proportion */
+        max-width: 600px;
         margin: 0 auto;
         padding: 20px;
         box-sizing: border-box;
@@ -300,7 +301,6 @@
         margin: 0 0 24px 0;
     }
 
-    /* Elegant Slogan Banner Configuration */
     .slogan-badge {
         display: inline-block;
         background-color: #FFFFFF;
@@ -314,10 +314,9 @@
         box-shadow: 0 4px 15px rgba(255, 87, 34, 0.08);
     }
 
-    /* Vision & Mission Cards Split Layout */
     .vision-mission-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted for better mobile/tablet scaling */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
         margin-bottom: 55px;
     }
@@ -344,7 +343,6 @@
         margin: 0;
     }
 
-    /* Section Global Headers */
     .section-title {
         font-family: var(--font-editorial);
         font-size: 32px;
@@ -354,7 +352,6 @@
         position: relative;
     }
 
-    /* Structural Pillars Section Styles */
     .pillars-list {
         display: flex;
         flex-direction: column;
@@ -420,10 +417,9 @@
         margin: 0 0 16px 0;
     }
 
-    /* Custom Compliances List Items Grid Layout */
     .feature-list-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted for mobile */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 14px;
         padding: 0;
         margin: 0 0 24px 0;
@@ -449,7 +445,6 @@
         font-size: 16px;
     }
 
-    /* Expandable Content Interactive Button System */
     .expand-btn {
         background-color: transparent;
         border: 1.5px solid var(--brand-orange);
@@ -481,7 +476,6 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Decorative Chinese Knot Hanger Elements */
     .knot-hanger-wrapper {
         display: flex;
         flex-direction: column;
@@ -493,7 +487,7 @@
 
     .knot-line {
         width: 2px;
-        background-color: #BFA36A; /* Subtle Jade/Gold metallic accent tone */
+        background-color: #BFA36A;
     }
     .knot-line.top-line { height: 15px; }
     .knot-line.bottom-line { height: 25px; }
@@ -526,7 +520,6 @@
         font-size: 16px;
     }
 
-    /* Bottom Epilogue Callout Section */
     .conclusion-ribbon {
         background: linear-gradient(135deg, #1C3325 0%, #0E1B13 100%);
         border-left: 5px solid var(--brand-orange);
@@ -555,9 +548,6 @@
         margin: 0 auto;
     }
 
-    /* =========================================
-       EXPANDED FOOTER COMPONENT METERING
-       ========================================= */
     footer {
         background-color: #142219;
         color: #CFEAD6;
@@ -645,109 +635,9 @@
         opacity: 0.5;
     }
 
-    /* =========================================
-       RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
-       ========================================= */
-    @media (max-width: 900px) {
-        .header-container {
-            padding: 10px 20px;
-        }
-
-        .mobile-menu-btn {
-            display: flex;
-        }
-
-        nav {
-            display: none;
-            width: 100%;
-            flex-direction: column;
-            gap: 10px;
-            padding: 20px 0;
-            border-top: 1px solid rgba(88, 185, 131, 0.2);
-            margin-top: 10px;
-        }
-
-        nav.is-open {
-            display: flex;
-            width: 100%;
-            animation: slideDown 0.3s ease forwards;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        nav a {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-        }
-
-        nav a::after {
-            display: none;
-        }
-
-        nav a[href*="contact"],
-        nav a:last-of-type {
-            margin-left: 0;
-            margin-top: 10px;
-        }
-
-        .about-container {
-            padding: 40px 20px 60px 20px;
-        }
-
-        .about-header-container {
-            padding: 10px; 
-            max-width: 100%; /* Ensures it fits nicely on phones */
-        }
-
-        .about-lead-card {
-            padding: 30px 20px;
-        }
-
-        .about-lead-card h2 {
-            font-size: 24px;
-        }
-
-        .vision-mission-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .pillar-card {
-            padding: 30px 20px;
-        }
-
-        .pillar-header h2 {
-            font-size: 20px;
-        }
-
-        .feature-list-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .conclusion-ribbon {
-            padding: 30px 20px;
-        }
-
-        .conclusion-ribbon h3 {
-            font-size: 22px;
-        }
-    }
-        /* Integrated Title Box Layout */
-    .integrated-title {
-        font-family: var(--font-editorial);
-        font-size: 24px;
-        color: var(--text-primary);
-        margin: 0 0 20px 0;
-        padding-bottom: 15px;
-        border-bottom: 1px solid rgba(114, 208, 155, 0.3);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-        /* Decorative Integrated Title Styling */
+    /* ==========================================================================
+       CARDS INTEGRATED HEADERS VIEWPORT 
+       ========================================================================== */
     .integrated-title {
         font-family: var(--font-editorial);
         font-size: 24px;
@@ -761,42 +651,11 @@
         gap: 10px;
     }
 
-    /* Decorative Top Border Accent Line for Cards */
     .decorated-card {
         position: relative;
         overflow: hidden;
     }
 
-    .decorated-card::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
-    }
-        /* Decorative Integrated Title Styling */
-    .integrated-title {
-        font-family: var(--font-editorial);
-        font-size: 24px;
-        color: var(--text-primary);
-        margin: 0 0 20px 0;
-        padding: 12px 16px;
-        background: linear-gradient(90deg, var(--mint-nav-light) 0%, transparent 100%);
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    /* Decorative Card Framework */
-    .decorated-card {
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* Dual-Gradient Top Accent Line */
     .decorated-card::after {
         content: '';
         position: absolute;
@@ -805,7 +664,6 @@
         background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
     }
 
-    /* Vertical Inner Accent Line */
     .card-accent-line {
         position: absolute;
         top: 4px; left: 0; bottom: 0;
@@ -813,11 +671,9 @@
         background-color: rgba(114, 208, 155, 0.3);
     }
 
-    /* Absolute Background Watermark Graphics */
     .card-watermark {
         position: absolute;
-        bottom: 10px;
-        right: 15px;
+        bottom: 10px; right: 15px;
         font-size: 75px;
         opacity: 0.04;
         pointer-events: none;
@@ -825,7 +681,28 @@
         line-height: 1;
         font-family: var(--font-editorial);
     }
-    </style>
+
+    @media (max-width: 900px) {
+        .header-container { padding: 10px 20px; }
+        .mobile-menu-btn { display: flex; }
+        nav { display: none; width: 100%; flex-direction: column; gap: 10px; padding: 20px 0; border-top: 1px solid rgba(88, 185, 131, 0.2); margin-top: 10px; }
+        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        nav a { width: 100%; padding: 12px; font-size: 16px; }
+        nav a::after { display: none; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+        .about-container { padding: 40px 20px 60px 20px; }
+        .about-header-container { padding: 10px; max-width: 100%; }
+        .about-lead-card { padding: 30px 20px; }
+        .about-lead-card h2 { font-size: 24px; }
+        .vision-mission-grid { grid-template-columns: 1fr; }
+        .pillar-card { padding: 30px 20px; }
+        .pillar-header h2 { font-size: 20px; }
+        .feature-list-grid { grid-template-columns: 1fr; }
+        .conclusion-ribbon { padding: 30px 20px; }
+        .conclusion-ribbon h3 { font-size: 22px; }
+    }
+</style>
 </head>
 <body>
 
