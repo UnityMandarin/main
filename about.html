@@ -44,7 +44,7 @@
         --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    /* ==========================================================================
+   /* ==========================================================================
        BASE CORE BODY RESET & CANVAS GROUNDING
        ========================================================================== */
     body {
@@ -59,7 +59,7 @@
         -moz-osx-font-smoothing: grayscale;
         background-color: #f3efe3;
         
-        /* FIXED BACKGROUND SETTINGS */
+        /* DESKTOP BACKGROUND SETTINGS */
         background-image: url('aboutbg.png'); 
         background-repeat: no-repeat; 
         background-position: center center;
@@ -69,7 +69,20 @@
         overflow-x: hidden;
     }
 
-    /* ==========================================================================
+    /* PERFECT MOBILE BACKGROUND FIX */
+    @media (max-width: 900px) {
+        body {
+            /* Aligns the image to the left edge, keeps it at the top */
+            background-position: left top;
+            /* Prevents the image from repeating infinitely down the page */
+            background-repeat: no-repeat;
+            /* Tells the background to scale exactly to the phone's height so the landscape stays visible */
+            background-size: auto 100%;
+            /* Fixes mobile scrolling distortion by unlocking the attachment */
+            background-attachment: scroll;
+        }
+    }
+    =============================================
        ADVANCED NAVIGATION HEADER FRAMEWORK
        ========================================================================== */
     header {
