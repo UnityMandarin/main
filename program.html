@@ -1,266 +1,642 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UMC After-School Program | Unity Mandarin</title>
+    <title>SFUSD On-Site After-School Program | Unity Mandarin Center</title>
     <style>
-        /* --- Core Base Styles --- */
-        :root {
-            --primary-color: #2E5C43; /* Reinstated elegant mint/forest green */
-            --bg-cream: #F9F6F0;      /* Textured rice-paper style light background */
-            --text-dark: #2C3026;
-            --accent-orange: #D98855; /* Traditional accent orange */
-            --shadow: 0 4px 15px rgba(46, 92, 67, 0.08);
-        }
+    /* ==========================================================================
+       GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
+       ========================================================================== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
+    :root {
+        /* Color Palette: Brand Accents & Identity */
+        --brand-orange: #FF5722;
+        --brand-orange-hover: #E64A19;
+        --brand-orange-glow: rgba(255, 87, 34, 0.15);
+        --brand-orange-subtle: rgba(255, 87, 34, 0.04);
+        
+        /* Color Palette: Contextual Mint Tones */
+        --mint-nav-core: #D1F7DB;
+        --mint-nav-light: #EBFDF2;
+        --mint-nav-border: rgba(88, 185, 131, 0.35);
+        --mint-shadow-tint: rgba(88, 185, 131, 0.12);
+        --mint-light: #E8FBF0;
+        --scroll-jade: #72D09B;
+        
+        /* Typography & Font Tokens */
+        --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
+        --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
+        
+        /* Structural Contrast Text Colors */
+        --text-primary: #1C3325;
+        --text-secondary: #3A5243;
+        --text-navbar-link: #243E2E;
+        --text-main: #2C3E50;
+        --text-muted: #5A6B7C;
+        
+        /* Layout Sizing Defaults */
+        --header-height: 72px;
+        --max-content-width: 1440px;
+        --max-width: 1100px;
+        --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* ==========================================================================
+       BASE CORE BODY RESET & CANVAS GROUNDING
+       ========================================================================== */
+    body {
+        font-family: var(--font-interface);
+        color: var(--text-primary);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f3efe3;
+        
+        /* DESKTOP BACKGROUND SETTINGS */
+        background-image: url('aboutbg.png');
+        background-repeat: repeat;
+        background-position: center top;
+        background-attachment: fixed;
+        background-size: cover;
+        
+        overflow-x: hidden;
+    }
+
+    /* PERFECT MOBILE FIXED BACKGROUND LAYER */
+    @media (max-width: 900px) {
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, Georgia, serif;
-            background-color: var(--bg-cream);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
+            background-image: none !important;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* --- Hero Banner Design (Mint Green Accented) --- */
-        .hero-banner {
-            background-color: #EBF2EE; /* Mint-tinted light background */
-            position: relative;
-            padding: 60px 0 40px 0;
-            text-align: center;
-            border-bottom: 3px double var(--primary-color);
-            overflow: hidden;
-        }
-
-        /* Symmetrical Dunhuang-inspired auspicious cloud pattern matching the mint theme */
-        .hero-banner::before {
+        body::before {
             content: "";
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 280px;
-            height: 50px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath d='M10 20 C 15 12, 25 12, 30 18 C 35 12, 45 12, 50 20 C 55 12, 65 12, 70 18 C 75 12, 85 12, 90 20' fill='none' stroke='%232E5C43' stroke-width='1.5'/%3E%3Cpath d='M35 15 C 40 8, 45 8, 50 15 C 55 8, 60 8, 65 15' fill='none' stroke='%23D98855' stroke-width='1'/%3E%3C/svg%3E") no-repeat center;
-            opacity: 0.8;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10;
+            
+            background-image: url('aboutbg.png') !important;
+            background-position: left top !important;
+            background-repeat: no-repeat !important;
+            background-size: auto 100vh !important;
+            background-attachment: scroll !important;
         }
 
-        .hero-banner h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin: 15px 0 10px 0;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+        /* Mobile specific layouts override */
+        .header-container { padding: 10px 20px; }
+        .mobile-menu-btn { display: flex; }
+        nav { display: none; width: 100%; flex-direction: column; gap: 10px; padding: 20px 0; border-top: 1px solid rgba(88, 185, 131, 0.2); margin-top: 10px; }
+        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        nav a { width: 100%; padding: 12px; font-size: 16px; }
+        nav a::after { display: none; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+        
+        .main-container { padding: 40px 20px 60px 20px; }
+        .matcher-section { padding: 25px 20px; margin-top: -15px; }
+        .pricing-grid { flex-direction: column; }
+        .price-card { min-width: 100%; }
+        .notice-board { padding: 25px 20px; }
+    }
 
-        .subtitle {
-            font-size: 1.15rem;
-            color: #3B5446;
-            margin-bottom: 25px;
-        }
+    /* ==========================================================================
+       ADVANCED NAVIGATION HEADER FRAMEWORK
+       ========================================================================== */
+    header {
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+        min-height: var(--header-height);
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--mint-nav-border);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
+                    0 2px 10px var(--mint-shadow-tint);
+        will-change: transform;
+        transition: var(--transition-smooth);
+    }
 
-        .assessment-badge {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #FFF;
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(46, 92, 67, 0.2);
-            animation: pulse 2s infinite;
-        }
+    .header-container {
+        width: 100%;
+        max-width: var(--max-content-width);
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+    }
 
-        /* --- Smart Interactive Tool Section --- */
-        .matcher-section {
-            background: #FFF;
-            padding: 35px;
-            border-radius: 12px;
-            margin-top: -20px;
-            position: relative;
-            z-index: 10;
-            box-shadow: var(--shadow);
-            border-top: 4px solid var(--primary-color);
-        }
+    .logo-group {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        height: var(--header-height);
+        outline: none;
+        transition: var(--transition-smooth);
+    }
 
-        .matcher-section h2 {
-            color: var(--primary-color);
-            margin-top: 0;
-        }
+    .logo-group:hover {
+        transform: translateY(-1px);
+    }
 
-        label {
-            display: block;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
+    .logo-group img {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+    }
 
-        select {
-            width: 100%;
-            padding: 14px;
-            font-size: 1rem;
-            border: 2px solid #CBD5E1;
-            border-radius: 8px;
-            background-color: #FCFAf7;
-            color: var(--text-dark);
-            outline: none;
-            transition: all 0.3s;
-        }
+    /* ==========================================================================
+       INLINE NAVIGATION SYSTEM
+       ========================================================================== */
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 4px; 
+        height: 100%;
+    }
 
-        select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(46, 92, 67, 0.15);
-        }
+    nav a {
+        font-family: var(--font-interface);
+        text-decoration: none;
+        color: var(--text-navbar-link);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+        box-sizing: border-box;
+    }
 
-        .hint {
-            font-size: 0.9rem;
-            color: #64748B;
-            margin-top: 10px;
-        }
+    nav a:hover {
+        color: var(--brand-orange);
+        background-color: var(--brand-orange-subtle);
+    }
 
-        /* --- Dynamic Tuition Display Board --- */
-        .pricing-grid {
-            margin: 40px 0;
-        }
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 18px;
+        right: 18px;
+        height: 2px;
+        background-color: var(--brand-orange);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: var(--transition-smooth);
+    }
 
-        .placeholder-text {
-            text-align: center;
-            padding: 40px;
-            background: rgba(255,255,255,0.6);
-            border: 2px dashed #CBD5E1;
-            border-radius: 12px;
-            color: #64748B;
-            font-style: italic;
-        }
+    nav a:hover::after {
+        transform: scaleX(1);
+    }
 
-        .result-card {
-            background: linear-gradient(135deg, #FFF 0%, #FCFAf7 100%);
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            border-left: 6px solid var(--accent-orange);
-            animation: fadeIn 0.5s ease-out;
-        }
+    nav a.active-page {
+        color: #FFFFFF;
+        background-color: var(--brand-orange);
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    }
 
-        .result-card h3 {
-            margin-top: 0;
-            color: var(--primary-color);
-            font-size: 1.4rem;
-            border-bottom: 1px dashed #CBD5E1;
-            padding-bottom: 10px;
-        }
+    nav a.active-page::after {
+        display: none; 
+    }
 
-        .price-tag {
-            font-size: 2.2rem;
-            color: var(--accent-orange);
-            font-weight: bold;
-            margin: 15px 0;
-        }
+    nav a[href*="contact"],
+    nav a:last-of-type {
+        background-color: transparent;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        margin-left: 8px;
+        padding: 8px 20px;
+    }
 
-        .price-tag span {
-            font-size: 1rem;
-            color: #64748B;
-            font-weight: normal;
-        }
+    nav a[href*="contact"]:hover,
+    nav a:last-of-type:hover {
+        background-color: var(--brand-orange);
+        color: #FFFFFF;
+        box-shadow: 0 4px 14px var(--brand-orange-glow);
+        transform: translateY(-1px);
+    }
 
-        /* --- Notice Board Styles --- */
-        .notice-board {
-            background: #FFF;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            margin: 40px 0;
-        }
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 1001;
+    }
 
-        .notice-board h3 {
-            color: #C3533A;
-            margin-top: 0;
-            border-bottom: 2px solid #F2EFE9;
-            padding-bottom: 10px;
-        }
+    .mobile-menu-btn span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: var(--transition-smooth);
+    }
 
-        .notice-item {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #F2EFE9;
-        }
+    /* ==========================================================================
+       CONTENT CONTAINER ARCHITECTURE
+       ========================================================================== */
+    .main-container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 60px 40px 100px 40px;
+        box-sizing: border-box;
+        width: 100%;
+    }
 
-        .notice-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
+    .page-hero {
+        text-align: center;
+        margin-bottom: 50px;
+    }
 
-        .notice-item strong {
-            color: var(--primary-color);
-            font-size: 1.05rem;
-            display: block;
-            margin-bottom: 8px;
-        }
+    .page-hero h1 {
+        font-family: var(--font-editorial);
+        font-size: 38px;
+        color: var(--text-primary);
+        margin: 0 0 12px 0;
+    }
 
-        .highlight-item {
-            background-color: #FFF9F3;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent-orange);
-        }
+    .page-hero .subtitle {
+        font-size: 16px;
+        color: var(--text-secondary);
+        max-width: 750px;
+        margin: 0 auto 24px auto;
+        line-height: 1.6;
+    }
 
-        /* --- Site Footer Styles --- */
-        .site-footer {
-            background-color: var(--primary-color);
-            color: #EDECE8;
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
-            font-size: 0.95rem;
-        }
+    .assessment-badge {
+        display: inline-block;
+        background-color: #FFFFFF;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        padding: 10px 24px;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 30px;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.08);
+    }
 
-        .site-footer strong {
-            color: #FFF;
-            font-size: 1.1rem;
-        }
+    /* ==========================================================================
+       INTERACTIVE MATCHER SYSTEM STYLE 
+       ========================================================================== */
+    .matcher-section {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
+        margin-bottom: 45px;
+        position: relative;
+    }
 
-        /* --- Animations --- */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
+    .matcher-section::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; bottom: 0;
+        width: 6px;
+        background: linear-gradient(to bottom, var(--scroll-jade), var(--brand-orange));
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .matcher-section h2 {
+        font-family: var(--font-editorial);
+        font-size: 26px;
+        color: var(--text-primary);
+        margin: 0 0 15px 0;
+    }
 
-        /* --- Mobile Responsive Grid Adaptations --- */
-        @media (max-width: 768px) {
-            .hero-banner h1 { font-size: 1.8rem; }
-            .matcher-section, .notice-board { padding: 20px; }
-        }
+    label {
+        display: block;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+    }
+
+    select {
+        width: 100%;
+        padding: 14px;
+        font-size: 15px;
+        border: 2px solid #E2E8F0;
+        border-radius: 8px;
+        outline: none;
+        background-color: #FFF;
+        cursor: pointer;
+        color: var(--text-primary);
+        font-family: var(--font-interface);
+        transition: var(--transition-smooth);
+    }
+
+    select:focus {
+        border-color: var(--scroll-jade);
+        box-shadow: 0 0 0 3px rgba(114, 208, 155, 0.15);
+    }
+
+    .hint {
+        font-size: 13.5px;
+        color: var(--text-muted);
+        margin-top: 12px;
+        line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       DYNAMIC PRICING RENDERING MATRIX PANELS
+       ========================================================================== */
+    .pricing-grid {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 55px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .placeholder-text {
+        width: 100%;
+        text-align: center;
+        padding: 50px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 2px dashed rgba(114, 208, 155, 0.3);
+        border-radius: 12px;
+        color: var(--text-muted);
+        font-style: italic;
+        font-size: 16px;
+    }
+
+    .price-card {
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        padding: 35px;
+        border: 1px solid rgba(114, 208, 155, 0.2);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.02);
+        flex: 1;
+        min-width: 340px;
+        max-width: 520px;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition-smooth);
+    }
+
+    .price-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(255, 87, 34, 0.06);
+    }
+
+    .price-card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 5px;
+        background: #CBD5E1;
+    }
+
+    .price-card.option-one::after { background: var(--scroll-jade); }
+    .price-card.option-two::after { background: #2E5C43; }
+    .price-card.option-elite::after { background: var(--brand-orange); }
+
+    .price-card h3 {
+        font-family: var(--font-editorial);
+        font-size: 20px;
+        color: var(--text-primary);
+        margin: 5px 0 15px 0;
+    }
+
+    .price-card .price {
+        font-size: 38px;
+        font-weight: 700;
+        color: var(--brand-orange);
+        margin: 15px 0;
+    }
+
+    .price-card .price span {
+        font-size: 15px;
+        font-weight: normal;
+        color: var(--text-muted);
+    }
+
+    .price-card p {
+        font-size: 14.5px;
+        margin: 8px 0;
+        color: var(--text-main);
+    }
+
+    .price-card ul {
+        padding-left: 20px;
+        margin-top: 20px;
+        color: var(--text-main);
+    }
+
+    .price-card ul li {
+        margin-bottom: 12px;
+        font-size: 14.5px;
+        line-height: 1.6;
+    }
+
+    .value-badge {
+        display: inline-block;
+        background-color: #FFFCEB;
+        border: 1px solid #F3E3A4;
+        color: #8A6517;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: bold;
+        margin: 12px 0;
+    }
+
+    /* ==========================================================================
+       NOTICE COMPLIANCE BOARD FRAMEWORK
+       ========================================================================== */
+    .notice-board {
+        background: linear-gradient(135deg, #1C3325 0%, #0E1B13 100%);
+        border-left: 5px solid var(--brand-orange);
+        border-right: 5px solid var(--brand-orange);
+        border-radius: 8px;
+        color: #FFFFFF;
+        padding: 45px;
+        box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        margin-top: 60px;
+    }
+
+    .notice-board h3 {
+        font-family: var(--font-editorial);
+        color: var(--scroll-jade);
+        font-size: 26px;
+        margin: 0 0 25px 0;
+        letter-spacing: 0.5px;
+        text-align: center;
+    }
+
+    .notice-item {
+        margin-bottom: 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 20px;
+    }
+
+    .notice-item:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .notice-item strong {
+        color: var(--mint-nav-core);
+        display: block;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .notice-item p {
+        font-size: 14.5px;
+        line-height: 1.7;
+        color: #CFEAD6;
+        margin: 0;
+    }
+
+    .notice-item.highlight-item {
+        background-color: rgba(255, 255, 255, 0.04);
+        padding: 25px;
+        border-radius: 8px;
+        border: 1px dashed var(--brand-orange);
+    }
+
+    /* ==========================================================================
+       SITE FOOTER CANVAS
+       ========================================================================== */
+    footer {
+        background-color: #142219;
+        color: #CFEAD6;
+        padding: 50px 40px 30px 40px;
+        border-top: 4px solid var(--scroll-jade);
+        margin-top: auto;
+    }
+
+    .footer-grid {
+        max-width: var(--max-width);
+        margin: 0 auto 40px auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 40px;
+    }
+
+    .footer-col h4 {
+        color: #FFFFFF;
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .footer-col h4::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--brand-orange);
+    }
+
+    .footer-col p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        opacity: 0.85;
+    }
+
+    .links-listing {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .links-listing li {
+        margin-bottom: 10px;
+    }
+
+    .links-listing a {
+        color: #CFEAD6;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s ease, padding-left 0.2s ease;
+        display: inline-block;
+    }
+
+    .links-listing a:hover {
+        color: var(--brand-orange);
+        padding-left: 4px;
+    }
+
+    .copyright-bar {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        text-align: center;
+        font-size: 13px;
+        opacity: 0.5;
+    }
     </style>
 </head>
 <body>
 
-    <header class="hero-banner">
-        <div class="container">
-            <h1>SFUSD On-Site After-School Program</h1>
-            <p class="subtitle">Perfect Alignment with SFUSD Public School Schedules | K-5 Immersive Mandarin & All-Inclusive Childcare (Fall 2026)</p>
-            <div class="assessment-badge">📢 First Day of School: Free Professional Mandarin Placement Assessment</div>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo-group">
+                <img src="logo.png" alt="Unity Mandarin Center Logo">
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="navbar">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="programs.html" class="active-page">Programs</a>
+                <a href="contact.html">Contact Us</a>
+            </nav>
         </div>
     </header>
 
-    <main class="container">
+    <main class="main-container">
         
+        <section class="page-hero">
+            <h1>SFUSD On-Site After-School Program</h1>
+            <p class="subtitle">Perfect alignment with San Francisco Unified School District schedules. Immersive, high-retention track paths designed for grades K-5.</p>
+            <div class="assessment-badge">📢 Milestone Day 1: Complimentary Professional Placement Assessment</div>
+        </section>
+
         <section class="matcher-section">
-            <h2>🔍 Find Your School's Dedicated Plan</h2>
-            <label for="dismissal-time">Select your child's public school dismissal time:</label>
+            <h2>🔍 Locate Your Dedicated Schedule</h2>
+            <label for="dismissal-time">Select your school's exact dismissal matrix structure:</label>
             <select id="dismissal-time" onchange="updateProgramView()">
                 <option value="" disabled selected>-- Select Dismissal Time --</option>
                 <option value="tier1">2:05 PM (Wednesday Early Dismissal at 12:50 PM)</option>
@@ -270,103 +646,188 @@
                 <option value="tier5">3:30 PM (Wednesday Early Dismissal at 2:15 PM)</option>
                 <option value="tier6">3:45 PM / 4:00 PM (Wednesday Early Dismissal at 2:30/2:45 PM)</option>
             </select>
-            <p class="hint">* Note: If you are unsure of your school's dismissal schedule, please check the Welcome Letter sent by the school district or contact us directly.</p>
+            <p class="hint">* Verify metrics against official district allocation packages or contact our schedule operations directly if unsure.</p>
         </section>
 
         <section id="pricing-container" class="pricing-grid">
-            <div class="placeholder-text">Please select a dismissal time above. The system will automatically retrieve your dedicated schedule and tuition options.</div>
+            <div class="placeholder-text">Please choose a dismissal configuration matrix option from the menu selector above to access your dedicated schedule and tuition tiers automatically.</div>
         </section>
 
         <section class="notice-board">
-            <h3>⚠️ Important Guidelines for UMC After-School Parents</h3>
+            <h3>⚠️ Key Logistical Guidelines & Program Parameters</h3>
+            
             <div class="notice-item highlight-item">
-                <strong>🎯 Day 1 Milestone: Free Mandarin Assessment & Track Assignment</strong>
-                <p>To ensure differentiated instructions, our teaching faculty hosts diagnostic Chinese literacy and conversational assessments for every newly enrolled child on the first day of the academic fall semester. This assessment maps out current proficiency metrics to balance class structures, guaranteeing that your child moves into a precisely calibrated learning environment from Day 2 onwards.</p>
+                <strong>🎯 Day 1 Benchmark: Complimentary Placement Diagnostic</strong>
+                <p>To uphold academic precision, every incoming student undergoes comprehensive language mapping assessments on the first operational day. Standard adjusted leveled classroom trajectories deploy actively starting from Day 2 based on finalized metric outputs.</p>
             </div>
+
             <div class="notice-item">
-                <strong>1. Eligible Grade Groups & Restrictions</strong>
-                <p>This campus-integrated program provides specialized services for children from Kindergarten through 5th Grade. Due to facilities parameters and licensing supervisor-to-student ratios, we are currently unable to accept TK (Transitional Kindergarten) students.</p>
+                <strong>1. Restricted Grades & Compliance Ratios</strong>
+                <p>Instruction configurations focus explicitly on grades K-5. Due to institutional facility limits and strict regulatory supervisory ratios, applications for TK (Transitional Kindergarten) cannot be accommodated under current standard licensing parameters.</p>
             </div>
+
             <div class="notice-item">
                 <strong>2. Core Linguistic Continuity Requirement</strong>
-                <p>To secure a complete immersive ecosystem and prevent pacing disruptions, the UMC program does not offer fragmented 2-day or 3-day enrollment fractions. Consistent 5-day high-frequency immersion is critical for long-term native processing fluency.</p>
+                <p>To ensure deep processing continuity, part-time fractions (such as 2-day or 3-day variations) are omitted. Consistent 5-day interaction is mandatory to secure the proper daily immersion density required for programmatic fluency milestones.</p>
             </div>
+
             <div class="notice-item">
-                <strong>3. Tuition Schedule Finalization Policy</strong>
-                <p>Rates dynamic-mapped below outline standard recurring tuition profiles. Emergency drop-in provisions ($25/hour) are available for urgent scenarios. Binding structural financial details and multi-tier enrollment promotions are anchored to the final admissions packages distributed prior to active semester openings.</p>
+                <strong>3. Rate Structuring and Financial Finality</strong>
+                <p>Calculations displayed dynamically describe baseline core recurring parameters. Crisis drop-in buffers are set to $25/hour. Formal, binding contracts and promotional terms are established exclusively through individual operational admissions files provided before seasonal launches.</p>
             </div>
         </section>
+
     </main>
 
-    <footer class="site-footer">
-        <p>Ready to secure one of our limited after-school spots matching your child's school schedule?</p>
-        <p><strong>Founder & Program Director</strong></p>
-        <p>🌐 www.unitymandarin.com | Unity Mandarin Enrichment Center © 2026-2027</p>
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Unity Mandarin Center</h4>
+                <p>Forging high-retention linguistic ecosystems through structural immersion, curated cultural arts, and meticulous academic support systems.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="links-listing">
+                    <li><a href="about.html">Our Identity Matrix</a></li>
+                    <li><a href="programs.html">Enrollment Protocols</a></li>
+                    <li><a href="contact.html">Admissions Operations</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Operations Control</h4>
+                <p><strong>Program Director & Board Core</strong></p>
+                <p>Email: admissions@unitymandarin.com</p>
+                <p>Web: www.unitymandarin.com</p>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            Unity Mandarin Enrichment Center Matrix © 2026-2027. All Rights Reserved.
+        </div>
     </footer>
 
     <script>
-        function updateProgramView() {
-            const selectElement = document.getElementById('dismissal-time');
-            const selectedValue = selectElement.value;
-            const container = document.getElementById('pricing-container');
-            
-            let content = '';
-            
-            const database = {
-                tier1: {
-                    title: "Plan A: Designed for 2:05 PM Dismissals",
-                    hours: "Mon, Tue, Thu, Fri: 2:05 PM - 6:00 PM | Wed: 12:50 PM - 6:00 PM",
-                    price: "$680",
-                    note: "Includes extended Wednesday childcare and our core Mandarin intensive curriculum."
-                },
-                tier2: {
-                    title: "Plan B: Designed for 2:40 PM Dismissals",
-                    hours: "Mon, Tue, Thu, Fri: 2:40 PM - 6:00 PM | Wed: 1:25 PM - 6:00 PM",
-                    price: "$630",
-                    note: "Direct coordination at the school gateway for a seamless shift into daily immersive learning blocks."
-                },
-                tier3: {
-                    title: "Plan C: Designed for 2:55 PM Dismissals",
-                    hours: "Mon, Tue, Thu, Fri: 2:55 PM - 6:00 PM | Wed: 1:40 PM - 6:00 PM",
-                    price: "$610",
-                    note: "Custom transit pathways designed to capture your child's golden afternoon language retention window."
-                },
-                tier4: {
-                    title: "Plan D: Designed for 3:15 PM Dismissals",
-                    hours: "Mon, Tue, Thu, Fri: 3:15 PM - 6:00 PM | Wed: 2:00 PM - 6:00 PM",
-                    price: "$580",
-                    note: "Optimized scheduling featuring highly focused homework supervision and cultural arts infusion."
-                },
-                tier5: {
-                    title: "Plan E: Designed for 3:30 PM Dismissals",
-                    hours: "Mon, Tue, Thu, Fri: 3:30 PM - 6:00 PM | Wed: 2:15 PM - 6:00 PM",
-                    price: "$550",
-                    note: "Exceptional comprehensive childcare value balancing spoken fluency and character writing mechanics."
-                },
-                tier6: {
-                    title: "Plan F: Designed for 3:45 PM / 4:00 PM Dismissals",
-                    hours: "Mon, Tue, Thu, Fri: School Dismissal - 6:00 PM | Wed: Early Dismissal - 6:00 PM",
-                    price: "$490",
-                    note: "Our specialized high-efficiency sprint cohort tailored specifically for later school dismissal brackets."
-                }
-            };
-
-            if (database[selectedValue]) {
-                const data = database[selectedValue];
-                content = `
-                    <div class="result-card">
-                        <h3>✨ Perfect Match: ${data.title}</h3>
-                        <p><strong>🕒 Program Hours:</strong> ${data.hours}</p>
-                        <div class="price-tag">${data.price} <span>/ Month (Standard Tuition Estimate)</span></div>
-                        <p style="color: #3B5446; margin-bottom: 0;">💡 <em>${data.note}</em></p>
-                    </div>
-                `;
-            } else {
-                content = `<div class="placeholder-text">No standard configuration found for this time bracket. Please connect with our Admissions Director for a custom scheduling model.</div>`;
-            }
-            
-            container.innerHTML = content;
+    /**
+     * Mobile Menu Controller Toggle
+     */
+    function toggleMobileMenu() {
+        const nav = document.getElementById('navbar');
+        if(nav) {
+            nav.classList.toggle('is-open');
         }
+    }
+
+    /**
+     * Actuarial Rendering System & Constants
+     */
+    const PROGRAM_CONFIG = Object.freeze({
+        DEFAULT_LEAVE_TIME_SHORT: '4:00 PM (Sharp Dismissal)',
+        DEFAULT_LEAVE_TIME_LONG: '6:00 PM (Full Extended Care)'
+    });
+
+    const DATA_MATRIX = Object.freeze({
+        tier1: {
+            type: 'dual',
+            opt1_price: '$350',
+            opt2_price: '$580',
+            opt1_text: '2:05 PM - 4:00 PM (Wednesdays: 12:50 PM - 4:00 PM)',
+            opt2_text: '2:05 PM - 6:00 PM (Wednesdays: 12:50 PM - 6:00 PM)'
+        },
+        tier2: {
+            type: 'dual',
+            opt1_price: '$335',
+            opt2_price: '$565',
+            opt1_text: '2:40 PM - 4:00 PM (Wednesdays: 1:25 PM - 4:00 PM)',
+            opt2_text: '2:40 PM - 6:00 PM (Wednesdays: 1:25 PM - 6:00 PM)'
+        },
+        tier3: {
+            type: 'dual',
+            opt1_price: '$320',
+            opt2_price: '$550',
+            opt1_text: '2:55 PM - 4:00 PM (Wednesdays: 1:40 PM - 4:00 PM)',
+            opt2_text: '2:55 PM - 6:00 PM (Wednesdays: 1:40 PM - 6:00 PM)'
+        },
+        tier4: { 
+            type: 'single', 
+            price: '$510',
+            text: '3:15 PM - 6:00 PM (Wednesdays: 2:00 PM - 6:00 PM)' 
+        },
+        tier5: { 
+            type: 'single', 
+            price: '$485',
+            text: '3:30 PM - 6:00 PM (Wednesdays: 2:15 PM - 6:00 PM)' 
+        },
+        tier6: { 
+            type: 'single', 
+            price: '$450',
+            text: '3:45/4:00 PM - 6:00 PM (Wednesdays: 2:30/2:45 PM - 6:00 PM)' 
+        }
+    });
+
+    function updateProgramView() {
+        const selectEl = document.getElementById('dismissal-time');
+        const container = document.getElementById('pricing-container');
+        
+        if (!selectEl || !container) {
+            console.warn("UMC System Error: Target DOM elements not found.");
+            return;
+        }
+
+        const selectedTier = selectEl.value;
+        if (!selectedTier) return;
+
+        const data = DATA_MATRIX[selectedTier];
+        if (!data) {
+            container.innerHTML = `<div class="placeholder-text">No matching plan found for this time slot. Please contact the Admissions Director.</div>`;
+            return;
+        }
+
+        if (data.type === 'dual') {
+            container.innerHTML = `
+                <div class="price-card option-one">
+                    <h3>🟢 Option 1: Core Mandarin Track (Mandarin Class ONLY)</h3>
+                    <div class="price">${data.opt1_price}<span> / Month</span></div>
+                    <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_SHORT}</p>
+                    <p><strong>Program Window:</strong> ${data.opt1_text}</p>
+                    <ul>
+                        <li>Dedicated escort teachers secure safe student pickup right at the public school gates (K-5 all grades).</li>
+                        <li>Mid-session energy recharge and balanced indoor/outdoor recess transitions.</li>
+                        <li><strong>📈 Core Value:</strong> Includes a 1-hour daily immersive Mandarin core class, carrying the highest academic, faculty, and R&D costs.</li>
+                        <li><strong>✨ Assessment Guarantee:</strong> Free professional Mandarin Assessment on Day 1; students are accurately placed into leveled instruction groups starting Day 2.</li>
+                    </ul>
+                </div>
+                
+                <div class="price-card option-two">
+                    <h3>🔵 Option 2: Extended Care, Homework & Arts Plan (Mandarin + Extension)</h3>
+                    <div class="price">${data.opt2_price}<span> / Month</span></div>
+                    <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_LONG}</p>
+                    <p><strong>Program Window:</strong> ${data.opt2_text}</p>
+                    <ul>
+                        <li>Includes all safe gateway pickup services and the high-value leveled Mandarin core class from Option 1.</li>
+                        <li><strong>🎨 Creative Fine Arts & Crafts:</strong> Diversified arts, crafts, origami, and cultural projects guided by specialized instructors (all-inclusive premium material fees).</li>
+                        <li><strong>📝 Multi-Grade Homework Supervision:</strong> High-standard tutoring, inspection, thorough correction, and individual Q&A for school assignments across grades K-5.</li>
+                        <li><strong>🎁 Premium Exclusive:</strong> Fully includes daily complimentary nutritious supper (Free Supper) and stress-free evening childcare supervision.</li>
+                    </ul>
+                </div>
+            `;
+        } else {
+            container.innerHTML = `
+                <div class="price-card option-elite" style="max-width: 650px; margin: 0 auto;">
+                    <h3>🟠 Late Dismissal All-Inclusive Elite Plan</h3>
+                    <div class="price">${data.price}<span> / Month</span></div>
+                    <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_LONG}</p>
+                    <p><strong>Program Window:</strong> ${data.text}</p>
+                    <div class="value-badge">💎 Premium Value Density: Core Mandarin instruction takes up 36% - 50% of the entire program window!</div>
+                    <p style="margin-top: 15px;">Due to later public school dismissal schedules, basic childcare buffer periods are naturally streamlined. This plan eliminates fluff and focuses resources squarely on high-value learning milestones and core dining needs:</p>
+                    <ul>
+                        <li>Tight, seamless safe gateway pickup at school dismissal (K-5 all grades).</li>
+                        <li><strong>📈 Core Academic Engine:</strong> Complimentary Day 1 Mandarin diagnostic assessment, followed by a daily 1-hour complete, high-investment systematic leveled immersion program.</li>
+                        <li><strong>🎨 Fine Arts & Homework Tutoring:</strong> High-efficiency grade-appropriate homework supervision, creative handicrafts, and cultural painting/paper-cutting projects.</li>
+                        <li><strong>🎁 Premium Exclusive:</strong> Fully covers a daily hot nutritious supper (Free Supper). Parents can pick up well-fed children with all public school homework completed with absolute piece of mind.</li>
+                    </ul>
+                </div>
+            `;
+        }
+    }
     </script>
 </body>
 </html>
