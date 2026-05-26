@@ -58,11 +58,14 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         background-color: #f3efe3;
+        
+        /* FIXED BACKGROUND SETTINGS */
         background-image: url('aboutbg.png'); 
-        background-repeat: repeat; 
-        background-position: center top;
+        background-repeat: no-repeat; 
+        background-position: center center;
         background-attachment: fixed;
-        background-size: 100% auto; 
+        background-size: cover; 
+        
         overflow-x: hidden;
     }
 
@@ -232,7 +235,7 @@
 
     .about-header-container {
         width: 100%;
-        max-width: 800px;
+        max-width: 600px; /* Reduced for better proportion */
         margin: 0 auto;
         padding: 20px;
         box-sizing: border-box;
@@ -303,7 +306,7 @@
     /* Vision & Mission Cards Split Layout */
     .vision-mission-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted for better mobile/tablet scaling */
         gap: 30px;
         margin-bottom: 55px;
     }
@@ -409,11 +412,12 @@
     /* Custom Compliances List Items Grid Layout */
     .feature-list-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted for mobile */
         gap: 14px;
         padding: 0;
         margin: 0 0 24px 0;
         list-style: none;
+        text-align: left;
     }
 
     .feature-list-grid li {
@@ -681,6 +685,11 @@
 
         .about-container {
             padding: 40px 20px 60px 20px;
+        }
+
+        .about-header-container {
+            padding: 10px; 
+            max-width: 100%; /* Ensures it fits nicely on phones */
         }
 
         .about-lead-card {
