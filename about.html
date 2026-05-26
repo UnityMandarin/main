@@ -736,6 +736,35 @@
         align-items: center;
         gap: 10px;
     }
+        /* Decorative Integrated Title Styling */
+    .integrated-title {
+        font-family: var(--font-editorial);
+        font-size: 24px;
+        color: var(--text-primary);
+        margin: 0 0 20px 0;
+        padding: 12px 16px;
+        background: linear-gradient(90deg, var(--mint-nav-light) 0%, transparent 100%);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Decorative Top Border Accent Line for Cards */
+    .decorated-card {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .decorated-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
+    }
     </style>
 </head>
 <body>
@@ -769,15 +798,15 @@
         </div>
     </section>
 
-    <section class="about-lead-card">
-        <h2 class="integrated-title" style="border: none; padding-bottom: 0; margin-bottom: 8px;">Unity Mandarin Enrichment Center</h2>
+    <section class="about-lead-card decorated-card">
+        <h2 style="font-family: var(--font-editorial); font-size: 28px; color: var(--text-primary); margin: 0 0 8px 0;">Unity Mandarin Enrichment Center</h2>
         <h3>Built by Families, Rooted in Community</h3>
-        <p>
+        <p style="margin-bottom: 0;">
             Unity Mandarin Enrichment Center (同心中文) is a community-based nonprofit organization founded by experienced Mandarin educators, youth program leaders, and SFUSD parent volunteers. We are dedicated to partnering with local elementary schools to support students’ learning, well-being, and meaningful engagement beyond the school day.
         </p>
     </section>
 
-    <section class="about-lead-card" style="margin-bottom: 55px;">
+    <section class="about-lead-card decorated-card" style="margin-bottom: 55px;">
         <div class="integrated-title">🌱 Our Mission</div>
         <p>
             We aim to provide a warm, inclusive, and student-centered after-school environment where children can develop Mandarin language skills while building confidence, curiosity, and positive peer relationships.
@@ -787,7 +816,7 @@
         </p>
     </section>
 
-    <section class="about-lead-card" style="margin-bottom: 55px; padding-bottom: 30px;">
+    <section class="about-lead-card decorated-card" style="margin-bottom: 55px; padding-bottom: 30px;">
         <div class="integrated-title">📚 Program Focus</div>
         <p style="margin-bottom: 30px;">Our Mandarin enrichment program supports students through:</p>
         <ul class="feature-list-grid" style="margin-bottom: 10px;">
@@ -799,7 +828,7 @@
         </ul>
     </section>
 
-    <section class="about-lead-card" style="margin-bottom: 55px; padding-bottom: 30px;">
+    <section class="about-lead-card decorated-card" style="margin-bottom: 55px; padding-bottom: 30px;">
         <div class="integrated-title">🤝 School & Family Partnership</div>
         <p style="margin-bottom: 30px;">We value strong and ongoing collaboration with school staff and families. Our team prioritizes:</p>
         <ul class="feature-list-grid" style="margin-bottom: 10px;">
@@ -810,14 +839,14 @@
         </ul>
     </section>
 
-    <section class="about-lead-card" style="margin-bottom: 55px;">
+    <section class="about-lead-card decorated-card" style="margin-bottom: 55px;">
         <div class="integrated-title">🧡 Our Commitment to Students</div>
         <p style="margin-bottom: 0;">
             We believe children learn best when they feel safe, supported, and encouraged. Our instructors are committed to creating a positive classroom environment where students feel comfortable participating, expressing themselves, and developing confidence in Mandarin.
         </p>
     </section>
 
-    <section class="about-lead-card" style="margin-bottom: 55px;">
+    <section class="about-lead-card decorated-card" style="margin-bottom: 55px;">
         <div class="integrated-title">🌍 Community-Based Approach</div>
         <p>
             As a nonprofit rooted in San Francisco’s westside school communities, we are committed to being a reliable and collaborative partner that supports both students and the broader school community.
