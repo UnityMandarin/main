@@ -1,63 +1,63 @@
 /**
  * UMC After-School Program - Core Logistics Architecture
- * 核心精算与动态渲染矩阵 (Fall 2026)
+ * Core Actuarial & Dynamic Rendering Matrix (Fall 2026)
  */
 
-// 1. 声明常量配置，将离园标准时间与硬编码解耦
+// 1. Declare configuration constants to decouple dismissal criteria from hardcoded values
 const PROGRAM_CONFIG = Object.freeze({
-    DEFAULT_LEAVE_TIME_SHORT: '4:00 PM 准时离园',
-    DEFAULT_LEAVE_TIME_LONG: '6:00 PM 满载而归'
+    DEFAULT_LEAVE_TIME_SHORT: '4:00 PM (Sharp Dismissal)',
+    DEFAULT_LEAVE_TIME_LONG: '6:00 PM (Full Extended Care)'
 });
 
-// 2. 冻结核心定价精算矩阵，刚性保护高含金量模块单价递减逻辑
+// 2. Freeze the core pricing actuarial matrix to preserve the decreasing unit price logic of high-value modules
 const DATA_MATRIX = Object.freeze({
     tier1: {
         type: 'dual',
-        opt1_price: '$350', // 2:05放学至4点：包含课间过渡 + 1小时最高单价中文课（价值密度极高）
-        opt2_price: '$580', // 2:05放学至6点：完整叠加手工美劳材料费、作业看护与营养晚餐
-        opt1_text: '2:05 PM - 4:00 PM (周三 12:50 PM - 4:00 PM)',
-        opt2_text: '2:05 PM - 6:00 PM (周三 12:50 PM - 6:00 PM)'
+        opt1_price: '$350', // Dismissal at 2:05 PM to 4:00 PM: Includes transition period + 1-hour premium Mandarin core class (extremely high value density)
+        opt2_price: '$580', // Dismissal at 2:05 PM to 6:00 PM: Fully overlays creative arts/crafts materials, homework supervision, and nutritious supper
+        opt1_text: '2:05 PM - 4:00 PM (Wednesdays: 12:50 PM - 4:00 PM)',
+        opt2_text: '2:05 PM - 6:00 PM (Wednesdays: 12:50 PM - 6:00 PM)'
     },
     tier2: {
         type: 'dual',
-        opt1_price: '$335', // 2:40放学：到4点仅80分钟，几乎完全由最高单价的中文课填满
+        opt1_price: '$335', // Dismissal at 2:40 PM: Only 80 mins until 4:00 PM; almost entirely packed with the highest-valued Mandarin instructional block
         opt2_price: '$565',
-        opt1_text: '2:40 PM - 4:00 PM (周三 1:25 PM - 4:00 PM)',
-        opt2_text: '2:40 PM - 6:00 PM (周三 1:25 PM - 6:00 PM)'
+        opt1_text: '2:40 PM - 4:00 PM (Wednesdays: 1:25 PM - 4:00 PM)',
+        opt2_text: '2:40 PM - 6:00 PM (Wednesdays: 1:25 PM - 6:00 PM)'
     },
     tier3: {
         type: 'dual',
-        opt1_price: '$320', // 2:55放学：平时段看护时间极短，下车进教室即进入极速纯中文核心课
+        opt1_price: '$320', // Dismissal at 2:55 PM: Standard supervision window is short; transitions straight into the high-speed core Mandarin classroom upon arrival
         opt2_price: '$550',
-        opt1_text: '2:55 PM - 4:00 PM (周三 1:40 PM - 4:00 PM)',
-        opt2_text: '2:55 PM - 6:00 PM (周三 1:40 PM - 6:00 PM)'
+        opt1_text: '2:55 PM - 4:00 PM (Wednesdays: 1:40 PM - 4:00 PM)',
+        opt2_text: '2:55 PM - 6:00 PM (Wednesdays: 1:40 PM - 6:00 PM)'
     },
     tier4: { 
         type: 'single', 
-        price: '$510', // 3:15放学组：高成本分级中文课所占时间比重超36%，核心价值极大
-        text: '3:15 PM - 6:00 PM (周三 2:00 PM - 6:00 PM)' 
+        price: '$510', // 3:15 PM Dismissal Cohort: High-cost leveled Mandarin tracks account for over 36% of the timeline, yielding massive core value
+        text: '3:15 PM - 6:00 PM (Wednesdays: 2:00 PM - 6:00 PM)' 
     },
     tier5: { 
         type: 'single', 
-        price: '$485', // 3:30放学组：低单价看护水分被极大压缩，1小时高单价中文课与精致美劳手作含金量更高
-        text: '3:30 PM - 6:00 PM (周三 2:15 PM - 6:00 PM)' 
+        price: '$485', // 3:30 PM Dismissal Cohort: Low-premium childcare buffer is tightly optimized; 1-hour core Mandarin and fine art craftwork deliver higher concentration of value
+        text: '3:30 PM - 6:00 PM (Wednesdays: 2:15 PM - 6:00 PM)' 
     },
     tier6: { 
         type: 'single', 
-        price: '$450', // 3:45/4:00放学组：平时段仅看护2小时，但包含1小时完整最高单价中文核心课（时间占比达50%）及晚餐！
-        text: '3:45/4:00 PM - 6:00 PM (周三 2:30/2:45 PM - 6:00 PM)' 
+        price: '$450', // 3:45/4:00 PM Dismissal Cohort: Standard care is only 2 hours, but encapsulates a full 1-hour premium core Mandarin curriculum (50% time density) plus supper!
+        text: '3:45/4:00 PM - 6:00 PM (Wednesdays: 2:30/2:45 PM - 6:00 PM)' 
     }
 });
 
 /**
- * 核心联动渲染函数
- * 触发时机：用户在网页中选择不同的 Dismissal Time 下拉项
+ * Core Interactive Rendering Function
+ * Trigger: Executed when user modifies the selection in the Dismissal Time dropdown
  */
 function updateProgramView() {
     const selectEl = document.getElementById('dismissal-time');
     const container = document.getElementById('pricing-container');
     
-    // 安全防御：避免 DOM 节点异常导致 JS 挂起
+    // Defensive Guard: Prevents script exceptions from hanging in case of DOM manipulation issues
     if (!selectEl || !container) {
         console.warn("UMC System Error: Target DOM elements not found.");
         return;
@@ -68,53 +68,53 @@ function updateProgramView() {
 
     const data = DATA_MATRIX[selectedTier];
     if (!data) {
-        container.innerHTML = `<div class="placeholder-text">未找到对应时间段的方案数据，请联系排课总监。</div>`;
+        container.innerHTML = `<div class="placeholder-text">No matching plan found for this time slot. Please contact the Admissions Director.</div>`;
         return;
     }
 
-    // 执行精算渲染逻辑
+    // Execute Actuarial Layout Rendering
     if (data.type === 'dual') {
         container.innerHTML = `
             <div class="price-card option-one">
-                <h3>🟢 选项一：纯中文核心班 (Mandarin Class ONLY)</h3>
-                <div class="price">${data.opt1_price}<span> / 月</span></div>
-                <p><strong>离园时间：</strong>${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_SHORT}</p>
-                <p><strong>覆盖时段：</strong>${data.opt1_text}</p>
+                <h3>🟢 Option 1: Core Mandarin Track (Mandarin Class ONLY)</h3>
+                <div class="price">${data.opt1_price}<span> / Month</span></div>
+                <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_SHORT}</p>
+                <p><strong>Program Window:</strong> ${data.opt1_text}</p>
                 <ul>
-                    <li>专属教师至对口学校校门口安全接托 (面向 K-5 全年级)</li>
-                    <li>课间活力充能与室内外过渡休息 (Recess)</li>
-                    <li><strong>📈 核心价值：</strong>包含全天<strong>含金量最高、师资与研发成本最高</strong>的 1 小时沉浸式中文核心课。</li>
-                    <li><strong>✨ 评测保障：</strong>开学第一天统一进行免费专业 Mandarin Assessment，次日起按实际水平精准进入分级班教学。</li>
+                    <li>Dedicated escort teachers secure safe student pickup right at the public school gates (K-5 all grades).</li>
+                    <li>Mid-session energy recharge and balanced indoor/outdoor recess transitions.</li>
+                    <li><strong>📈 Core Value:</strong> Includes a 1-hour daily immersive Mandarin core class, carrying the **highest academic, faculty, and R&D costs**.</li>
+                    <li><strong>✨ Assessment Guarantee:</strong> Free professional Mandarin Assessment on Day 1; students are accurately placed into leveled instruction groups starting Day 2.</li>
                 </ul>
             </div>
             
             <div class="price-card option-two">
-                <h3>🔵 选项二：功课美劳全包长托班 (Mandarin + Extension)</h3>
-                <div class="price">${data.opt2_price}<span> / 月</span></div>
-                <p><strong>离园时间：</strong>${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_LONG}</p>
-                <p><strong>覆盖时段：</strong>${data.opt2_text}</p>
+                <h3>🔵 Option 2: Extended Care, Homework & Arts Plan (Mandarin + Extension)</h3>
+                <div class="price">${data.opt2_price}<span> / Month</span></div>
+                <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_LONG}</p>
+                <p><strong>Program Window:</strong> ${data.opt2_text}</p>
                 <ul>
-                    <li>包含选项一的全部安全接托与<strong>高含金量分级中文核心课</strong></li>
-                    <li><strong>🎨 创意手工美劳：</strong>由专业教师引导的多样化美劳、折纸剪纸与文化手作（高成本材料费全包）</li>
-                    <li><strong>📝 各年级功课督导：</strong>K-5 各年级学校作业高标准督导、检查、全面纠错与个别答疑</li>
-                    <li><strong>🎁 特色专享：</strong>全额包含每日免费营养晚餐 (Free Supper) 及傍晚延迟安心看护。</li>
+                    <li>Includes all safe gateway pickup services and the **high-value leveled Mandarin core class** from Option 1.</li>
+                    <li><strong>🎨 Creative Fine Arts & Crafts:</strong> Diversified arts, crafts, origami, and cultural projects guided by specialized instructors (all-inclusive premium material fees).</li>
+                    <li><strong>📝 Multi-Grade Homework Supervision:</strong> High-standard tutoring, inspection, thorough correction, and individual Q&A for school assignments across grades K-5.</li>
+                    <li><strong>🎁 Premium Exclusive:</strong> Fully includes daily complimentary nutritious supper (Free Supper) and stress-free evening childcare supervision.</li>
                 </ul>
             </div>
         `;
     } else {
         container.innerHTML = `
             <div class="price-card option-elite" style="max-width: 650px; margin: 0 auto;">
-                <h3>🟠 晚托打包·全包托管班 (Late Dismissal Elite Plan)</h3>
-                <div class="price">${data.price}<span> / 月</span></div>
-                <p><strong>离园时间：</strong>${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_LONG}</p>
-                <p><strong>覆盖时段：</strong>${data.text}</p>
-                <div class="value-badge">💎 极致价值密度：高单价中文核心课时间占比高达 36% - 50%！</div>
-                <p style="margin-top: 15px;">因公立学校放学较晚，低单价的纯看护时间被自然压缩。本方案剔除水分，将核心资源向高价值教学与餐食刚需深度聚合：</p>
+                <h3>🟠 Late Dismissal All-Inclusive Elite Plan</h3>
+                <div class="price">${data.price}<span> / Month</span></div>
+                <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_LONG}</p>
+                <p><strong>Program Window:</strong> ${data.text}</p>
+                <div class="value-badge">💎 Premium Value Density: Core Mandarin instruction takes up 36% - 50% of the entire program window!</div>
+                <p style="margin-top: 15px;">Due to later public school dismissal schedules, basic childcare buffer periods are naturally streamlined. This plan eliminates fluff and focuses resources squarely on high-value learning milestones and core dining needs:</p>
                 <ul>
-                    <li>紧凑无缝的下课校门口安全接托 (面向 K-5 全年级)</li>
-                    <li><strong>📈 核心核心：</strong>开学第一天尊享免费 Mandarin 测评，每日享受 1 小时完整、高师资成本的系统化沉浸式中文分级课</li>
-                    <li><strong>🎨 美劳与功课：</strong>高质高效的对应年级学校作业辅导、创意手作与传统文化剪纸绘画</li>
-                    <li><strong>🎁 特色专享：</strong>全额包含每日免费营养晚餐 (Free Supper)，下班直接接走饱腹、作业完好的宝贝，省心无忧。</li>
+                    <li>Tight, seamless safe gateway pickup at school dismissal (K-5 all grades).</li>
+                    <li><strong>📈 Core Academic Engine:</strong> Complimentary Day 1 Mandarin diagnostic assessment, followed by a daily 1-hour complete, high-investment systematic leveled immersion program.</li>
+                    <li><strong>🎨 Fine Arts & Homework Tutoring:</strong> High-efficiency grade-appropriate homework supervision, creative handicrafts, and cultural painting/paper-cutting projects.</li>
+                    <li><strong>🎁 Premium Exclusive:</strong> Fully covers a daily hot nutritious supper (Free Supper). Parents can pick up well-fed children with all public school homework completed with absolute piece of mind.</li>
                 </ul>
             </div>
         `;
