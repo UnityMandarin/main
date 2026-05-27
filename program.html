@@ -4,49 +4,34 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFUSD On-Site After-School Program | Unity Mandarin Center</title>
+    <title>SFUSD After-School Program | Unity Mandarin Center</title>
     <style>
-    /* ==========================================================================
-       GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
-       ========================================================================== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
     :root {
-        /* Color Palette: Brand Accents & Identity */
         --brand-orange: #FF5722;
         --brand-orange-hover: #E64A19;
         --brand-orange-glow: rgba(255, 87, 34, 0.15);
         --brand-orange-subtle: rgba(255, 87, 34, 0.04);
-        
-        /* Color Palette: Contextual Mint Tones */
         --mint-nav-core: #D1F7DB;
         --mint-nav-light: #EBFDF2;
         --mint-nav-border: rgba(88, 185, 131, 0.35);
         --mint-shadow-tint: rgba(88, 185, 131, 0.12);
         --mint-light: #E8FBF0;
         --scroll-jade: #72D09B;
-        
-        /* Typography & Font Tokens */
         --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
         --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
-        
-        /* Structural Contrast Text Colors */
         --text-primary: #1C3325;
         --text-secondary: #3A5243;
         --text-navbar-link: #243E2E;
         --text-main: #2C3E50;
         --text-muted: #5A6B7C;
-        
-        /* Layout Sizing Defaults */
         --header-height: 72px;
         --max-content-width: 1440px;
         --max-width: 1100px;
         --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    /* ==========================================================================
-       BASE CORE BODY RESET & CANVAS GROUNDING
-       ========================================================================== */
     body {
         font-family: var(--font-interface);
         color: var(--text-primary);
@@ -56,76 +41,56 @@
         flex-direction: column;
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         background-color: #f3efe3;
-        
-        /* DESKTOP BACKGROUND SETTINGS */
         background-image: url('aboutbg.png');
         background-repeat: repeat;
         background-position: center top;
         background-attachment: fixed;
         background-size: cover;
-        
         overflow-x: hidden;
     }
 
-    /* PERFECT MOBILE FIXED BACKGROUND LAYER */
     @media (max-width: 900px) {
-        body {
-            background-image: none !important;
-        }
-
+        body { background-image: none !important; }
         body::before {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: -10;
-            
             background-image: url('aboutbg.png') !important;
             background-position: left top !important;
             background-repeat: no-repeat !important;
             background-size: auto 100vh !important;
-            background-attachment: scroll !important;
         }
-
-        /* Mobile specific layouts override */
         .header-container { padding: 10px 20px; }
         .mobile-menu-btn { display: flex; }
         nav { display: none; width: 100%; flex-direction: column; gap: 10px; padding: 20px 0; border-top: 1px solid rgba(88, 185, 131, 0.2); margin-top: 10px; }
-        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
+        nav.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         nav a { width: 100%; padding: 12px; font-size: 16px; }
         nav a::after { display: none; }
-        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
-        
+        nav a[href*="contact"] { margin-left: 0; margin-top: 10px; }
         .main-container { padding: 40px 20px 60px 20px; }
-        .matcher-section { padding: 25px 20px; margin-top: -15px; }
+        .picker-section { padding: 25px 20px; }
         .pricing-grid { flex-direction: column; }
         .price-card { min-width: 100%; }
         .notice-board { padding: 25px 20px; }
+        .program-type-tabs { flex-direction: column; }
     }
 
-    /* ==========================================================================
-       ADVANCED NAVIGATION HEADER FRAMEWORK
-       ========================================================================== */
+    /* ── HEADER ── */
     header {
-        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%);
         min-height: var(--header-height);
         position: sticky;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: 0; left: 0; right: 0;
         z-index: 1000;
         display: flex;
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid var(--mint-nav-border);
-        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
-                    0 2px 10px var(--mint-shadow-tint);
-        will-change: transform;
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
         transition: var(--transition-smooth);
     }
 
@@ -145,29 +110,19 @@
         align-items: center;
         text-decoration: none;
         height: var(--header-height);
-        outline: none;
         transition: var(--transition-smooth);
     }
-
-    .logo-group:hover {
-        transform: translateY(-1px);
-    }
-
+    .logo-group:hover { transform: translateY(-1px); }
     .logo-group img {
-        height: 44px;
-        width: auto;
+        height: 44px; width: auto;
         object-fit: contain;
-        display: block;
         filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
     }
 
-    /* ==========================================================================
-       INLINE NAVIGATION SYSTEM
-       ========================================================================== */
     nav {
         display: flex;
         align-items: center;
-        gap: 4px; 
+        gap: 4px;
         height: 100%;
     }
 
@@ -185,52 +140,33 @@
         align-items: center;
         justify-content: center;
         transition: var(--transition-smooth);
-        box-sizing: border-box;
     }
-
-    nav a:hover {
-        color: var(--brand-orange);
-        background-color: var(--brand-orange-subtle);
-    }
-
+    nav a:hover { color: var(--brand-orange); background-color: var(--brand-orange-subtle); }
     nav a::after {
         content: '';
         position: absolute;
-        bottom: 4px;
-        left: 18px;
-        right: 18px;
+        bottom: 4px; left: 18px; right: 18px;
         height: 2px;
         background-color: var(--brand-orange);
         border-radius: 2px;
         transform: scaleX(0);
         transition: var(--transition-smooth);
     }
-
-    nav a:hover::after {
-        transform: scaleX(1);
-    }
-
+    nav a:hover::after { transform: scaleX(1); }
     nav a.active-page {
         color: #FFFFFF;
         background-color: var(--brand-orange);
         box-shadow: 0 4px 12px var(--brand-orange-glow);
     }
-
-    nav a.active-page::after {
-        display: none; 
-    }
-
-    nav a[href*="contact"],
-    nav a:last-of-type {
+    nav a.active-page::after { display: none; }
+    nav a[href*="contact"] {
         background-color: transparent;
         border: 1.5px solid var(--brand-orange);
         color: var(--brand-orange);
         margin-left: 8px;
         padding: 8px 20px;
     }
-
-    nav a[href*="contact"]:hover,
-    nav a:last-of-type:hover {
+    nav a[href*="contact"]:hover {
         background-color: var(--brand-orange);
         color: #FFFFFF;
         box-shadow: 0 4px 14px var(--brand-orange-glow);
@@ -245,21 +181,15 @@
         padding: 8px;
         flex-direction: column;
         gap: 5px;
-        z-index: 1001;
     }
-
     .mobile-menu-btn span {
-        display: block;
-        width: 25px;
-        height: 3px;
+        display: block; width: 25px; height: 3px;
         background-color: var(--text-primary);
         border-radius: 2px;
         transition: var(--transition-smooth);
     }
 
-    /* ==========================================================================
-       CONTENT CONTAINER ARCHITECTURE
-       ========================================================================== */
+    /* ── MAIN LAYOUT ── */
     .main-container {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -272,22 +202,27 @@
         text-align: center;
         margin-bottom: 50px;
     }
-
     .page-hero h1 {
         font-family: var(--font-editorial);
         font-size: 38px;
         color: var(--text-primary);
         margin: 0 0 12px 0;
     }
-
     .page-hero .subtitle {
         font-size: 16px;
         color: var(--text-secondary);
         max-width: 750px;
-        margin: 0 auto 24px auto;
+        margin: 0 auto 10px auto;
         line-height: 1.6;
     }
-
+    .page-hero .subtitle-zh {
+        font-size: 14px;
+        color: var(--text-muted);
+        max-width: 700px;
+        margin: 0 auto 24px auto;
+        line-height: 1.6;
+        font-style: italic;
+    }
     .assessment-badge {
         display: inline-block;
         background-color: #FFFFFF;
@@ -301,20 +236,17 @@
         box-shadow: 0 4px 15px rgba(255, 87, 34, 0.08);
     }
 
-    /* ==========================================================================
-       INTERACTIVE MATCHER SYSTEM STYLE 
-       ========================================================================== */
-    .matcher-section {
+    /* ── PROGRAM TYPE TABS ── */
+    .program-type-section {
         background-color: #FFFFFF;
         border: 1px solid rgba(114, 208, 155, 0.25);
         border-radius: 12px;
         padding: 40px;
         box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
-        margin-bottom: 45px;
+        margin-bottom: 30px;
         position: relative;
     }
-
-    .matcher-section::before {
+    .program-type-section::before {
         content: '';
         position: absolute;
         top: 0; left: 0; bottom: 0;
@@ -323,10 +255,123 @@
         border-top-left-radius: 12px;
         border-bottom-left-radius: 12px;
     }
-
-    .matcher-section h2 {
+    .program-type-section h2 {
         font-family: var(--font-editorial);
-        font-size: 26px;
+        font-size: 24px;
+        color: var(--text-primary);
+        margin: 0 0 8px 0;
+    }
+    .program-type-section .section-desc {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin: 0 0 24px 0;
+        line-height: 1.5;
+    }
+
+    .program-type-tabs {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 0;
+    }
+    .type-tab {
+        flex: 1;
+        padding: 18px 22px;
+        border-radius: 10px;
+        border: 2px solid #E2E8F0;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        background: #FAFAFA;
+        text-align: left;
+    }
+    .type-tab:hover {
+        border-color: var(--scroll-jade);
+        background: var(--mint-light);
+    }
+    .type-tab.active-tab {
+        border-color: var(--brand-orange);
+        background: #FFF8F6;
+        box-shadow: 0 4px 16px var(--brand-orange-glow);
+    }
+    .type-tab .tab-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 20px;
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
+    .tab-badge.badge-green { background: #D1F7DB; color: #1C5C34; }
+    .tab-badge.badge-blue { background: #DBEAFE; color: #1E40AF; }
+    .type-tab .tab-title {
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--text-primary);
+        display: block;
+        margin-bottom: 4px;
+    }
+    .type-tab .tab-desc {
+        font-size: 12.5px;
+        color: var(--text-muted);
+        line-height: 1.4;
+    }
+
+    /* ── ONSITE ALERT ── */
+    .onsite-alert {
+        background: #FFFBEB;
+        border: 1px solid #F3E3A4;
+        border-left: 4px solid #F59E0B;
+        border-radius: 8px;
+        padding: 18px 20px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #78350F;
+    }
+    .onsite-alert strong { color: #92400E; }
+    .onsite-alert .alert-en {
+        font-style: italic;
+        font-size: 13px;
+        color: #B45309;
+        margin-top: 6px;
+        display: block;
+    }
+    .onsite-apply-btn {
+        display: inline-block;
+        margin-top: 12px;
+        background: var(--brand-orange);
+        color: #FFF;
+        padding: 9px 20px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 13.5px;
+        text-decoration: none;
+        transition: var(--transition-smooth);
+    }
+    .onsite-apply-btn:hover { background: var(--brand-orange-hover); transform: translateY(-1px); }
+
+    /* ── DISMISSAL PICKER ── */
+    .picker-section {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
+        margin-bottom: 30px;
+        position: relative;
+    }
+    .picker-section::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; bottom: 0;
+        width: 6px;
+        background: linear-gradient(to bottom, #2E5C43, var(--scroll-jade));
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+    }
+    .picker-section h2 {
+        font-family: var(--font-editorial);
+        font-size: 24px;
         color: var(--text-primary);
         margin: 0 0 15px 0;
     }
@@ -338,7 +383,6 @@
         color: var(--text-secondary);
         margin-bottom: 12px;
     }
-
     select {
         width: 100%;
         padding: 14px;
@@ -352,12 +396,10 @@
         font-family: var(--font-interface);
         transition: var(--transition-smooth);
     }
-
     select:focus {
         border-color: var(--scroll-jade);
         box-shadow: 0 0 0 3px rgba(114, 208, 155, 0.15);
     }
-
     .hint {
         font-size: 13.5px;
         color: var(--text-muted);
@@ -365,17 +407,14 @@
         line-height: 1.5;
     }
 
-    /* ==========================================================================
-       DYNAMIC PRICING RENDERING MATRIX PANELS
-       ========================================================================== */
+    /* ── PRICING CARDS ── */
     .pricing-grid {
         display: flex;
         gap: 30px;
-        margin-bottom: 55px;
+        margin-bottom: 30px;
         justify-content: center;
         flex-wrap: wrap;
     }
-
     .placeholder-text {
         width: 100%;
         text-align: center;
@@ -387,7 +426,6 @@
         font-style: italic;
         font-size: 16px;
     }
-
     .price-card {
         background-color: #FFFFFF;
         border-radius: 12px;
@@ -402,12 +440,10 @@
         overflow: hidden;
         transition: var(--transition-smooth);
     }
-
     .price-card:hover {
         transform: translateY(-3px);
         box-shadow: 0 15px 40px rgba(255, 87, 34, 0.06);
     }
-
     .price-card::after {
         content: '';
         position: absolute;
@@ -415,7 +451,6 @@
         height: 5px;
         background: #CBD5E1;
     }
-
     .price-card.option-one::after { background: var(--scroll-jade); }
     .price-card.option-two::after { background: #2E5C43; }
     .price-card.option-elite::after { background: var(--brand-orange); }
@@ -426,38 +461,32 @@
         color: var(--text-primary);
         margin: 5px 0 15px 0;
     }
-
     .price-card .price {
         font-size: 38px;
         font-weight: 700;
         color: var(--brand-orange);
         margin: 15px 0;
     }
-
     .price-card .price span {
         font-size: 15px;
         font-weight: normal;
         color: var(--text-muted);
     }
-
     .price-card p {
         font-size: 14.5px;
         margin: 8px 0;
         color: var(--text-main);
     }
-
     .price-card ul {
         padding-left: 20px;
         margin-top: 20px;
         color: var(--text-main);
     }
-
     .price-card ul li {
         margin-bottom: 12px;
         font-size: 14.5px;
         line-height: 1.6;
     }
-
     .value-badge {
         display: inline-block;
         background-color: #FFFCEB;
@@ -470,9 +499,51 @@
         margin: 12px 0;
     }
 
-    /* ==========================================================================
-       NOTICE COMPLIANCE BOARD FRAMEWORK
-       ========================================================================== */
+    /* ── DISCLAIMER BOX ── */
+    .disclaimer-box {
+        background: #FFFBEB;
+        border: 1px solid #F3E3A4;
+        border-left: 4px solid #F59E0B;
+        border-radius: 8px;
+        padding: 18px 22px;
+        margin-bottom: 30px;
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: #78350F;
+    }
+    .disclaimer-box strong { color: #92400E; }
+    .disclaimer-box .disc-en {
+        font-size: 12.5px;
+        color: #B45309;
+        margin-top: 5px;
+        display: block;
+        font-style: italic;
+    }
+
+    /* ── LATE PICKUP POLICY ── */
+    .late-pickup-box {
+        background: #F0FDF4;
+        border: 1px solid #BBF7D0;
+        border-left: 4px solid #16A34A;
+        border-radius: 8px;
+        padding: 22px 26px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #166534;
+    }
+    .late-pickup-box strong { font-size: 15px; display: block; margin-bottom: 8px; }
+    .late-pickup-box .policy-en {
+        font-style: italic;
+        font-size: 13px;
+        color: #166534;
+        margin-top: 8px;
+        border-top: 1px dashed #BBF7D0;
+        padding-top: 8px;
+        display: block;
+    }
+
+    /* ── NOTICE BOARD ── */
     .notice-board {
         background: linear-gradient(135deg, #1C3325 0%, #0E1B13 100%);
         border-left: 5px solid var(--brand-orange);
@@ -481,9 +552,8 @@
         color: #FFFFFF;
         padding: 45px;
         box-shadow: 0 12px 35px rgba(0,0,0,0.15);
-        margin-top: 60px;
+        margin-top: 20px;
     }
-
     .notice-board h3 {
         font-family: var(--font-editorial);
         color: var(--scroll-jade);
@@ -492,33 +562,24 @@
         letter-spacing: 0.5px;
         text-align: center;
     }
-
     .notice-item {
         margin-bottom: 25px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         padding-bottom: 20px;
     }
-
-    .notice-item:last-child {
-        margin-bottom: 0;
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-
+    .notice-item:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
     .notice-item strong {
         color: var(--mint-nav-core);
         display: block;
         font-size: 16px;
         margin-bottom: 8px;
     }
-
     .notice-item p {
         font-size: 14.5px;
         line-height: 1.7;
         color: #CFEAD6;
         margin: 0;
     }
-
     .notice-item.highlight-item {
         background-color: rgba(255, 255, 255, 0.04);
         padding: 25px;
@@ -526,9 +587,7 @@
         border: 1px dashed var(--brand-orange);
     }
 
-    /* ==========================================================================
-       SITE FOOTER CANVAS
-       ========================================================================== */
+    /* ── FOOTER ── */
     footer {
         background-color: #142219;
         color: #CFEAD6;
@@ -536,7 +595,6 @@
         border-top: 4px solid var(--scroll-jade);
         margin-top: auto;
     }
-
     .footer-grid {
         max-width: var(--max-width);
         margin: 0 auto 40px auto;
@@ -544,56 +602,29 @@
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 40px;
     }
-
     .footer-col h4 {
         color: #FFFFFF;
         font-size: 18px;
         margin-bottom: 20px;
         position: relative;
         padding-bottom: 8px;
-        letter-spacing: 0.5px;
     }
-
     .footer-col h4::after {
         content: '';
         position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 40px;
-        height: 2px;
+        left: 0; bottom: 0;
+        width: 40px; height: 2px;
         background-color: var(--brand-orange);
     }
-
-    .footer-col p {
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 12px;
-        opacity: 0.85;
-    }
-
-    .links-listing {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .links-listing li {
-        margin-bottom: 10px;
-    }
-
+    .footer-col p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; opacity: 0.85; }
+    .links-listing { list-style: none; padding: 0; margin: 0; }
+    .links-listing li { margin-bottom: 10px; }
     .links-listing a {
-        color: #CFEAD6;
-        text-decoration: none;
+        color: #CFEAD6; text-decoration: none;
         font-size: 14px;
-        transition: color 0.2s ease, padding-left 0.2s ease;
-        display: inline-block;
+        transition: color 0.2s, padding-left 0.2s;
     }
-
-    .links-listing a:hover {
-        color: var(--brand-orange);
-        padding-left: 4px;
-    }
-
+    .links-listing a:hover { color: var(--brand-orange); padding-left: 4px; }
     .copyright-bar {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -607,231 +638,300 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <a href="index.html" class="logo-group">
-                <img src="your-logo-file.png" alt="Unity Mandarin Center Logo">
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo-group">
+            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo">
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="programs.html" class="active-page">Programs</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-container">
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <h1>SFUSD After-School Program</h1>
+        <p class="subtitle">Aligned with San Francisco Unified School District schedules. Immersive, leveled Mandarin tracks designed for grades K–5.</p>
+        <p class="subtitle-zh">✨ UMC 2026 秋季课程项目 — 首要覆盖1小时分级中文课！全线启用 Brightwheel 智能系统保障孩子安全与家校即时互动</p>
+        <div class="assessment-badge">📢 Day 1: Complimentary Professional Placement Assessment for Every New Student</div>
+    </section>
+
+    <!-- STEP 1: PROGRAM TYPE -->
+    <section class="program-type-section">
+        <h2>Step 1 — Choose Your Program Type</h2>
+        <p class="section-desc">We offer two program tracks. Select the one that fits your family's location and needs.</p>
+
+        <div class="program-type-tabs">
+            <div class="type-tab active-tab" onclick="setTab('onsite')" id="tab-onsite">
+                <span class="tab-badge badge-green">校内直达站 / On-site</span>
+                <span class="tab-title">On-site After-School Program</span>
+                <span class="tab-desc">Held directly on your child's school campus. No travel needed — UMC instructors take over right at dismissal.</span>
+            </div>
+            <div class="type-tab" onclick="setTab('outsite')" id="tab-outsite">
+                <span class="tab-badge badge-blue">校外旗舰基地 / Out-site</span>
+                <span class="tab-title">Out-site After-School Program</span>
+                <span class="tab-desc">Held at our independent UMC facility. Includes safe door-to-door escort by UMC instructors from school to our center.</span>
+            </div>
+        </div>
+
+        <!-- Onsite prerequisite alert -->
+        <div id="onsite-alert-box" class="onsite-alert" style="margin-top: 20px;">
+            <p>⚠️ <strong>重要入驻前提 / Critical Enrollment Prerequisite:</strong></p>
+            <p style="margin-top: 4px;">本校内 (On-site) 项目的最终开班，<strong>严格以获得您孩子所在小学校长 (School Principal) 及课后托管主管方 (After School Lead Agent) 的官方准入同意为前提</strong>。</p>
+            <span class="alert-en">Please note: the On-site program is strictly contingent upon receiving official approval from your child's School Principal and the designated After School Lead Agent before it can be activated at any given campus.</span>
+            <br>
+            <a href="https://your-interest-form-link.com" target="_blank" class="onsite-apply-btn">
+                👉 如有报班意向，请点击提交意向申请表 / Submit Your Expression of Interest
             </a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <nav id="navbar">
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="programs.html" class="active-page">Programs</a>
-                <a href="why-us.html">Why Us</a>
-                <a href="contact.html">Contact</a>
-            </nav>
         </div>
-    </header>
 
-    <main class="main-container">
-        
-        <section class="page-hero">
-            <h1>SFUSD On-Site After-School Program</h1>
-            <p class="subtitle">Perfect alignment with San Francisco Unified School District schedules. Immersive, high-retention track paths designed for grades K-5.</p>
-            <div class="assessment-badge">📢 Milestone Day 1: Complimentary Professional Placement Assessment</div>
-        </section>
-
-        <section class="matcher-section">
-            <h2>🔍 Locate Your Dedicated Schedule</h2>
-            <label for="dismissal-time">Select your school's exact dismissal matrix structure:</label>
-            <select id="dismissal-time" onchange="updateProgramView()">
-                <option value="" disabled selected>-- Select Dismissal Time --</option>
-                <option value="tier1">2:05 PM (Wednesday Early Dismissal at 12:50 PM)</option>
-                <option value="tier2">2:40 PM (Wednesday Early Dismissal at 1:25 PM)</option>
-                <option value="tier3">2:55 PM (Wednesday Early Dismissal at 1:40 PM)</option>
-                <option value="tier4">3:15 PM (Wednesday Early Dismissal at 2:00 PM)</option>
-                <option value="tier5">3:30 PM (Wednesday Early Dismissal at 2:15 PM)</option>
-                <option value="tier6">3:45 PM / 4:00 PM (Wednesday Early Dismissal at 2:30/2:45 PM)</option>
-            </select>
-            <p class="hint">* Verify metrics against official district allocation packages or contact our schedule operations directly if unsure.</p>
-        </section>
-
-        <section id="pricing-container" class="pricing-grid">
-            <div class="placeholder-text">Please choose a dismissal configuration matrix option from the menu selector above to access your dedicated schedule and tuition tiers automatically.</div>
-        </section>
-
-        <section class="notice-board">
-            <h3>⚠️ Key Logistical Guidelines & Program Parameters</h3>
-            
-            <div class="notice-item highlight-item">
-                <strong>🎯 Day 1 Benchmark: Complimentary Placement Diagnostic</strong>
-                <p>To uphold academic precision, every incoming student undergoes comprehensive language mapping assessments on the first operational day. Standard adjusted leveled classroom trajectories deploy actively starting from Day 2 based on finalized metric outputs.</p>
-            </div>
-
-            <div class="notice-item">
-                <strong>1. Restricted Grades & Compliance Ratios</strong>
-                <p>Instruction configurations focus explicitly on grades K-5. Due to institutional facility limits and strict regulatory supervisory ratios, applications for TK (Transitional Kindergarten) cannot be accommodated under current standard licensing parameters.</p>
-            </div>
-
-            <div class="notice-item">
-                <strong>2. Core Linguistic Continuity Requirement</strong>
-                <p>To ensure deep processing continuity, part-time fractions (such as 2-day or 3-day variations) are omitted. Consistent 5-day interaction is mandatory to secure the proper daily immersion density required for programmatic fluency milestones.</p>
-            </div>
-
-            <div class="notice-item">
-                <strong>3. Rate Structuring and Financial Finality</strong>
-                <p>Calculations displayed dynamically describe baseline core recurring parameters. Crisis drop-in buffers are set to $25/hour. Formal, binding contracts and promotional terms are established exclusively through individual operational admissions files provided before seasonal launches.</p>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>Unity Mandarin Enrichment Center</h4>
-                <p>Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Access</h4>
-                <ul class="links-listing">
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="program.html">Program</a></li>
-                    <li><a href="why-us.html">Why Us</a></li>
-                    <li><a herf="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Details</h4>
-                <ul class="contact-listing">
-                    <li><aria-hidden="true">📞</span><span>(415) 658-2516</span></li>
-                    <li><aria-hidden="true">✉️</span><span>info@unitymandarin.com</span></li>
-                    <li><aria-hidden="true">📍</span><span>San Francisco, CA</span></li>
-                </ul>
-            </div>
+        <!-- Outsite description -->
+        <div id="outsite-desc-box" style="display:none; margin-top: 20px; padding: 18px 22px; background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #3B82F6; border-radius: 8px; font-size: 14px; color: #1E3A5F; line-height: 1.6;">
+            <strong>🛡️ 贴身护送 / Safe Escort Included:</strong> UMC instructors personally walk or transport students from your child's school directly to our facility. Every departure and arrival is logged in Brightwheel with a real-time notification sent to you instantly.
+            <br><span style="font-size: 13px; color: #1D4ED8; display:block; margin-top:6px; font-style: italic;">独立大教室学术闭环。护送离校及抵达基地均通过 Brightwheel 触发即时安全通知，给您100%的安心。</span>
         </div>
-        <div class="copyright-bar">
-            &copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.
+    </section>
+
+    <!-- STEP 2: DISMISSAL TIME -->
+    <section class="picker-section">
+        <h2>Step 2 — Select Your School's Dismissal Time</h2>
+        <label for="dismissal-time">Choose the time your child's school lets out:</label>
+        <select id="dismissal-time" onchange="updateProgramView()">
+            <option value="" disabled selected>-- Select Dismissal Time --</option>
+            <option value="tier1">2:05 PM (Wednesday Early Dismissal at 12:50 PM)</option>
+            <option value="tier2">2:40 PM (Wednesday Early Dismissal at 1:25 PM)</option>
+            <option value="tier3">2:55 PM (Wednesday Early Dismissal at 1:40 PM)</option>
+            <option value="tier4">3:15 PM (Wednesday Early Dismissal at 2:00 PM)</option>
+            <option value="tier5">3:30 PM (Wednesday Early Dismissal at 2:15 PM)</option>
+            <option value="tier6">3:45 PM / 4:00 PM (Wednesday Early Dismissal at 2:30 / 2:45 PM)</option>
+        </select>
+        <p class="hint">* Not sure of your school's dismissal time? Check the official SFUSD school calendar or contact us directly and we'll help you find it.</p>
+    </section>
+
+    <!-- PRICING DISCLAIMER -->
+    <div class="disclaimer-box">
+        <strong>⚠️ 重要提示 / Important Notice:</strong> All tuition rates shown below are <strong>estimated pricing for the 2026–2027 school year</strong>. Due to fluctuating staffing and operational costs in the Bay Area, the final binding rate is confirmed only through the official enrollment agreement you sign before the season begins. Rates displayed here are for reference only.
+        <span class="disc-en">所有学费及费率均为 2026–2027 学年度之预估价格。准确的最终收费标准必须以您在实际申请时签署的正式报名表为准。本页面展示不构成刚性要约。</span>
+    </div>
+
+    <!-- STEP 3: PRICING RESULTS -->
+    <section id="pricing-container" class="pricing-grid">
+        <div class="placeholder-text">Please select a dismissal time above to view your program options and estimated monthly tuition.</div>
+    </section>
+
+    <!-- LATE PICKUP POLICY -->
+    <div class="late-pickup-box">
+        <strong>🤝 Dual-Income Family Support & Flexible Late Pickup Policy / 双职工支持与晚接宽容政策</strong>
+        We understand that SF families have demanding schedules. UMC does <strong>not</strong> enforce punitive late-pickup fines. On those rare occasions when you're running behind, any extra care costs are fully absorbed by our center. Individual terms and seasonal schedules are managed clearly through your family's Brightwheel profile.
+        <span class="policy-en">为照顾双职工家庭，在特殊情况偶尔晚接时，UMC 绝不实施严苛的迟到罚款制度，期间产生的一切看护运营费用均由我们学园全额承担。关于个人条款和各季节的具体作息安排，将通过您家庭的 Brightwheel 档案进行清晰规范的管理。</span>
+    </div>
+
+    <!-- BILLING NOTE -->
+    <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px;">
+        ※ <strong>Billing note:</strong> UMC bills by standard calendar month. Monthly tuition includes all Brightwheel platform fees. Homework support covers daily Q&amp;A and guidance across subjects — it is not a guarantee of 100% completion or error-free work. Tax-ready Dependent Care FSA statements can be exported directly from Brightwheel.
+        <br><span style="font-size: 12px;">UMC 严格采用自然月计费，月费已全额包含 Brightwheel 平台授权费。本校讲师负责多学科家庭作业的日常答疑与辅导，不作"100%全部完成或绝对无误"之刚性承诺。可通过 Brightwheel 导出合规的 Dependent Care FSA 报销凭证。</span>
+    </p>
+
+    <!-- NOTICES -->
+    <section class="notice-board">
+        <h3>⚠️ Key Program Guidelines</h3>
+
+        <div class="notice-item highlight-item">
+            <strong>🎯 Day 1: Free Professional Placement Assessment</strong>
+            <p>Every new student receives a complimentary Mandarin diagnostic assessment on their first day. This ensures accurate placement into the right leveled instruction group, so your child is learning at exactly the right pace starting Day 2.</p>
         </div>
-    </footer>
-    
-    <script>
-    /**
-     * Mobile Menu Controller Toggle
-     */
-    function toggleMobileMenu() {
-        const nav = document.getElementById('navbar');
-        if(nav) {
-            nav.classList.toggle('is-open');
-        }
+
+        <div class="notice-item">
+            <strong>1. Grades K–5 Only (TK Not Available)</strong>
+            <p>Our program serves students in grades Kindergarten through 5th grade. Due to facility capacity and licensing requirements, we are currently unable to accommodate Transitional Kindergarten (TK) students.</p>
+        </div>
+
+        <div class="notice-item">
+            <strong>2. Full 5-Day Enrollment Required</strong>
+            <p>To maintain the consistent daily immersion that makes our Mandarin program effective, we require full 5-day-per-week enrollment. Part-time schedules (2-day or 3-day options) are not available at this time.</p>
+        </div>
+
+        <div class="notice-item">
+            <strong>3. Tuition &amp; Drop-In Rates</strong>
+            <p>Monthly tuition shown reflects the standard recurring program cost. Occasional drop-in care is available at $25/hour. Final pricing and any promotional terms are confirmed through your official enrollment agreement before the season begins.</p>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Unity Mandarin Enrichment Center</h4>
+            <p>Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication in young learners.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Access</h4>
+            <ul class="links-listing">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="programs.html">Programs</a></li>
+                <li><a href="why-us.html">Why Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact Details</h4>
+            <ul class="links-listing">
+                <li><span>📞 (415) 658-2516</span></li>
+                <li><span>✉️ info@unitymandarin.com</span></li>
+                <li><span>📍 San Francisco, CA</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright-bar">
+        &copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.
+    </div>
+</footer>
+
+<script>
+function toggleMobileMenu() {
+    const nav = document.getElementById('navbar');
+    if (nav) nav.classList.toggle('is-open');
+}
+
+let currentTab = 'onsite';
+
+function setTab(type) {
+    currentTab = type;
+    document.getElementById('tab-onsite').classList.toggle('active-tab', type === 'onsite');
+    document.getElementById('tab-outsite').classList.toggle('active-tab', type === 'outsite');
+    document.getElementById('onsite-alert-box').style.display = type === 'onsite' ? 'block' : 'none';
+    document.getElementById('outsite-desc-box').style.display = type === 'outsite' ? 'block' : 'none';
+    updateProgramView();
+}
+
+const DATA_MATRIX = Object.freeze({
+    tier1: {
+        type: 'dual',
+        opt1_price: '$350', opt2_price: '$580',
+        opt1_text: '2:05 PM – 4:00 PM (Wednesdays: 12:50 PM – 4:00 PM)',
+        opt2_text: '2:05 PM – 6:00 PM (Wednesdays: 12:50 PM – 6:00 PM)'
+    },
+    tier2: {
+        type: 'dual',
+        opt1_price: '$335', opt2_price: '$565',
+        opt1_text: '2:40 PM – 4:00 PM (Wednesdays: 1:25 PM – 4:00 PM)',
+        opt2_text: '2:40 PM – 6:00 PM (Wednesdays: 1:25 PM – 6:00 PM)'
+    },
+    tier3: {
+        type: 'dual',
+        opt1_price: '$320', opt2_price: '$550',
+        opt1_text: '2:55 PM – 4:00 PM (Wednesdays: 1:40 PM – 4:00 PM)',
+        opt2_text: '2:55 PM – 6:00 PM (Wednesdays: 1:40 PM – 6:00 PM)'
+    },
+    tier4: { type: 'single', price: '$510', text: '3:15 PM – 6:00 PM (Wednesdays: 2:00 PM – 6:00 PM)' },
+    tier5: { type: 'single', price: '$485', text: '3:30 PM – 6:00 PM (Wednesdays: 2:15 PM – 6:00 PM)' },
+    tier6: { type: 'single', price: '$450', text: '3:45 / 4:00 PM – 6:00 PM (Wednesdays: 2:30 / 2:45 PM – 6:00 PM)' }
+});
+
+// Out-site adds escort fee
+const OUTSITE_ADDER = { tier1: 30, tier2: 30, tier3: 30, tier4: 25, tier5: 25, tier6: 25 };
+
+function addToPrice(priceStr, add) {
+    const num = parseInt(priceStr.replace('$', '')) + add;
+    return '$' + num;
+}
+
+function escortNote() {
+    return currentTab === 'outsite'
+        ? '<p style="font-size:13px; color:#1D4ED8; margin:6px 0 0 0;">🛡️ <strong>Includes daily safe escort</strong> from school to our UMC facility by our instructor team (Brightwheel-tracked).</p>'
+        : '';
+}
+
+function brightwheelNote() {
+    return '<li>📱 <strong>Brightwheel Smart App:</strong> Daily digital check-in/check-out, real-time classroom photo updates, and easy FSA-ready billing statements — all in one app.</li>';
+}
+
+function updateProgramView() {
+    const selectEl = document.getElementById('dismissal-time');
+    const container = document.getElementById('pricing-container');
+    if (!selectEl || !container) return;
+    const selectedTier = selectEl.value;
+    if (!selectedTier) return;
+
+    const data = DATA_MATRIX[selectedTier];
+    if (!data) {
+        container.innerHTML = `<div class="placeholder-text">No plan found for this time. Please contact us directly.</div>`;
+        return;
     }
 
-    /**
-     * Actuarial Rendering System & Constants
-     */
-    const PROGRAM_CONFIG = Object.freeze({
-        DEFAULT_LEAVE_TIME_SHORT: '4:00 PM (Sharp Dismissal)',
-        DEFAULT_LEAVE_TIME_LONG: '6:00 PM (Full Extended Care)'
-    });
+    const isOut = currentTab === 'outsite';
+    const addAmt = OUTSITE_ADDER[selectedTier] || 0;
 
-    const DATA_MATRIX = Object.freeze({
-        tier1: {
-            type: 'dual',
-            opt1_price: '$350',
-            opt2_price: '$580',
-            opt1_text: '2:05 PM - 4:00 PM (Wednesdays: 12:50 PM - 4:00 PM)',
-            opt2_text: '2:05 PM - 6:00 PM (Wednesdays: 12:50 PM - 6:00 PM)'
-        },
-        tier2: {
-            type: 'dual',
-            opt1_price: '$335',
-            opt2_price: '$565',
-            opt1_text: '2:40 PM - 4:00 PM (Wednesdays: 1:25 PM - 4:00 PM)',
-            opt2_text: '2:40 PM - 6:00 PM (Wednesdays: 1:25 PM - 6:00 PM)'
-        },
-        tier3: {
-            type: 'dual',
-            opt1_price: '$320',
-            opt2_price: '$550',
-            opt1_text: '2:55 PM - 4:00 PM (Wednesdays: 1:40 PM - 4:00 PM)',
-            opt2_text: '2:55 PM - 6:00 PM (Wednesdays: 1:40 PM - 6:00 PM)'
-        },
-        tier4: { 
-            type: 'single', 
-            price: '$510',
-            text: '3:15 PM - 6:00 PM (Wednesdays: 2:00 PM - 6:00 PM)' 
-        },
-        tier5: { 
-            type: 'single', 
-            price: '$485',
-            text: '3:30 PM - 6:00 PM (Wednesdays: 2:15 PM - 6:00 PM)' 
-        },
-        tier6: { 
-            type: 'single', 
-            price: '$450',
-            text: '3:45/4:00 PM - 6:00 PM (Wednesdays: 2:30/2:45 PM - 6:00 PM)' 
-        }
-    });
+    if (data.type === 'dual') {
+        const p1 = isOut ? addToPrice(data.opt1_price, addAmt) : data.opt1_price;
+        const p2 = isOut ? addToPrice(data.opt2_price, addAmt) : data.opt2_price;
+        container.innerHTML = `
+            <div class="price-card option-one">
+                <h3>🟢 Option 1 — Mandarin Class Only</h3>
+                <div class="price">${p1}<span> / month</span></div>
+                <p><strong>Pickup by:</strong> 4:00 PM</p>
+                <p><strong>Program Hours:</strong> ${data.opt1_text}</p>
+                ${escortNote()}
+                <ul>
+                    ${brightwheelNote()}
+                    <li>Safe pickup directly from school gates (all K–5 grades). UMC instructors greet and sign in your child the moment school lets out.</li>
+                    <li>Healthy snack break and supervised indoor/outdoor transition time.</li>
+                    <li>📚 <strong>Core Mandarin Class:</strong> 1 full hour of systematic, leveled immersive Mandarin instruction daily — the centerpiece of our program.</li>
+                    <li>✨ <strong>Free Day 1 Assessment:</strong> Every new student is professionally assessed on Day 1 and placed into the right level starting Day 2.</li>
+                    <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                </ul>
+            </div>
 
-    function updateProgramView() {
-        const selectEl = document.getElementById('dismissal-time');
-        const container = document.getElementById('pricing-container');
-        
-        if (!selectEl || !container) {
-            console.warn("UMC System Error: Target DOM elements not found.");
-            return;
-        }
-
-        const selectedTier = selectEl.value;
-        if (!selectedTier) return;
-
-        const data = DATA_MATRIX[selectedTier];
-        if (!data) {
-            container.innerHTML = `<div class="placeholder-text">No matching plan found for this time slot. Please contact the Admissions Director.</div>`;
-            return;
-        }
-
-        if (data.type === 'dual') {
-            container.innerHTML = `
-                <div class="price-card option-one">
-                    <h3>🟢 Option 1: Core Mandarin Track (Mandarin Class ONLY)</h3>
-                    <div class="price">${data.opt1_price}<span> / Month</span></div>
-                    <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_SHORT}</p>
-                    <p><strong>Program Window:</strong> ${data.opt1_text}</p>
-                    <ul>
-                        <li>Dedicated escort teachers secure safe student pickup right at the public school gates (K-5 all grades).</li>
-                        <li>Mid-session energy recharge and balanced indoor/outdoor recess transitions.</li>
-                        <li><strong>📈 Core Value:</strong> Includes a 1-hour daily immersive Mandarin core class, carrying the highest academic, faculty, and R&D costs.</li>
-                        <li><strong>✨ Assessment Guarantee:</strong> Free professional Mandarin Assessment on Day 1; students are accurately placed into leveled instruction groups starting Day 2.</li>
-                    </ul>
-                </div>
-                
-                <div class="price-card option-two">
-                    <h3>🔵 Option 2: Extended Care, Homework & Arts Plan (Mandarin + Extension)</h3>
-                    <div class="price">${data.opt2_price}<span> / Month</span></div>
-                    <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_LONG}</p>
-                    <p><strong>Program Window:</strong> ${data.opt2_text}</p>
-                    <ul>
-                        <li>Includes all safe gateway pickup services and the high-value leveled Mandarin core class from Option 1.</li>
-                        <li><strong>🎨 Creative Fine Arts & Crafts:</strong> Diversified arts, crafts, origami, and cultural projects guided by specialized instructors (all-inclusive premium material fees).</li>
-                        <li><strong>📝 Multi-Grade Homework Supervision:</strong> High-standard tutoring, inspection, thorough correction, and individual Q&A for school assignments across grades K-5.</li>
-                        <li><strong>🎁 Premium Exclusive:</strong> Fully includes daily complimentary nutritious supper (Free Supper) and stress-free evening childcare supervision.</li>
-                    </ul>
-                </div>
-            `;
-        } else {
-            container.innerHTML = `
-                <div class="price-card option-elite" style="max-width: 650px; margin: 0 auto;">
-                    <h3>🟠 Late Dismissal All-Inclusive Elite Plan</h3>
-                    <div class="price">${data.price}<span> / Month</span></div>
-                    <p><strong>Dismissal Time:</strong> ${PROGRAM_CONFIG.DEFAULT_LEAVE_TIME_LONG}</p>
-                    <p><strong>Program Window:</strong> ${data.text}</p>
-                    <div class="value-badge">💎 Premium Value Density: Core Mandarin instruction takes up 36% - 50% of the entire program window!</div>
-                    <p style="margin-top: 15px;">Due to later public school dismissal schedules, basic childcare buffer periods are naturally streamlined. This plan eliminates fluff and focuses resources squarely on high-value learning milestones and core dining needs:</p>
-                    <ul>
-                        <li>Tight, seamless safe gateway pickup at school dismissal (K-5 all grades).</li>
-                        <li><strong>📈 Core Academic Engine:</strong> Complimentary Day 1 Mandarin diagnostic assessment, followed by a daily 1-hour complete, high-investment systematic leveled immersion program.</li>
-                        <li><strong>🎨 Fine Arts & Homework Tutoring:</strong> High-efficiency grade-appropriate homework supervision, creative handicrafts, and cultural painting/paper-cutting projects.</li>
-                        <li><strong>🎁 Premium Exclusive:</strong> Fully covers a daily hot nutritious supper (Free Supper). Parents can pick up well-fed children with all public school homework completed with absolute piece of mind.</li>
-                    </ul>
-                </div>
-            `;
-        }
+            <div class="price-card option-two">
+                <h3>🔵 Option 2 — Extended Care + Homework + Arts</h3>
+                <div class="price">${p2}<span> / month</span></div>
+                <p><strong>Pickup by:</strong> 6:00 PM</p>
+                <p><strong>Program Hours:</strong> ${data.opt2_text}</p>
+                ${escortNote()}
+                <ul>
+                    ${brightwheelNote()}
+                    <li>Everything in Option 1, including safe pickup and leveled Mandarin class.</li>
+                    <li>🎨 <strong>Arts & Enrichment:</strong> Daily arts, crafts, origami, and cultural projects led by specialized instructors — all materials included.</li>
+                    <li>✏️ <strong>Homework Support:</strong> Dedicated supervision, review, and Q&amp;A for school assignments across all K–5 subjects (Chinese, English, and foundational Math).</li>
+                    <li>🍎 <strong>Free Daily Supper:</strong> A hot, nutritious evening meal is provided — your child comes home fed, homework done, and ready to wind down.</li>
+                    <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                </ul>
+            </div>
+        `;
+    } else {
+        const p = isOut ? addToPrice(data.price, addAmt) : data.price;
+        container.innerHTML = `
+            <div class="price-card option-elite" style="max-width: 650px; margin: 0 auto;">
+                <h3>🟠 All-Inclusive Extended Plan</h3>
+                <div class="price">${p}<span> / month</span></div>
+                <p><strong>Pickup by:</strong> 6:00 PM</p>
+                <p><strong>Program Hours:</strong> ${data.text}</p>
+                ${escortNote()}
+                <div class="value-badge">💎 Mandarin instruction makes up 36–50% of the entire program window</div>
+                <p style="margin-top: 15px; font-size: 14px; color: var(--text-muted);">Because your school's later dismissal naturally shortens the overall program window, this single plan maximizes every minute — focusing resources on high-value learning, arts, homework, and dinner.</p>
+                <ul>
+                    ${brightwheelNote()}
+                    <li>Safe direct pickup at school dismissal for all K–5 grades.</li>
+                    <li>📚 <strong>Core Mandarin:</strong> Free Day 1 diagnostic assessment, then a daily 1-hour leveled immersive Mandarin class — the highest-value part of your child's afternoon.</li>
+                    <li>✏️ <strong>Homework + Arts:</strong> Efficient grade-appropriate homework supervision alongside creative cultural crafts, painting, and paper-cutting projects.</li>
+                    <li>🍎 <strong>Free Daily Supper:</strong> A hot, nutritious meal every evening — parents pick up well-fed kids with all homework completed.</li>
+                    <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                </ul>
+            </div>
+        `;
     }
-    </script>
+}
+</script>
 </body>
 </html>
