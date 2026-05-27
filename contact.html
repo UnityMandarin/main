@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Unity Mandarin Center</title>
+    <style>
+    /* ==========================================================================
+       GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
+       ========================================================================= */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
+
+    :root {
+        /* Color Palette: Brand Accents & Identity */
+        --brand-orange: #FF5722;
+        --brand-orange-hover: #E64A19;
+        --brand-orange-glow: rgba(255, 87, 34, 0.15);
+        --brand-orange-subtle: rgba(255, 87, 34, 0.04);
+        
+        /* Color Palette: Contextual Mint Tones */
+        --mint-nav-core: #D1F7DB;
+        --mint-nav-light: #EBFDF2;
+        --mint-nav-border: rgba(88, 185, 131, 0.35);
+        --mint-shadow-tint: rgba(88, 185, 131, 0.12);
+        --mint-light: #E8FBF0;
+        --scroll-jade: #72D09B;
+        
+        /* Typography & Font Tokens */
+        --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
+        --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
+        
+        /* Structural Contrast Text Colors */
+        --text-primary: #1C3325;
+        --text-secondary: #3A5243;
+        --text-navbar-link: #243E2E;
+        --text-main: #2C3E50;
+        --text-muted: #5A6B7C;
+        
+        /* Layout Sizing Defaults */
+        --header-height: 72px;
+        --max-content-width: 1440px;
+        --max-width: 1100px;
+        --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* ==========================================================================
+       BASE CORE BODY RESET & CANVAS GROUNDING
+       ========================================================================== */
+    body {
+        font-family: var(--font-interface);
+        color: var(--text-primary);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f3efe3;
+        
+        /* DESKTOP BACKGROUND SETTINGS */
+        background-image: url('aboutbg.png');
+        background-repeat: repeat;
+        background-position: center top;
+        background-attachment: fixed;
+        background-size: cover;
+        
+        overflow-x: hidden;
+    }
+
+    /* PERFECT MOBILE FIXED BACKGROUND LAYER */
+    @media (max-width: 900px) {
+        body {
+            background-image: none !important;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10;
+            
+            background-image: url('aboutbg.png') !important;
+            background-position: left top !important;
+            background-repeat: no-repeat !important;
+            background-size: auto 100vh !important;
+            background-attachment: scroll !important;
+        }
+
+        .header-container { padding: 10px 20px; }
+        .mobile-menu-btn { display: flex; }
+        nav { display: none; width: 100%; flex-direction: column; gap: 10px; padding: 20px 0; border-top: 1px solid rgba(88, 185, 131, 0.2); margin-top: 10px; }
+        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        nav a { width: 100%; padding: 12px; font-size: 16px; }
+        nav a::after { display: none; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+        
+        .main-container { padding: 40px 20px 60px 20px; }
+        .contact-hero-card { padding: 40px 20px !important; }
+        .giant-email { font-size: 24px !important; }
+    }
+
+    /* ==========================================================================
+       ADVANCED NAVIGATION HEADER FRAMEWORK
+       ========================================================================== */
+    header {
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+        min-height: var(--header-height);
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--mint-nav-border);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
+                    0 2px 10px var(--mint-shadow-tint);
+        will-change: transform;
+        transition: var(--transition-smooth);
+    }
+
+    .header-container {
+        width: 100%;
+        max-width: var(--max-content-width);
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+    }
+
+    .logo-group {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        height: var(--header-height);
+        outline: none;
+        transition: var(--transition-smooth);
+    }
+
+    .logo-group:hover {
+        transform: translateY(-1px);
+    }
+
+    .logo-group img {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+    }
+
+    /* ==========================================================================
+       INLINE NAVIGATION SYSTEM
+       ========================================================================== */
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 4px; 
+        height: 100%;
+    }
+
+    nav a {
+        font-family: var(--font-interface);
+        text-decoration: none;
+        color: var(--text-navbar-link);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+        box-sizing: border-box;
+    }
+
+    nav a:hover {
+        color: var(--brand-orange);
+        background-color: var(--brand-orange-subtle);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 18px;
+        right: 18px;
+        height: 2px;
+        background-color: var(--brand-orange);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: var(--transition-smooth);
+    }
+
+    nav a:hover::after {
+        transform: scaleX(1);
+    }
+
+    nav a.active-page {
+        color: #FFFFFF;
+        background-color: var(--brand-orange);
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    }
+
+    nav a.active-page::after {
+        display: none; 
+    }
+
+    nav a[href*="contact"],
+    nav a:last-of-type {
+        background-color: transparent;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        margin-left: 8px;
+        padding: 8px 20px;
+    }
+
+    nav a[href*="contact"]:hover,
+    nav a:last-of-type:hover {
+        background-color: var(--brand-orange);
+        color: #FFFFFF;
+        box-shadow: 0 4px 14px var(--brand-orange-glow);
+        transform: translateY(-1px);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 1001;
+    }
+
+    .mobile-menu-btn span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: var(--transition-smooth);
+    }
+
+    /* ==========================================================================
+       CONTENT CONTAINER ARCHITECTURE
+       ========================================================================== */
+    .main-container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 80px 40px 100px 40px;
+        box-sizing: border-box;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* ==========================================================================
+       CONTACT HERO LAYOUT WITH DISPLAY DETAILS
+       ========================================================================== */
+    .contact-hero-card {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 16px;
+        padding: 60px 40px;
+        box-shadow: 0 15px 45px rgba(168, 223, 181, 0.15);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-hero-card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
+    }
+
+    .contact-hero-card h1 {
+        font-family: var(--font-editorial);
+        font-size: 36px;
+        color: var(--text-primary);
+        margin: 0 0 10px 0;
+    }
+
+    .contact-hero-card .subtitle {
+        font-size: 16px;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto 40px auto;
+        line-height: 1.6;
+    }
+
+    /* Giant Central Email Target Presentation */
+    .giant-email-container {
+        margin: 40px 0;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .giant-email {
+        font-family: var(--font-editorial);
+        font-size: 46px;
+        font-weight: 700;
+        color: var(--brand-orange);
+        text-decoration: none;
+        letter-spacing: 0.5px;
+        padding: 15px 30px;
+        background-color: var(--brand-orange-subtle);
+        border: 2px dashed rgba(255, 87, 34, 0.3);
+        border-radius: 12px;
+        transition: var(--transition-smooth);
+        display: inline-block;
+        max-width: 100%;
+        box-sizing: border-box;
+        word-break: break-all;
+    }
+
+    .giant-email:hover {
+        color: #FFFFFF;
+        background-color: var(--brand-orange);
+        border-color: var(--brand-orange);
+        box-shadow: 0 8px 25px var(--brand-orange-glow);
+        transform: translateY(-2px);
+    }
+
+    .action-tip {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-top: 15px;
+        font-style: italic;
+    }
+
+    /* ==========================================================================
+       SITE FOOTER CANVAS
+       ========================================================================== */
+    footer {
+        background-color: #142219;
+        color: #CFEAD6;
+        padding: 50px 40px 30px 40px;
+        border-top: 4px solid var(--scroll-jade);
+        margin-top: auto;
+    }
+
+    .footer-grid {
+        max-width: var(--max-width);
+        margin: 0 auto 40px auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 40px;
+    }
+
+    .footer-col h4 {
+        color: #FFFFFF;
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .footer-col h4::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--brand-orange);
+    }
+
+    .footer-col p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        opacity: 0.85;
+    }
+
+    .links-listing {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .links-listing li {
+        margin-bottom: 10px;
+    }
+
+    .links-listing a {
+        color: #CFEAD6;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s ease, padding-left 0.2s ease;
+        display: inline-block;
+    }
+
+    .links-listing a:hover {
+        color: var(--brand-orange);
+        padding-left: 4px;
+    }
+
+    .copyright-bar {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        text-align: center;
+        font-size: 13px;
+        opacity: 0.5;
+    }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo-group">
+                <img src="logo.png" alt="Unity Mandarin Center Logo">
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="navbar">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="programs.html">Programs</a>
+                <a href="contact.html" class="active-page">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <section class="contact-hero-card">
+            <h1>Connect With Our Admissions Desk</h1>
+            <p class="subtitle">Have questions about our SFUSD schedules, placement mapping, or tracking protocols? Reach out directly and our coordination operations will assist you.</p>
+            
+            <div class="giant-email-container">
+                <a href="mailto:info@unitymandarin.org" class="giant-email">info@unitymandarin.org</a>
+                <div class="action-tip">Click the link above to open your email client directly</div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Unity Mandarin Center</h4>
+                <p>Forging high-retention linguistic ecosystems through structural immersion, curated cultural arts, and meticulous academic support systems.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="links-listing">
+                    <li><a href="about.html">Our Identity Matrix</a></li>
+                    <li><a href="programs.html">Enrollment Protocols</a></li>
+                    <li><a href="contact.html">Admissions Operations</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Operations Control</h4>
+                <p><strong>Program Director & Board Core</strong></p>
+                <p>Email: admissions@unitymandarin.com</p>
+                <p>Web: www.unitymandarin.com</p>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            Unity Mandarin Enrichment Center Matrix © 2026-2027. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+    function toggleMobileMenu() {
+        const nav = document.getElementById('navbar');
+        if(nav) {
+            nav.classList.toggle('is-open');
+        }
+    }
+    </script>
+</body>
+</html>
