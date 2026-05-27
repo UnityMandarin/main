@@ -1,6 +1,8 @@
 /**
- * UMC 2026秋季 官方价格矩阵 (中英双语对照 + 校长审批前置安全锁定)
+ * ==========================================
+ * UMC 2026秋季 官方价格矩阵 (中英双语对照 · 4/5/6点全选项无缝修复版)
  * Architectural Upgrades: Deep Immutability, DOM Element Caching, and Fail-Safe Structural Evaluation.
+ * ==========================================
  */
 const umcPriceMatrix = {
     onsite: {
@@ -128,7 +130,8 @@ function renderUmcDynamicPrice() {
                     <span class="plan-badge">选项一：4点接 / Option 1 (4 PM)</span>
                     <div class="big-price">${currentData.opt1} <small>/ 月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text1_zh}</strong><br><small style="color:#666;">${currentData.text1_en}</small></p>
-                    <p class="academic-promise focus-chinese">⭐ <strong>首要覆盖 / Core focus：</strong>1小时分级中文核心课（高效纯课时，Brightwheel 安全签到）。</p>
+                    <p class="academic-promise focus-chinese">⭐ <strong>首要覆盖 / Core focus：</strong>1小时分级中文核心课（高效纯课时，Brightwheel 安全签到）。<br>
+                    <small style="display:block; margin-top:2px; font-style:italic; opacity:0.8;">1-hour high-efficiency leveled Mandarin core class block.</small></p>
                     ${feesTemplate}
                 </div>
                 
@@ -136,7 +139,8 @@ function renderUmcDynamicPrice() {
                     <span class="plan-badge badge-blue-tag">选项二：5点接 / Option 2 (5 PM)</span>
                     <div class="big-price">${currentData.opt2} <small>/ 月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text2_zh}</strong><br><small style="color:#666;">${currentData.text2_en}</small></p>
-                    <p class="academic-promise">📐 <strong>多维拓展 / Multi-Track：</strong>1小时中文核心课 + 学校家庭作业日常辅导答疑 + 适当融入趣味才艺体验与能量点心。</p>
+                    <p class="academic-promise">📐 <strong>多维拓展 / Multi-Track：</strong>1小时中文核心课 + 学校家庭作业（含中/英/数学）日常辅导答疑 + 适当融入趣味才艺体验与能量点心。<br>
+                    <small style="display:block; margin-top:2px; font-style:italic; opacity:0.8;">1-hr Mandarin core + academic homework coaching (Chinese/English/Math) + enrichment culture experiences + snacks.</small></p>
                     ${feesTemplate}
                 </div>
                 
@@ -144,7 +148,8 @@ function renderUmcDynamicPrice() {
                     <span class="plan-badge badge-gold">选项三：6点接 / Option 3 (6 PM)</span>
                     <div class="big-price">${currentData.opt3} <small>/ 月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text3_zh}</strong><br><small style="color:#666;">${currentData.text3_en}</small></p>
-                    <p class="academic-promise">🥋 <strong>全维长托 / Premium Extended：</strong>1小时中文核心课 + 学校功课辅导答疑（包含数学难题启发） + 丰富中华武术/手工绘画轮换体验 + 能量点心 + 延时看护。</p>
+                    <p class="academic-promise">🥋 <strong>全维长托 / Premium Extended：</strong>1小时中文核心课 + 学校功课辅导答疑（包含数学难题启发） + 丰富中华武术/手工绘画轮换体验 + 能量点心 + 延时看护。<br>
+                    <small style="display:block; margin-top:2px; font-style:italic; opacity:0.8;">Full immersive experience: 1-hr core class + multi-subject homework support + rotating Martial Arts/Fine Arts tracks + energy snacks + full extended care.</small></p>
                     ${feesTemplate}
                 </div>
             </div>
@@ -155,7 +160,8 @@ function renderUmcDynamicPrice() {
                 <span class="plan-badge badge-exclusive">全包长托专属计划 / Single Extended Care Plan</span>
                 <div class="big-price">${currentData.price} <small>/ 月费 Month</small></div>
                 <p class="time-info">⏰ 运行作息 / Running Schedule：<br><strong>${currentData.text_zh}</strong><br><small style="color:#666; display:block; margin-top:4px;">${currentData.text_en}</small></p>
-                <p class="academic-promise" style="margin-bottom:10px;">🥋 <strong>全维交付 / Total Delivery：</strong>1小时核心中文课 + 中英数学业功课日常辅导答疑 + 适当穿插手工/绘画/武术丰富体验 + 能量点心。</p>
+                <p class="academic-promise" style="margin-bottom:10px;">🥋 <strong>全维交付 / Total Delivery：</strong>1小时核心中文课 + 中英数学业功课日常辅导答疑 + 适当穿插手工/绘画/武术丰富体验 + 能量点心。全流程覆盖 Brightwheel 安全管家服务。<br>
+                <small style="display:block; margin-top:2px; font-style:italic; opacity:0.8;">1-hr core immersion block + full academic guidance + specialized cultural arts rotation + daily snack supply. Fully managed under the premium Brightwheel safety umbrella.</small></p>
                 ${feesTemplate}
             </div>
         `;
