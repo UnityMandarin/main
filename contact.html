@@ -12,11 +12,13 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
     :root {
+        /* Color Palette: Brand Accents & Identity */
         --brand-orange: #FF5722;
         --brand-orange-hover: #E64A19;
         --brand-orange-glow: rgba(255, 87, 34, 0.15);
         --brand-orange-subtle: rgba(255, 87, 34, 0.04);
         
+        /* Color Palette: Contextual Mint Tones */
         --mint-nav-core: #D1F7DB;
         --mint-nav-light: #EBFDF2;
         --mint-nav-border: rgba(88, 185, 131, 0.35);
@@ -24,28 +26,27 @@
         --mint-light: #E8FBF0;
         --scroll-jade: #72D09B;
         
+        /* Typography & Font Tokens */
         --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
         --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
         
+        /* Structural Contrast Text Colors */
         --text-primary: #1C3325;
         --text-secondary: #3A5243;
         --text-navbar-link: #243E2E;
         --text-main: #2C3E50;
         --text-muted: #5A6B7C;
         
+        /* Layout Sizing Defaults */
         --header-height: 72px;
         --max-content-width: 1440px;
         --max-width: 1100px;
-        --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     /* ==========================================================================
-       BASE CORE & FIXED BACKGROUND
+       BASE CORE BODY RESET & CANVAS GROUNDING
        ========================================================================== */
-    html {
-        scroll-behavior: smooth;
-    }
-    
     body {
         font-family: var(--font-interface);
         color: var(--text-primary);
@@ -55,38 +56,109 @@
         flex-direction: column;
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         background-color: #f3efe3;
+        
+        /* DESKTOP BACKGROUND SETTINGS */
+        background-image: url('aboutbg.png');
+        background-repeat: repeat;
+        background-position: center top;
+        background-attachment: fixed;
+        background-size: cover;
+        
+        overflow-x: hidden;
     }
 
-    /* PERFECT FIXED BACKGROUND TRICK (Works flawlessly on Mobile & Desktop) */
-    .site-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-image: url('aboutbg.png');
-        background-position: center top;
-        background-size: cover;
-        background-repeat: no-repeat;
-        z-index: -10;
-        pointer-events: none;
+    /* PERFECT MOBILE FIXED BACKGROUND LAYER */
+    @media (max-width: 900px) {
+        body {
+            background-image: none !important;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10;
+            
+            /* Background locked completely completely still on mobile scroll */
+            background-image: url('aboutbg.png') !important;
+            background-position: center top !important;
+            background-repeat: repeat !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+        }
+
+        .header-container { padding: 10px 20px; }
+        .mobile-menu-btn { display: flex; }
+        
+        /* Smooth Mobile Menu Expanding List Setup */
+        nav { 
+            display: flex !important; /* Override default hidden flow */
+            width: 100%; 
+            flex-direction: column; 
+            gap: 10px; 
+            padding: 0; 
+            border-top: 1px solid transparent; 
+            margin-top: 0;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+        }
+        
+        /* Expanding active animation frame */
+        nav.is-open { 
+            max-height: 350px; 
+            opacity: 1; 
+            padding: 20px 0; 
+            border-top: 1px solid rgba(88, 185, 131, 0.2); 
+            margin-top: 10px; 
+        }
+        
+        nav a { width: 100%; padding: 12px; font-size: 16px; box-sizing: border-box; }
+        nav a::after { display: none; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+        
+        /* Mobile Menu Close "X" Cross Morphing Animation */
+        .mobile-menu-btn.is-active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .mobile-menu-btn.is-active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .mobile-menu-btn.is-active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .main-container { padding: 40px 20px 60px 20px; }
+        .contact-hero-card { padding: 40px 20px !important; }
+        .giant-email { font-size: 24px !important; }
     }
 
     /* ==========================================================================
-       ADVANCED NAVIGATION HEADER
+       ADVANCED NAVIGATION HEADER FRAMEWORK
        ========================================================================== */
     header {
-        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%);
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
         min-height: var(--header-height);
         position: sticky;
         top: 0;
+        left: 0;
+        right: 0;
         z-index: 1000;
         display: flex;
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid var(--mint-nav-border);
-        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
+                    0 2px 10px var(--mint-shadow-tint);
+        will-change: transform;
+        transition: var(--transition-smooth);
     }
 
     .header-container {
@@ -96,19 +168,39 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-sizing: border-box;
         flex-wrap: wrap;
+    }
+
+    .logo-group {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        height: var(--header-height);
+        outline: none;
+        transition: var(--transition-smooth);
+    }
+
+    .logo-group:hover {
+        transform: translateY(-1px);
     }
 
     .logo-group img {
         height: 44px;
-        transition: transform 0.3s ease;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
     }
-    .logo-group:hover img { transform: scale(1.05); }
 
+    /* ==========================================================================
+       INLINE NAVIGATION SYSTEM
+       ========================================================================== */
     nav {
         display: flex;
         align-items: center;
         gap: 4px; 
+        height: 100%;
     }
 
     nav a {
@@ -117,15 +209,37 @@
         color: var(--text-navbar-link);
         font-weight: 600;
         font-size: 14px;
+        letter-spacing: 0.15px;
         padding: 10px 18px;
         border-radius: 8px;
         position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         transition: var(--transition-smooth);
+        box-sizing: border-box;
     }
 
     nav a:hover {
         color: var(--brand-orange);
         background-color: var(--brand-orange-subtle);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 18px;
+        right: 18px;
+        height: 2px;
+        background-color: var(--brand-orange);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: var(--transition-smooth);
+    }
+
+    nav a:hover::after {
+        transform: scaleX(1);
     }
 
     nav a.active-page {
@@ -134,17 +248,25 @@
         box-shadow: 0 4px 12px var(--brand-orange-glow);
     }
 
-    nav a[href*="contact"] {
+    nav a.active-page::after {
+        display: none; 
+    }
+
+    nav a[href*="contact"],
+    nav a:last-of-type {
         background-color: transparent;
         border: 1.5px solid var(--brand-orange);
         color: var(--brand-orange);
         margin-left: 8px;
+        padding: 8px 20px;
     }
 
-    nav a[href*="contact"]:hover {
+    nav a[href*="contact"]:hover,
+    nav a:last-of-type:hover {
         background-color: var(--brand-orange);
         color: #FFFFFF;
-        transform: translateY(-2px);
+        box-shadow: 0 4px 14px var(--brand-orange-glow);
+        transform: translateY(-1px);
     }
 
     .mobile-menu-btn {
@@ -154,182 +276,129 @@
         cursor: pointer;
         padding: 8px;
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
         z-index: 1001;
     }
 
     .mobile-menu-btn span {
         display: block;
-        width: 28px;
+        width: 25px;
         height: 3px;
         background-color: var(--text-primary);
-        border-radius: 3px;
+        border-radius: 2px;
         transition: var(--transition-smooth);
-        transform-origin: center;
     }
 
     /* ==========================================================================
-       CONTENT LAYOUT & NEW SECTIONS
+       CONTENT CONTAINER ARCHITECTURE
        ========================================================================== */
+     .about-container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 60px 40px 100px 40px;
+        box-sizing: border-box;
+      }
+        
+    .about-header-container {
+        width: 60%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+        
     .main-container {
         max-width: var(--max-width);
         margin: 0 auto;
-        padding: 60px 20px 100px 20px;
-        width: 100%;
+        padding: 80px 40px 100px 40px;
         box-sizing: border-box;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
+    /* ==========================================================================
+       CONTACT HERO LAYOUT WITH DISPLAY DETAILS
+       ========================================================================== */
     .contact-hero-card {
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(114, 208, 155, 0.4);
+        background-color: #FFFFFF;
+        border: 1px solid rgba(114, 208, 155, 0.25);
         border-radius: 16px;
-        padding: 50px 40px;
-        box-shadow: 0 15px 45px rgba(168, 223, 181, 0.2);
+        padding: 60px 40px;
+        box-shadow: 0 15px 45px rgba(168, 223, 181, 0.15);
         text-align: center;
-        border-top: 6px solid var(--scroll-jade);
-        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-hero-card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
     }
 
     .contact-hero-card h1 {
         font-family: var(--font-editorial);
-        font-size: 38px;
+        font-size: 36px;
         color: var(--text-primary);
-        margin: 0 0 15px 0;
+        margin: 0 0 10px 0;
+    }
+
+    .contact-hero-card .subtitle {
+        font-size: 16px;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto 40px auto;
+        line-height: 1.6;
+    }
+
+    /* Giant Central Email Target Presentation */
+    .giant-email-container {
+        margin: 40px 0;
+        position: relative;
+        display: inline-block;
+        width: 100%;
     }
 
     .giant-email {
         font-family: var(--font-editorial);
-        font-size: 42px;
+        font-size: 46px;
         font-weight: 700;
         color: var(--brand-orange);
         text-decoration: none;
+        letter-spacing: 0.5px;
         padding: 15px 30px;
         background-color: var(--brand-orange-subtle);
-        border: 2px dashed rgba(255, 87, 34, 0.4);
+        border: 2px dashed rgba(255, 87, 34, 0.3);
         border-radius: 12px;
-        display: inline-block;
         transition: var(--transition-smooth);
-        margin: 20px 0;
+        display: inline-block;
+        max-width: 100%;
+        box-sizing: border-box;
         word-break: break-all;
     }
+
     .giant-email:hover {
+        color: #FFFFFF;
         background-color: var(--brand-orange);
-        color: #fff;
-        transform: scale(1.02);
-    }
-
-    /* NEW: Grid for Form and Info */
-    .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        margin-bottom: 60px;
-    }
-
-    /* NEW: Contact Form Styling */
-    .contact-form {
-        background: #ffffff;
-        padding: 40px;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        border: 1px solid rgba(114, 208, 155, 0.2);
-    }
-    .form-group {
-        margin-bottom: 20px;
-        text-align: left;
-    }
-    .form-group label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 8px;
-        font-size: 14px;
-        color: var(--text-secondary);
-    }
-    .form-group input, .form-group textarea {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-family: var(--font-interface);
-        font-size: 15px;
-        box-sizing: border-box;
-        transition: border-color 0.3s ease;
-    }
-    .form-group input:focus, .form-group textarea:focus {
-        outline: none;
         border-color: var(--brand-orange);
-        box-shadow: 0 0 0 3px var(--brand-orange-glow);
-    }
-    .submit-btn {
-        background-color: var(--scroll-jade);
-        color: #fff;
-        border: none;
-        padding: 14px 24px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 8px;
-        cursor: pointer;
-        width: 100%;
-        transition: var(--transition-smooth);
-    }
-    .submit-btn:hover {
-        background-color: #5ab583;
+        box-shadow: 0 8px 25px var(--brand-orange-glow);
         transform: translateY(-2px);
     }
 
-    /* NEW: Expanding FAQ List Styling */
-    .faq-section {
-        background: #ffffff;
-        padding: 40px;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        border: 1px solid rgba(114, 208, 155, 0.2);
-    }
-    .faq-section h3 {
-        font-family: var(--font-editorial);
-        font-size: 24px;
-        margin-top: 0;
-        margin-bottom: 20px;
-        color: var(--text-primary);
-    }
-    details {
-        margin-bottom: 15px;
-        border: 1px solid #eee;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-    summary {
-        padding: 15px;
-        font-weight: 600;
-        background-color: #fafafa;
-        cursor: pointer;
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: background 0.3s ease;
-    }
-    summary:hover { background-color: var(--mint-light); }
-    summary::-webkit-details-marker { display: none; }
-    summary::after {
-        content: "+";
-        font-size: 20px;
-        color: var(--brand-orange);
-        transition: transform 0.3s ease;
-    }
-    details[open] summary::after { transform: rotate(45deg); }
-    details p {
-        padding: 15px;
-        margin: 0;
-        color: var(--text-secondary);
-        font-size: 15px;
-        line-height: 1.6;
-        border-top: 1px solid #eee;
+    .action-tip {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-top: 15px;
+        font-style: italic;
     }
 
     /* ==========================================================================
-       FOOTER
+       SITE FOOTER CANVAS
        ========================================================================== */
     footer {
         background-color: #142219;
@@ -338,6 +407,7 @@
         border-top: 4px solid var(--scroll-jade);
         margin-top: auto;
     }
+
     .footer-grid {
         max-width: var(--max-width);
         margin: 0 auto 40px auto;
@@ -345,78 +415,87 @@
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 40px;
     }
+
     .footer-col h4 {
         color: #FFFFFF;
+        font-size: 18px;
         margin-bottom: 20px;
+        position: relative;
         padding-bottom: 8px;
-        border-bottom: 2px solid var(--brand-orange);
+        letter-spacing: 0.5px;
+    }
+
+    .footer-col h4::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--brand-orange);
+    }
+
+    .footer-col p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        opacity: 0.85;
+    }
+
+    .links-listing {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .links-listing li {
+        margin-bottom: 10px;
+    }
+
+    .links-listing a {
+        color: #CFEAD6;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s ease, padding-left 0.2s ease;
         display: inline-block;
     }
-    .links-listing { list-style: none; padding: 0; }
-    .links-listing li { margin-bottom: 10px; }
-    .links-listing a { color: #CFEAD6; text-decoration: none; transition: color 0.3s ease; }
-    .links-listing a:hover { color: var(--brand-orange); }
 
-    /* ==========================================================================
-       SMOOTH MOBILE RESPONSIVENESS
-       ========================================================================== */
-    @media (max-width: 900px) {
-        .header-container { padding: 15px 20px; }
-        .mobile-menu-btn { display: flex; }
+    .links-listing a:hover {
+        color: var(--brand-orange);
+        padding-left: 4px;
+    }
+
+    .copyright-bar {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        text-align: center;
+        font-size: 13px;
+        opacity: 0.5;
+    }
         
-        /* Smooth Mobile Nav Dropdown */
-        nav { 
-            width: 100%; 
-            flex-direction: column; 
-            background: #fff;
-            position: absolute;
-            top: var(--header-height);
-            left: 0;
-            border-bottom: 2px solid var(--scroll-jade);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            
-            /* Animation properties */
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
-        }
-        nav.is-open { 
-            max-height: 400px; /* Expands to fit content */
-            opacity: 1;
-            padding: 15px 0;
-        }
-        nav a { width: 90%; text-align: center; padding: 15px; margin: 5px auto; }
-        nav a[href*="contact"] { margin: 5px auto; width: 90%; }
-
-        /* Animated Hamburger "X" */
-        .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-        .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
-        .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
-        /* Content adjustments */
-        .contact-grid { grid-template-columns: 1fr; gap: 20px; }
-        .giant-email { font-size: 24px; padding: 15px; }
-        .contact-hero-card { padding: 30px 20px; }
+    .contact-banner-img {
+        width: 100%;       
+        max-width: 400px;  
+        height: auto;      
+        display: block;    
+        margin: 0 auto;    
     }
     </style>
 </head>
 <body>
-
-    <div class="site-background"></div>
 
     <header>
         <div class="header-container">
             <a href="index.html" class="logo-group">
                 <img src="your-logo-file.png" alt="Unity Mandarin Center Logo">
             </a>
-            
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            
             <nav id="navbar">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
@@ -428,68 +507,28 @@
     </header>
 
     <main class="main-container">
+    <section class="page-hero">
+        <div class="about-header-container">
+            <img src="contactbanner.png" alt="Unity Mandarin Center" class="contact-banner-img">
+        </div>
+    </section>
         
         <section class="contact-hero-card">
             <h1>Connect With Our Admissions Desk</h1>
             <p class="subtitle">Have questions about our SFUSD schedules, placement mapping, or tracking protocols? Reach out directly and our coordination operations will assist you.</p>
             
-            <a href="mailto:info@unitymandarin.org" class="giant-email">info@unitymandarin.org</a>
-            <div style="color: var(--text-muted); font-style: italic; margin-top: 10px;">Click to open your email client</div>
+            <div class="giant-email-container">
+                <a href="mailto:info@unitymandarin.org" class="giant-email">info@unitymandarin.org</a>
+                <div class="action-tip">Click the link above to open your email client directly</div>
+            </div>
         </section>
-
-        <div class="contact-grid">
-            
-            <div class="contact-form">
-                <h3 style="margin-top: 0; margin-bottom: 20px; font-family: var(--font-editorial);">Send us a Message</h3>
-                <form action="#" method="POST" onsubmit="alert('Thank you for your message! (This is a demo)'); return false;">
-                    <div class="form-group">
-                        <label>Parent/Guardian Name</label>
-                        <input type="text" placeholder="Jane Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="jane@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea rows="4" placeholder="How can we help you?" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-
-            <div class="faq-section">
-                <h3>Frequently Asked Questions</h3>
-                
-                <details>
-                    <summary>What are your operating hours?</summary>
-                    <p>We are open Monday through Friday from 8:00 AM to 6:00 PM. We follow the standard SFUSD holiday calendar.</p>
-                </details>
-
-                <details>
-                    <summary>Do you offer part-time enrollment?</summary>
-                    <p>Yes, we offer custom tracks depending on availability. Please fill out the contact form indicating your preferred days, and our admissions team will assist you.</p>
-                </details>
-
-                <details>
-                    <summary>How do I schedule a tour?</summary>
-                    <p>Tours are currently by appointment only. You can shoot us an email at info@unitymandarin.org or use the contact form to request a time.</p>
-                </details>
-                
-                <details>
-                    <summary>Where are you located?</summary>
-                    <p>We are proudly located in the heart of San Francisco, CA. Full address and parking instructions are provided upon scheduling a visit.</p>
-                </details>
-            </div>
-
-        </div>
 
     </main>
 
-    <footer>
+  <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <h4>Unity Mandarin Center</h4>
+                <h4>Unity Mandarin Enrichment Center</h4>
                 <p>Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</p>
             </div>
             <div class="footer-col">
@@ -498,18 +537,19 @@
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="program.html">Program</a></li>
                     <li><a href="why-us.html">Why Us</a></li>
-                    <li><a href="contact.html">Contact</a></li> </ul>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
             </div>
             <div class="footer-col">
                 <h4>Contact Details</h4>
-                <ul class="links-listing" style="pointer-events: none;">
-                    <li>📞 (415) 658-2516</li>
-                    <li>✉️ info@unitymandarin.org</li>
-                    <li>📍 San Francisco, CA</li>
+                <ul class="contact-listing">
+                    <li><span class="icon" aria-hidden="true">📞</span><span>(415) 658-2516</span></li>
+                    <li><span class="icon" aria-hidden="true">✉️</span><span>info@unitymandarin.org</span></li>
+                    <li><span class="icon" aria-hidden="true">📍</span><span>San Francisco, CA</span></li>
                 </ul>
             </div>
         </div>
-        <div style="text-align: center; opacity: 0.5; font-size: 13px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+        <div class="copyright-bar">
             &copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.
         </div>
     </footer>
@@ -518,8 +558,10 @@
     function toggleMobileMenu() {
         const nav = document.getElementById('navbar');
         const btn = document.querySelector('.mobile-menu-btn');
-        if (nav && btn) {
+        if(nav) {
             nav.classList.toggle('is-open');
+        }
+        if(btn) {
             btn.classList.toggle('is-active');
         }
     }
