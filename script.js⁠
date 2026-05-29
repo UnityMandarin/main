@@ -1,6 +1,117 @@
 // ==========================================================================
 // UMC 2026秋季 官方价格矩阵 (中英双语对照 · 5点改5:15延时看护及学费对应调整版)
 // ==========================================================================
+
+// Programmatic CSS Injection to perfectly align the new dynamic grids with the main page styles
+(function injectMatrixStyles() {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .dynamic-price-triple-grid {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .price-sub-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(114, 208, 155, 0.25);
+            border-radius: 12px;
+            padding: 28px;
+            flex: 1;
+            min-width: 290px;
+            max-width: 360px;
+            box-shadow: 0 8px 25px rgba(168, 223, 181, 0.06);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid #72D09B;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+        .price-sub-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(114, 208, 155, 0.15);
+        }
+        .price-sub-card.primary-sub-card {
+            border-top: 5px solid #FF5722;
+            background: #FFFBF9;
+        }
+        .dynamic-price-single-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(114, 208, 155, 0.25);
+            border-radius: 12px;
+            padding: 35px;
+            max-width: 680px;
+            margin: 20px auto 0 auto;
+            box-shadow: 0 8px 25px rgba(168, 223, 181, 0.06);
+            border-top: 5px solid #FF5722;
+            box-sizing: border-box;
+        }
+        .plan-badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            background: #D1F7DB;
+            color: #1C5C34;
+            align-self: flex-start;
+        }
+        .badge-blue-tag { background: #DBEAFE; color: #1E40AF; }
+        .badge-gold { background: #FEF3C7; color: #92400E; }
+        .badge-exclusive { background: #FEE2E2; color: #991B1B; }
+        .big-price {
+            font-size: 36px;
+            font-weight: 700;
+            color: #FF5722;
+            margin: 10px 0;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+        .big-price small {
+            font-size: 14px;
+            font-weight: 500;
+            color: #5A6B7C;
+        }
+        .time-info {
+            font-size: 14px;
+            margin: 12px 0;
+            color: #1C3325;
+            line-height: 1.5;
+        }
+        .academic-promise {
+            font-size: 13.5px;
+            color: #2C3E50;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .card-onsite-notice-tag {
+            background: #FFFBEB;
+            border: 1px solid #F3E3A4;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-top: 12px;
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #78350F;
+        }
+    `;
+    document.head.appendChild(style);
+})();
+
+// Mobile Navbar Toggle Utility Function
+function toggleMobileMenu() {
+    const nav = document.getElementById('navbar');
+    if (nav) {
+        nav.classList.toggle('is-open');
+    }
+}
+
 const umcPriceMatrix = {
     onsite: {
         tier1: { 
@@ -54,16 +165,24 @@ const umcPriceMatrix = {
 };
 
 function renderUmcDynamicPrice() {
-    const tier = document.getElementById('dismissalTier').value;
-    const isOnsite = document.getElementById('typeOnsite').checked;
+    const tierEl = document.getElementById('dismissalTier');
+    const onsiteEl = document.getElementById('typeOnsite');
+    const displayArea = document.getElementById('dynamicPriceDisplay');
+    
+    // Defensive check to avoid runtime errors if elements haven't loaded yet
+    if (!tierEl || !onsiteEl || !displayArea) return;
+
+    const tier = tierEl.value;
+    const isOnsite = onsiteEl.checked;
     
     const currentTrack = isOnsite ? umcPriceMatrix.onsite : umcPriceMatrix.offsite;
     const currentData = currentTrack[tier];
     
-    const displayArea = document.getElementById('dynamicPriceDisplay');
+    if (!currentData) return;
+    
     let htmlContent = '';
-
     let complianceNoticeTemplate = '';
+    
     if (isOnsite) {
         complianceNoticeTemplate = `
             <div class="card-onsite-notice-tag">
@@ -76,7 +195,7 @@ function renderUmcDynamicPrice() {
     }
 
     const feesTemplate = `
-        <div class="mandatory-fees-row" style="font-size:0.78rem; line-height:1.4; margin-top: 10px; border-top: 1px dashed #ddd; padding-top: 8px;">
+        <div class="mandatory-fees-row" style="font-size:0.78rem; line-height:1.4; margin-top: 10px; border-top: 1px dashed #ddd; padding-top: 8px; color:#5A6B7C;">
             <div>📝 注册费: $80/年 (不可退) | Registration: $80/yr (Non-refundable)</div>
             <div>📚 书本材料费: $80/年 | Book & Materials: $80/yr</div>
         </div>
@@ -89,27 +208,27 @@ function renderUmcDynamicPrice() {
             <div class="dynamic-price-triple-grid">
                 <div class="price-sub-card">
                     <span class="plan-badge">选项一：4点接 / Option 1 (4 PM)</span>
-                    <div class="big-price">${currentData.opt1} <small>/ 月费 Month</small></div>
+                    <div class="big-price">${currentData.opt1}<small>/月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text1_zh}</strong><br><small style="color:#666;">${currentData.text1_en}</small></p>
-                    <p class="academic-promise focus-chinese" style="font-size:0.85rem; color:#444; line-height:1.4;">⭐ <strong>首要覆盖 / Core focus：</strong>1小时分级中文核心课（高效纯课时，Brightwheel 安全签到）。<br>
+                    <p class="academic-promise focus-chinese">⭐ <strong>首要覆盖 / Core focus：</strong>1小时分级中文核心课（高效纯课时，Brightwheel 安全签到）。<br>
                     <small style="display:block; margin-top:2px; font-style:italic; color:#777;">1-hour high-efficiency leveled Mandarin core class block.</small></p>
                     ${feesTemplate}
                 </div>
                 
                 <div class="price-sub-card">
                     <span class="plan-badge badge-blue-tag">选项二：5:15接 / Option 2 (5:15 PM)</span>
-                    <div class="big-price">${currentData.opt2} <small>/ 月费 Month</small></div>
+                    <div class="big-price">${currentData.opt2}<small>/月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text2_zh}</strong><br><small style="color:#666;">${currentData.text2_en}</small></p>
-                    <p class="academic-promise" style="font-size:0.85rem; color:#444; line-height:1.4;">📐 <strong>多维拓展 / Multi-Track：</strong>1小时中文核心课 + 学校家庭作业（含中/英/数学）日常辅导答疑 + 适当融入趣味才艺体验与能量点心。<br>
+                    <p class="academic-promise">📐 <strong>多维拓展 / Multi-Track：</strong>1小时中文核心课 + 学校家庭作业（含中/英/数学）日常辅导答疑 + 适当融入趣味才艺体验与能量点心。<br>
                     <small style="display:block; margin-top:2px; font-style:italic; color:#777;">1-hr Mandarin core + academic homework coaching + enrichment culture experiences + snacks.</small></p>
                     ${feesTemplate}
                 </div>
                 
                 <div class="price-sub-card primary-sub-card">
                     <span class="plan-badge badge-gold">选项三：6点接 / Option 3 (6 PM)</span>
-                    <div class="big-price">${currentData.opt3} <small>/ 月费 Month</small></div>
+                    <div class="big-price">${currentData.opt3}<small>/月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text3_zh}</strong><br><small style="color:#666;">${currentData.text3_en}</small></p>
-                    <p class="academic-promise" style="font-size:0.85rem; color:#444; line-height:1.4;">🥋 <strong>全维长托 / Premium Extended：</strong>1小时中文核心课 + 学校功课辅导答疑（包含数学难题启发） + 丰富中华武术/手工绘画轮换体验 + 能量点心 + 延时看护。<br>
+                    <p class="academic-promise">🥋 <strong>全维长托 / Premium Extended：</strong>1小时中文核心课 + 学校功课辅导答疑（包含数学难题启发） + 丰富中华武术/手工绘画轮换体验 + 能量点心 + 延时看护。<br>
                     <small style="display:block; margin-top:2px; font-style:italic; color:#777;">Full immersive experience: 1-hr core class + multi-subject homework support + rotating Martial Arts/Fine Arts tracks + energy snacks + full extended care.</small></p>
                     ${feesTemplate}
                 </div>
@@ -119,9 +238,9 @@ function renderUmcDynamicPrice() {
         htmlContent = `
             <div class="dynamic-price-single-card">
                 <span class="plan-badge badge-exclusive">全包长托专属计划 / Single Extended Care Plan</span>
-                <div class="big-price">${currentData.price} <small>/ 月费 Month</small></div>
+                <div class="big-price">${currentData.price}<small>/月费 Month</small></div>
                 <p class="time-info">⏰ 运行作息 / Running Schedule：<br><strong>${currentData.text_zh}</strong><br><small style="color:#666; display:block; margin-top:4px;">${currentData.text_en}</small></p>
-                <p class="academic-promise" style="margin-bottom:10px; font-size:0.88rem; color:#333; line-height:1.5;">🥋 <strong>全维交付 / Total Delivery：</strong>1小时核心中文课 + 中英数学业功课日常辅导答疑 + 适当穿插手工/绘画/武术丰富体验 + 能量点心。全流程覆盖 Brightwheel 安全管家服务。<br>
+                <p class="academic-promise" style="margin-bottom:10px;">🥋 <strong>全维交付 / Total Delivery：</strong>1小时核心中文课 + 中英数学业功课日常辅导答疑 + 适当穿插手工/绘画/武术丰富体验 + 能量点心。全流程覆盖 Brightwheel 安全管家服务。<br>
                 <small style="display:block; margin-top:2px; font-style:italic; color:#666;">1-hr core immersion block + full academic guidance + specialized cultural arts rotation + daily snack supply. Fully managed under the premium Brightwheel safety umbrella.</small></p>
                 ${feesTemplate}
             </div>
@@ -131,9 +250,15 @@ function renderUmcDynamicPrice() {
     displayArea.innerHTML = htmlContent;
 }
 
+// Initial Hooking of DOM Events
 document.addEventListener('DOMContentLoaded', () => {
     renderUmcDynamicPrice();
-    document.getElementById('dismissalTier').addEventListener('change', renderUmcDynamicPrice);
-    document.getElementById('typeOnsite').addEventListener('change', renderUmcDynamicPrice);
-    document.getElementById('typeOffsite').addEventListener('change', renderUmcDynamicPrice);
+    
+    const selectTier = document.getElementById('dismissalTier');
+    const radioOnsite = document.getElementById('typeOnsite');
+    const radioOffsite = document.getElementById('typeOffsite');
+
+    if (selectTier) selectTier.addEventListener('change', renderUmcDynamicPrice);
+    if (radioOnsite) radioOnsite.addEventListener('change', renderUmcDynamicPrice);
+    if (radioOffsite) radioOffsite.addEventListener('change', renderUmcDynamicPrice);
 });
