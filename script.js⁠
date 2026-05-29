@@ -1,127 +1,88 @@
-/**
- * ==========================================
- * UMC 2026秋季 官方价格矩阵 (中英双语对照 · 4/5/6点全选项无缝修复版)
- * Architectural Upgrades: Deep Immutability, DOM Element Caching, and Fail-Safe Structural Evaluation.
- * ==========================================
- */
+// ==========================================================================
+// UMC 2026秋季 官方价格矩阵 (中英双语对照 · 5点改5:15延时看护及学费对应调整版)
+// ==========================================================================
 const umcPriceMatrix = {
     onsite: {
         tier1: { 
-            type: 'triple', opt1: '$350', opt2: '$450', opt3: '$680',
+            type: 'triple', opt1: '$400', opt2: '$535', opt3: '$820',
             text1_zh: '2:05 PM - 4:00 PM (4点接选项)', text1_en: '2:05 PM - 4:00 PM (4 PM Pickup)',
-            text2_zh: '2:05 PM - 5:00 PM (5点接选项)', text2_en: '2:05 PM - 5:00 PM (5 PM Pickup)',
+            text2_zh: '2:05 PM - 5:15 PM (5:15接选项)', text2_en: '2:05 PM - 5:15 PM (5:15 PM Pickup)',
             text3_zh: '2:05 PM - 6:00 PM (6点接选项)', text3_en: '2:05 PM - 6:00 PM (6 PM Pickup)' 
         },
         tier2: { 
-            type: 'triple', opt1: '$320', opt2: '$430', opt3: '$660',
+            type: 'triple', opt1: '$370', opt2: '$505', opt3: '$800',
             text1_zh: '2:40 PM - 4:00 PM (4点接选项)', text1_en: '2:40 PM - 4:00 PM (4 PM Pickup)',
-            text2_zh: '2:40 PM - 5:00 PM (5点接选项)', text2_en: '2:40 PM - 5:00 PM (5 PM Pickup)',
+            text2_zh: '2:40 PM - 5:15 PM (5:15接选项)', text2_en: '2:40 PM - 5:15 PM (5:15 PM Pickup)',
             text3_zh: '2:40 PM - 6:00 PM (6点接选项)', text3_en: '2:40 PM - 6:00 PM (6 PM Pickup)' 
         },
         tier3: { 
-            type: 'triple', opt1: '$310', opt2: '$410', opt3: '$640',
+            // 🎯 核心锚定段：5:15 PM 包含多维功课辅导与15分钟加长看护，On-site 调至 $485
+            type: 'triple', opt1: '$360', opt2: '$485', opt3: '$780',
             text1_zh: '2:55 PM - 4:00 PM (4点接选项)', text1_en: '2:55 PM - 4:00 PM (4 PM Pickup)',
-            text2_zh: '2:55 PM - 5:00 PM (5点接选项)', text2_en: '2:55 PM - 5:00 PM (5 PM Pickup)',
+            text2_zh: '2:55 PM - 5:15 PM (5:15接选项)', text2_en: '2:55 PM - 5:15 PM (5:15 PM Pickup)',
             text3_zh: '2:55 PM - 6:00 PM (6点接选项)', text3_en: '2:55 PM - 6:00 PM (6 PM Pickup)' 
         },
-        tier4: { type: 'single', price: '$590', text_zh: '3:15 PM - 6:00 PM 直达长托 (含 Brightwheel 安全看护 + 核心中文课 + 语数作业辅导 + 才艺互动 + 能量点心)', text_en: '3:15 PM - 6:00 PM Full Extended Plan (Includes Brightwheel tracking + core Mandarin class + dual-language homework help + enrichment activities + afternoon snacks)' },
-        tier5: { type: 'single', price: '$550', text_zh: '3:30 PM - 6:00 PM 直达长托 (含 Brightwheel 安全看护 + 核心中文课 + 语数作业辅导 + 才艺互动 + 能量点心)', text_en: '3:30 PM - 6:00 PM Full Extended Plan (Includes Brightwheel tracking + core Mandarin class + dual-language homework help + enrichment activities + afternoon snacks)' },
-        tier6: { type: 'single', price: '$495', text_zh: '3:45/4:00 PM - 6:00 PM 直达长托 (含 Brightwheel 安全看护 + 高纯度中文课 + 语数作业辅导 + 才艺互动 + 能量点心)', text_en: '3:45/4:00 PM - 6:00 PM Full Extended Plan (Includes Brightwheel tracking + core Mandarin class + dual-language homework help + enrichment activities + afternoon snacks)' }
+        tier4: { type: 'single', price: '$680', text_zh: '3:15 PM - 6:00 PM 直达长托 (含 Brightwheel 安全看护 + 核心中文课 + 语数作业辅导 + 才艺互动 + 能量点心)', text_en: '3:15 PM - 6:00 PM Full Extended Plan (Includes Brightwheel tracking + core Mandarin class + dual-language homework help + enrichment activities + afternoon snacks)' },
+        tier5: { type: 'single', price: '$640', text_zh: '3:30 PM - 6:00 PM 直达长托 (含 Brightwheel 安全看护 + 核心中文课 + 语数作业辅导 + 才艺互动 + 能量点心)', text_en: '3:30 PM - 6:00 PM Full Extended Plan (Includes Brightwheel tracking + core Mandarin class + dual-language homework help + enrichment activities + afternoon snacks)' },
+        tier6: { type: 'single', price: '$585', text_zh: '3:45/4:00 PM - 6:00 PM 直达长托 (含 Brightwheel 安全看护 + 高纯度中文课 + 语数作业辅导 + 才艺互动 + 能量点心)', text_en: '3:45/4:00 PM - 6:00 PM Full Extended Plan (Includes Brightwheel tracking + core Mandarin class + dual-language homework help + enrichment activities + afternoon snacks)' }
     },
-    outsite: { // Retained historical 'outsite' key for precise DOM markup matching
+    offsite: { 
         tier1: { 
-            type: 'triple', opt1: '$420', opt2: '$515', opt3: '$695',
+            // 5:15接包含车辆/团队安全贴身护送，对应合理调整至 $615
+            type: 'triple', opt1: '$500', opt2: '$615', opt3: '$795',
             text1_zh: '2:05 PM 团队贴身护送 - 4:00 PM 离园', text1_en: '2:05 PM Escorted Transport - 4:00 PM Departure',
-            text2_zh: '2:05 PM 团队贴身护送 - 5:00 PM 离园', text2_en: '2:05 PM Escorted Transport - 5:00 PM Departure',
+            text2_zh: '2:05 PM 团队贴身护送 - 5:15 PM 离园', text2_en: '2:05 PM Escorted Transport - 5:15 PM Departure',
             text3_zh: '2:05 PM 团队贴身护送 - 6:00 PM 离园', text3_en: '2:05 PM Escorted Transport - 6:00 PM Departure' 
         },
         tier2: { 
-            type: 'triple', opt1: '$395', opt2: '$490', opt3: '$660',
+            type: 'triple', opt1: '$470', opt2: '$585', opt3: '$760',
             text1_zh: '2:40 PM 团队贴身护送 - 4:00 PM 离园', text1_en: '2:40 PM Escorted Transport - 4:00 PM Departure',
-            text2_zh: '2:40 PM 团队贴身护送 - 5:00 PM 离园', text2_en: '2:40 PM Escorted Transport - 5:00 PM Departure',
+            text2_zh: '2:40 PM 团队贴身护送 - 5:15 PM 离园', text2_en: '2:40 PM Escorted Transport - 5:15 PM Departure',
             text3_zh: '2:40 PM 团队贴身护送 - 6:00 PM 离园', text3_en: '2:40 PM Escorted Transport - 6:00 PM Departure' 
         },
         tier3: { 
-            type: 'triple', opt1: '$380', opt2: '$465', opt3: '$635',
+            // 🎯 Off-site 旗舰基地 Tier 3 时段 5:15 PM 选项合理对齐并调整至 $555
+            type: 'triple', opt1: '$450', opt2: '$555', opt3: '$735',
             text1_zh: '2:55 PM 团队贴身护送 - 4:00 PM 离园', text1_en: '2:55 PM Escorted Transport - 4:00 PM Departure',
-            text2_zh: '2:55 PM 团队贴身护送 - 5:00 PM 离园', text2_en: '2:55 PM Escorted Transport - 5:00 PM Departure',
+            text2_zh: '2:55 PM 团队贴身护送 - 5:15 PM 离园', text2_en: '2:55 PM Escorted Transport - 5:15 PM Departure',
             text3_zh: '2:55 PM 团队贴身护送 - 6:00 PM 离园', text3_en: '2:55 PM Escorted Transport - 6:00 PM Departure' 
         },
-        tier4: { type: 'single', price: '$610', text_zh: '3:15 PM 讲师团队贴身护送 - 6:00 PM 直达长托 (全包护送服务 + Brightwheel 追踪 + 语数作业辅导 + 才艺体验 + 能量点心)', text_en: '3:15 PM Instructor-Escorted Transition - 6:00 PM Extended Plan (Includes safe escort + Brightwheel updates + academic homework coaching + diverse enrichment + snacks)' },
-        tier5: { type: 'single', price: '$585', text_zh: '3:30 PM 讲师团队贴身护送 - 6:00 PM 直达长托 (全包护送服务 + Brightwheel 追踪 + 语数作业辅导 + 才艺体验 + 能量点心)', text_en: '3:30 PM Instructor-Escorted Transition - 6:00 PM Extended Plan (Includes safe escort + Brightwheel updates + academic homework coaching + diverse enrichment + snacks)' },
-        tier6: { type: 'single', price: '$540', text_zh: '3:45/4:00 PM 讲师团队贴身护送 - 6:00 PM 直达长托 (全包护送服务 + Brightwheel 追踪 + 语数作业辅导 + 才艺体验 + 能量点心)', text_en: '3:45/4:00 PM Instructor-Escorted Transition - 6:00 PM Extended Plan (Includes safe escort + Brightwheel updates + academic homework coaching + diverse enrichment + snacks)' }
+        tier4: { type: 'single', price: '$710', text_zh: '3:15 PM 讲师团队贴身护送 - 6:00 PM 直达长托 (全包护送服务 + Brightwheel 追踪 + 语数作业辅导 + 才艺体验 + 能量点心)', text_en: '3:15 PM Instructor-Escorted Transition - 6:00 PM Extended Plan (Includes safe escort + Brightwheel updates + academic homework coaching + diverse enrichment + snacks)' },
+        tier5: { type: 'single', price: '$680', text_zh: '3:30 PM 讲师团队贴身护送 - 6:00 PM 直达长托 (全包护送服务 + Brightwheel 追踪 + 语数作业辅导 + 才艺体验 + 能量点心)', text_en: '3:30 PM Instructor-Escorted Transition - 6:00 PM Extended Plan (Includes safe escort + Brightwheel updates + academic homework coaching + diverse enrichment + snacks)' },
+        tier6: { type: 'single', price: '$630', text_zh: '3:45/4:00 PM 讲师团队贴身护送 - 6:00 PM 直达长托 (全包护送服务 + Brightwheel 追踪 + 语数作业辅导 + 才艺体验 + 能量点心)', text_en: '3:45/4:00 PM Instructor-Escorted Transition - 6:00 PM Extended Plan (Includes safe escort + Brightwheel updates + academic homework coaching + diverse enrichment + snacks)' }
     }
 };
 
-/**
- * 🔒 Operational Core: Recursive Deep Freeze Implementation
- * Prevents client-side runtime injection or tampered data modifications to matrix configurations.
- */
-function deepFreezeMatrix(obj) {
-    Object.keys(obj).forEach(name => {
-        let prop = obj[name];
-        if (typeof prop === 'object' && prop !== null) {
-            deepFreezeMatrix(prop);
-        }
-    });
-    return Object.freeze(obj);
-}
-deepFreezeMatrix(umcPriceMatrix);
+function renderUmcDynamicPrice() {
+    const tier = document.getElementById('dismissalTier').value;
+    const isOnsite = document.getElementById('typeOnsite').checked;
+    
+    const currentTrack = isOnsite ? umcPriceMatrix.onsite : umcPriceMatrix.offsite;
+    const currentData = currentTrack[tier];
+    
+    const displayArea = document.getElementById('dynamicPriceDisplay');
+    let htmlContent = '';
 
-// DOM Cache Register to prevent repetitive querying overhead during user selection transitions
-const domCache = {
-    dismissalTier: null,
-    typeOnsite: null,
-    typeOutsite: null,
-    displayArea: null
-};
+    let complianceNoticeTemplate = '';
+    if (isOnsite) {
+        complianceNoticeTemplate = `
+            <div class="card-onsite-notice-tag">
+                ⚠️ 须经小学校长与托管Lead Agent审批准入 / Subject to Principal & Lead Agent Approval. 
+                <a href="https://your-interest-form-link.com" target="_blank" style="color: #b45309; font-weight:700; text-decoration:underline;">
+                    点击进入意向申请 / Click to Apply
+                </a>
+            </div>
+        `;
+    }
 
-/**
- * Generates reusable contextual pricing legal footnotes
- * @param {boolean} isOnsite 
- * @returns {string} Compiled template literal string
- */
-function createFeesTemplate(isOnsite) {
-    const complianceNoticeTemplate = isOnsite ? `
-        <div class="card-onsite-notice-tag" style="margin-top: 12px; border-left: 3px solid #b45309; padding-left: 8px;">
-            ⚠️ 须经小学校长与托管Lead Agent审批准入 / Subject to Principal & Lead Agent Approval. 
-            <a href="https://your-interest-form-link.com" target="_blank" style="color: #b45309; font-weight:700; text-decoration:underline;">
-                点击进入意向申请 / Click to Apply
-            </a>
-        </div>
-    ` : '';
-
-    return `
-        <div class="mandatory-fees-row" style="font-size:0.78rem; line-height:1.4; margin-top:10px; border-top:1px dashed rgba(0,0,0,0.08); padding-top:8px;">
+    const feesTemplate = `
+        <div class="mandatory-fees-row" style="font-size:0.78rem; line-height:1.4; margin-top: 10px; border-top: 1px dashed #ddd; padding-top: 8px;">
             <div>📝 注册费: $80/年 (不可退) | Registration: $80/yr (Non-refundable)</div>
             <div>📚 书本材料费: $80/年 | Book & Materials: $80/yr</div>
         </div>
-        <div class="brightwheel-tag" style="font-size:0.72rem; opacity:0.8; margin-top:4px;">📱 Powered by Brightwheel System</div>
+        <div class="brightwheel-tag" style="margin-top:5px; font-weight:bold; color:#0284c7; font-size:0.8rem;">📱 Powered by Brightwheel System</div>
         ${complianceNoticeTemplate}
     `;
-}
-
-/**
- * Main Controller Workflow execution 
- */
-function renderUmcDynamicPrice() {
-    // Structural guard clause check ensuring DOM mounts are verified
-    if (!domCache.dismissalTier || !domCache.displayArea) return;
-
-    const tier = domCache.dismissalTier.value;
-    const isOnsite = domCache.typeOnsite ? domCache.typeOnsite.checked : true;
-    
-    const currentTrack = isOnsite ? umcPriceMatrix.onsite : umcPriceMatrix.outsite;
-    const currentData = currentTrack[tier];
-
-    // Array boundaries guard clause protection
-    if (!currentData) {
-        domCache.displayArea.innerHTML = `<p style="color:red;">Error: Pricing tier [${tier}] configuration not found.</p>`;
-        return;
-    }
-    
-    const feesTemplate = createFeesTemplate(isOnsite);
-    let htmlContent = '';
 
     if (currentData.type === 'triple') {
         htmlContent = `
@@ -130,17 +91,17 @@ function renderUmcDynamicPrice() {
                     <span class="plan-badge">选项一：4点接 / Option 1 (4 PM)</span>
                     <div class="big-price">${currentData.opt1} <small>/ 月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text1_zh}</strong><br><small style="color:#666;">${currentData.text1_en}</small></p>
-                    <p class="academic-promise focus-chinese">⭐ <strong>首要覆盖 / Core focus：</strong>1小时分级中文核心课（高效纯课时，Brightwheel 安全签到）。<br>
-                    <small style="display:block; margin-top:2px; font-style:italic; opacity:0.8;">1-hour high-efficiency leveled Mandarin core class block.</small></p>
+                    <p class="academic-promise focus-chinese" style="font-size:0.85rem; color:#444; line-height:1.4;">⭐ <strong>首要覆盖 / Core focus：</strong>1小时分级中文核心课（高效纯课时，Brightwheel 安全签到）。<br>
+                    <small style="display:block; margin-top:2px; font-style:italic; color:#777;">1-hour high-efficiency leveled Mandarin core class block.</small></p>
                     ${feesTemplate}
                 </div>
                 
                 <div class="price-sub-card">
-                    <span class="plan-badge badge-blue-tag">选项二：5点接 / Option 2 (5 PM)</span>
+                    <span class="plan-badge badge-blue-tag">选项二：5:15接 / Option 2 (5:15 PM)</span>
                     <div class="big-price">${currentData.opt2} <small>/ 月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text2_zh}</strong><br><small style="color:#666;">${currentData.text2_en}</small></p>
-                    <p class="academic-promise">📐 <strong>多维拓展 / Multi-Track：</strong>1小时中文核心课 + 学校家庭作业（含中/英/数学）日常辅导答疑 + 适当融入趣味才艺体验与能量点心。<br>
-                    <small style="display:block; margin-top:2px; font-style:italic; opacity:0.8;">1-hr Mandarin core + academic homework coaching (Chinese/English/Math) + enrichment culture experiences + snacks.</small></p>
+                    <p class="academic-promise" style="font-size:0.85rem; color:#444; line-height:1.4;">📐 <strong>多维拓展 / Multi-Track：</strong>1小时中文核心课 + 学校家庭作业（含中/英/数学）日常辅导答疑 + 适当融入趣味才艺体验与能量点心。<br>
+                    <small style="display:block; margin-top:2px; font-style:italic; color:#777;">1-hr Mandarin core + academic homework coaching + enrichment culture experiences + snacks.</small></p>
                     ${feesTemplate}
                 </div>
                 
@@ -148,8 +109,8 @@ function renderUmcDynamicPrice() {
                     <span class="plan-badge badge-gold">选项三：6点接 / Option 3 (6 PM)</span>
                     <div class="big-price">${currentData.opt3} <small>/ 月费 Month</small></div>
                     <p class="time-info">⏰ 作息 / Schedule：<br><strong>${currentData.text3_zh}</strong><br><small style="color:#666;">${currentData.text3_en}</small></p>
-                    <p class="academic-promise">🥋 <strong>全维长托 / Premium Extended：</strong>1小时中文核心课 + 学校功课辅导答疑（包含数学难题启发） + 丰富中华武术/手工绘画轮换体验 + 能量点心 + 延时看护。<br>
-                    <small style="display:block; margin-top:2px; font-style:italic; opacity:0.8;">Full immersive experience: 1-hr core class + multi-subject homework support + rotating Martial Arts/Fine Arts tracks + energy snacks + full extended care.</small></p>
+                    <p class="academic-promise" style="font-size:0.85rem; color:#444; line-height:1.4;">🥋 <strong>全维长托 / Premium Extended：</strong>1小时中文核心课 + 学校功课辅导答疑（包含数学难题启发） + 丰富中华武术/手工绘画轮换体验 + 能量点心 + 延时看护。<br>
+                    <small style="display:block; margin-top:2px; font-style:italic; color:#777;">Full immersive experience: 1-hr core class + multi-subject homework support + rotating Martial Arts/Fine Arts tracks + energy snacks + full extended care.</small></p>
                     ${feesTemplate}
                 </div>
             </div>
@@ -160,29 +121,19 @@ function renderUmcDynamicPrice() {
                 <span class="plan-badge badge-exclusive">全包长托专属计划 / Single Extended Care Plan</span>
                 <div class="big-price">${currentData.price} <small>/ 月费 Month</small></div>
                 <p class="time-info">⏰ 运行作息 / Running Schedule：<br><strong>${currentData.text_zh}</strong><br><small style="color:#666; display:block; margin-top:4px;">${currentData.text_en}</small></p>
-                <p class="academic-promise" style="margin-bottom:10px;">🥋 <strong>全维交付 / Total Delivery：</strong>1小时核心中文课 + 中英数学业功课日常辅导答疑 + 适当穿插手工/绘画/武术丰富体验 + 能量点心。全流程覆盖 Brightwheel 安全管家服务。<br>
-                <small style="display:block; margin-top:2px; font-style:italic; opacity:0.8;">1-hr core immersion block + full academic guidance + specialized cultural arts rotation + daily snack supply. Fully managed under the premium Brightwheel safety umbrella.</small></p>
+                <p class="academic-promise" style="margin-bottom:10px; font-size:0.88rem; color:#333; line-height:1.5;">🥋 <strong>全维交付 / Total Delivery：</strong>1小时核心中文课 + 中英数学业功课日常辅导答疑 + 适当穿插手工/绘画/武术丰富体验 + 能量点心。全流程覆盖 Brightwheel 安全管家服务。<br>
+                <small style="display:block; margin-top:2px; font-style:italic; color:#666;">1-hr core immersion block + full academic guidance + specialized cultural arts rotation + daily snack supply. Fully managed under the premium Brightwheel safety umbrella.</small></p>
                 ${feesTemplate}
             </div>
         `;
     }
     
-    domCache.displayArea.innerHTML = htmlContent;
+    displayArea.innerHTML = htmlContent;
 }
 
-// Event Lifecycle Registration Engine
 document.addEventListener('DOMContentLoaded', () => {
-    // Capture structural nodes into the immutable register cache
-    domCache.dismissalTier = document.getElementById('dismissalTier');
-    domCache.typeOnsite = document.getElementById('typeOnsite');
-    domCache.typeOutsite = document.getElementById('typeOutsite');
-    domCache.displayArea = document.getElementById('dynamicPriceDisplay');
-
-    // Run safe initial calculations
     renderUmcDynamicPrice();
-
-    // Attach robust listeners only to verified objects to eliminate console initialization crashes
-    if (domCache.dismissalTier) domCache.dismissalTier.addEventListener('change', renderUmcDynamicPrice);
-    if (domCache.typeOnsite) domCache.typeOnsite.addEventListener('change', renderUmcDynamicPrice);
-    if (domCache.typeOutsite) domCache.typeOutsite.addEventListener('change', renderUmcDynamicPrice);
+    document.getElementById('dismissalTier').addEventListener('change', renderUmcDynamicPrice);
+    document.getElementById('typeOnsite').addEventListener('change', renderUmcDynamicPrice);
+    document.getElementById('typeOffsite').addEventListener('change', renderUmcDynamicPrice);
 });
