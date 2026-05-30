@@ -657,11 +657,47 @@ footer {
     height: auto;      /* Maintains the original proportions so it doesn't distort */
     display: block;    /* Removes unnecessary baseline spacing beneath images */
 }
+
+        .expand-btn {
+        background-color: transparent;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        padding: 8px 18px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 15px;
+        transition: var(--transition-smooth);
+    }
+
+    .expand-btn:hover {
+        background-color: var(--brand-orange);
+        color: #FFFFFF;
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    }
+
+    .pillar-expandable-content {
+        animation: fadeInSmooth 0.35s ease forwards;
+    }
+        /* Animation to transform the hamburger bars into a Close X icon */
+.mobile-menu-btn.is-active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.mobile-menu-btn.is-active span:nth-child(2) {
+    opacity: 0;
+}
+.mobile-menu-btn.is-active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
     </style>
 </head>
 <body>
 
-   <header>
+  <header>
     <div class="header-container">
         <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
             <img src="your-logo-file.png" alt="Unity Mandarin Center Text" style="height: 36px; width: auto; object-fit: contain;">
@@ -679,6 +715,7 @@ footer {
             <a href="about.html">About Us</a>
             <a href="program.html">Program</a>
             <a href="why-us.html" class="active-page">Why Us</a>
+            <a href="joinus.html">Join Us</a>
             <a href="contact.html">Contact</a>
         </nav>
     </div>
@@ -854,7 +891,7 @@ footer {
     </main>
 
     <footer>
-        <div class="footer-grid">
+       <div class="footer-grid">
             <div class="footer-col">
                 <h4>Unity Mandarin Enrichment Center</h4>
                 <p>Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</p>
@@ -862,18 +899,12 @@ footer {
             <div class="footer-col">
                 <h4>Quick Access</h4>
                 <ul class="links-listing">
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="program.html">Program</a></li>
                     <li><a href="why-us.html">Why Us</a></li>
+                    <li><a href="joinus.html">Join Us</a></li>
                     <li><a herf="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Details</h4>
-                <ul class="contact-listing">
-                    <li><span class="icon" aria-hidden="true">📞</span><span>(415) 658-2516</span></li>
-                    <li><span class="icon" aria-hidden="true">✉️</span><span>info@unitymandarin.org</span></li>
-                    <li><span class="icon" aria-hidden="true">📍</span><span>San Francisco, CA</span></li>
                 </ul>
             </div>
         </div>
@@ -883,33 +914,59 @@ footer {
     </footer>
                 
 <script>
-    // Mobile Navigation Toggle
-    function toggleMobileMenu() {
-        var nav = document.getElementById("main-nav");
-        if (nav) nav.classList.toggle("is-open");
-    }
+    // 1. Force all expansion panels to close safely when the DOM finishes loading
+    document.addEventListener("DOMContentLoaded", function() {
+        // Find every pillar expandable container element
+        var panels = document.querySelectorAll('.pillar-expandable-content');
+        panels.forEach(function(panel) {
+            panel.style.display = "none";
+        });
 
-    // Fixed Button Panel Expand/Collapse Function
+        // Reset all corresponding button text markers and arrows
+        var buttons = document.querySelectorAll('.expand-btn');
+        buttons.forEach(function(btn) {
+            var btnText = btn.querySelector('[id^="btn-text-"]');
+            var btnArrow = btn.querySelector('[id^="btn-arrow-"]');
+            if (btnText) btnText.textContent = "Read More Details";
+            if (btnArrow) btnArrow.textContent = "▼";
+        });
+    });
+
+    // 2. Multi-toggle logic for Team Bio cards (Runs seamlessly on Mobile + Desktop click tracks)
     function togglePillar(id) {
-        // Coerce id to string and trim any accidental invisible characters
         var cleanId = String(id).trim();
         
         var details = document.getElementById("pillar-details-" + cleanId);
         var textNode = document.getElementById("btn-text-" + cleanId);
         var arrowNode = document.getElementById("btn-arrow-" + cleanId);
         
-        if (!details || !textNode || !arrowNode) return; // Safeguard
+        if (!details || !textNode || !arrowNode) return;
         
+        // Check computed visibility state to catch dynamic CSS transitions
         if (details.style.display === "none" || details.style.display === "") {
             details.style.display = "block";
-            textNode.textContent = textNode.textContent.replace("Read More", "Hide Details");
+            textNode.textContent = "Hide Extra Bio Details";
             arrowNode.textContent = "▲";
         } else {
             details.style.display = "none";
-            textNode.textContent = textNode.textContent.replace("Hide Details", "Read More");
+            textNode.textContent = "Read More Details";
             arrowNode.textContent = "▼";
+        }
+    }
+
+    // 3. Consolidated Unified Mobile Navigation Header Panel Handler
+    function toggleMobileMenu() {
+        var nav = document.getElementById("main-nav");
+        var btn = document.querySelector('.mobile-menu-btn');
+        
+        if (nav) {
+            nav.classList.toggle("is-open");
+        }
+        if (btn) {
+            btn.classList.toggle("is-active");
         }
     }
 </script>
 </body>
 </html>
+
