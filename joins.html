@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us - Unity Mandarin Enrichment Center (UMC)</title>
+    <style>
+        /* --- 1. 品牌全局样式与色彩系统 (UMC Brand System) --- */
+        :root {
+            --umc-blue: #1b365d;       /* 官方深蓝色 */
+            --umc-orange: #e0533c;     /* Logo 祥云红橙色 */
+            --umc-gold: #f5a623;       /* Logo 金圈暖黄色 */
+            --text-dark: #2d3748;      /* 深色文本 */
+            --text-muted: #718096;     /* 辅助文本 */
+            --bg-light: #f7fafc;       /* 浅色背景 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- 2. 全局导航栏 (Site Header / Navbar) --- */
+        .site-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--umc-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo span {
+            color: var(--umc-orange);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 25px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            color: var(--umc-orange);
+        }
+
+        /* --- 3. 头部横幅区 (Hero Section) --- */
+        .hero-section {
+            background-color: var(--umc-blue);
+            color: #ffffff;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-section h1 {
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        .hero-slogan {
+            font-size: 1.2rem;
+            color: var(--umc-gold);
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: #e2e8f0;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* --- 4. 核心价值与优势板块 (Why Us Section) --- */
+        .why-us-section {
+            padding: 50px 0;
+            background-color: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--umc-blue);
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--umc-orange);
+            margin: 10px auto 0 auto;
+        }
+
+        .grid-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .benefit-card {
+            background-color: var(--bg-light);
+            border-left: 4px solid var(--umc-orange);
+            padding: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .benefit-card h3 {
+            margin: 0 0 10px 0;
+            color: var(--umc-blue);
+            font-size: 1.2rem;
+        }
+
+        .benefit-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+
+        /* --- 5. 职位列表板块 (Current Openings Section) --- */
+        .openings-section {
+            padding: 50px 0;
+            background-color: var(--bg-light);
+        }
+
+        .job-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .job-title-group h3 {
+            margin: 0 0 5px 0;
+            color: var(--umc-blue);
+            font-size: 1.4rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .meta-tag {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .meta-tag.hourly {
+            background-color: #feebc8;
+            color: #c05621;
+        }
+
+        .btn-apply {
+            background-color: var(--umc-orange);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-apply:hover {
+            background-color: #c53030;
+        }
+
+        .job-body h4 {
+            color: var(--umc-blue);
+            margin: 15px 0 8px 0;
+            font-size: 1rem;
+        }
+
+        .job-body ul {
+            margin: 0 0 15px 0;
+            padding-left: 20px;
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+
+        .job-body li {
+            margin-bottom: 6px;
+        }
+
+        .highlight-req {
+            background-color: #fffaf0;
+            border-left: 3px solid var(--umc-gold);
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* --- 6. 快捷直投及人才库区 (Application Form) --- */
+        .form-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+
+        .form-box {
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--bg-light);
+            padding: 35px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--umc-blue);
+            box-shadow: 0 0 0 3px rgba(27, 54, 93, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--umc-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #122542;
+        }
+
+        .talent-pool-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px dashed #cbd5e0;
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+
+        .email-link {
+            color: var(--umc-orange);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .email-link:hover {
+            text-decoration: underline;
+        }
+
+        /* --- 7. 全局页脚 (Site Footer) --- */
+        .site-footer {
+            background-color: var(--text-dark);
+            color: #e2e8f0;
+            padding: 40px 0 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: var(--umc-gold);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--umc-orange);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5568;
+            padding-top: 20px;
+            font-size: 0.8rem;
+            color: #a0aec0;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+                gap: 15px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .job-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-apply {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="#" class="brand-logo">UMC<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#">Home / 首页</a></li>
+                <li><a href="#">About Us / 关于我们</a></li>
+                <li><a href="#">Programs / 课程体系</a></li>
+                <li><a href="#" class="active">Join Us / 加入同心</a></li>
+                <li><a href="#">Contact / 联系我们</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <header class="hero-section">
+        <div class="container">
+            <h1>Unity Mandarin Enrichment Center</h1>
+            <div class="hero-slogan">Learn Mandarin, Connect Cultures | 同心共学，爱上中文</div>
+            <p class="hero-subtitle">
+                Join the UMC family and inspire a lifelong love for Mandarin and cultural connection in the hearts of children. / 加入同心大家庭，点燃孩子们心中对中文与多元文化探索的热情。
+            </p>
+        </div>
+    </header>
+
+    <section class="why-us-section">
+        <div class="container">
+            <h2 class="section-title">Why Join UMC / 为什么选择同心</h2>
+            <div class="grid-benefits">
+                <div class="benefit-card">
+                    <h3>Professional Growth / 专业成长</h3>
+                    <p>系统化的美国本土沉浸式中文教学法（Dual-Language Immersion）培训与教研支持。</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Inclusive Culture / 温馨氛围</h3>
+                    <p>一个充满活力、支持创新、像家一样温暖且尊重多元文化背景的团队。</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Official Certificate / 官方认证</h3>
+                    <p>为加入我们的高中生与大学生志愿者提供官方认可的社会实践义工小时证明及高质量推荐信。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="openings-section" id="jobs-list">
+        <div class="container">
+            <h2 class="section-title">Current Openings / 开放机会</h2>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title-group">
+                        <h3>After-School Mandarin Teacher (校内课后中文主讲老师)</h3>
+                        <div class="job-meta">
+                            <span class="meta-tag">Part-Time</span>
+                            <span class="meta-tag hourly">Hourly Rate / 按时薪酬</span>
+                            <span>📍 San Francisco (SFUSD 校区内)</span>
+                        </div>
+                    </div>
+                    <a href="#apply-form" class="btn-apply">Apply Now / 立即申请</a>
+                </div>
+                <div class="job-body">
+                    <h4>Core Responsibilities / 核心职责：</h4>
+                    <ul>
+                        <li>负责 K-5 年级课后沉浸式中文课程的日常教学、教案实施与班级管理。</li>
+                        <li>设计寓教于乐的语言游戏与文化拓展活动（如农历新年、中秋节等传统项目）。</li>
+                        <li>维护与合作学校校长、公立学校班主任以及学生家长的日常良好沟通。</li>
+                    </ul>
+                    <h4>Requirements / 任职要求：</h4>
+                    <ul>
+                        <li class="highlight-req"><strong>具备母语级的标准普通话听说读写能力，发音标准，无明显地方口音；持有“普通话水平测试（PSC）”等级证书者更佳。</strong></li>
+                        <li>具备流利的英语沟通能力，以确保与学区校园及家长的顺畅对接。</li>
+                        <li>热爱幼儿/小学教育，充满活力，对孩子有耐心，并具备良好的班级秩序管理能力。</li>
+                        <li>有美国本地课后托管（After-School）或沉浸式语言学校教学经验者优先。</li>
+                        <li>须通过法定的背景调查，包括 Livescan 指纹检查及肺结核（TB）体检证明。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title-group">
+                        <h3>After-School Teaching Assistant (课后托育助教)</h3>
+                        <div class="job-meta">
+                            <span class="meta-tag">Part-Time</span>
+                            <span class="meta-tag hourly">Hourly Rate / 按时薪酬</span>
+                            <span>📍 San Francisco (SFUSD 校区内)</span>
+                        </div>
+                    </div>
+                    <a href="#apply-form" class="btn-apply">Apply Now / 立即申请</a>
+                </div>
+                <div class="job-body">
+                    <h4>Core Responsibilities / 核心职责：</h4>
+                    <ul>
+                        <li>协助主讲老师进行日常的学生接托（Campus Pickup），确保学生从日校教室到课后班的安全过渡。</li>
+                        <li>辅导学生的常规英文/数学家庭作业，协助分发每日健康点心。</li>
+                        <li>在中文沉浸式环境中配合主讲老师，协助维护课堂秩序及学生在校安全。</li>
+                    </ul>
+                    <h4>Requirements / 任职要求：</h4>
+                    <ul>
+                        <li>具备良好的中英双语沟通能力，能听懂并进行基础的普通话交流。</li>
+                        <li>有责任心、准时守时、乐于与儿童互动，具备良好的团队协作精神。</li>
+                        <li>须通过 Livescan 指纹背景调查及肺结核（TB）体检。</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="form-section" id="apply-form">
+        <div class="container">
+            <h2 class="section-title">Quick Application / 快捷申请</h2>
+            
+            <div class="form-box">
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Name / 姓名 *</label>
+                        <input type="text" id="name" name="name" required placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Position / 申请岗位 *</label>
+                        <select id="position" name="position" required>
+                            <option value="">-- Please Select --</option>
+                            <option value="teacher">After-School Mandarin Teacher / 主讲老师</option>
+                            <option value="assistant">After-School Teaching Assistant / 课后助教</option>
+                            <option value="volunteer">Cultural & Community Volunteer / 义工志愿者</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email / 电子邮箱 *</label>
+                        <input type="email" id="email" name="email" required placeholder="yourname@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone / 联系电话 *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="salary">Expected Hourly Rate / 期望时薪 ($/hour) *</label>
+                        <input type="number" id="salary" name="salary" required min="0" step="0.1" placeholder="e.g. 25">
+                    </div>
+                    <div class="form-group">
+                        <label for="resume">Upload Resume / 上传简历 (PDF/Word) *</label>
+                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Application / 提交申请</button>
+                </form>
+            </div>
+
+            <div class="talent-pool-note">
+                <p><strong>Can't find a perfect match right now? We'd still love to hear from you!</strong></p>
+                <p>
+                    Send your resume and a brief introduction to our team at 
+                    <a href="mailto:info@unitymandarin.org" class="email-link">info@unitymandarin.org</a>. 
+                    We will keep your profile in our talent pool for future opportunities.
+                </p>
+                <br>
+                <p><strong>目前没有找到完全匹配的职位？没关系！</strong></p>
+                <p>
+                    欢迎将您的简历及简短自荐发送至我们的官方邮箱：<a href="mailto:info@unitymandarin.org" class="email-link">info@unitymandarin.org</a>，<br>
+                    我们将您的信息纳入同心中文（UMC）的精英人才储备库，一旦有新位置将优先与您联系。
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p><strong>Unity Mandarin Enrichment Center</strong></p>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Unity Mandarin Enrichment Center. All rights reserved. | 同心共学，爱上中文
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
