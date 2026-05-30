@@ -781,7 +781,7 @@
 
 <script>
 function toggleMobileMenu() {
-    const nav = document.getElementById('navbar');
+    const nav = document.getElementById('main-nav');
     if (nav) nav.classList.toggle('is-open');
 }
 
@@ -936,8 +936,6 @@ document.addEventListener('DOMContentLoaded', () => {
         radio.addEventListener('change', updateProgramView);
     });
 });
-
-<script>
     // 1. Force all expansion panels to close safely when the DOM finishes loading
     document.addEventListener("DOMContentLoaded", function() {
         // Find every pillar expandable container element
