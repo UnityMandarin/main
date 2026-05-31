@@ -57,7 +57,7 @@
 
     /* ═══════════════════════════════════════════════════
        MOBILE BACKGROUND LAYER (identical to about.html)
-    ═══════════════════════════════════════════════════ */
+     ═══════════════════════════════════════════════════ */
     @media (max-width: 900px) {
         body { background-image: none !important; }
         body::before {
@@ -74,22 +74,31 @@
         }
 
         /* ── MOBILE HEADER ── */
-        .header-container { padding: 10px 20px; }
-        .mobile-menu-btn { display: flex; }
+        header {
+            height: auto !important;
+            min-height: var(--header-height);
+        }
+        .header-container { 
+            padding: 10px 20px !important; 
+            flex-direction: row !important;
+            justify-content: space-between !important;
+        }
+        .mobile-menu-btn { display: flex !important; }
         nav {
-            display: none;
-            width: 100%;
-            flex-direction: column;
-            gap: 10px;
-            padding: 20px 0;
+            display: none !important;
+            width: 100% !important;
+            height: auto !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+            padding: 20px 0 !important;
             border-top: 1px solid rgba(88, 185, 131, 0.2);
             margin-top: 10px;
         }
-        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
+        nav.is-open { display: flex !important; animation: slideDown 0.3s ease forwards; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        nav a { width: 100%; padding: 12px; font-size: 16px; }
-        nav a::after { display: none; }
-        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+        nav a { width: 100%; padding: 12px !important; font-size: 16px !important; justify-content: flex-start !important; }
+        nav a::after { display: none !important; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0 !important; margin-top: 10px; }
 
         /* ── MOBILE CONTENT ── */
         .main-container { padding: 40px 20px 60px 20px; }
@@ -104,147 +113,150 @@
         .form-card-header h3 { font-size: 20px; }
     }
 
-   /* ==========================================================================
-   HEADER — EXACT COPY OF ABOUT.HTML STYLES
-   ========================================================================== */
-header {
-    background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
-    min-height: var(--header-height);
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid var(--mint-nav-border);
-    box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75),
-                0 2px 10px var(--mint-shadow-tint);
-    will-change: transform;
-    transition: var(--transition-smooth);
-}
+    /* ==========================================================================
+       HEADER — EXACT COPY OF ABOUT.HTML STYLES (Aligned structure layout fix)
+       ========================================================================== */
+    header {
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+        height: var(--header-height);
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--mint-nav-border);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75),
+                    0 2px 10px var(--mint-shadow-tint);
+        will-change: transform;
+        transition: var(--transition-smooth);
+        box-sizing: border-box;
+    }
 
-.header-container {
-    width: 100%;
-    max-width: var(--max-content-width);
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    flex-wrap: wrap;
-}
+    .header-container {
+        width: 100%;
+        max-width: var(--max-content-width);
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        height: 100%;
+    }
 
-.logo-group {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    height: var(--header-height);
-    outline: none;
-    transition: var(--transition-smooth);
-}
-.logo-group:hover { 
-    transform: translateY(-1px); 
-}
+    .logo-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        height: 100%;
+        outline: none;
+        transition: var(--transition-smooth);
+    }
+    .logo-group:hover { 
+        transform: translateY(-1px); 
+    }
 
-.logo-group img {
-    height: 44px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-    filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
-}
+    .logo-group img {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+    }
 
-.mobile-menu-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    flex-direction: column;
-    gap: 5px;
-    z-index: 1001;
-}
-.mobile-menu-btn span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--text-primary);
-    border-radius: 2px;
-    transition: var(--transition-smooth);
-}
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 1001;
+    }
+    .mobile-menu-btn span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: var(--transition-smooth);
+    }
 
-nav {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    height: 100%;
-}
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        height: 100%;
+    }
 
-nav a {
-    font-family: var(--font-interface);
-    text-decoration: none;
-    color: var(--text-navbar-link);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.15px;
-    padding: 10px 18px;
-    border-radius: 8px;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
-    box-sizing: border-box;
-}
-nav a:hover {
-    color: var(--brand-orange);
-    background-color: var(--brand-orange-subtle);
-}
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 18px;
-    right: 18px;
-    height: 2px;
-    background-color: var(--brand-orange);
-    border-radius: 2px;
-    transform: scaleX(0);
-    transition: var(--transition-smooth);
-}
-nav a:hover::after { 
-    transform: scaleX(1); 
-}
+    nav a {
+        font-family: var(--font-interface);
+        text-decoration: none;
+        color: var(--text-navbar-link);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+        box-sizing: border-box;
+    }
+    nav a:hover {
+        color: var(--brand-orange);
+        background-color: var(--brand-orange-subtle);
+    }
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 18px;
+        right: 18px;
+        height: 2px;
+        background-color: var(--brand-orange);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: var(--transition-smooth);
+    }
+    nav a:hover::after { 
+        transform: scaleX(1); 
+    }
 
-nav a.active-page {
-    color: #FFFFFF;
-    background-color: var(--brand-orange);
-    box-shadow: 0 4px 12px var(--brand-orange-glow);
-}
-nav a.active-page::after { 
-    display: none; 
-}
+    nav a.active-page {
+        color: #FFFFFF !important;
+        background-color: var(--brand-orange) !important;
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    }
+    nav a.active-page::after { 
+        display: none !important; 
+    }
 
-nav a[href*="contact"],
-nav a:last-of-type {
-    background-color: transparent;
-    border: 1.5px solid var(--brand-orange);
-    color: var(--brand-orange);
-    margin-left: 8px;
-    padding: 8px 20px;
-}
-nav a[href*="contact"]:hover,
-nav a:last-of-type:hover {
-    background-color: var(--brand-orange);
-    color: #FFFFFF;
-    box-shadow: 0 4px 14px var(--brand-orange-glow);
-    transform: translateY(-1px);
-}
+    nav a[href*="contact"],
+    nav a:last-of-type {
+        background-color: transparent;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        margin-left: 8px;
+        padding: 8px 20px;
+    }
+    nav a[href*="contact"]:hover,
+    nav a:last-of-type:hover {
+        background-color: var(--brand-orange);
+        color: #FFFFFF;
+        box-shadow: 0 4px 14px var(--brand-orange-glow);
+        transform: translateY(-1px);
+    }
+
     /* ═══════════════════════════════════════════════════
        MAIN LAYOUT
-    ═══════════════════════════════════════════════════ */
+     ═══════════════════════════════════════════════════ */
     .main-container {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -444,6 +456,7 @@ nav a:last-of-type:hover {
         user-select: none;
         flex: 1;
         min-width: 240px;
+        text-align: center;
     }
     .radio-toggle input[type="radio"]:checked + .toggle-btn {
         background: #FFF8F6;
@@ -524,7 +537,7 @@ nav a:last-of-type:hover {
 
     /* ═══════════════════════════════════════════════════
        INTEREST FORM SECTION  (styled to UMC design)
-    ═══════════════════════════════════════════════════ */
+     ═══════════════════════════════════════════════════ */
     #interest-form {
         scroll-margin-top: 90px;   /* clears sticky header on anchor jump */
     }
@@ -729,9 +742,6 @@ nav a:last-of-type:hover {
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════
-     HEADER — identical structure + CSS to about.html
-═══════════════════════════════════════════════════ -->
 <header>
     <div class="header-container">
         <a href="index.html" class="logo-group">
@@ -762,7 +772,6 @@ nav a:last-of-type:hover {
 
         <div class="programs-grid">
 
-            <!-- On-site Card -->
             <div class="program-card onsite-card">
                 <div class="card-badge badge-green">校内直达站 / On-site Campus</div>
                 <h3>On-site After School Program</h3>
@@ -773,7 +782,6 @@ nav a:last-of-type:hover {
                     <p style="font-size: 0.82rem; color: #b45309; font-style: italic; margin-top: 2px;">
                         Please note that the establishment and activation of this On-site program are strictly contingent upon receiving official approval and partnership clearance from your child's School Principal and the designated After School Lead Agent.
                     </p>
-                    <!-- ↓ href changed to anchor — scrolls smoothly to the form below -->
                     <a href="#interest-form" class="onsite-apply-link">
                         👉 如果您有报班意向，请点击进入意向申请表 / Click Here to Submit Your Expression of Interest
                     </a>
@@ -797,7 +805,6 @@ nav a:last-of-type:hover {
                 </ul>
             </div>
 
-            <!-- Off-site Card -->
             <div class="program-card outsite-card">
                 <div class="card-badge badge-blue">校外旗舰基地 / Off-site Facility</div>
                 <h3>Off-site After School Program</h3>
@@ -820,7 +827,6 @@ nav a:last-of-type:hover {
             </div>
         </div>
 
-        <!-- ── TUITION CALCULATOR ── -->
         <div class="price-calculator-box">
             <h3>📊 动态学费及杂费联动看板 / Monthly Tuition Matrix</h3>
 
@@ -876,13 +882,9 @@ nav a:last-of-type:hover {
             </p>
         </div>
 
-        <!-- ═══════════════════════════════════════════════════
-             INTEREST FORM — anchor target for "Click Here"
-        ═══════════════════════════════════════════════════ -->
         <section id="interest-form" class="interest-form-section">
             <div class="form-card">
 
-                <!-- Dark green header, matching conclusion-ribbon aesthetic -->
                 <div class="form-card-header">
                     <h3>📝 2026 课程意向登记表 / Learning Interest Form</h3>
                     <p>2026学年中文课程学习意向登记表 · Unity Mandarin Enrichment Center</p>
