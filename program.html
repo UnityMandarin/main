@@ -56,8 +56,8 @@
     }
 
     /* ═══════════════════════════════════════════════════
-       MOBILE BACKGROUND LAYER (identical to about.html)
-     ═══════════════════════════════════════════════════ */
+       MOBILE RESPONSIVE OVERRIDES (Cleaned & Closed Safely)
+       ═══════════════════════════════════════════════════ */
     @media (max-width: 900px) {
         body { background-image: none !important; }
         body::before {
@@ -114,7 +114,7 @@
     }
 
     /* ==========================================================================
-       HEADER — EXACT COPY OF ABOUT.HTML STYLES (Aligned structure layout fix)
+       HEADER — DESKTOP MASTER LAYOUT FRAMEWORK (Matches about.html)
        ========================================================================== */
     header {
         background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
@@ -255,8 +255,8 @@
     }
 
     /* ═══════════════════════════════════════════════════
-       MAIN LAYOUT
-     ═══════════════════════════════════════════════════ */
+       MAIN LAYOUT & CARDS MATRIX
+       ═══════════════════════════════════════════════════ */
     .main-container {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -265,7 +265,6 @@
         width: 100%;
     }
 
-    /* ── PROGRAM MATRIX ── */
     .programs-container { width: 100%; }
     .section-title {
         font-family: var(--font-editorial);
@@ -334,7 +333,6 @@
         margin-bottom: 20px;
     }
 
-    /* ── COMPLIANCE ALERT ── */
     .onsite-compliance-alert {
         background: #FFFBEB;
         border: 1px solid #F3E3A4;
@@ -377,7 +375,6 @@
         line-height: 1.4;
     }
 
-    /* ── CALCULATOR ── */
     .price-calculator-box {
         background-color: #FFFFFF;
         border: 1px solid rgba(114, 208, 155, 0.25);
@@ -535,11 +532,9 @@
     }
     .bottom-disclaimer-text { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
 
-    /* ═══════════════════════════════════════════════════
-       INTEREST FORM SECTION  (styled to UMC design)
-     ═══════════════════════════════════════════════════ */
+    /* ── INTEREST FORM SECTION ── */
     #interest-form {
-        scroll-margin-top: 90px;   /* clears sticky header on anchor jump */
+        scroll-margin-top: 90px;
     }
     .interest-form-section {
         margin-top: 60px;
@@ -553,7 +548,6 @@
         position: relative;
         overflow: hidden;
     }
-    /* Left gradient accent bar */
     .form-card::before {
         content: '';
         position: absolute;
@@ -565,7 +559,7 @@
 
     .form-card-header {
         background: linear-gradient(135deg, #1C3325 0%, #0E1B13 100%);
-        padding: 35px 45px 35px 50px;   /* 50px left to clear the ::before bar */
+        padding: 35px 45px 35px 50px;
         border-bottom: 3px solid var(--brand-orange);
     }
     .form-card-header h3 {
@@ -739,6 +733,7 @@
         opacity: 0.5;
     }
     </style>
+</head>
 </head>
 <body>
 
