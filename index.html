@@ -1055,7 +1055,6 @@ footer {
             if (btnArrow) btnArrow.textContent = "▼";
         });
     });
-
     // 2. Multi-toggle logic for Team Bio cards (Runs seamlessly on Mobile + Desktop click tracks)
     function togglePillar(id) {
         var cleanId = String(id).trim();
@@ -1091,24 +1090,24 @@ footer {
         }
     }
 </script>
- 
- function switchLanguage(lang) {
-    // 1. Hide all localized language elements safely
+ <script>
+function switchLanguage(lang) {
+    // 1. Hide all language elements safely
     const allElements = document.querySelectorAll('.lang-el');
     allElements.forEach(el => el.style.display = 'none');
 
-    // 2. Display the correct translation elements while maintaining header flow
+    // 2. Dynamically show the selected language elements based on their type
     const selectedElements = document.querySelectorAll('.' + lang + '-content');
     selectedElements.forEach(el => {
-        // Check if the translated element is part of a menu link or custom block
-        if (el.tagName === 'SPAN' || el.tagName === 'A') {
+        // If it's inline text or an image inside the logo/links, use inline-block
+        if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
             el.style.display = 'inline-block';
         } else {
             el.style.display = 'block';
         }
     });
 
-    // 3. Reset and highlight the correct navigation language button choice
+    // 3. Keep button styling synced cleanly
     const allButtons = document.querySelectorAll('.lang-btn');
     allButtons.forEach(btn => {
         btn.style.background = 'transparent';
@@ -1121,19 +1120,24 @@ footer {
         activeBtn.style.color = '#ffffff';
     }
 
-    // 4. Save preferred selection down to persistent local memory
+    // 4. Persist the language across your site's pages
     localStorage.setItem('umc_preferred_lang', lang);
 }
 
-// Your existing mobile menu script function should remain configured like this:
+// Ensure your mobile menu toggle function targets classes cleanly
 function toggleMobileMenu() {
     const nav = document.getElementById('main-nav');
     const menuBtn = document.querySelector('.mobile-menu-btn');
     
-    // Toggle active configuration state classes
     nav.classList.toggle('open');
     menuBtn.classList.toggle('active');
 }
+
+// Auto-run layout selections when page components mount
+document.addEventListener("DOMContentLoaded", function() {
+    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+    switchLanguage(savedLang);
+});
 </script>
 </body>
 </html>
