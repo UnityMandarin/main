@@ -701,7 +701,7 @@
 </head>
 <body>
 
- <header>
+    <header>
     <div class="header-container">
         <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
             <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
@@ -757,10 +757,22 @@
                 <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
             </a>
 
-            <div class="lang-switcher-container">
-                <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">English</button>
-                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
-                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
+            <div class="lang-switcher-container lang-el en-content">
+                <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">EN</button>
+                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体</button>
+                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體</button>
+            </div>
+
+            <div class="lang-switcher-container lang-el zh-hans-content" style="display: none;">
+                <button onclick="switchLanguage('en')" id="btn-en-hans" class="lang-btn">EN</button>
+                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans-hans" class="lang-btn">简体</button>
+                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant-hans" class="lang-btn">繁體</button>
+            </div>
+
+            <div class="lang-switcher-container lang-el zh-hant-content" style="display: none;">
+                <button onclick="switchLanguage('en')" id="btn-en-hant" class="lang-btn">EN</button>
+                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans-hant" class="lang-btn">简体</button>
+                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant-hant" class="lang-btn">繁體</button>
             </div>
         </nav>
     </div>
