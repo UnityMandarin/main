@@ -1092,15 +1092,15 @@ footer {
     }
 </script>
  
- <script>
-function switchLanguage(lang) {
-    // 1. Hide all localized text blocks safely
+ function switchLanguage(lang) {
+    // 1. Hide all localized language elements safely
     const allElements = document.querySelectorAll('.lang-el');
     allElements.forEach(el => el.style.display = 'none');
 
-    // 2. Locate and display active language blocks cleanly
+    // 2. Display the correct translation elements while maintaining header flow
     const selectedElements = document.querySelectorAll('.' + lang + '-content');
     selectedElements.forEach(el => {
+        // Check if the translated element is part of a menu link or custom block
         if (el.tagName === 'SPAN' || el.tagName === 'A') {
             el.style.display = 'inline-block';
         } else {
@@ -1108,7 +1108,7 @@ function switchLanguage(lang) {
         }
     });
 
-    // 3. Reset button highlight styles and highlight the selected language
+    // 3. Reset and highlight the correct navigation language button choice
     const allButtons = document.querySelectorAll('.lang-btn');
     allButtons.forEach(btn => {
         btn.style.background = 'transparent';
@@ -1117,20 +1117,23 @@ function switchLanguage(lang) {
 
     const activeBtn = document.getElementById('btn-' + lang);
     if (activeBtn) {
-        activeBtn.style.background = '#E0533C'; // Active color styling choice
+        activeBtn.style.background = '#E0533C'; 
         activeBtn.style.color = '#ffffff';
     }
 
-    // 4. Save choice to cross-page persistent browser storage
+    // 4. Save preferred selection down to persistent local memory
     localStorage.setItem('umc_preferred_lang', lang);
 }
 
-// Global script running when page loads across any site route
-document.addEventListener("DOMContentLoaded", function() {
-    // Looks for a previously selected language, defaults to 'en' if empty
-    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
-    switchLanguage(savedLang);
-});
+// Your existing mobile menu script function should remain configured like this:
+function toggleMobileMenu() {
+    const nav = document.getElementById('main-nav');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    
+    // Toggle active configuration state classes
+    nav.classList.toggle('open');
+    menuBtn.classList.toggle('active');
+}
 </script>
 </body>
 </html>
