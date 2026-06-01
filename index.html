@@ -682,7 +682,31 @@ footer {
 .mobile-menu-btn.is-active span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
 }
+.lang-switcher-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
+.lang-btn {
+    background: transparent;
+    color: #A3B8CC;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+    color: #ffffff;
+}
     </style>
 </head>
 <body>
@@ -716,6 +740,12 @@ footer {
             <img src="scroll-banner.png" class="hero-banner-img">
         </section>
 
+     <div class="lang-switcher-container">
+    <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">English</button>
+    <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
+    <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
+</div>
+     
         <section class="approach-block">
             <div class="section-header-group">
                 <h2>Our Approach</h2>
@@ -887,6 +917,47 @@ footer {
             btn.classList.toggle("is-active");
         }
     }
+</script>
+ 
+ <script>
+function switchLanguage(lang) {
+    // 1. Hide all localized text blocks safely
+    const allElements = document.querySelectorAll('.lang-el');
+    allElements.forEach(el => el.style.display = 'none');
+
+    // 2. Locate and display active language blocks cleanly
+    const selectedElements = document.querySelectorAll('.' + lang + '-content');
+    selectedElements.forEach(el => {
+        if (el.tagName === 'SPAN' || el.tagName === 'A') {
+            el.style.display = 'inline-block';
+        } else {
+            el.style.display = 'block';
+        }
+    });
+
+    // 3. Reset button highlight styles and highlight the selected language
+    const allButtons = document.querySelectorAll('.lang-btn');
+    allButtons.forEach(btn => {
+        btn.style.background = 'transparent';
+        btn.style.color = '#A3B8CC';
+    });
+
+    const activeBtn = document.getElementById('btn-' + lang);
+    if (activeBtn) {
+        activeBtn.style.background = '#E0533C'; // Active color styling choice
+        activeBtn.style.color = '#ffffff';
+    }
+
+    // 4. Save choice to cross-page persistent browser storage
+    localStorage.setItem('umc_preferred_lang', lang);
+}
+
+// Global script running when page loads across any site route
+document.addEventListener("DOMContentLoaded", function() {
+    // Looks for a previously selected language, defaults to 'en' if empty
+    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+    switchLanguage(savedLang);
+});
 </script>
 </body>
 </html>
