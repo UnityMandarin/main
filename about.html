@@ -745,30 +745,206 @@
         .conclusion-ribbon { padding: 30px 20px; }
         .conclusion-ribbon h3 { font-size: 22px; }
     }
+        /* =========================================
+   RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
+   ========================================= */
+@media (max-width: 900px) {
+    /* Header & Mobile Navigation Breakpoint */
+    .header-container {
+        padding: 10px 20px;
+    }
+
+    .mobile-menu-btn {
+        display: flex; /* Display hamburger button */
+    }
+
+    nav {
+        display: none; /* Hide default inline menu */
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 0;
+        border-top: 1px solid rgba(88, 185, 131, 0.2);
+        margin-top: 10px;
+    }
+
+    /* Toggled class via JavaScript */
+    nav.is-open {
+        display: flex;
+        animation: slideDown 0.3s ease forwards;
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    nav a {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    nav a::after {
+        display: none; /* Disable underline effect on mobile */
+    }
+
+    nav a[href*="contact"],
+    nav a:last-of-type {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    /* General Body Adjustments */
+    .hero-section {
+        padding: 30px 15px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .approach-block {
+        padding: 30px 20px 60px 20px;
+    }
+
+    .section-header-group h2 {
+        font-size: 32px;
+    }
+    
+    .value-ribbon {
+        font-size: 16px;
+        padding: 18px;
+    }
+}
+     
+     .expand-btn {
+        background-color: transparent;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        padding: 8px 18px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 15px;
+        transition: var(--transition-smooth);
+    }
+
+    .expand-btn:hover {
+        background-color: var(--brand-orange);
+        color: #FFFFFF;
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    }
+
+    .pillar-expandable-content {
+        animation: fadeInSmooth 0.35s ease forwards;
+    }
+     
+     /* Animation to transform the hamburger bars into a Close X icon */
+.mobile-menu-btn.is-active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.mobile-menu-btn.is-active span:nth-child(2) {
+    opacity: 0;
+}
+.mobile-menu-btn.is-active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+.lang-switcher-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.lang-btn {
+    background: transparent;
+    color: #A3B8CC;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+    color: #ffffff;
+}
 </style>
 </head>
 <body>
 
-  <header>
+ <header>
     <div class="header-container">
         <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-            <img src="your-logo-file.png" alt="Unity Mandarin Center Text" style="height: 36px; width: auto; object-fit: contain;">
-            <img src="logotitle.png" alt="Unity Mandarin Center Logo" style="height: 46px; width: auto; object-fit: contain;">
+            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
+            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px; width: auto; object-fit: contain;">
             
+            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            
+            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
         </a>
+
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
             <span></span>
             <span></span>
             <span></span>
         </button>
         
-        <nav id="main-nav">
-            <a href="index.html">Home</a>
-            <a href="about.html" class="active-page">About Us</a>
-            <a href="program.html">Program</a>
-            <a href="why-us.html">Why Us</a>
-            <a href="joinus.html">Join Us</a>
-            <a href="contact.html">Contact</a>
+        <nav id="main-nav" style="display: flex; align-items: center; gap: 20px;">
+            <a href="index.html" class="active-page">
+                <span class="lang-el en-content">Home</span>
+                <span class="lang-el zh-hans-content" style="display: none;">首页</span>
+                <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
+            </a>
+
+            <a href="about.html">
+                <span class="lang-el en-content">About Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
+            </a>
+
+            <a href="program.html">
+                <span class="lang-el en-content">Program</span>
+                <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
+                <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
+            </a>
+
+            <a href="why-us.html">
+                <span class="lang-el en-content">Why Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
+                <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
+            </a>
+
+            <a href="joinus.html">
+                <span class="lang-el en-content">Join Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
+            </a>
+
+            <a href="contact.html">
+                <span class="lang-el en-content">Contact</span>
+                <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
+            </a>
+
+            <div class="lang-switcher-container">
+                <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">English</button>
+                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
+                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
+            </div>
         </nav>
     </div>
 </header>
@@ -1215,6 +1391,55 @@
             btn.classList.toggle("is-active");
         }
     }
+</script>
+     <script>
+function switchLanguage(lang) {
+    // 1. Hide all language elements safely
+    const allElements = document.querySelectorAll('.lang-el');
+    allElements.forEach(el => el.style.display = 'none');
+
+    // 2. Dynamically show the selected language elements based on their type
+    const selectedElements = document.querySelectorAll('.' + lang + '-content');
+    selectedElements.forEach(el => {
+        // If it's inline text or an image inside the logo/links, use inline-block
+        if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
+            el.style.display = 'inline-block';
+        } else {
+            el.style.display = 'block';
+        }
+    });
+
+    // 3. Keep button styling synced cleanly
+    const allButtons = document.querySelectorAll('.lang-btn');
+    allButtons.forEach(btn => {
+        btn.style.background = 'transparent';
+        btn.style.color = '#A3B8CC';
+    });
+
+    const activeBtn = document.getElementById('btn-' + lang);
+    if (activeBtn) {
+        activeBtn.style.background = '#E0533C'; 
+        activeBtn.style.color = '#ffffff';
+    }
+
+    // 4. Persist the language across your site's pages
+    localStorage.setItem('umc_preferred_lang', lang);
+}
+
+// Ensure your mobile menu toggle function targets classes cleanly
+function toggleMobileMenu() {
+    const nav = document.getElementById('main-nav');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    
+    nav.classList.toggle('open');
+    menuBtn.classList.toggle('active');
+}
+
+// Auto-run layout selections when page components mount
+document.addEventListener("DOMContentLoaded", function() {
+    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+    switchLanguage(savedLang);
+});
 </script>
 </body>
 </html>
