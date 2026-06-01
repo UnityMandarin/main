@@ -84,7 +84,6 @@
             height: 100vh;
             z-index: -10;
             
-            /* Background locked completely completely still on mobile scroll */
             background-image: url('aboutbg.png') !important;
             background-position: center top !important;
             background-repeat: repeat !important;
@@ -97,7 +96,7 @@
         
         /* Smooth Mobile Menu Expanding List Setup */
         nav { 
-            display: flex !important; /* Override default hidden flow */
+            display: flex !important; 
             width: 100%; 
             flex-direction: column; 
             gap: 10px; 
@@ -112,7 +111,7 @@
         
         /* Expanding active animation frame */
         nav.is-open { 
-            max-height: 350px; 
+            max-height: 450px; 
             opacity: 1; 
             padding: 20px 0; 
             border-top: 1px solid rgba(88, 185, 131, 0.2); 
@@ -123,18 +122,6 @@
         nav a::after { display: none; }
         nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
         
-        /* Mobile Menu Close "X" Cross Morphing Animation */
-        .mobile-menu-btn.is-active span:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-        .mobile-menu-btn.is-active span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-        .mobile-menu-btn.is-active span:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-        
         .main-container { padding: 40px 20px 60px 20px; }
         .contact-hero-card { padding: 40px 20px !important; }
         .giant-email { font-size: 24px !important; }
@@ -143,132 +130,55 @@
     /* ==========================================================================
        ADVANCED NAVIGATION HEADER FRAMEWORK
        ========================================================================== */
-   /* Base Header bar wrapper */
-header {
-    background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
-    min-height: var(--header-height);
-    position: sticky;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid var(--mint-nav-border);
-    box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
-    will-change: transform;
-    transition: var(--transition-smooth);
-}
+    header {
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+        min-height: var(--header-height);
+        position: sticky;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--mint-nav-border);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
+        will-change: transform;
+        transition: var(--transition-smooth);
+    }
 
-/* Internal Layout Alignments */
-.header-container {
-    width: 100%;
-    max-width: var(--max-content-width);
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    flex-wrap: wrap;
-    margin: 0 auto;
-}
+    .header-container {
+        width: 100%;
+        max-width: var(--max-content-width);
+        padding: 0 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        flex-wrap: nowrap; /* LOCKED: Prevents dual-line breakdown distortion */
+        margin: 0 auto;
+    }
 
-/* Brand Logo Layout Group */
-.logo-group {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    height: var(--header-height);
-    outline: none;
-    transition: var(--transition-smooth);
-}
-.logo-group:hover { transform: translateY(-1px); }
-.logo-group img {
-    height: 44px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-    filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
-}
+    .logo-group {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        height: var(--header-height);
+        outline: none;
+        transition: var(--transition-smooth);
+        flex-shrink: 0;
+    }
+    .logo-group:hover { transform: translateY(-1px); }
+    .logo-group img {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+    }
 
-/* Nav Link Placements */
-nav { display: flex; align-items: center; gap: 4px; height: 100%; }
-nav a {
-    font-family: var(--font-interface);
-    text-decoration: none;
-    color: var(--text-navbar-link);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.15px;
-    padding: 10px 18px;
-    border-radius: 8px;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
-    box-sizing: border-box;
-}
-nav a:hover { color: var(--brand-orange); background-color: var(--brand-orange-subtle); }
-
-/* Underline Animation Effect */
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 4px; left: 18px; right: 18px;
-    height: 2px;
-    background-color: var(--brand-orange);
-    border-radius: 2px;
-    transform: scaleX(0);
-    transition: var(--transition-smooth);
-}
-nav a:hover::after { transform: scaleX(1); }
-
-/* Selected Page Pill State */
-nav a.active-page { color: #FFFFFF; background-color: var(--brand-orange); box-shadow: 0 4px 12px var(--brand-orange-glow); }
-nav a.active-page::after { display: none; }
-
-/* Contact Border Button */
-nav a[href*="contact"], nav a:last-of-type {
-    background-color: transparent;
-    border: 1.5px solid var(--brand-orange);
-    color: var(--brand-orange);
-    margin-left: 8px;
-    padding: 8px 20px;
-}
-nav a[href*="contact"]:hover, nav a:last-of-type:hover {
-    background-color: var(--brand-orange);
-    color: #FFFFFF;
-    box-shadow: 0 4px 14px var(--brand-orange-glow);
-    transform: translateY(-1px);
-}
-
-/* Mobile Toggle Hamburger Button (Hidden on Desktop) */
-.mobile-menu-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    flex-direction: column;
-    gap: 5px;
-    z-index: 1001;
-}
-.mobile-menu-btn span { display: block; width: 25px; height: 3px; background-color: var(--text-primary); border-radius: 2px; transition: var(--transition-smooth); }
-
-/* Hamburger Morphing Animations */
-.mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-.mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
-.mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
     /* ==========================================================================
        INLINE NAVIGATION SYSTEM
        ========================================================================== */
-    nav {
-        display: flex;
-        align-items: center;
-        gap: 4px; 
-        height: 100%;
-    }
-
+    nav { display: flex; align-items: center; gap: 4px; height: 100%; }
     nav a {
         font-family: var(--font-interface);
         text-decoration: none;
@@ -276,102 +186,91 @@ nav a[href*="contact"]:hover, nav a:last-of-type:hover {
         font-weight: 600;
         font-size: 14px;
         letter-spacing: 0.15px;
-        padding: 10px 18px;
+        padding: 8px 14px; /* Balanced density limits blowout spacing */
         border-radius: 8px;
         position: relative;
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        white-space: nowrap; /* PROTECTED: Prevents text elements splitting on resize */
         transition: var(--transition-smooth);
         box-sizing: border-box;
     }
+    nav a:hover { color: var(--brand-orange); background-color: var(--brand-orange-subtle); }
 
-    nav a:hover {
-        color: var(--brand-orange);
-        background-color: var(--brand-orange-subtle);
-    }
-
+    /* Underline Animation Effect */
     nav a::after {
         content: '';
         position: absolute;
-        bottom: 4px;
-        left: 18px;
-        right: 18px;
+        bottom: 4px; left: 14px; right: 14px;
         height: 2px;
         background-color: var(--brand-orange);
         border-radius: 2px;
         transform: scaleX(0);
         transition: var(--transition-smooth);
     }
+    nav a:hover::after { transform: scaleX(1); }
 
-    nav a:hover::after {
-        transform: scaleX(1);
+    /* Selected Page Pill State */
+    nav a.active-page { 
+        color: #FFFFFF !important; 
+        background-color: var(--brand-orange) !important; 
+        box-shadow: 0 4px 12px var(--brand-orange-glow) !important; 
     }
+    nav a.active-page::after { display: none !important; }
 
-    nav a.active-page {
-        color: #FFFFFF;
-        background-color: var(--brand-orange);
-        box-shadow: 0 4px 12px var(--brand-orange-glow);
-    }
-
-    nav a.active-page::after {
-        display: none; 
-    }
-
-    nav a[href*="contact"],
-    nav a:last-of-type {
+    /* Contact Border Button - Uses exclusion logic to protect active state tracking */
+    nav a[href*="contact"]:not(.active-page), 
+    nav a:last-of-type:not(.active-page) {
         background-color: transparent;
         border: 1.5px solid var(--brand-orange);
         color: var(--brand-orange);
-        margin-left: 8px;
-        padding: 8px 20px;
+        margin-left: 6px;
+        padding: 6px 16px;
     }
-
-    nav a[href*="contact"]:hover,
-    nav a:last-of-type:hover {
+    nav a[href*="contact"]:not(.active-page):hover, 
+    nav a:last-of-type:not(.active-page):hover {
         background-color: var(--brand-orange);
         color: #FFFFFF;
         box-shadow: 0 4px 14px var(--brand-orange-glow);
         transform: translateY(-1px);
     }
 
+    /* Mobile Toggle Hamburger Button (Hidden on Desktop) */
     .mobile-menu-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    flex-direction: column;
-    gap: 5px;
-    z-index: 1001;
-}
-
-    .mobile-menu-btn span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background-color: var(--text-primary);
-        border-radius: 2px;
-        transition: var(--transition-smooth);
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 1001;
     }
+    .mobile-menu-btn span { display: block; width: 25px; height: 3px; background-color: var(--text-primary); border-radius: 2px; transition: var(--transition-smooth); }
+
+    /* Hamburger Morphing Animations */
+    .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
        ========================================================================== */
-     .about-container {
+    .about-container {
         max-width: var(--max-width);
         margin: 0 auto;
         padding: 60px 40px 100px 40px;
         box-sizing: border-box;
-      }
+    }
         
     .about-header-container {
-    width: 48%;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
+        width: 48%;
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
         
     .main-container {
         max-width: var(--max-width);
@@ -422,7 +321,6 @@ nav a[href*="contact"]:hover, nav a:last-of-type:hover {
         line-height: 1.6;
     }
 
-    /* Giant Central Email Target Presentation */
     .giant-email-container {
         margin: 40px 0;
         position: relative;
@@ -513,11 +411,7 @@ nav a[href*="contact"]:hover, nav a:last-of-type:hover {
         padding: 0;
         margin: 0;
     }
-
-    .links-listing li {
-        margin-bottom: 10px;
-    }
-
+    .links-listing li { margin-bottom: 10px; }
     .links-listing a {
         color: #CFEAD6;
         text-decoration: none;
@@ -525,11 +419,13 @@ nav a[href*="contact"]:hover, nav a:last-of-type:hover {
         transition: color 0.2s ease, padding-left 0.2s ease;
         display: inline-block;
     }
-
     .links-listing a:hover {
         color: var(--brand-orange);
         padding-left: 4px;
     }
+
+    .contact-listing { list-style: none; padding: 0; }
+    .contact-listing li { font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
 
     .copyright-bar {
         max-width: var(--max-width);
@@ -542,14 +438,14 @@ nav a[href*="contact"]:hover, nav a:last-of-type:hover {
     }
         
     .contact-banner-img {
-        width: 100%;       
+        width: 100%;        
         max-width: 400px;  
         height: auto;      
         display: block;    
         margin: 0 auto;    
     }
 
-        .expand-btn {
+    .expand-btn {
         background-color: transparent;
         border: 1.5px solid var(--brand-orange);
         color: var(--brand-orange);
@@ -564,7 +460,6 @@ nav a[href*="contact"]:hover, nav a:last-of-type:hover {
         margin-top: 15px;
         transition: var(--transition-smooth);
     }
-
     .expand-btn:hover {
         background-color: var(--brand-orange);
         color: #FFFFFF;
@@ -574,91 +469,30 @@ nav a[href*="contact"]:hover, nav a:last-of-type:hover {
     .pillar-expandable-content {
         animation: fadeInSmooth 0.35s ease forwards;
     }
-        @media (max-width: 900px) {
-    .header-container { padding: 10px 20px; }
-    .mobile-menu-btn { display: flex; }
-    
-    /* Convert horizontal links into a vertical stacking block */
-    nav { 
-        display: none; 
-        width: 100%; 
-        flex-direction: column; 
-        gap: 10px; 
-        padding: 20px 0; 
-        border-top: 1px solid rgba(88, 185, 131, 0.2); 
-        margin-top: 10px; 
-    }
-    
-    /* Dropdown Expand Toggle State */
-    nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    
-    nav a { width: 100%; padding: 12px; font-size: 16px; }
-    nav a::after { display: none; }
-    nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
-}
-           
-     .expand-btn {
-        background-color: transparent;
-        border: 1.5px solid var(--brand-orange);
-        color: var(--brand-orange);
-        padding: 8px 18px;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 6px;
-        cursor: pointer;
-        display: inline-flex;
+
+    .lang-switcher-container {
+        display: flex;
         align-items: center;
-        gap: 8px;
-        margin-top: 15px;
-        transition: var(--transition-smooth);
+        gap: 4px;
+        background: rgba(28, 51, 37, 0.05);
+        padding: 4px 8px;
+        border-radius: 30px;
+        border: 1px solid rgba(88, 185, 131, 0.15);
+        margin-left: 6px;
     }
 
-    .expand-btn:hover {
-        background-color: var(--brand-orange);
-        color: #FFFFFF;
-        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    .lang-btn {
+        background: transparent;
+        color: var(--text-navbar-link);
+        border: none;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease;
     }
-
-    .pillar-expandable-content {
-        animation: fadeInSmooth 0.35s ease forwards;
-    }
-     
-     /* Animation to transform the hamburger bars into a Close X icon */
-.mobile-menu-btn.is-active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-.mobile-menu-btn.is-active span:nth-child(2) {
-    opacity: 0;
-}
-.mobile-menu-btn.is-active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-.lang-switcher-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px 8px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.lang-btn {
-    background: transparent;
-    color: #A3B8CC;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.lang-btn:hover {
-    color: #ffffff;
-}
+    .lang-btn:hover { color: var(--brand-orange); }
     </style>
 </head>
 <body>
