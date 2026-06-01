@@ -682,12 +682,11 @@ nav a[href*="contact"]:hover, nav a:last-of-type:hover {
             <span></span>
         </button>
         
-        <nav id="main-nav" style="display: flex; align-items: center; gap: 20px;">
-            <a href="index.html">
-                <span class="lang-el en-content">Home</span>
-                <span class="lang-el zh-hans-content" style="display: none;">首页</span>
-                <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
-            </a>
+        <div class="lang-switcher-container">
+    <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">EN</button>
+    <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体</button>
+    <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體</button>
+</div>
 
             <a href="about.html">
                 <span class="lang-el en-content">About Us</span>
