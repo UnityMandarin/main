@@ -13,6 +13,7 @@
             --text-dark: #2d3748;      /* 深色文本 */
             --text-muted: #718096;     /* 辅助文本 */
             --bg-light: #f7fafc;       /* 浅色背景 */
+            --max-width: 1100px;       /* 统一页面最大宽度 */
         }
 
         body {
@@ -25,9 +26,11 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         /* --- 2. 全局导航栏 (Site Header / Navbar) --- */
@@ -37,6 +40,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            width: 100%;
         }
 
         .nav-container {
@@ -44,6 +48,11 @@
             justify-content: space-between;
             align-items: center;
             height: 70px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .brand-logo {
@@ -375,7 +384,7 @@
             .nav-container {
                 flex-direction: column;
                 height: auto;
-                padding: 15px 0;
+                padding: 15px 20px;
                 gap: 15px;
             }
             .nav-links {
@@ -395,7 +404,7 @@
 <body>
 
     <header class="site-header">
-        <div class="container nav-container">
+        <div class="nav-container">
             <a href="#" class="brand-logo">UMC<span>.</span></a>
             <ul class="nav-links">
                 <li><a href="#">Home / 首页</a></li>
@@ -486,7 +495,7 @@
                 <div class="job-body">
                     <h4>Core Responsibilities / 核心职责：</h4>
                     <ul>
-                        <li>协助主讲老师进行日常的学生接托（Campus Pickup），确保学生从日校教室到课后班的安全过渡。</li>
+                        <li>协助主讲老师进行日常的学生接托（Campus Pickup），确保 student 从日校教室到课后班的安全过渡。</li>
                         <li>辅导学生的常规英文/数学家庭作业，协助分发每日健康点心。</li>
                         <li>在中文沉浸式环境中配合主讲老师，协助维护课堂秩序及学生在校安全。</li>
                     </ul>
