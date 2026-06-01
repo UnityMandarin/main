@@ -1035,6 +1035,56 @@ footer {
         }
     }
 </script>
+
+        <script>
+function switchLanguage(lang) {
+    // 1. Hide all language elements safely
+    const allElements = document.querySelectorAll('.lang-el');
+    allElements.forEach(el => el.style.display = 'none');
+
+    // 2. Dynamically show the selected language elements based on their type
+    const selectedElements = document.querySelectorAll('.' + lang + '-content');
+    selectedElements.forEach(el => {
+        // If it's inline text or an image inside the logo/links, use inline-block
+        if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
+            el.style.display = 'inline-block';
+        } else {
+            el.style.display = 'block';
+        }
+    });
+
+    // 3. Keep button styling synced cleanly
+    const allButtons = document.querySelectorAll('.lang-btn');
+    allButtons.forEach(btn => {
+        btn.style.background = 'transparent';
+        btn.style.color = '#A3B8CC';
+    });
+
+    const activeBtn = document.getElementById('btn-' + lang);
+    if (activeBtn) {
+        activeBtn.style.background = '#E0533C'; 
+        activeBtn.style.color = '#ffffff';
+    }
+
+    // 4. Persist the language across your site's pages
+    localStorage.setItem('umc_preferred_lang', lang);
+}
+
+// Ensure your mobile menu toggle function targets classes cleanly
+function toggleMobileMenu() {
+    const nav = document.getElementById('main-nav');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    
+    nav.classList.toggle('open');
+    menuBtn.classList.toggle('active');
+}
+
+// Auto-run layout selections when page components mount
+document.addEventListener("DOMContentLoaded", function() {
+    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+    switchLanguage(savedLang);
+});
+</script>
 </body>
 </html>
 
