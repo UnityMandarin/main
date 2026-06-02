@@ -1,755 +1,1108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMC After School Program</title>
     <style>
-        /* --- UMC Global Elements & Typography --- */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            color: #2d3748;
-            background-color: #f7fafc;
-            line-height: 1.6;
-        }
-
-        /* --- Header Navigation Bar --- */
-        header {
-            background-color: #1B365D;
-            padding: 15px 30px;
-            position: sticky;
-            top: 0;
-            z-index: 10000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        #main-nav {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        #main-nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            transition: color 0.2s;
-        }
-
-        #main-nav a.active-page {
-            color: #E0533C;
-            font-weight: bold;
-        }
-
-        /* --- Global Language Selector Element Layout --- */
-        .lang-switcher-container {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.1);
-            padding: 4px 8px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-left: 10px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            color: #A3B8CC;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .lang-btn.active {
-            background: #E0533C;
-            color: #ffffff;
-        }
-
-        /* --- Mobile Target Component Controls --- */
-        .mobile-menu-btn {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        .mobile-menu-btn span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: #ffffff;
-            transition: all 0.3s ease;
-        }
-
-        /* --- Global Structural Main Layout Framework --- */
-        main, .programs-container {
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            box-sizing: border-box;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            color: #1B365D;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            color: #4a5568;
-            margin-bottom: 40px;
-        }
-
-        /* --- Decorative Divider Layouts --- */
-        .section-header-group {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .decorative-rule {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .decorative-rule .line {
-            width: 80px;
-            height: 1px;
-            background-color: #cbd5e0;
-        }
-
-        .decorative-rule .node {
-            color: #E0533C;
-            font-size: 14px;
-        }
-
-        /* --- Founding Promotional Highlight Modules --- */
-        .benefits-box {
-            background: linear-gradient(135deg, #fffaf0 0%, #fffbeb 100%);
-            border: 1px solid #fef3c7;
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-
-        .box-title {
-            text-align: center;
-            font-size: 1.5rem;
-            color: #b45309;
-            margin-top: 0;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .benefit-card {
-            background: #ffffff;
-            border: 1px solid #fef3c7;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.2s;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .benefit-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .benefit-card h4 {
-            margin: 0 0 8px 0;
-            color: #1B365D;
-            font-size: 1.1rem;
-        }
-
-        .benefit-card p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #667085;
-        }
-
-        /* --- Programs Comparison Dual Column System --- */
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .program-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            box-sizing: border-box;
-        }
-
-        .onsite-card { border-top: 6px solid #10b981; }
-        .outsite-card { border-top: 6px solid #3b82f6; }
-
-        .card-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .badge-green { background-color: #ecfdf5; color: #065f46; }
-        .badge-blue { background-color: #eff6ff; color: #1e40af; }
-
-        .program-card h3 {
-            margin: 0 0 15px 0;
-            font-size: 1.6rem;
-            color: #1B365D;
-        }
-
-        .onsite-compliance-alert {
-            background-color: #fff5f5;
-            border-left: 4px solid #f56565;
-            padding: 15px 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-        }
-
-        .onsite-compliance-alert p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #c53030;
-        }
-
-        .card-desc {
-            font-size: 1rem;
-            color: #4a5568;
-            margin-bottom: 0;
-        }
-
-        /* --- Expanded Curriculum Framework Elements --- */
-        .curriculum-showcase-box {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 35px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-
-        .curriculum-showcase-box .box-title {
-            color: #1B365D;
-        }
-
-        .curriculum-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .curriculum-item-card {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 25px;
-        }
-
-        .curr-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 12px;
-        }
-
-        .tag-orange { background-color: #fffaf0; color: #dd6b20; border: 1px solid #fbe3b5; }
-        .tag-purple { background-color: #faf5ff; color: #805ad5; border: 1px solid #e9d8fd; }
-
-        .curriculum-item-card h4 {
-            margin: 0 0 10px 0;
-            font-size: 1.2rem;
-            color: #2d3748;
-        }
-
-        .curr-desc {
-            margin: 0;
-            font-size: 0.95rem;
-            color: #4a5568;
-        }
-
-        .pdf-links-matrix {
-            background-color: #f7fafc;
-            border: 1px solid #edf2f7;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 10px;
-        }
-
-        .matrix-title {
-            display: block;
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #4a5568;
-            margin-bottom: 15px;
-        }
-
-        .pdf-buttons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-        }
-
-        .pdf-btn {
-            background-color: #ffffff;
-            border: 1px solid #cbd5e0;
-            color: #4a5568;
-            text-align: center;
-            padding: 10px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .pdf-btn:hover {
-            border-color: #3182ce;
-            color: #3182ce;
-            background-color: #ebf8ff;
-        }
-
-        .copyright-disclaimer {
-            margin: 20px 0 0 0;
-            font-size: 0.8rem;
-            color: #a0aec0;
-            line-height: 1.4;
-        }
-
-        /* --- Professional Credential Verification Sections --- */
-        .teacher-credentials-box {
-            background-color: #edf2f7;
-            border-radius: 12px;
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .teacher-badge {
-            background-color: #1B365D;
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        .teacher-text {
-            margin: 0;
-            font-size: 0.95rem;
-            color: #4a5568;
-            flex-grow: 1;
-        }
-
-        .verify-btn {
-            background-color: #ffffff;
-            border: 1px solid #cbd5e0;
-            color: #2d3748;
-            padding: 10px 18px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            white-space: nowrap;
-            transition: all 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .verify-btn:hover {
-            background-color: #2d3748;
-            color: #ffffff;
-            border-color: #2d3748;
-        }
-
-        /* --- Tuition Estimator Calculator Matrices --- */
-        .price-calculator-box {
-            background-color: #ffffff;
-            border: 2px solid #1B365D;
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: 0 10px 25px rgba(27, 54, 93, 0.05);
-        }
-
-        .price-calculator-box h3 {
-            margin: 0 0 20px 0;
-            font-size: 1.6rem;
-            color: #1B365D;
-            text-align: center;
-        }
-
-        .disclaimer-alert-box {
-            background-color: #ebf8ff;
-            border-left: 4px solid #3182ce;
-            padding: 15px 20px;
-            color: #2b6cb0;
-            font-size: 0.9rem;
-            border-radius: 4px;
-            margin-bottom: 30px;
-        }
-
-        .calc-controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .control-group label {
-            display: block;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
-
-        .form-select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            color: #4a5568;
-            background-color: #ffffff;
-            outline: none;
-        }
-
-        .form-select:focus {
-            border-color: #1B365D;
-        }
-
-        .radio-toggle {
-            display: flex;
-            background-color: #edf2f7;
-            padding: 4px;
-            border-radius: 8px;
-        }
-
-        .radio-toggle input[type="radio"] {
-            display: none;
-        }
-
-        .radio-toggle label {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            margin: 0;
-            cursor: pointer;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #718096;
-            transition: all 0.2s;
-        }
-
-        .radio-toggle input[type="radio"]:checked + label {
-            background-color: #ffffff;
-            color: #1B365D;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .price-result-display {
-            background-color: #f7fafc;
-            border: 1px dashed #cbd5e0;
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .price-num {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #E0533C;
-            margin-bottom: 5px;
-        }
-
-        .price-period {
-            font-size: 0.9rem;
-            color: #718096;
-        }
-
-        /* --- Footer Layout Matrix --- */
-        footer {
-            background-color: #1A202C;
-            color: #A0AEC0;
-            padding: 50px 30px 20px 30px;
-            margin-top: 60px;
-            border-top: 4px solid #E0533C;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            color: #ffffff;
-            margin: 0 0 20px 0;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .footer-col p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .links-listing, .contact-listing {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .links-listing li {
-            margin-bottom: 12px;
-        }
-
-        .links-listing a {
-            color: #A0AEC0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-
-        .links-listing a:hover {
-            color: #ffffff;
-        }
-
-        .contact-listing li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-        }
-
-        .copyright-bar {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 20px;
-            border-top: 1px solid #2D3748;
-            text-align: center;
-            font-size: 0.85rem;
-        }
-
-        /* --- Layout Desktop Breaks & Responsiveness Rules --- */
-        @media (max-width: 992px) {
-            .programs-grid, .curriculum-grid {
-                grid-template-columns: 1fr;
-            }
-            .calc-controls {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .teacher-credentials-box {
-                flex-direction: column;
-                text-align: center;
-            }
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-            .mobile-menu-btn {
-                display: flex;
-                z-index: 20000;
-            }
-            #main-nav {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: -20px;
-                width: calc(100% + 40px);
-                background-color: #1B365D;
-                padding: 20px;
-                gap: 15px;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-                box-sizing: border-box;
-            }
-            #main-nav.open {
-                display: flex !important;
-            }
-            .lang-switcher-container {
-                margin-left: 0;
-                margin-top: 10px;
-                width: 100%;
-                justify-content: center;
-            }
-            /* Animation transformation metrics for active bars */
-            .mobile-menu-btn.active span:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-            .mobile-menu-btn.active span:nth-child(2) {
-                opacity: 0;
-            }
-            .mobile-menu-btn.active span:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
-        }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    :root {
+        --brand-orange: #FF5722;
+        --brand-orange-hover: #E64A19;
+        --brand-orange-glow: rgba(255, 87, 34, 0.15);
+        --brand-orange-subtle: rgba(255, 87, 34, 0.04);
+        --mint-nav-core: #D1F7DB;
+        --mint-nav-light: #EBFDF2;
+        --mint-nav-border: rgba(88, 185, 131, 0.35);
+        --mint-shadow-tint: rgba(88, 185, 131, 0.12);
+        --mint-light: #E8FBF0;
+        --scroll-jade: #72D09B;
+        --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
+        --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
+        --text-primary: #1C3325;
+        --text-secondary: #3A5243;
+        --text-navbar-link: #243E2E;
+        --text-main: #2C3E50;
+        --text-muted: #5A6B7C;
+        --header-height: 72px;
+        --max-content-width: 1440px;
+        --max-width: 1100px;
+        --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+        font-family: var(--font-interface);
+        color: var(--text-primary);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f3efe3;
+        background-image: url('aboutbg.png');
+        background-repeat: repeat;
+        background-position: center top;
+        background-attachment: fixed;
+        background-size: cover;
+        overflow-x: hidden;
+    }
+
+   /* ═══════════════════════════════════════════════════
+       DESKTOP NAVIGATION HEADER STYLES
+       ═══════════════════════════════════════════════════ */
+    header {
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+        min-height: var(--header-height);
+        position: sticky;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--mint-nav-border);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
+        will-change: transform;
+        transition: var(--transition-smooth);
+    }
+
+    .header-container {
+        width: 100%;
+        max-width: var(--max-width); 
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        margin: 0 auto; 
+    }
+
+    .logo-group {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        height: var(--header-height);
+        outline: none;
+        transition: var(--transition-smooth);
+    }
+    .logo-group:hover { transform: translateY(-1px); }
+    .logo-group img {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+    }
+
+    nav { display: flex; align-items: center; gap: 4px; height: 100%; }
+    nav a {
+        font-family: var(--font-interface);
+        text-decoration: none;
+        color: var(--text-navbar-link);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+        box-sizing: border-box;
+    }
+    nav a:hover { color: var(--brand-orange); background-color: var(--brand-orange-subtle); }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 4px; left: 18px; right: 18px;
+        height: 2px;
+        background-color: var(--brand-orange);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: var(--transition-smooth);
+    }
+    nav a:hover::after { transform: scaleX(1); }
+
+    nav a.active-page { color: #FFFFFF; background-color: var(--brand-orange); box-shadow: 0 4px 12px var(--brand-orange-glow); }
+    nav a.active-page::after { display: none; }
+
+    nav a[href*="contact"], nav a:last-of-type {
+        background-color: transparent;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        margin-left: 8px;
+        padding: 8px 20px;
+    }
+    nav a[href*="contact"]:hover, nav a:last-of-type:hover {
+        background-color: var(--brand-orange);
+        color: #FFFFFF;
+        box-shadow: 0 4px 14px var(--brand-orange-glow);
+        transform: translateY(-1px);
+    }
+
+    .lang-switcher-container {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(28, 51, 37, 0.05);
+        padding: 4px 8px;
+        border-radius: 30px;
+        border: 1px solid rgba(88, 185, 131, 0.3);
+        margin-left: 10px;
+    }
+
+    .lang-btn {
+        background: transparent;
+        color: var(--text-secondary);
+        border: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .lang-btn.active {
+        background: var(--brand-orange);
+        color: #ffffff;
+        box-shadow: 0 2px 8px var(--brand-orange-glow);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 1001;
+    }
+    .mobile-menu-btn span { display: block; width: 25px; height: 3px; background-color: var(--text-primary); border-radius: 2px; transition: var(--transition-smooth); }
+
+    /* Hamburger Morphing Animations */
+    .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+
+   /* ═══════════════════════════════════════════════════
+       MOBILE RESPONSIVE OVERRIDES
+       ═══════════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+        body { background-image: none !important; }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -10;
+            background-image: url('aboutbg.png') !important;
+            background-position: left top !important;
+            background-repeat: no-repeat !important;
+            background-size: auto 100vh !important;
+            background-attachment: scroll !important;
+        }
+
+        .header-container { padding: 10px 20px; }
+        .mobile-menu-btn { display: flex; }
+        
+        nav { 
+            display: none; 
+            width: 100%; 
+            flex-direction: column; 
+            gap: 10px; 
+            padding: 20px 0; 
+            border-top: 1px solid rgba(88, 185, 131, 0.2); 
+            margin-top: 10px; 
+        }
+        
+        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        nav a { width: 100%; padding: 12px; font-size: 16px; }
+        nav a::after { display: none; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+        .lang-switcher-container { margin-left: 0; margin-top: 10px; justify-content: center; width: 100%; }
+    }
+    /* ═══════════════════════════════════════════════════
+       MAIN LAYOUT & CARDS MATRIX
+       ═══════════════════════════════════════════════════ */
+    .main-container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 60px 40px 100px 40px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .programs-container { width: 100%; }
+    .section-title {
+        font-family: var(--font-editorial);
+        font-size: 32px;
+        color: var(--text-primary);
+        margin: 0 0 10px 0;
+        text-align: center;
+    }
+    .section-subtitle {
+        font-size: 16px;
+        color: var(--text-secondary);
+        text-align: center;
+        max-width: 850px;
+        margin: 0 auto 40px auto;
+        line-height: 1.6;
+    }
+
+    /* Merged Elements from Snippet 2 styled with Snippet 1 Variables */
+    .benefits-box {
+        background: var(--mint-light);
+        border: 1px solid var(--mint-nav-border);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+    .box-title {
+        text-align: center;
+        font-size: 24px;
+        font-family: var(--font-editorial);
+        color: var(--text-primary);
+        margin-top: 0;
+        margin-bottom: 25px;
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .benefit-card {
+        background: #ffffff;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s;
+        box-shadow: 0 4px 12px rgba(168, 223, 181, 0.08);
+    }
+
+    .benefit-card:hover { transform: translateY(-2px); }
+    .benefit-icon { font-size: 2rem; margin-bottom: 10px; }
+    
+    .benefit-card h4 {
+        margin: 0 0 8px 0;
+        color: var(--text-primary);
+        font-size: 17px;
+    }
+
+    .benefit-card p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-secondary);
+    }
+
+    .programs-grid {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+    }
+    .program-card {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
+        flex: 1;
+        position: relative;
+        box-sizing: border-box;
+        min-width: 300px;
+    }
+    .program-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; bottom: 0;
+        width: 6px;
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+    }
+    .onsite-card::before { background: linear-gradient(to bottom, var(--scroll-jade), var(--brand-orange)); }
+    .outsite-card::before { background: linear-gradient(to bottom, #2E5C43, var(--scroll-jade)); }
+
+    .card-badge {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+    }
+    .badge-green { background: #D1F7DB; color: #1C5C34; }
+    .badge-blue  { background: #DBEAFE; color: #1E40AF; }
+
+    .program-card h3 {
+        font-family: var(--font-editorial);
+        font-size: 24px;
+        color: var(--text-primary);
+        margin: 0 0 12px 0;
+    }
+    .card-desc {
+        font-size: 14.5px;
+        color: var(--text-main);
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .onsite-compliance-alert {
+        background: #FFFBEB;
+        border: 1px solid #F3E3A4;
+        border-left: 4px solid #F59E0B;
+        border-radius: 8px;
+        padding: 18px 20px;
+        margin: 15px 0;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #78350F;
+    }
+    .onsite-compliance-alert strong { color: #92400E; }
+    .onsite-apply-link {
+        display: inline-block;
+        margin-top: 12px;
+        background: var(--brand-orange);
+        color: #FFF;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 13.5px;
+        text-decoration: none;
+        transition: var(--transition-smooth);
+    }
+    .onsite-apply-link:hover { background: var(--brand-orange-hover); transform: translateY(-1px); }
+
+    .feature-list { list-style: none; padding: 0; margin: 20px 0 0 0; }
+    .feature-list li {
+        margin-bottom: 16px;
+        font-size: 14.5px;
+        line-height: 1.6;
+        color: var(--text-primary);
+        position: relative;
+        padding-left: 5px;
+    }
+    .feature-list li small {
+        display: block;
+        font-size: 13px;
+        margin-top: 2px;
+        line-height: 1.4;
+    }
+
+    /* Curriculum & Credentials Merged Styles */
+    .curriculum-showcase-box {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 12px;
+        padding: 35px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
+    }
+    
+    .curriculum-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+    }
+
+    .curriculum-item-card {
+        background-color: var(--mint-light);
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 12px;
+        padding: 25px;
+    }
+
+    .curr-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+
+    .tag-orange { background-color: var(--brand-orange-subtle); color: var(--brand-orange); border: 1px solid rgba(255, 87, 34, 0.2); }
+    .tag-purple { background-color: #faf5ff; color: #805ad5; border: 1px solid #e9d8fd; }
+
+    .curriculum-item-card h4 { margin: 0 0 10px 0; font-size: 18px; color: var(--text-primary); }
+    .curr-desc { margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    .pdf-links-matrix {
+        background-color: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    .matrix-title { display: block; font-weight: 700; font-size: 14px; color: var(--text-main); margin-bottom: 15px; }
+    
+    .pdf-buttons-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .pdf-btn {
+        background-color: #ffffff;
+        border: 1px solid #cbd5e0;
+        color: var(--text-main);
+        text-align: center;
+        padding: 10px 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+    }
+    .pdf-btn:hover { border-color: var(--brand-orange); color: var(--brand-orange); background-color: var(--brand-orange-subtle); }
+
+    .copyright-disclaimer { margin: 20px 0 0 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    .teacher-credentials-box {
+        background-color: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .teacher-badge {
+        background-color: var(--brand-orange);
+        color: #ffffff;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    .teacher-text { margin: 0; font-size: 14px; color: var(--text-main); flex-grow: 1; min-width: 200px; line-height: 1.6; }
+    
+    .verify-btn {
+        background-color: #ffffff;
+        border: 1px solid var(--scroll-jade);
+        color: var(--text-primary);
+        padding: 10px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 700;
+        white-space: nowrap;
+        transition: var(--transition-smooth);
+    }
+    .verify-btn:hover { background-color: var(--scroll-jade); color: #ffffff; }
+
+    .price-calculator-box {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
+        margin-top: 40px;
+        box-sizing: border-box;
+    }
+    .price-calculator-box h3 {
+        font-family: var(--font-editorial);
+        font-size: 24px;
+        color: var(--text-primary);
+        margin: 0 0 15px 0;
+    }
+
+    .disclaimer-alert-box {
+        background: #FFFBEB;
+        border: 1px solid #F3E3A4;
+        border-left: 4px solid #F59E0B;
+        border-radius: 8px;
+        padding: 18px 22px;
+        margin-bottom: 25px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #78350F;
+    }
+    .disclaimer-alert-box strong { color: #92400E; }
+
+    .calc-controls {
+        display: flex;
+        gap: 30px;
+        margin: 25px 0;
+        background: #F8FAFC;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #E2E8F0;
+        flex-wrap: wrap;
+    }
+    .control-group { flex: 1; display: flex; flex-direction: column; min-width: 250px; }
+    .control-group label {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+    }
+    .form-select {
+        width: 100%;
+        padding: 14px;
+        font-size: 14.5px;
+        border: 2px solid #E2E8F0;
+        border-radius: 8px;
+        outline: none;
+        background-color: #FFF;
+        cursor: pointer;
+        color: var(--text-primary);
+        font-family: var(--font-interface);
+        transition: var(--transition-smooth);
+    }
+    .form-select:focus {
+        border-color: var(--scroll-jade);
+        box-shadow: 0 0 0 3px rgba(114, 208, 155, 0.15);
+    }
+
+    .radio-toggle { display: flex; gap: 12px; flex-wrap: wrap; }
+    .radio-toggle input[type="radio"] { display: none; }
+    .radio-toggle .toggle-btn {
+        display: block;
+        padding: 12px 18px;
+        background: #FFFFFF;
+        border: 2px solid #E2E8F0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13.5px;
+        font-weight: 500;
+        transition: var(--transition-smooth);
+        user-select: none;
+        flex: 1;
+        min-width: 200px;
+        text-align: center;
+    }
+    .radio-toggle input[type="radio"]:checked + .toggle-btn {
+        background: #FFF8F6;
+        border-color: var(--brand-orange);
+        color: var(--text-primary);
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+        font-weight: 600;
+    }
+
+    .price-result-display { margin-top: 30px; min-height: 100px; }
+    .placeholder-text {
+        width: 100%;
+        text-align: center;
+        padding: 40px;
+        background: #FAFAFA;
+        border: 2px dashed #E2E8F0;
+        border-radius: 10px;
+        color: var(--text-muted);
+        font-style: italic;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+    .pricing-result-grid { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; }
+    .price-card {
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        padding: 35px;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.02);
+        flex: 1;
+        min-width: 300px;
+        max-width: 500px;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition-smooth);
+    }
+    .price-card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 5px;
+    }
+    .price-card.option-one::after   { background: var(--scroll-jade); }
+    .price-card.option-two::after   { background: #2E5C43; }
+    .price-card.option-three::after { background: #3B82F6; }
+    .price-card.option-elite::after { background: var(--brand-orange); }
+
+    .price-card h4 {
+        font-family: var(--font-editorial);
+        font-size: 19px;
+        color: var(--text-primary);
+        margin: 5px 0 15px 0;
+    }
+    .price-card .price {
+        font-size: 38px;
+        font-weight: 700;
+        color: var(--brand-orange);
+        margin: 15px 0;
+    }
+    .price-card .price span { font-size: 15px; font-weight: normal; color: var(--text-muted); }
+    .price-card p { font-size: 14px; margin: 8px 0; color: var(--text-main); }
+    .price-card ul { padding-left: 20px; margin-top: 20px; color: var(--text-main); }
+    .price-card ul li { margin-bottom: 12px; font-size: 13.5px; line-height: 1.6; }
+    .value-badge {
+        display: inline-block;
+        background-color: #FFFCEB;
+        border: 1px solid #F3E3A4;
+        color: #8A6517;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: bold;
+        margin: 12px 0;
+    }
+    .bottom-disclaimer-text { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    footer {
+        background-color: #142219;
+        color: #CFEAD6;
+        padding: 50px 40px 30px 40px;
+        border-top: 4px solid var(--scroll-jade);
+        margin-top: auto;
+    }
+    .footer-grid {
+        max-width: var(--max-width);
+        margin: 0 auto 40px auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 40px;
+    }
+    .footer-col h4 {
+        color: #FFFFFF;
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 8px;
+    }
+    .footer-col h4::after {
+        content: '';
+        position: absolute;
+        left: 0; bottom: 0;
+        width: 40px; height: 2px;
+        background-color: var(--brand-orange);
+    }
+    .footer-col p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; opacity: 0.85; }
+    .links-listing { list-style: none; padding: 0; margin: 0; }
+    .links-listing li { margin-bottom: 10px; }
+    .links-listing a {
+        color: #CFEAD6;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s, padding-left 0.2s;
+        display: inline-block;
+    }
+    .links-listing a:hover { color: var(--brand-orange); padding-left: 4px; }
+    .copyright-bar {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        text-align: center;
+        font-size: 13px;
+        opacity: 0.5;
+    }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-                <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="logo-img-el" style="height: 36px; width: auto; object-fit: contain;">
-                <img src="logotitle.png" alt="Unity Mandarin Center Title" class="logo-title-el" style="height: 46px; width: auto; object-fit: contain;">
-            </a>
-
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
+            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px; width: auto; object-fit: contain;">
             
-            <nav id="main-nav">
-                <a href="index.html" class="active-page" id="navHome">Home</a>
-                <a href="about.html" id="navAbout">About Us</a>
-                <a href="program.html" id="navProgram">Program</a>
-                <a href="why-us.html" id="navWhy">Why Us</a>
-                <a href="joinus.html" id="navJoin">Join Us</a>
-                <a href="contact.html" id="navContact">Contact</a>
-
-                <div class="lang-switcher-container">
-                    <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn active">English</button>
-                    <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
-                    <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <main class="programs-container">
+            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            
+            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+        </a>
         
-        <h2 class="section-title" id="lblSectionTitle">🌟 UMC Fall Programs & Tuition Matrix</h2>
-        <p class="section-subtitle" id="lblSectionSubtitle">Weekly 5-Day Full Immersion Mandarin Core Class. Powered by Brightwheel.</p>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav id="main-nav">
+            <a href="index.html">
+                <span class="lang-el en-content">Home</span>
+                <span class="lang-el zh-hans-content" style="display: none;">首页</span>
+                <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
+            </a>
+            <a href="about.html">
+                <span class="lang-el en-content">About Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
+            </a>
+            <a href="program.html" class="active-page">
+                <span class="lang-el en-content">Program</span>
+                <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
+                <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
+            </a>
+            <a href="why-us.html">
+                <span class="lang-el en-content">Why Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
+                <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
+            </a>
+            <a href="joinus.html">
+                <span class="lang-el en-content">Join Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
+            </a>
+            <a href="contact.html">
+                <span class="lang-el en-content">Contact</span>
+                <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
+            </a>
+            <div class="lang-switcher-container">
+                <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn active">English</button>
+                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
+                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
+            </div>
+        </nav>
+    </div>
+</header>
+    
+<main class="main-container">
+    <section class="programs-container">
+        <h2 class="section-title">
+            <span class="lang-el en-content">🌟 UMC Fall Programs & Tuition Matrix</span>
+            <span class="lang-el zh-hans-content" style="display: none;">🌟 UMC 秋季项目矩阵与预计学费估算</span>
+            <span class="lang-el zh-hant-content" style="display: none;">🌟 UMC 秋季項目矩陣與預計學費估算</span>
+        </h2>
+        <p class="section-subtitle">
+            <span class="lang-el en-content">Ensuring a 1-hour core Mandarin class first! Powered by Brightwheel for seamless safety and real-time updates.</span>
+            <span class="lang-el zh-hans-content" style="display: none;">每周5天高纯度沉浸式中文核心课。全线启用 Brightwheel 智能安全系统。</span>
+            <span class="lang-el zh-hant-content" style="display: none;">每週5天高純度沉浸式中文核心課。全線啟用 Brightwheel 智能安全系統。</span>
+        </p>
 
         <div class="benefits-box">
-            <h3 class="box-title" id="lblBenefitsTitle">✨ Founding Family Exclusive Benefits</h3>
+            <h3 class="box-title">
+                <span class="lang-el en-content">✨ Founding Family Exclusive Benefits</span>
+                <span class="lang-el zh-hans-content" style="display: none;">✨ 创校家庭专属席位四大权益</span>
+                <span class="lang-el zh-hant-content" style="display: none;">✨ 創校家庭專屬席位四大權益</span>
+            </h3>
             <div class="benefits-grid">
                 <div class="benefit-card">
                     <div class="benefit-icon">🎁</div>
-                    <h4 id="lblB1Title">1st Month Free</h4>
-                    <p id="lblB1Desc">100% fully funded by UMC Community Fund.</p>
+                    <h4>
+                        <span class="lang-el en-content">1st Month Free</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">首月学费减免</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">首月學費減免</span>
+                    </h4>
+                    <p>
+                        <span class="lang-el en-content">100% fully funded by UMC Community Fund.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">秋季开班首月学费由 UMC 社区基金提供100%全额资助。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">秋季開班首月學費由 UMC 社區基金提供100%全額資助。</span>
+                    </p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">🛡️</div>
-                    <h4 id="lblB2Title">Transfer Credit</h4>
-                    <p id="lblB2Desc">Switching from another center? We will credit your non-refundable fees back to you.</p>
+                    <h4>
+                        <span class="lang-el en-content">Transfer Credit</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">转校额度报销</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">轉校額度報銷</span>
+                    </h4>
+                    <p>
+                        <span class="lang-el en-content">Switching from another center? We will credit your non-refundable fees back to you.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">从其他机构转入？提供不可退款的注册或材料费凭证，我们将为您抵扣等额学费。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">從其他機構轉入？提供不可退款的註冊或材料費憑證，我們將為您抵扣等額學費。</span>
+                    </p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">⚡</div>
-                    <h4 id="lblB3Title">Priority On-site Spot</h4>
-                    <p id="lblB3Desc">Lock your seat early by submission order. Permanent 20% off for siblings.</p>
+                    <h4>
+                        <span class="lang-el en-content">Priority On-site Spot</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">校内名额优先权</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">校內名額優先權</span>
+                    </h4>
+                    <p>
+                        <span class="lang-el en-content">Lock your seat early by submission order. Permanent 20% off for siblings.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">严格根据意向提交顺序锁定校内稀缺席位。多子女报名尊享长期8折优惠。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">嚴格根據意向提交順序鎖定校內稀缺席位。多子女報名尊享長期8折優惠。</span>
+                    </p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">🗣️</div>
-                    <h4 id="lblB4Title">$100 Referral Reward</h4>
-                    <p id="lblB4Desc">Get $100 tuition credit per family you refer for the full school year. Unlimited cap!</p>
+                    <h4>
+                        <span class="lang-el en-content">$100 Referral Reward</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">推荐人奖励（无上限）</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">推薦人獎勵（無上限）</span>
+                    </h4>
+                    <p>
+                        <span class="lang-el en-content">Get $100 tuition credit per family you refer for the full school year. Unlimited cap!</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">每成功推荐一名新家庭注册并读满全学年，将在年末获赠 $100 学费返还。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">每成功推薦一名新家庭註冊並讀滿全學年，將在年末獲贈 $100 學費返還。</span>
+                    </p>
                 </div>
             </div>
         </div>
 
         <div class="programs-grid">
+
             <div class="program-card onsite-card">
-                <div class="card-badge badge-green" id="lblOnsiteBadge">On-site Campus</div>
-                <h3 id="lblOnsiteTitle">On-site After School</h3>
-                
+                <div class="card-badge badge-green">
+                    <span class="lang-el en-content">On-site Campus</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">校内直达站</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">校內直達站</span>
+                </div>
+                <h3>
+                    <span class="lang-el en-content">On-site After School</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">On-site 校内课后托管项目</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">On-site 校內課後託管項目</span>
+                </h3>
+
                 <div class="onsite-compliance-alert">
-                    <p><strong id="lblAlertTitle">⚠️ Enrollment Prerequisite:</strong></p>
-                    <p id="lblAlertDesc" style="margin-top: 4px;">Subject to official approval and partnership clearance from your child’s School Principal and the designated After School Lead Agent.</p>
+                    <p><strong>
+                        <span class="lang-el en-content">⚠️ Enrollment Prerequisite:</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">⚠️ 重要入驻前提:</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">⚠️ 重要入駐前提:</span>
+                    </strong></p>
+                    <p style="margin-top: 4px;">
+                        <span class="lang-el en-content">Subject to official approval and partnership clearance from your child’s School Principal and the designated After School Lead Agent.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">本校内项目的最终落地与开班，严格以获得您孩子所在小学校长及课后托管主管方的官方准入与合规同意为绝对前提。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">本校內項目的最終落地與開班，嚴格以獲得您孩子所在小學校長及課後託管主管方的官方准入與合規同意為絕對前提。</span>
+                    </p>
                 </div>
 
-                <p class="card-desc" id="lblOnsiteDesc">Students are transitioned directly to the UMC instructor team right on your child's school campus at dismissal. Brightwheel is used for all daily check-ins and safety updates.</p>
+                <p class="card-desc">
+                    <span class="lang-el en-content">Students are transitioned directly to the UMC instructor team right on your child's school campus at dismissal. Brightwheel is used for all daily check-ins and safety updates.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">利用学校内部场地。孩子放学后由 UMC 专业讲师团队直接接管。全程使用 Brightwheel 系统进行每日签到签退与家校即时互动。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">利用學校內部場地。孩子放學後由 UMC 專業講師團隊直接接管。全程使用 Brightwheel 系統進行每日簽到簽退與家校即時互動。</span>
+                </p>
+
+                <ul class="feature-list">
+                    <li>📱 <strong>
+                        <span class="lang-el en-content">Smart App Integration</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">智能家校</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">智能家校</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">Fully integrated with Brightwheel for daily digital check-ins, real-time photo/activity updates, and paperless billing.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">全面接入 Brightwheel App，每日安全扫码签到、实时图文更新与自主账单管理。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">全面接入 Brightwheel App，每日安全掃碼簽到、實時圖文更新與自主賬單管理。</span>
+                    </small></li>
+                    
+                    <li>📚 <strong>
+                        <span class="lang-el en-content">Core Mandarin</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">核心学术</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">核心學術</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">All options strictly prioritize a 1-hour high-density, systematically leveled immersive Mandarin core class.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">所有班型首要覆盖 1 小时高纯度、系统化沉浸式中文分级核心课。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">所有班型首要覆蓋 1 小時高純度、系統化沉浸式中文分級核心課。</span>
+                    </small></li>
+
+                    <li>✏️ <strong>
+                        <span class="lang-el en-content">Academic Support</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">学科辅导</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">學科輔導</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">Extended options include daily supervision of school homework (Chinese & English) plus foundational Math support/Q&A.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">延时选项包含学校中英文家庭作业日常督导，并增设基础数学辅导答疑。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">延時選項包含學校中英文家庭作業日常督導，並增設基礎數學輔導答疑。</span>
+                    </small></li>
+                    
+                    <li>🎨 <strong>
+                        <span class="lang-el en-content">Enrichment Culture</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">才艺融入</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">才藝融入</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">Enrichment sessions dynamically weave in arts & crafts, creative drawing, and Chinese Martial Arts/rhythm exploration.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">日常时间段内，适当注入趣味手工、创意绘画、中华武术/韵律等特色才艺体验。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">日常時間段內，適當注入趣味手工、創意繪畫、中華武術/韻律等特色才藝體驗。</span>
+                    </small></li>
+                    
+                    <li>🍎 <strong>
+                        <span class="lang-el en-content">Snacks Supply</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">点心供应</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">點心供應</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">High-quality nutritional afternoon snacks are provided daily for extended tracks.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">延时选项每日傍晚提供高品质营养能量点心。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">延時選項每日傍晚提供高品質營養能量點心。</span>
+                    </small></li>
+                    
+                    <li>📌 <em style="font-size: 13px; color: #555;">
+                        <span class="lang-el en-content">Additional Fees: Registration: $80/yr + Materials: $80/yr</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">各项均需另缴：注册费 $80/年 + 书本材料费 $80/年</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">各項均需另繳：註冊費 $80/年 + 書本材料費 $80/年</span>
+                    </em></li>
+                </ul>
             </div>
 
             <div class="program-card outsite-card">
-                <div class="card-badge badge-blue" id="lblOffsiteBadge">Off-site Facility</div>
-                <h3 id="lblOffsiteTitle">Off-site After School</h3>
-                <p class="card-desc" id="lblOffsiteDesc">Independent, spacious educational space. Fully includes safe foot/vehicular transition from campus to our facility, escorted by UMC Instructors and logged in Brightwheel.</p>
+                <div class="card-badge badge-blue">
+                    <span class="lang-el en-content">Off-site Facility</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">校外旗舰基地</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">校外旗艦基地</span>
+                </div>
+                <h3>
+                    <span class="lang-el en-content">Off-site After School</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">Off-site 校外课后托管项目</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">Off-site 校外課後託管項目</span>
+                </h3>
+                <p class="card-desc">
+                    <span class="lang-el en-content">Independent, spacious educational space. Fully includes safe foot/vehicular transition from campus to our facility, escorted by UMC Instructors and logged in Brightwheel.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">独立大空间。由 UMC 讲师团队全程贴身安全护送离校（支持步行或专车接送），接送动态实时通过 Brightwheel 触发安全通知。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">獨立大空間。由 UMC 講師團隊全程貼身安全護送離校（支持步行或專車接送），接送動態實時通過 Brightwheel 觸發安全通知。</span>
+                </p>
+
+                <ul class="feature-list">
+                    <li>🛡️ <strong>
+                        <span class="lang-el en-content">Escort Safety</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">安全升级</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">安全升級</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">Fully includes daily foot/vehicular safe transition from campus to our facility, escorted by UMC Instructors and logged in Brightwheel.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">由讲师团队全程贴身安全护送离校，全程 Brightwheel 动态追踪。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">由講師團隊全程貼身安全護送離校，全程 Brightwheel 動態追蹤。</span>
+                    </small></li>
+                    
+                    <li>📱 <strong>
+                        <span class="lang-el en-content">Smart App</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">智能家校</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">智能家校</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">Stay connected anywhere with instant classroom photos, developmental updates, and downloadable tax-ready statements.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">全面接入 Brightwheel App，随时随地接收孩子照片、活动动态与 FSA 报销账单。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">全面接入 Brightwheel App，隨時隨地接收孩子照片、活動動態與 FSA 報銷賬單。</span>
+                    </small></li>
+                    
+                    <li>📚 <strong>
+                        <span class="lang-el en-content">Core Mandarin</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">核心学术</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">核心學術</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">Ensures an uninterrupted 1-hour immersion core Mandarin block tailored to your child's proficiency tier.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">所有班型首要覆盖 1 小时高纯度、系统化沉浸式中文分级核心课。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">所有班型首要覆蓋 1 小時高純度、系統化沉浸式中文分級核心課。</span>
+                    </small></li>
+                    
+                    <li>✏️ <strong>
+                        <span class="lang-el en-content">Academic Support</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">学科辅导</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">學科輔導</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">Dedicated teachers facilitate full-subject homework guidance (Chinese/English/Math), resolving academic roadblocks.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">由专属老师进行中英文功课督导，针对学校数学作业进行难点启发与辅导。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">由專屬老師進行中英文功課督導，針對學校數學作業進行難點啟發與輔導。</span>
+                    </small></li>
+                    
+                    <li>🎨 <strong>
+                        <span class="lang-el en-content">Enrichment Matrix</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">才艺融入</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">才藝融入</span>
+                    </strong>
+                    <br>
+                    <small style="color:#666;">
+                        <span class="lang-el en-content">Utilizing our expansive classrooms for specialized tracks, including Martial Arts fitness, immersive crafts, and fine arts.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">独立大空间，适当穿插动态武术健身、趣味手工、绘画美育等多元拓展活动。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">獨立大空間，適當穿插動態武術健身、趣味手工、繪畫美育等多元拓展活動。</span>
+                    </small></li>
+
+                    <li>📌 <em style="font-size: 13px; color: #555;">
+                        <span class="lang-el en-content">Additional Fees: Registration: $80/yr + Materials: $80/yr</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">各项均需另缴：注册费 $80/年 + 书本材料费 $80/年</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">各項均需另繳：註冊費 $80/年 + 書本材料費 $80/年</span>
+                    </em></li>
+                </ul>
             </div>
         </div>
 
         <div class="curriculum-showcase-box">
-            <h3 class="box-title" id="lblCurrTitle">📚 Official Curricula & Academic Standards</h3>
+            <h3 class="box-title">
+                <span class="lang-el en-content">📚 Official Curricula & Academic Standards</span>
+                <span class="lang-el zh-hans-content" style="display: none;">📚 官方指定教材与学术分级标准</span>
+                <span class="lang-el zh-hant-content" style="display: none;">📚 官方指定教材與學術分級標準</span>
+            </h3>
             <div class="curriculum-grid">
                 <div class="curriculum-item-card">
-                    <div class="curr-tag tag-orange" id="lblL1Tag">Level 1 (Pre-K / Kindergarten)</div>
-                    <h4 id="lblL1Title">Pre-Reading via 《幼儿汉语》</h4>
-                    <p class="curr-desc" id="lblL1Desc">To avoid confusing your child while they absorb English Phonics at school, we strictly skip Pinyin in Level 1. We learn through singing, role-play, and hands-on crafts to build natural speaking fluency.</p>
+                    <div class="curr-tag tag-orange">
+                        <span class="lang-el en-content">Level 1 (Pre-K / Kindergarten)</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">Level 1 级别 (学前班 / 幼稚园阶段)</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">Level 1 級別 (學前班 / 幼稚園階段)</span>
+                    </div>
+                    <h4>
+                        <span class="lang-el en-content">Pre-Reading via 《幼儿汉语》</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">免拼音零基础启蒙 《幼儿汉语》</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">免拼音零基礎啟蒙 《幼兒漢語》</span>
+                    </h4>
+                    <p class="curr-desc">
+                        <span class="lang-el en-content">To avoid confusing your child while they absorb English Phonics at school, we strictly skip Pinyin in Level 1. We learn through singing, role-play, and hands-on crafts to build natural speaking fluency.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">为完全避免与学校正在吸收的英语 Phonics 产生混淆，Level 1 阶段严格不学拼音。采用经典《幼儿汉语》，通过童谣、手工与角色扮演建立流利语感。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">為完全避免與學校正在吸收的英語 Phonics 產生混淆，Level 1 階段嚴格不學拼音。採用經典《幼兒漢語》，通過童謠、手工與角色扮演建立流利語感。</span>
+                    </p>
                 </div>
                 <div class="curriculum-item-card">
-                    <div class="curr-tag tag-purple" id="lblL2Tag">Level 2 - 6 (Systematic Advancement)</div>
-                    <h4 id="lblL2Title">Full Immersion via Jinan University 《中文》</h4>
-                    <p class="curr-desc" id="lblL2Desc">Comprehensive training in Pinyin, character recognition, reading comprehension, and essay writing once English Phonics foundations are secure.</p>
+                    <div class="curr-tag tag-purple">
+                        <span class="lang-el en-content">Level 2 - 6 (Systematic Advancement)</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">Level 2 - 6 级别 (系统化进阶阶段)</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">Level 2 - 6 級別 (系統化進階階段)</span>
+                    </div>
+                    <h4>
+                        <span class="lang-el en-content">Full Immersion via Jinan University 《中文》</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">全沉浸式海外经典 暨南大学《中文》</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">全沉浸式海外經典 暨南大學《中文》</span>
+                    </h4>
+                    <p class="curr-desc">
+                        <span class="lang-el en-content">Comprehensive training in Pinyin, character recognition, reading comprehension, and essay writing once English Phonics foundations are secure.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">在英语拼音基础稳固后，无缝接入全球最成熟的《中文》系列教材，全面展开拼音识字、阅读理解与中文写作输出的系统化训练。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">在英語拼音基礎穩固後，無縫接入全球最成熟的《中文》系列教材，全面展開拼音識字、閱讀理解與中文寫作輸出的系統化訓練。</span>
+                    </p>
                 </div>
             </div>
 
             <div class="pdf-links-matrix">
-                <span class="matrix-title" id="lblPdfTitle">📄 Official Textbook Portal (Read Online / Download PDF):</span>
+                <span class="matrix-title">
+                    <span class="lang-el en-content">📄 Official Textbook Portal (Read Online / Download PDF):</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">📄 官方正版教材电子书门户 (在线阅读 / 免费下载 PDF):</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">📄 官方正版教材電子書門戶 (在線閱讀 / 免費下載 PDF):</span>
+                </span>
                 <div class="pdf-buttons-grid">
                     <a href="http://old.hwjyw.com/fj/jcxz/zhongwen/1/all.pdf" target="_blank" class="pdf-btn">📘 Book 1</a>
                     <a href="http://old.hwjyw.com/fj/jcxz/zhongwen/2/all.pdf" target="_blank" class="pdf-btn">📘 Book 2</a>
@@ -760,273 +1113,330 @@
                 </div>
             </div>
 
-            <p class="copyright-disclaimer" id="lblCopyright">All rights for the "Zhongwen" textbooks belong to the Overseas Chinese Affairs Office of the State Council and Jinan University. All catalog links provided above redirect exclusively to official, open-access servers hosted by China Hua-Wen Education Network (www.hwjyw.com).</p>
+            <p class="copyright-disclaimer">
+                <span class="lang-el en-content">All rights for the "Zhongwen" textbooks belong to the Overseas Chinese Affairs Office of the State Council and Jinan University. All catalog links provided above redirect exclusively to official, open-access servers hosted by China Hua-Wen Education Network (www.hwjyw.com).</span>
+                <span class="lang-el zh-hans-content" style="display: none;">《中文》教材全部版权归属于国务院侨务办公室及暨南大学。以上提供的各册目录链接均直接指向中国华文教育网 (www.hwjyw.com) 的官方公开服务器。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">《中文》教材全部版權歸屬於國務院僑務辦公室及暨南大學。以上提供的各冊目錄鏈接均直接指向中國華文教育網 (www.hwjyw.com) 的官方公開服務器。</span>
+            </p>
         </div>
 
         <div class="teacher-credentials-box">
-            <div class="teacher-badge" id="lblTeacherBadge">PSC Certified</div>
-            <p class="teacher-text" id="lblTeacherText">
-                <strong>100% Native Standard Mandarin Guaranteed:</strong> Our core instructional team (including Teacher Amy, Teacher Gao, etc.) are fully certified under the official National Mandarin Proficiency Test (PSC), achieving Grade 2-Class A (equivalent to "Superior/Distinguished" on the US ACTFL scale).
+            <div class="teacher-badge">
+                <span class="lang-el en-content">PSC Certified</span>
+                <span class="lang-el zh-hans-content" style="display: none;">普通话水平测试一级/二级甲等</span>
+                <span class="lang-el zh-hant-content" style="display: none;">普通話水平測試一級/二級甲等</span>
+            </div>
+            <p class="teacher-text">
+                <span class="lang-el en-content"><strong>100% Native Standard Mandarin Guaranteed:</strong> Our core instructional team (including Teacher Amy, Teacher Gao, etc.) are fully certified under the official National Mandarin Proficiency Test (PSC), achieving Grade 2-Class A (equivalent to "Superior/Distinguished" on the US ACTFL scale).</span>
+                <span class="lang-el zh-hans-content" style="display: none;"><strong>100% 纯正母语标准发音保障：</strong> UMC核心讲师团队（包括 Teacher Amy, Teacher Gao 等）均持有国家普通话水平测试（PSC）二级甲等及以上证书（相当于美国 ACTFL 语言评级中的最高等级）。</span>
+                <span class="lang-el zh-hant-content" style="display: none;"><strong>100% 純正母語標準發音保障：</strong> UMC核心講師團隊（包括 Teacher Amy, Teacher Gao 等）均持有國家普通話水平測試（PSC）二級甲等及以上證書（相當於美國 ACTFL 語言評級中的最高等級）。</span>
             </p>
-            <a href="https://bm.cltt.org/#/score-inquiry" target="_blank" class="verify-btn" id="lblVerifyBtn">🔐 Verify Credentials via Official Government Portal</a>
+            <a href="https://bm.cltt.org/#/score-inquiry" target="_blank" class="verify-btn">
+                <span class="lang-el en-content">🔐 Verify Credentials via Official Government Portal</span>
+                <span class="lang-el zh-hans-content" style="display: none;">🔐 登录中国查分官网在线验证讲师普通话证书</span>
+                <span class="lang-el zh-hant-content" style="display: none;">🔐 登錄中國查分官網在線驗證講師普通話證書</span>
+            </a>
         </div>
 
         <div class="price-calculator-box">
-            <h3 id="lblCalcHeading">📊 Estimated Tuition Matrix</h3>
-            <div class="disclaimer-alert-box" id="lblCalcNotice">
-                All rates displayed represent projected/estimated pricing for the upcoming school year. Final binding tuition structures are determined exclusively by the official registration forms signed at actual enrollment.
+            <h3>
+                <span class="lang-el en-content">📊 Estimated Tuition Matrix</span>
+                <span class="lang-el zh-hans-content" style="display: none;">📊 预计学费试算矩阵</span>
+                <span class="lang-el zh-hant-content" style="display: none;">📊 預計學費試算矩陣</span>
+            </h3>
+
+            <div class="disclaimer-alert-box">
+                <p>
+                    <span class="lang-el en-content">⚠️ <strong>Important Notice:</strong> All rates displayed represent projected/estimated pricing for the upcoming school year. Final binding tuition structures are determined exclusively by the official registration forms signed at actual enrollment.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">⚠️ <strong>重要提示：</strong> 此处显示的所有费率仅代表新学年的预估/测算价格。最终具备法律效力的学费结构，严格以正式注册时签署的法律入托协议为准。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">⚠️ <strong>重要提示：</strong> 此處顯示的所有費率僅代表新學年的預估/測算價格。最終具備法律效力的學費結構，嚴格以正式註冊時簽署的法律入托協議為準。</span>
+                </p>
             </div>
-            
+
             <div class="calc-controls">
                 <div class="control-group">
-                    <label id="lblCtrlDismissal">1. School Dismissal Time:</label>
-                    <select id="dismissalTier" class="form-select" onchange="calculateTuition()"></select>
+                    <label>
+                        <span class="lang-el en-content">1. School Dismissal Time:</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">1. 请选择孩子所在学校的放学时间段：</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">1. 請選擇孩子所在學校的放學時間段：</span>
+                    </label>
+                    <select id="dismissalTier" class="form-select">
+                        <option value="tier1">
+                            Regular Dismissal (2:00 PM - 2:40 PM) / 常规放学 / 常規放學
+                        </option>
+                        <option value="tier2">
+                            Early Dismissal (1:40 PM - 1:55 PM) / 提早放学 / 提早放學
+                        </option>
+                    </select>
                 </div>
                 <div class="control-group">
-                    <label id="lblCtrlTrack">2. Program Track:</label>
+                    <label>
+                        <span class="lang-el en-content">2. Program Track:</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">2. 请选择期望报名的托管路线：</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">2. 請選擇期望報名的託管路線：</span>
+                    </label>
                     <div class="radio-toggle">
-                        <input type="radio" id="typeOnsite" name="progType" value="onsite" checked onchange="calculateTuition()">
-                        <label for="typeOnsite" id="lblBtnOnsite">On-site Campus Track</label>
-                        <input type="radio" id="typeOffsite" name="progType" value="offsite" onchange="calculateTuition()">
-                        <label for="typeOffsite" id="lblBtnOffsite">Off-site Facility Track</label>
+                        <input type="radio" id="typeOnsite" name="progType" value="onsite" checked>
+                        <label for="typeOnsite" class="toggle-btn">
+                            <span class="lang-el en-content">On-site Campus Track</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">On-site 校内直达 track</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">On-site 校內直達 track</span>
+                        </label>
+                        <input type="radio" id="typeOffsite" name="progType" value="offsite">
+                        <label for="typeOffsite" class="toggle-btn">
+                            <span class="lang-el en-content">Off-site Facility Track</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">Off-site 校外基地 track</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">Off-site 校外基地 track</span>
+                        </label>
                     </div>
                 </div>
             </div>
 
-            <div id="dynamicPriceDisplay" class="price-result-display"></div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4 id="footTitle">Unity Mandarin Enrichment Center</h4>
-                <p id="footDesc">Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</p>
+            <div id="dynamicPriceDisplay" class="price-result-display">
+                <div class="placeholder-text">
+                    <span class="lang-el en-content">Please select a dismissal time above to view your program options and estimated monthly tuition.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">请在上方选择放学时间以查看课程选项及预估月度学费。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">請在上方選擇放學時間以查看課程選項及預估月度學費。</span>
+                </div>
             </div>
-            <div class="footer-col">
-                <h4 id="footQuickTitle">Quick Access</h4>
-                <ul class="links-listing">
-                    <li><a href="index.html" id="footLinkHome">Home</a></li>
-                    <li><a href="about.html" id="footLinkAbout">About Us</a></li>
-                    <li><a href="program.html" id="footLinkProgram">Program</a></li>
-                    <li><a href="why-us.html" id="footLinkWhy">Why Us</a></li>
-                    <li><a href="joinus.html" id="footLinkJoin">Join Us</a></li>
-                    <li><a href="contact.html" id="footLinkContact">Contact</a></li>
+            
+            <div class="disclaimer-alert-box" style="background-color: #f0fdf4; border-left-color: #16a34a; margin-top: 20px;">
+                <p style="color: #166534; font-weight: 700; font-size: 1.05rem;">
+                    <span class="lang-el en-content">🤝 3. Dual-Income Support & Late Pickup Grace Policy</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">🤝 3. 双职工支持与晚接宽容政策</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">🤝 3. 雙職工支持與晚接寬容政策</span>
+                </p>
+                <p style="font-size: 0.88rem; color: #166534; margin-top: 6px; line-height: 1.6;">
+                    <span class="lang-el en-content">We deeply understand and respect the intense rhythms of SF's dual-income households. Balancing demanding careers with family life is a beautiful but unpredictable journey, and we are here to support you every step of the way. In the spirit of true flexibility and community care, UMC does not enforce rigid, punitive fine structures for those rare, unexpected moments when you are running late. Should an occasional delay arise, any operational buffer costs incurred will be fully absorbed by our academy. Complete alignment on individual terms and seasonal scheduling parameters will remain neatly managed within your family's Brightwheel admissions file.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">为了照顾父母双工作的家庭，以及我们对家长的体谅与贴心，在遇到特殊情况偶尔晚接娃时，UMC 绝不会实施严苛的迟到罚款制度，期间产生的一切看护运营费用均由我们学园全额承担。关于个人条款和各季节的具体作息安排，将通过您家庭的 Brightwheel 档案进行清晰、规范的管理。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">為了照顧父母雙工作的家庭，以及我們對家長的體諒與貼心，在遇到特殊情況偶爾晚接娃時，UMC 絕不會實施嚴苛的遲到罰款制度，期間產生的一切看護運營費用均由我們學園全額承擔。關於個人條款和各季節的具體作息安排，將通過您家庭的 Brightwheel 檔案進行清晰、規範的管理。</span>
+                </p>
+            </div>
+
+            <p class="bottom-disclaimer-text" style="margin-top: 15px;">
+                <span class="lang-el en-content">* Monthly billing follows a standard calendar-month cycle, fully incorporating all Brightwheel platform licensing fees. Academic coaching provides multi-subject homework guidance and Q&A; it does not constitute a rigid guarantee of 100% completion or perfect accuracy. Tax-ready statements for Dependent Care FSA/Child Care Tax Credits can be conveniently exported directly via Brightwheel.</span>
+                <span class="lang-el zh-hans-content" style="display: none;">※ 计费及日常说明：UMC 严格采用诚实自然月(Calendar Month)计费，月费已全额包含 Brightwheel 平台的技术授权费。有关作业看护，本校讲师负责多学科家庭作业的日常答疑与辅导，不作为"100%全部完成或绝对无误"之刚性承诺。本校可通过 Brightwheel 系统配合家长导出合规的 Dependent Care FSA 报销凭证。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">※ 計費及日常說明：UMC 嚴格採用誠實自然月(Calendar Month)計費，月費已全額包含 Brightwheel 平台的技術授權費。有關作業看護，本校講師負責多學科家庭作業的日常答疑與輔導，不作為"100%全部完成或絕對無誤"之剛性承諾。本校可通過 Brightwheel 系統配合家長導出合規的 Dependent Care FSA 報銷憑證。</span>
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>
+                <span class="lang-el en-content">Unity Mandarin Enrichment Center</span>
+                <span class="lang-el zh-hans-content" style="display: none;">Unity 中文拓展中心</span>
+                <span class="lang-el zh-hant-content" style="display: none;">Unity 中文拓展中心</span>
+            </h4>
+            <p>
+                <span class="lang-el en-content">Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</span>
+                <span class="lang-el zh-hans-content" style="display: none;">培养年幼学习者对语言学习、文化创造力的终身热爱，以及全球化沟通意识。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">培養年幼學習者對語言學習、文化創造力的終身熱愛，以及全球化溝通意識。</span>
+            </p>
+        </div>
+        <div class="footer-col">
+            <h4>
+                <span class="lang-el en-content">Quick Access</span>
+                <span class="lang-el zh-hans-content" style="display: none;">快速通道</span>
+                <span class="lang-el zh-hant-content" style="display: none;">快速通道</span>
+            </h4>
+            <ul class="links-listing">
+                <li><a href="index.html">
+                    <span class="lang-el en-content">Home</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">首页</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
+                </a></li>
+                <li><a href="about.html">
+                    <span class="lang-el en-content">About Us</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
+                </a></li>
+                <li><a href="program.html">
+                    <span class="lang-el en-content">Program</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
+                </a></li>
+                <li><a href="why-us.html">
+                    <span class="lang-el en-content">Why Us</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
+                </a></li>
+                <li><a href="joinus.html">
+                    <span class="lang-el en-content">Join Us</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
+                </a></li>
+                <li><a href="contact.html">
+                    <span class="lang-el en-content">Contact</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
+                </a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>
+                <span class="lang-el en-content">Contact Details</span>
+                <span class="lang-el zh-hans-content" style="display: none;">联系方式</span>
+                <span class="lang-el zh-hant-content" style="display: none;">聯繫方式</span>
+            </h4>
+            <ul class="links-listing">
+                <li>📞 (415) 658-2516</li>
+                <li>✉️ info@unitymandarin.org</li>
+                <li>📍 
+                    <span class="lang-el en-content">San Francisco, CA</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">加州 旧金山</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">加州 舊金山</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright-bar">
+        <span class="lang-el en-content">&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</span>
+        <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版权所有。</span>
+        <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版權所有。</span>
+    </div>
+</footer>
+
+<script>
+function toggleMobileMenu() {
+    var nav = document.getElementById("main-nav");
+    var btn = document.querySelector('.mobile-menu-btn');
+    if (nav) nav.classList.toggle("is-open");
+    if (btn) btn.classList.toggle("is-active");
+}
+
+const pricingMatrix = {
+    'tier1': { onsite: 725, offsite: 875 },
+    'tier2': { onsite: 795, offsite: 965 }
+};
+
+function updateProgramView() {
+    const selectEl     = document.getElementById('dismissalTier');
+    const container    = document.getElementById('dynamicPriceDisplay');
+    const checkedRadio = document.querySelector('input[name="progType"]:checked');
+    if (!selectEl || !container || !checkedRadio) return;
+    
+    const selectedTier = selectEl.value;
+    const isOutsite = checkedRadio.value === 'offsite';
+    const baseCost = pricingMatrix[selectedTier][checkedRadio.value];
+
+    container.innerHTML = `
+        <div class="pricing-result-grid">
+            <div class="price-card option-elite" style="max-width:650px; margin:0 auto; flex:1;">
+                <h4>
+                    <span class="lang-el en-content">🟠 All-Inclusive Extended Plan</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">🟠 全包长托计划</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">🟠 全包長托計劃</span>
+                </h4>
+                <div class="price">$${baseCost}
+                    <span>
+                        <span class="lang-el en-content"> / month</span>
+                        <span class="lang-el zh-hans-content" style="display: none;"> / 每月</span>
+                        <span class="lang-el zh-hant-content" style="display: none;"> / 每月</span>
+                    </span>
+                </div>
+                <p><strong>
+                    <span class="lang-el en-content">Pickup by:</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">接走时间：</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">接走時間：</span>
+                </strong> 6:00 PM</p>
+                ${isOutsite ? `
+                <p style="font-size:13px; color:#1D4ED8; margin:6px 0 0 0;">🛡️ <strong>
+                    <span class="lang-el en-content">Includes daily safe escort</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">包含每日安全护送</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">包含每日安全護送</span>
+                </strong> 
+                    <span class="lang-el en-content">from school to our off-site facility logged in Brightwheel.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">从学校到校外基地的接送行程均通过 Brightwheel 记录。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">從學校到校外基地的接送行程均通過 Brightwheel 記錄。</span>
+                </p>` : ''}
+                <div class="value-badge">
+                    <span class="lang-el en-content">💎 Maximized Educational Output Window</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">💎 极致教育产出窗口</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">💎 極致教育產出窗口</span>
+                </div>
+                <ul>
+                    <li>📱 <strong>
+                        <span class="lang-el en-content">Brightwheel System Smart Integration:</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">Brightwheel 系统智能整合：</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">Brightwheel 系統智能整合：</span>
+                    </strong> 
+                        <span class="lang-el en-content">Real-time secure check-in/out alerts, activity updates, and tax-ready automatic statements.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">实时安全签到/签退通知、活动更新及税务自动账单。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">實時安全簽到/簽退通知、活動更新及稅務自動賬單。</span>
+                    </li>
+                    <li>📚 <strong>
+                        <span class="lang-el en-content">Core Mandarin:</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">核心中文：</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">核心中文：</span>
+                    </strong> 
+                        <span class="lang-el en-content">1 full hour of daily leveled immersive Mandarin instruction.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">每日1整小时的分级沉浸式中文教学。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">每日1整小時的分級沉浸式中文教學。</span>
+                    </li>
+                    <li>✏️ <strong>
+                        <span class="lang-el en-content">Homework &amp; Cultural Crafts:</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">作业与文化手工：</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">作業與文化手工：</span>
+                    </strong> 
+                        <span class="lang-el en-content">Comprehensive academic tracking alongside art modules.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">全面的学术跟进与艺术模块相结合。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">全面的學術跟進與藝術模塊相結合。</span>
+                    </li>
+                    <li>🍎 <strong>
+                        <span class="lang-el en-content">Free Daily Supper:</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">免费每日晚餐：</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">免費每日晚餐：</span>
+                    </strong> 
+                        <span class="lang-el en-content">Hot, balanced evening meal included directly inside the plan.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">计划内已包含营养均衡的热腾腾晚餐。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">計劃內已包含營養均衡的熱騰騰晚餐。</span>
+                    </li>
                 </ul>
             </div>
-            <div class="footer-col">
-                <h4 id="footContactTitle">Contact Details</h4>
-                <ul class="contact-listing">
-                    <li><span class="icon" aria-hidden="true">📞</span><span>(415) 658-2516</span></li>
-                    <li><span class="icon" aria-hidden="true">✉️</span><span>info@unitymandarin.org</span></li>
-                    <li><span class="icon" aria-hidden="true">📍</span><span id="footLinkLoc">San Francisco, CA</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright-bar" id="footCopyrightBar">
-            &copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.
-        </div>
-    </footer>
+        </div>`;
 
-    <script>
-        // Data Structure Matrix Mapping Dictionary for localized parameters
-        const langData = {
-            'en': {
-                navHome: "Home", navAbout: "About Us", navProgram: "Program", navWhy: "Why Us", navJoin: "Join Us", navContact: "Contact",
-                lblSectionTitle: "🌟 UMC Fall Programs & Tuition Matrix",
-                lblSectionSubtitle: "Weekly 5-Day Full Immersion Mandarin Core Class. Powered by Brightwheel.",
-                lblBenefitsTitle: "✨ Founding Family Exclusive Benefits",
-                lblB1Title: "1st Month Free", lblB1Desc: "100% fully funded by UMC Community Fund.",
-                lblB2Title: "Transfer Credit", lblB2Desc: "Switching from another center? We will credit your non-refundable fees back to you.",
-                lblB3Title: "Priority On-site Spot", lblB3Desc: "Lock your seat early by submission order. Permanent 20% off for siblings.",
-                lblB4Title: "$100 Referral Reward", lblB4Desc: "Get $100 tuition credit per family you refer for the full school year. Unlimited cap!",
-                lblOnsiteBadge: "On-site Campus", lblOnsiteTitle: "On-site After School",
-                lblAlertTitle: "⚠️ Enrollment Prerequisite:",
-                lblAlertDesc: "Subject to official approval and partnership clearance from your child’s School Principal and the designated After School Lead Agent.",
-                lblOnsiteDesc: "Students are transitioned directly to the UMC instructor team right on your child's school campus at dismissal. Brightwheel is used for all daily check-ins and safety updates.",
-                lblOffsiteBadge: "Off-site Facility", lblOffsiteTitle: "Off-site After School",
-                lblOffsiteDesc: "Independent, spacious educational space. Fully includes safe foot/vehicular transition from campus to our facility, escorted by UMC Instructors and logged in Brightwheel.",
-                lblCurrTitle: "📚 Official Curricula & Academic Standards",
-                lblL1Tag: "Level 1 (Pre-K / Kindergarten)", lblL1Title: "Pre-Reading via 《幼儿汉语》",
-                lblL1Desc: "To avoid confusing your child while they absorb English Phonics at school, we strictly skip Pinyin in Level 1. We learn through singing, role-play, and hands-on crafts to build natural speaking fluency.",
-                lblL2Tag: "Level 2 - 6 (Systematic Advancement)", lblL2Title: "Full Immersion via Jinan University 《中文》",
-                lblL2Desc: "Comprehensive training in Pinyin, character recognition, reading comprehension, and essay writing once English Phonics foundations are secure.",
-                lblPdfTitle: "📄 Official Textbook Portal (Read Online / Download PDF):",
-                lblCopyright: "All rights for the 'Zhongwen' textbooks belong to the Overseas Chinese Affairs Office of the State Council and Jinan University. All catalog links provided above redirect exclusively to official, open-access servers hosted by China Hua-Wen Education Network (www.hwjyw.com).",
-                lblTeacherBadge: "PSC Certified",
-                lblTeacherText: "<strong>100% Native Standard Mandarin Guaranteed:</strong> Our core instructional team (including Teacher Amy, Teacher Gao, etc.) are fully certified under the official National Mandarin Proficiency Test (PSC), achieving Grade 2-Class A (equivalent to 'Superior/Distinguished' on the US ACTFL scale).",
-                lblVerifyBtn: "🔐 Verify Credentials via Official Government Portal",
-                lblCalcHeading: "📊 Estimated Tuition Matrix",
-                lblCalcNotice: "All rates displayed represent projected/estimated pricing for the upcoming school year. Final binding tuition structures are determined exclusively by the official registration forms signed at actual enrollment.",
-                lblCtrlDismissal: "1. School Dismissal Time:", lblCtrlTrack: "2. Program Track:",
-                lblBtnOnsite: "On-site Campus Track", lblBtnOffsite: "Off-site Facility Track",
-                footTitle: "Unity Mandarin Enrichment Center",
-                footDesc: "Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.",
-                footQuickTitle: "Quick Access", footContactTitle: "Contact Details", footLinkLoc: "San Francisco, CA",
-                footCopyrightBar: "&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.",
-                logoAlt: "Unity Mandarin Center Logo", logoTitleAlt: "Unity Mandarin Center Title",
-                tierLabel1: "Regular Dismissal (2:00 PM - 2:40 PM)", tierLabel2: "Early Dismissal (1:40 PM - 1:55 PM)",
-                priceSuffix: " / Month", calculationNotice: "*Estimated rates based on 5 days/week operational patterns."
-            },
-            'zh-hans': {
-                navHome: "首页", navAbout: "关于我们", navProgram: "课程架构", navWhy: "办学优势", navJoin: "加入我们", navContact: "联系我们",
-                lblSectionTitle: "🌟 UMC 秋季项目矩阵与预计学费估算",
-                lblSectionSubtitle: "每周5天高纯度沉浸式中文核心课。全线启用 Brightwheel 智能安全系统。",
-                lblBenefitsTitle: "✨ 创校家庭专属席位四大权益",
-                lblB1Title: "首月学费减免", lblB1Desc: "秋季开班首月学费由 UMC 社区基金提供100%全额资助。",
-                lblB2Title: "转校额度报销", lblB2Desc: "从其他机构转入？提供不可退款的注册或材料费凭证，我们将为您抵扣等额学费。",
-                lblB3Title: "校内名额优先权", lblB3Desc: "严格根据此意向表提交顺序锁定校内稀缺席位。多子女报名尊享长期8折优惠。",
-                lblB4Title: "推荐人奖励（无上限）", lblB4Desc: "每成功推荐一名新家庭注册并读满全学年，您将在学年末结算时获赠 $100 学费返还。",
-                lblOnsiteBadge: "校内直达站", lblOnsiteTitle: "On-site 校内课后托管项目",
-                lblAlertTitle: "⚠️ 重要入驻前提 / Enrollment Prerequisite:",
-                lblAlertDesc: "本校内项目的最终落地与开班，严格以获得您孩子所在小学校长及课后托管主管方的官方准入与合规同意为绝对前提。",
-                lblOnsiteDesc: "利用学校内部场地。孩子放学后由 UMC 专业讲师团队直接接管。全程使用 Brightwheel 系统进行每日签到签退与家校即时互动。",
-                lblOffsiteBadge: "校外旗舰基地", lblOffsiteTitle: "Off-site 校外课后托管项目",
-                lblOffsiteDesc: "独立大空间。由 UMC 讲师团队全程贴身安全护送离校（支持步行或专车接送），接送动态实时通过 Brightwheel 触发安全通知。",
-                lblCurrTitle: "📚 官方指定教材与学术分级标准",
-                lblL1Tag: "Level 1 级别 (学前班 / 幼稚园阶段)", lblL1Title: "免拼音零基础启蒙 《幼儿汉语》",
-                lblL1Desc: "为完全避免与学校正在吸收的英语 Phonics 产生混淆，Level 1 阶段严格不学拼音。采用经典《幼儿汉语》，通过童谣、手工与角色扮演建立流利语感。",
-                lblL2Tag: "Level 2 - 6 级别 (系统化进阶阶段)", lblL2Title: "全沉浸式海外经典 暨南大学《中文》",
-                lblL2Desc: "在英语拼音基础稳固后，无缝接入全球最成熟的《中文》系列教材，全面展开拼音识字、阅读理解与中文写作输出的系统化训练。",
-                lblPdfTitle: "📄 官方正版教材电子书门户 (在线阅读 / 免费下载 PDF):",
-                lblCopyright: "《中文》教材全部版权归属于国务院侨务办公室及暨南大学。以上提供的各册目录链接均直接指向中国华文教育网 (www.hwjyw.com) 的官方公开服务器。",
-                lblTeacherBadge: "普通话水平测试一级/二级甲等",
-                lblTeacherText: "<strong>100% 纯正母语标准发音保障：</strong> UMC核心讲师团队（包括 Teacher Amy, Teacher Gao 等）均持有国家普通话水平测试（PSC）二级甲等及以上证书（相当于美国 ACTFL 语言评级中的最高等级）。",
-                lblVerifyBtn: "🔐 登录中国查分官网在线验证讲师普通话证书",
-                lblCalcHeading: "📊 预计学费试算矩阵",
-                lblCalcNotice: "此处显示的所有费率仅代表新学年的预估/测算价格。最终具备法律效力的学费结构，严格以正式注册时签署的法律入托协议为准。",
-                lblCtrlDismissal: "1. 请选择孩子所在学校的放学时间段：", lblCtrlTrack: "2. 请选择期望报名的托管路线：",
-                lblBtnOnsite: "On-site 校内直达 track", lblBtnOffsite: "Off-site 校外基地 track",
-                footTitle: "同心中文教育中心",
-                footDesc: "全心培养低龄学习者对语言学习、文化创意以及全球沟通意识的终身热爱与深刻理解。",
-                footQuickTitle: "快速链接", footContactTitle: "联系详情", footLinkLoc: "加州 旧金山",
-                footCopyrightBar: "&copy; 2026 同心中文教育中心。版权所有。",
-                logoAlt: "同心中文教育中心图标", logoTitleAlt: "同心中文教育中心题字",
-                tierLabel1: "常规放学 (下午 2:00 - 2:40 PM)", tierLabel2: "提早放学 (下午 1:40 - 1:55 PM)",
-                priceSuffix: " / 每月", calculationNotice: "*此预估费率基于每周5天全勤标准进行测算得出。"
-            },
-            'zh-hant': {
-                navHome: "首頁", navAbout: "關於我們", navProgram: "課程架構", navWhy: "辦學優勢", navJoin: "加入我們", navContact: "聯繫我們",
-                lblSectionTitle: "🌟 UMC 秋季項目矩陣與預計學費估算",
-                lblSectionSubtitle: "每週5天高純度沉浸式中文核心課。全線啟用 Brightwheel 智能安全系統。",
-                lblBenefitsTitle: "✨ 創校家庭專屬席位四大權益",
-                lblB1Title: "首月學費減免", lblB1Desc: "秋季開班首月學費由 UMC 社區基金提供100%全額資助。",
-                lblB2Title: "轉校額度報銷", lblB2Desc: "從其他機構轉入？提供不可退款的註冊或材料費憑證，我們將為您抵扣等額學費。",
-                lblB3Title: "校內名額優先權", lblB3Desc: "嚴格根據此意向表提交順序鎖定校內稀缺席位。多子女報名尊享長期8折優惠。",
-                lblB4Title: "推薦人獎勵（無上限）", lblB4Desc: "每成功推薦一名新家庭註冊並讀滿全學年，您將在學年末結算時獲贈 $100 學費返還。",
-                lblOnsiteBadge: "校內直達站", lblOnsiteTitle: "On-site 校內課後託管項目",
-                lblAlertTitle: "⚠️ 重要入駐前提 / Enrollment Prerequisite:",
-                lblAlertDesc: "本校內項目的最終落地與開班，嚴格以獲得您孩子所在小學校長及課後託管主管方的官方准入與合規同意為絕對前提。",
-                lblOnsiteDesc: "利用學校內部場地。孩子放學後由 UMC 專業講師團隊直接接管。全程使用 Brightwheel 系統進行每日簽到簽退與家校即時互動。",
-                lblOffsiteBadge: "校外旗艦基地", lblOffsiteTitle: "Off-site 校外課後託管項目",
-                lblOffsiteDesc: "獨立大空間。由 UMC 講師團隊全程貼身安全護送離校（支持步行或專車接送），接送動態實時通過 Brightwheel 觸發安全通知。",
-                lblCurrTitle: "📚 官方指定教材與學術分級標準",
-                lblL1Tag: "Level 1 級別 (學前班 / 幼稚園階段)", lblL1Title: "免拼音零基礎啟蒙 《幼兒漢語》",
-                lblL1Desc: "為完全避免與學校正在吸收的英語 Phonics 產生混淆，Level 1 階段嚴格不學拼音。採用經典《幼兒漢語》，通過童謠、手工與角色扮演建立流利語感。",
-                lblL2Tag: "Level 2 - 6 級別 (系統化進階階段)", lblL2Title: "全沉浸式海外經典 暨南大學《中文》",
-                lblL2Desc: "在英語拼音基礎穩固後，無縫接入全球最成熟的《中文》系列教材，全面展開拼音識字、閱讀理解與中文寫作輸出的系統化訓練。",
-                lblPdfTitle: "📄 官方正版教材電子書門戶 (在線閱讀 / 免費下載 PDF):",
-                lblCopyright: "《中文》教材全部版權歸屬於國務院僑務辦公室及暨南大學。以上提供的各冊目錄鏈接均直接指向中國華文教育網 (www.hwjyw.com) 的官方公開服務器。",
-                lblTeacherBadge: "普通話水平測試一級/二級甲等",
-                lblTeacherText: "<strong>100% 純正母語標準發音保障：</strong> UMC核心講師團隊（包括 Teacher Amy, Teacher Gao 等）均持有國家普通話水平測試（PSC）二級甲等及以上證書（相當於美國 ACTFL 語言評級中的最高等級）。",
-                lblVerifyBtn: "🔐 登錄中國查分官網在線驗證講師普通話證書",
-                lblCalcHeading: "📊 預計學費試算矩陣",
-                lblCalcNotice: "此處顯示的所有費率僅代表新學年的預估/測算價格。最終具備法律效力的學費結構，嚴格以正式註冊時簽署的法律入托協議為準。",
-                lblCtrlDismissal: "1. 請選擇孩子所在學校的放學時間段：", lblCtrlTrack: "2. 請選擇期望報名的託管路線：",
-                lblBtnOnsite: "On-site 校內直達 track", lblBtnOffsite: "Off-site 校外基地 track",
-                footTitle: "同心中文教育中心",
-                footDesc: "全心培養低齡學習者對語言學習、文化創意以及全球溝通意識的終身熱愛與深刻理解。",
-                footQuickTitle: "快速鏈接", footContactTitle: "聯繫詳情", footLinkLoc: "加州 舊金山",
-                footCopyrightBar: "&copy; 2026 同心中文教育中心。版權所有。",
-                logoAlt: "同心中文教育中心圖標", logoTitleAlt: "同心中文教育中心題字",
-                tierLabel1: "常規放學 (下午 2:00 - 2:40 PM)", tierLabel2: "提早放学 (下午 1:40 - 1:55 PM)",
-                priceSuffix: " / 每月", calculationNotice: "*此預估費率基於每週5天全勤標準進行測算得出。"
-            }
-        };
+    // Re-apply language visibility rules for newly injected DOM elements
+    const activeLang = localStorage.getItem('umc_preferred_lang') || 'en';
+    switchLanguage(activeLang);
+}
 
-        // Pricing Matrix Rules Configuration Dataset
-        const pricingMatrix = {
-            'tier1': { onsite: 725, offsite: 875 },
-            'tier2': { onsite: 795, offsite: 965 }
-        };
+document.addEventListener('DOMContentLoaded', () => {
+    const tierSelect = document.getElementById('dismissalTier');
+    const typeRadios = document.getElementsByName('progType');
+    if (tierSelect) tierSelect.addEventListener('change', updateProgramView);
+    typeRadios.forEach(r => r.addEventListener('change', updateProgramView));
+});
 
-        // Initialize and execute layout translation processing operations
-        function switchLanguage(lang) {
-            const dictionary = langData[lang] || langData['en'];
+function switchLanguage(lang) {
+    const allElements = document.querySelectorAll('.lang-el');
+    allElements.forEach(el => el.style.display = 'none');
 
-            // 1. Process standard DOM translation string values
-            for (const key in dictionary) {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.innerHTML = dictionary[key];
-                }
-            }
-
-            // 2. Translate Alt tag metadata attributes safely
-            const logoImg = document.querySelector('.logo-img-el');
-            const logoTitle = document.querySelector('.logo-title-el');
-            if (logoImg) logoImg.setAttribute('alt', dictionary.logoAlt);
-            if (logoTitle) logoTitle.setAttribute('alt', dictionary.logoTitleAlt);
-
-            // 3. Redraw operational select element criteria drop-downs dynamically
-            const selectContainer = document.getElementById('dismissalTier');
-            if (selectContainer) {
-                const currentSelection = selectContainer.value || 'tier1';
-                selectContainer.innerHTML = `
-                    <option value="tier1">${dictionary.tierLabel1}</option>
-                    <option value="tier2">${dictionary.tierLabel2}</option>
-                `;
-                selectContainer.value = currentSelection;
-            }
-
-            // 4. Reset interface selection highlight values across button controls
-            const allButtons = document.querySelectorAll('.lang-btn');
-            allButtons.forEach(btn => btn.classList.remove('active'));
-            
-            const selectedButton = document.getElementById('btn-' + lang);
-            if (selectedButton) selectedButton.classList.add('active');
-
-            // 5. Store current setup selections to device storage
-            localStorage.setItem('umc_preferred_lang', lang);
-
-            // 6. Force tuition result evaluation calculation updates
-            calculateTuition();
+    const selectedElements = document.querySelectorAll('.' + lang + '-content');
+    selectedElements.forEach(el => {
+        if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
+            el.style.display = 'inline-block';
+        } else {
+            el.style.display = 'block';
         }
+    });
 
-        // Live Operational Calculator Processing Algorithm Logic Matrix
-        function calculateTuition() {
-            const activeLang = localStorage.getItem('umc_preferred_lang') || 'en';
-            const dictionary = langData[activeLang];
+    const allButtons = document.querySelectorAll('.lang-btn');
+    allButtons.forEach(btn => btn.classList.remove('active'));
 
-            const dismissalValue = document.getElementById('dismissalTier').value || 'tier1';
-            const selectedTrack = document.querySelector('input[name="progType"]:checked').value;
+    const activeBtn = document.getElementById('btn-' + lang);
+    if (activeBtn) activeBtn.classList.add('active');
 
-            const baseCost = pricingMatrix[dismissalValue][selectedTrack];
+    localStorage.setItem('umc_preferred_lang', lang);
+}
 
-            const displayOutputBox = document.getElementById('dynamicPriceDisplay');
-            if (displayOutputBox) {
-                displayOutputBox.innerHTML = `
-                    <div class="price-num">$${baseCost}</div>
-                    <div class="price-period">${dictionary.priceSuffix}</div>
-                    <div style="font-size: 0.85rem; color: #718096; margin-top: 8px;">${dictionary.calculationNotice}</div>
-                `;
-            }
-        }
-
-        // Target Toggle State Classes cleanly for Mobile Interactivity Controls
-        function toggleMobileMenu() {
-            const navMenu = document.getElementById('main-nav');
-            const toggleIconBtn = document.querySelector('.mobile-menu-btn');
-            
-            navMenu.classList.toggle('open');
-            toggleIconBtn.classList.toggle('active');
-        }
-
-        // Run component rendering initial processes
-        document.addEventListener("DOMContentLoaded", function() {
-            const preservedLanguageSelection = localStorage.getItem('umc_preferred_lang') || 'en';
-            switchLanguage(preservedLanguageSelection);
-        });
-    </script>
+document.addEventListener("DOMContentLoaded", function() {
+    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+    switchLanguage(savedLang);
+    updateProgramView(); 
+});
+</script>
 </body>
 </html>
