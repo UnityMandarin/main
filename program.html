@@ -1486,6 +1486,151 @@ document.addEventListener("DOMContentLoaded", function() {
     switchLanguage(savedLang);
     updateProgramView(); 
 });
+
+    /* ════════════════════════════════════════════════════
+   PRICING CALCULATOR
+════════════════════════════════════════════════════ */
+const DATA_MATRIX = Object.freeze({
+    tier1: {
+        type: 'triple',
+        opt1_price: '$500', opt2_price: '$615', opt3_price: '$795',
+        opt1_text: '2:05 PM – 4:00 PM (Wed: 12:50 PM – 4:00 PM)',
+        opt2_text: '2:05 PM – 5:15 PM (Wed: 12:50 PM – 5:15 PM)',
+        opt3_text: '2:05 PM – 6:00 PM (Wed: 12:50 PM – 6:00 PM)'
+    },
+    tier2: {
+        type: 'triple',
+        opt1_price: '$470', opt2_price: '$585', opt3_price: '$760',
+        opt1_text: '2:40 PM – 4:00 PM (Wed: 1:25 PM – 4:00 PM)',
+        opt2_text: '2:40 PM – 5:15 PM (Wed: 1:25 PM – 5:15 PM)',
+        opt3_text: '2:40 PM – 6:00 PM (Wed: 1:25 PM – 6:00 PM)'
+    },
+    tier3: {
+        type: 'triple',
+        opt1_price: '$450', opt2_price: '$555', opt3_price: '$735',
+        opt1_text: '2:55 PM – 4:00 PM (Wed: 1:40 PM – 4:00 PM)',
+        opt2_text: '2:55 PM – 5:15 PM (Wed: 1:40 PM – 5:15 PM)',
+        opt3_text: '2:55 PM – 6:00 PM (Wed: 1:40 PM – 6:00 PM)'
+    },
+    tier4: { type: 'single', price: '$710', text: '3:15 PM – 6:00 PM (Wed: 2:00 PM – 6:00 PM)' },
+    tier5: { type: 'single', price: '$680', text: '3:30 PM – 6:00 PM (Wed: 2:15 PM – 6:00 PM)' },
+    tier6: { type: 'single', price: '$630', text: '3:45 / 4:00 PM – 6:00 PM (Wed: 2:30 / 2:45 PM – 6:00 PM)' }
+});
+
+const OUTSITE_ADDER = { tier1: 30, tier2: 30, tier3: 30, tier4: 25, tier5: 25, tier6: 25 };
+
+function addToPrice(priceStr, add) {
+    return '$' + (parseInt(priceStr.replace('$', '')) + add);
+}
+
+function updateProgramView() {
+    const selectEl     = document.getElementById('dismissalTier');
+    const container    = document.getElementById('dynamicPriceDisplay');
+    const checkedRadio = document.querySelector('input[name="progType"]:checked');
+    if (!selectEl || !container || !checkedRadio) return;
+    const selectedTier = selectEl.value;
+    if (!selectedTier) return;
+
+    const isOutsite = checkedRadio.value === 'offsite';
+    const addAmt    = OUTSITE_ADDER[selectedTier] || 0;
+    const data      = DATA_MATRIX[selectedTier];
+    if (!data) {
+        container.innerHTML = `<div class="placeholder-text">No plan found for this time. Please contact us directly.</div>`;
+        return;
+    }
+
+    const escortNote = isOutsite
+        ? '<p style="font-size:13px; color:#1D4ED8; margin:6px 0 0 0;">🛡️ <strong>Includes daily safe escort</strong> from school to our off-site facility logged in Brightwheel.</p>'
+        : '';
+    const brightwheelNote = '<li>📱 <strong>Brightwheel System Smart Integration:</strong> Real-time secure check-in/out alerts, activity updates, and tax-ready automatic statements.</li>';
+
+    if (data.type === 'triple') {
+        const p1 = isOutsite ? addToPrice(data.opt1_price, addAmt) : data.opt1_price;
+        const p2 = isOutsite ? addToPrice(data.opt2_price, addAmt) : data.opt2_price;
+        const p3 = isOutsite ? addToPrice(data.opt3_price, addAmt) : data.opt3_price;
+        container.innerHTML = `
+            <div class="pricing-result-grid">
+                <div class="price-card option-one">
+                    <h4>🟢 Option 1 — Mandarin Class Only</h4>
+                    <div class="price">${p1}<span> / month</span></div>
+                    <p><strong>Pickup by:</strong> 4:00 PM</p>
+                    <p><strong>Program Hours:</strong> ${data.opt1_text}</p>
+                    ${escortNote}
+                    <ul>${brightwheelNote}
+                        <li>Safe direct handover right at school dismissal (Grades K–5).</li>
+                        <li>Healthy snack break followed by transition supervision.</li>
+                        <li>📚 <strong>Core Mandarin Class:</strong> 1 hour of systematic, leveled immersive Mandarin learning daily.</li>
+                        <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                    </ul>
+                </div>
+                <div class="price-card option-two">
+                    <h4>🔵 Option 2 — Core Class + Homework + Snacks</h4>
+                    <div class="price">${p2}<span> / month</span></div>
+                    <p><strong>Pickup by:</strong> 5:15 PM</p>
+                    <p><strong>Program Hours:</strong> ${data.opt2_text}</p>
+                    ${escortNote}
+                    <ul>${brightwheelNote}
+                        <li>Includes everything in Option 1 (Core Mandarin block included).</li>
+                        <li>✏️ <strong>Homework Supervision:</strong> Monitored school assignments support.</li>
+                        <li>🍎 <strong>Evening Snacks:</strong> Nutritional afternoon fuel provided.</li>
+                        <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                    </ul>
+                </div>
+                <div class="price-card option-three">
+                    <h4>🟣 Option 3 — Extended Care + Homework + Arts + Supper</h4>
+                    <div class="price">${p3}<span> / month</span></div>
+                    <p><strong>Pickup by:</strong> 6:00 PM</p>
+                    <p><strong>Program Hours:</strong> ${data.opt3_text}</p>
+                    ${escortNote}
+                    <ul>${brightwheelNote}
+                        <li>Includes everything in Option 1 &amp; 2 blocks.</li>
+                        <li>🎨 <strong>Arts &amp; Cultural Enrichment:</strong> Daily dedicated crafts, origami, and painting projects.</li>
+                        <li>🍎 <strong>Free Daily Supper:</strong> A hot evening meal is fully provided before checkout.</li>
+                        <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                    </ul>
+                </div>
+            </div>`;
+    } else {
+        const p = isOutsite ? addToPrice(data.price, addAmt) : data.price;
+        container.innerHTML = `
+            <div class="pricing-result-grid">
+                <div class="price-card option-elite" style="max-width:650px; margin:0 auto; flex:1;">
+                    <h4>🟠 All-Inclusive Extended Plan</h4>
+                    <div class="price">${p}<span> / month</span></div>
+                    <p><strong>Pickup by:</strong> 6:00 PM</p>
+                    <p><strong>Program Hours:</strong> ${data.text}</p>
+                    ${escortNote}
+                    <div class="value-badge">💎 Maximized Educational Output Window</div>
+                    <p style="margin-top:15px; font-size:13.5px; color:var(--text-muted);">Because your school's later dismissal naturally modifies the total afternoon window, this single plan cleanly optimizes every minute — focusing on high-value learning, arts, homework support, and hot dinner.</p>
+                    <ul>${brightwheelNote}
+                        <li>Safe direct connection right at school dismissal gates for grades K–5.</li>
+                        <li>📚 <strong>Core Mandarin:</strong> 1 full hour of daily leveled immersive Mandarin instruction.</li>
+                        <li>✏️ <strong>Homework &amp; Cultural Crafts:</strong> Comprehensive academic tracking alongside art modules.</li>
+                        <li>🍎 <strong>Free Daily Supper:</strong> Hot, balanced evening meal included directly inside the plan.</li>
+                        <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                    </ul>
+                </div>
+            </div>`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tierSelect = document.getElementById('dismissalTier');
+    const typeRadios = document.getElementsByName('progType');
+    if (tierSelect) tierSelect.addEventListener('change', updateProgramView);
+    typeRadios.forEach(r => r.addEventListener('change', updateProgramView));
+});
+function toggleMobileMenu() {
+    var nav = document.getElementById("main-nav");
+    var btn = document.querySelector('.mobile-menu-btn');
+    
+    if (nav) {
+        nav.classList.toggle("is-open"); /* Drops menu down / retracts it */
+    }
+    if (btn) {
+        btn.classList.toggle("is-active"); /* Animates Hamburger to 'X' icon */
+    }
+}
 </script>
 </body>
 </html>
