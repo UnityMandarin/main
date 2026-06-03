@@ -100,7 +100,7 @@
     display: flex; /* Display hamburger button */
 }
 
-nav {
+nav.nav-menu {
     display: none; /* Hide default inline menu */
     width: 100%;
     flex-direction: column;
@@ -110,7 +110,7 @@ nav {
     margin-top: 10px;
 }
 
-nav.is-open {
+nav.nav-menu.is-open {
     display: flex;
     animation: slideDown 0.3s ease forwards;
 }
@@ -216,10 +216,10 @@ header img {
     /* ==========================================================================
        INLINE NAVIGATION SYSTEM
        ========================================================================== */
-   nav {
+   nav.nav-menu {
     display: flex;
     align-items: center;
-    gap: 4px; 
+    gap: 20px; 
     height: 100%;
 }
 
@@ -588,7 +588,8 @@ nav a:last-of-type:hover::after {
             <span></span>
         </button>
         
-        <nav id="main-nav" style="display: flex; align-items: center; gap: 20px;">
+     <nav id="main-nav" class="nav-menu">
+         
             <a href="index.html">
                 <span class="lang-el en-content">Home</span>
                 <span class="lang-el zh-hans-content" style="display: none;">首页</span>
@@ -828,16 +829,7 @@ function switchLanguage(lang) {
     // 4. Persist the language across your site's pages
     localStorage.setItem('umc_preferred_lang', lang);
 }
-
-// Ensure your mobile menu toggle function targets classes cleanly
-function toggleMobileMenu() {
-    const nav = document.getElementById('main-nav');
-    const menuBtn = document.querySelector('.mobile-menu-btn');
     
-    nav.classList.toggle('open');
-    menuBtn.classList.toggle('active');
-}
-
 // Auto-run layout selections when page components mount
 document.addEventListener("DOMContentLoaded", function() {
     const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
