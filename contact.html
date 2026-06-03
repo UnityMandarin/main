@@ -11,6 +11,8 @@
        ========================================================================= */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
+    html { scroll-behavior: smooth; }
+
     :root {
         /* Color Palette: Brand Accents & Identity */
         --brand-orange: #FF5722;
@@ -70,7 +72,7 @@
     }
 
     /* ==========================================================================
-       ADVANCED NAVIGATION HEADER FRAMEWORK (DESKTOP)
+       ADVANCED NAVIGATION HEADER FRAMEWORK (MATCHED 100%)
        ========================================================================== */
     header {
         background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
@@ -108,7 +110,6 @@
         height: var(--header-height);
         outline: none;
         transition: var(--transition-smooth);
-        flex-shrink: 0;
     }
 
     .logo-group:hover {
@@ -125,14 +126,13 @@
         transition: var(--transition-smooth);
     }
 
-    /* ==========================================================================
-       INLINE NAVIGATION SYSTEM (DESKTOP)
-       ========================================================================== */
     nav.nav-menu {
         display: flex;
         align-items: center;
-        gap: 20px; 
-        height: 100%;
+        gap: 4px; 
+        flex-grow: 1;
+        justify-content: flex-end;
+        margin-right: 15px;
     }
 
     nav a {
@@ -174,11 +174,6 @@
         transform: scaleX(1);
     }
 
-    nav a:focus-visible {
-        outline: 2px solid var(--brand-orange);
-        outline-offset: -2px;
-    }
-
     nav a.active-page {
         color: #FFFFFF;
         background-color: var(--brand-orange);
@@ -188,7 +183,7 @@
     nav a.active-page::after {
         display: none; 
     }
-            
+
     nav a[href*="contact"],
     nav a:last-of-type {
         background-color: transparent;
@@ -211,47 +206,102 @@
         display: none;
     }
 
-    /* Base Setup for Menu Trigger Button */
+    /* HEADER ACTIONS (Groups Language + Mobile Menu) */
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    @media (min-width: 901px) {
+        .header-actions {
+            border-left: 1px solid var(--mint-nav-border);
+            padding-left: 15px;
+            margin-left: 5px;
+        }
+    }
+
+    /* LANGUAGE DROPDOWN */
+    .lang-dropdown {
+        position: relative;
+    }
+
+    .lang-dropdown-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        color: var(--text-navbar-link); 
+        border: none;
+        padding: 8px 12px;
+        font-family: var(--font-interface);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: var(--transition-smooth);
+    }
+
+    .lang-dropdown-btn:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+        color: var(--brand-orange);
+    }
+
+    .lang-dropdown-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .lang-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 12px;
+        background: #FFFFFF;
+        border: 1px solid var(--mint-nav-border);
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        list-style: none;
+        padding: 8px 0;
+        min-width: 140px;
+        display: none;
+        flex-direction: column;
+        z-index: 2000;
+        transform-origin: top right;
+        animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes dropFade {
+        from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .lang-dropdown-menu.show { display: flex; }
+    .lang-dropdown-menu li { width: 100%; margin: 0; }
+    .lang-dropdown-menu button {
+        width: 100%; text-align: left; background: transparent;
+        border: none; padding: 10px 20px; font-family: var(--font-interface);
+        font-size: 14px; color: var(--text-primary); cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+    }
+    .lang-dropdown-menu button:hover { background: var(--brand-orange-subtle); color: var(--brand-orange); }
+
+    /* MOBILE MENU BUTTON */
     .mobile-menu-btn {
         display: none;
         background: transparent;
         border: none;
         cursor: pointer;
-        width: 24px;
-        height: 24px;
-        position: relative;
+        padding: 8px;
+        flex-direction: column;
+        gap: 5px;
         z-index: 1001;
-        padding: 0;
     }
-
     .mobile-menu-btn span {
-        position: absolute;
-        left: 0;
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: var(--text-primary);
-        border-radius: 2px;
-        transition: transform 0.25s ease-in-out, top 0.25s ease-in-out, opacity 0.25s ease-in-out;
+        display: block; width: 25px; height: 3px;
+        background-color: var(--text-primary); border-radius: 2px;
+        transition: var(--transition-smooth);
     }
-
-    /* Geometric setup mapping to render clean transitions */
-    .mobile-menu-btn span:nth-child(1) { top: 4px; }
-    .mobile-menu-btn span:nth-child(2) { top: 11px; }
-    .mobile-menu-btn span:nth-child(3) { top: 18px; }
-
-    /* Morphing configuration converting lines to an 'X' close mark */
-    .mobile-menu-btn.is-active span:nth-child(1) {
-        top: 11px;
-        transform: rotate(45deg);
-    }
-    .mobile-menu-btn.is-active span:nth-child(2) {
-        opacity: 0;
-    }
-    .mobile-menu-btn.is-active span:nth-child(3) {
-        top: 11px;
-        transform: rotate(-45deg);
-    }
+    .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
@@ -360,6 +410,14 @@
         font-style: italic;
     }
 
+    .contact-banner-img {
+        width: 100%;        
+        max-width: 400px;  
+        height: auto;      
+        display: block;    
+        margin: 0 auto;    
+    }
+
     /* ==========================================================================
        SITE FOOTER CANVAS
        ========================================================================== */
@@ -423,7 +481,7 @@
         padding-left: 4px;
     }
 
-    .contact-listing { list-style: none; padding: 0; }
+    .contact-listing { list-style: none; padding: 0; margin: 0; }
     .contact-listing li { font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
 
     .copyright-bar {
@@ -435,169 +493,56 @@
         font-size: 13px;
         opacity: 0.5;
     }
-        
-    .contact-banner-img {
-        width: 100%;        
-        max-width: 400px;  
-        height: auto;      
-        display: block;    
-        margin: 0 auto;    
-    }
-
-    .expand-btn {
-        background-color: transparent;
-        border: 1.5px solid var(--brand-orange);
-        color: var(--brand-orange);
-        padding: 8px 18px;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 6px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 15px;
-        transition: var(--transition-smooth);
-    }
-    .expand-btn:hover {
-        background-color: var(--brand-orange);
-        color: #FFFFFF;
-        box-shadow: 0 4px 12px var(--brand-orange-glow);
-    }
-
-    .pillar-expandable-content {
-        animation: fadeInSmooth 0.35s ease forwards;
-    }
-
-    .lang-switcher-container {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 4px 8px;
-        border-radius: 30px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .lang-btn {
-        background: transparent;
-        color: #A3B8CC;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .lang-btn:hover {
-        color: #ffffff;
-    }
 
     /* ==========================================================================
-       RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS (PLACED AT BOTTOM FOR PRIORITY)
+       RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS (MOBILE POLISH)
        ========================================================================== */
     @media (max-width: 900px) {
-        body {
-            background-image: none !important;
-        }
-
+        body { background-image: none !important; }
         body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -10;
-            
-            background-image: url('aboutbg.png') !important;
-            background-position: center top !important;
-            background-repeat: repeat !important;
-            background-size: cover !important;
-            background-attachment: fixed !important;
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -10; background-image: url('aboutbg.png') !important;
+            background-position: center top !important; background-repeat: repeat !important;
+            background-size: cover !important; background-attachment: fixed !important;
         }
 
-        .header-container {
-            padding: 16px 20px;
-            position: relative; /* Context positioning for absolute placement tracking */
-        }
+        /* Header Layout & Grouping */
+        .header-container { padding: 10px 15px; }
+        .logo-group img, header img { height: 36px; }
+        
+        .mobile-menu-btn { display: flex; }
+        .header-actions { order: 2; gap: 8px; }
 
-        /* Prevent your beautiful combined wide logo images from pushing things off-screen */
-        .logo-group {
-            max-width: calc(100% - 50px);
-        }
-
-        .logo-group img {
-            height: 34px !important; /* Slightly scales logo size down to make space */
-        }
-
-        /* Lock structural location coordinates for button visibility */
-        .mobile-menu-btn {
-            display: block !important;
-            position: absolute;
-            right: 20px;
-            top: 24px; /* Perfectly centers button inline with logo elements */
-        }
+        .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
+        .lang-dropdown-btn svg { width: 18px; height: 18px; }
 
         nav.nav-menu {
+            order: 3;
             display: none; 
             width: 100%;
             flex-direction: column;
-            gap: 12px;
-            padding: 24px 0 12px 0;
+            gap: 10px;
+            padding: 20px 0;
             border-top: 1px solid rgba(88, 185, 131, 0.2);
-            margin-top: 12px;
+            margin-top: 10px;
         }
-
-        nav.nav-menu.is-open {
-            display: flex;
-            animation: slideDown 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-        }
+        nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
+        nav a { width: 100%; padding: 12px; font-size: 16px; }
+        nav a::after { display: none; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
 
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        nav a {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            text-align: center;
-            justify-content: center;
-            border-radius: 8px;
-        }
-
-        nav a::after {
-            display: none; 
-        }
-
-        /* Renders a beautiful solid highlighted button for the active page matching layout designs */
-        nav a.active-page {
-            color: #FFFFFF !important;
-            background-color: var(--brand-orange) !important;
-            box-shadow: 0 4px 12px var(--brand-orange-glow) !important;
-            border: none !important;
-        }
-
-        nav a[href*="contact"],
-        nav a:last-of-type {
-            margin-left: 0;
-            margin-top: 4px;
-            border: 1.5px solid var(--brand-orange);
-        }
+        /* RECLAIMING SCREEN SPACE (Fixing narrow text boxes) */
+        .main-container { padding: 25px 12px 50px 12px; }
+        .contact-hero-card { padding: 35px 15px; }
         
-        .lang-switcher-container {
-            margin-top: 12px;
-            justify-content: center;
-            align-self: center;
-        }
-        
-        .main-container { padding: 40px 20px 60px 20px; }
-        .contact-hero-card { padding: 40px 20px !important; }
-        .giant-email { font-size: 24px !important; }
+        .contact-hero-card h1 { font-size: 28px; }
+        .giant-email { font-size: 20px; padding: 12px 15px; }
+        .about-header-container { width: 90%; padding: 10px; }
     }
     </style>
 </head>
@@ -605,23 +550,17 @@
 
 <header>
     <div class="header-container">
-        <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
-            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px; width: auto; object-fit: contain;">
+        <a href="index.html" class="logo-group">
+            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px;">
+            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px;">
             
-            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
-            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; display: none;">
             
-            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
-            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; display: none;">
         </a>
 
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
         <nav id="main-nav" class="nav-menu">
             <a href="index.html">
                 <span class="lang-el en-content">Home</span>
@@ -658,13 +597,32 @@
                 <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
                 <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
             </a>
-
-            <div class="lang-switcher-container">
-                <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">English</button>
-                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
-                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
-            </div>
         </nav>
+
+        <div class="header-actions">
+            <div class="lang-dropdown">
+                <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <span id="current-lang-text">English</span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+                <ul class="lang-dropdown-menu" id="lang-menu">
+                    <li><button onclick="switchLanguage('en', 'English')">English</button></li>
+                    <li><button onclick="switchLanguage('zh-hans', '简体中文')">简体中文</button></li>
+                    <li><button onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
+                </ul>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </div>
 </header>
 
@@ -703,20 +661,20 @@
         <div class="footer-col">
             <h4>
                 <span class="lang-el en-content">Unity Mandarin Enrichment Center</span>
-                <span class="lang-el zh-hans-content" style="display: none;">Unity 中文拓展中心</span>
-                <span class="lang-el zh-hant-content" style="display: none;">Unity 中文拓展中心</span>
+                <span class="lang-el zh-hans-content" style="display: none;">同心中文教育中心</span>
+                <span class="lang-el zh-hant-content" style="display: none;">同心中文教育中心</span>
             </h4>
             <p>
                 <span class="lang-el en-content">Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</span>
-                <span class="lang-el zh-hans-content" style="display: none;">培养年幼学习者对语言学习、文化创造力的终身热爱，以及全球化沟通意识。</span>
-                <span class="lang-el zh-hant-content" style="display: none;">培養年幼學習者對語言學習、文化創造力的終身熱愛，以及全球化溝通意識。</span>
+                <span class="lang-el zh-hans-content" style="display: none;">全心培养低龄学习者对语言学习、文化创意以及全球沟通意识的终身热爱与深刻理解。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">全心培養低齡學習者對語言學習、文化創意以及全球溝通意識的終身熱愛與深刻理解。</span>
             </p>
         </div>
         <div class="footer-col">
             <h4>
                 <span class="lang-el en-content">Quick Access</span>
-                <span class="lang-el zh-hans-content" style="display: none;">快速通道</span>
-                <span class="lang-el zh-hant-content" style="display: none;">快速通道</span>
+                <span class="lang-el zh-hans-content" style="display: none;">快速链接</span>
+                <span class="lang-el zh-hant-content" style="display: none;">快速鏈接</span>
             </h4>
             <ul class="links-listing">
                 <li><a href="index.html">
@@ -754,114 +712,91 @@
         <div class="footer-col">
             <h4>
                 <span class="lang-el en-content">Contact Details</span>
-                <span class="lang-el zh-hans-content" style="display: none;">联系方式</span>
-                <span class="lang-el zh-hant-content" style="display: none;">聯繫方式</span>
+                <span class="lang-el zh-hans-content" style="display: none;">联系详情</span>
+                <span class="lang-el zh-hant-content" style="display: none;">聯繫詳情</span>
             </h4>
             <ul class="contact-listing">
                 <li><span class="icon" aria-hidden="true">📞</span><span>(415) 658-2516</span></li>
                 <li><span class="icon" aria-hidden="true">✉️</span><span>hello@unitymandarin.org</span></li>
                 <li><span class="icon" aria-hidden="true">📍</span><span>
                     <span class="lang-el en-content">San Francisco, CA</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">加州 旧金山</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">加州 舊金山</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">旧金山, 加州</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">舊金山, 加州</span>
                 </span></li>
             </ul>
         </div>
     </div>
     <div class="copyright-bar">
         <span class="lang-el en-content">&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</span>
-        <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版权所有。</span>
-        <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版權所有。</span>
+        <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 同心中文教育中心。保留所有权利。</span>
+        <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 同心中文教育中心。保留所有權利。</span>
     </div>
 </footer>
 
 <script>
-    // 1. Close extra items safely on load bounds tracking
-    document.addEventListener("DOMContentLoaded", function() {
-        var panels = document.querySelectorAll('.pillar-expandable-content');
-        panels.forEach(function(panel) {
-            panel.style.display = "none";
-        });
+    // ==========================================
+    // LANGUAGE & NAVIGATION SYSTEMS
+    // ==========================================
 
-        var buttons = document.querySelectorAll('.expand-btn');
-        buttons.forEach(function(btn) {
-            var btnText = btn.querySelector('[id^="btn-text-"]');
-            var btnArrow = btn.querySelector('[id^="btn-arrow-"]');
-            if (btnText) btnText.textContent = "Read More Details";
-            if (btnArrow) btnArrow.textContent = "▼";
-        });
-    });
-
-    // 2. Multi-toggle logic tracker
-    function togglePillar(id) {
-        var cleanId = String(id).trim();
-        var details = document.getElementById("pillar-details-" + cleanId);
-        var textNode = document.getElementById("btn-text-" + cleanId);
-        var arrowNode = document.getElementById("btn-arrow-" + cleanId);
-        
-        if (!details || !textNode || !arrowNode) return;
-        
-        if (details.style.display === "none" || details.style.display === "") {
-            details.style.display = "block";
-            textNode.textContent = "Hide Extra Bio Details";
-            arrowNode.textContent = "▲";
-        } else {
-            details.style.display = "none";
-            textNode.textContent = "Read More Details";
-            arrowNode.textContent = "▼";
-        }
+    function toggleLangMenu(event) {
+        if (event) event.stopPropagation();
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.toggle('show');
     }
 
-    // 3. Consolidated Unified Mobile Navigation Header Panel Handler
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('lang-menu');
+        const dropdown = document.querySelector('.lang-dropdown');
+        if (menu && dropdown && !dropdown.contains(event.target)) {
+            menu.classList.remove('show');
+        }
+    });
+
+    function switchLanguage(lang, langName) {
+        // Hide all elements initially
+        const allElements = document.querySelectorAll('.lang-el');
+        allElements.forEach(el => el.style.display = 'none');
+
+        // Show selected language elements
+        const selectedElements = document.querySelectorAll('.' + lang + '-content');
+        selectedElements.forEach(el => {
+            if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
+                el.style.display = 'inline-block';
+            } else {
+                el.style.display = 'block';
+            }
+        });
+
+        // Update dropdown button text
+        const currentLangText = document.getElementById('current-lang-text');
+        if (currentLangText && langName) {
+            currentLangText.textContent = langName;
+        }
+
+        // Close dropdown
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.remove('show');
+
+        // Save preference
+        localStorage.setItem('umc_preferred_lang', lang);
+    }
+
     function toggleMobileMenu() {
-        var nav = document.getElementById("main-nav");
-        var btn = document.querySelector('.mobile-menu-btn');
+        const nav = document.getElementById('main-nav');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        if (nav) nav.classList.toggle('is-open');
+        if (menuBtn) menuBtn.classList.toggle('is-active');
+    }
+
+    // Auto-run layout language selections on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+        let defaultLangName = 'English';
+        if (savedLang === 'zh-hans') defaultLangName = '简体中文';
+        if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
         
-        if (nav) {
-            nav.classList.toggle("is-open"); 
-        }
-        if (btn) {
-            btn.classList.toggle("is-active"); 
-        }
-    }
-</script>
-
-<script>
-function switchLanguage(lang) {
-    // 1. Hide alternate global variations
-    const allElements = document.querySelectorAll('.lang-el');
-    allElements.forEach(el => el.style.display = 'none');
-
-    // 2. Render tracking loops inline or block
-    const selectedElements = document.querySelectorAll('.' + lang + '-content');
-    selectedElements.forEach(el => {
-        if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
-            el.style.display = 'inline-block';
-        } else {
-            el.style.display = 'block';
-        }
+        switchLanguage(savedLang, defaultLangName);
     });
-
-    // 3. Match indicator colors
-    const allButtons = document.querySelectorAll('.lang-btn');
-    allButtons.forEach(btn => {
-        btn.style.background = 'transparent';
-        btn.style.color = '#A3B8CC';
-    });
-
-    const activeBtn = document.getElementById('btn-' + lang);
-    if (activeBtn) {
-        activeBtn.style.background = '#E0533C'; 
-        activeBtn.style.color = '#ffffff';
-    }
-
-    localStorage.setItem('umc_preferred_lang', lang);
-}
-    
-document.addEventListener("DOMContentLoaded", function() {
-    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
-    switchLanguage(savedLang);
-});
 </script>
 </body>
 </html>
