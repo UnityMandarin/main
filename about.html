@@ -112,9 +112,8 @@
         .conclusion-ribbon h3 { font-size: 22px; }
     }
     /* ==========================================================================
-       ADVANCED NAVIGATION HEADER FRAMEWORK
-       ========================================================================== */
-    /* Container & Background */
+   ADVANCED NAVIGATION HEADER FRAMEWORK
+   ========================================================================== */
 header {
     background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
     min-height: var(--header-height);
@@ -127,7 +126,8 @@ header {
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid var(--mint-nav-border);
-    box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
+    box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
+                0 2px 10px var(--mint-shadow-tint);
     will-change: transform;
     transition: var(--transition-smooth);
 }
@@ -140,10 +140,9 @@ header {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    flex-wrap: wrap; /* Allows menu to wrap on mobile */
+    flex-wrap: wrap; 
 }
 
-/* Logo */
 .logo-group {
     display: flex;
     align-items: center;
@@ -152,8 +151,13 @@ header {
     outline: none;
     transition: var(--transition-smooth);
 }
-.logo-group:hover { transform: translateY(-1px); }
-.logo-group img, header img {
+
+.logo-group:hover {
+    transform: translateY(-1px);
+}
+
+.logo-group img, 
+header img {
     height: 44px;
     width: auto;
     object-fit: contain;
@@ -162,13 +166,16 @@ header {
     transition: var(--transition-smooth);
 }
 
-/* Desktop Navigation Links */
-nav {
+/* ==========================================================================
+   MODERNIZED INLINE NAVIGATION SYSTEM
+   ========================================================================== */
+nav.nav-menu {
     display: flex;
     align-items: center;
     gap: 4px; 
     height: 100%;
 }
+
 nav a {
     font-family: var(--font-interface);
     text-decoration: none;
@@ -185,10 +192,12 @@ nav a {
     transition: var(--transition-smooth);
     box-sizing: border-box;
 }
+
 nav a:hover {
     color: var(--brand-orange);
     background-color: var(--brand-orange-subtle);
 }
+
 nav a::after {
     content: '';
     position: absolute;
@@ -201,30 +210,51 @@ nav a::after {
     transform: scaleX(0);
     transition: var(--transition-smooth);
 }
-nav a:hover::after { transform: scaleX(1); }
-nav a:focus-visible { outline: 2px solid var(--brand-orange); outline-offset: -2px; }
+
+nav a:hover::after {
+    transform: scaleX(1);
+}
+
+nav a:focus-visible {
+    outline: 2px solid var(--brand-orange);
+    outline-offset: -2px;
+}
+
 nav a.active-page {
     color: #FFFFFF;
     background-color: var(--brand-orange);
     box-shadow: 0 4px 12px var(--brand-orange-glow);
 }
-nav a.active-page::after { display: none; }
-nav a[href*="contact"], nav a:last-of-type {
+
+nav a.active-page::after {
+    display: none; 
+}
+
+nav a[href*="contact"],
+nav a:last-of-type {
     background-color: transparent;
     border: 1.5px solid var(--brand-orange);
     color: var(--brand-orange);
     margin-left: 8px;
     padding: 8px 20px;
 }
-nav a[href*="contact"]:hover, nav a:last-of-type:hover {
+
+nav a[href*="contact"]:hover,
+nav a:last-of-type:hover {
     background-color: var(--brand-orange);
     color: #FFFFFF;
     box-shadow: 0 4px 14px var(--brand-orange-glow);
     transform: translateY(-1px);
 }
-nav a[href*="contact"]:hover::after, nav a:last-of-type:hover::after { display: none; }
 
-/* Desktop Language Switcher */
+nav a[href*="contact"]:hover::after,
+nav a:last-of-type:hover::after {
+    display: none;
+}
+
+/* ==========================================================================
+   LANGUAGE SWITCHER (From index.html)
+   ========================================================================== */
 .lang-switcher-container {
     display: flex;
     align-items: center;
@@ -246,9 +276,14 @@ nav a[href*="contact"]:hover::after, nav a:last-of-type:hover::after { display: 
     cursor: pointer;
     transition: all 0.2s ease;
 }
-.lang-btn:hover { color: #ffffff; }
 
-/* Hide Mobile Elements on Desktop */
+.lang-btn:hover {
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   MOBILE MENU TOGGLE BUTTON (Hidden on Desktop)
+   ========================================================================== */
 .mobile-menu-btn {
     display: none;
     background: transparent;
@@ -259,6 +294,7 @@ nav a[href*="contact"]:hover::after, nav a:last-of-type:hover::after { display: 
     gap: 5px;
     z-index: 1001;
 }
+
 .mobile-menu-btn span {
     display: block;
     width: 25px;
@@ -267,13 +303,12 @@ nav a[href*="contact"]:hover::after, nav a:last-of-type:hover::after { display: 
     border-radius: 2px;
     transition: var(--transition-smooth);
 }
-nav.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
 
-    /* ==========================================================================
+/* Animation to transform the hamburger bars into a Close X icon */
+.mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
+.mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
        ========================================================================== */
     .about-container {
@@ -755,11 +790,11 @@ nav.nav-menu {
     }
 
     .mobile-menu-btn {
-        display: flex; /* Display hamburger button */
+        display: flex; 
     }
 
-    nav {
-        display: none; /* Hide default inline menu */
+    nav.nav-menu {
+        display: none; 
         width: 100%;
         flex-direction: column;
         gap: 10px;
@@ -768,8 +803,7 @@ nav.nav-menu {
         margin-top: 10px;
     }
 
-    /* Toggled class via JavaScript */
-    nav.is-open {
+    nav.nav-menu.is-open {
         display: flex;
         animation: slideDown 0.3s ease forwards;
     }
@@ -786,7 +820,7 @@ nav.nav-menu {
     }
 
     nav a::after {
-        display: none; /* Disable underline effect on mobile */
+        display: none; 
     }
 
     nav a[href*="contact"],
@@ -794,7 +828,6 @@ nav.nav-menu {
         margin-left: 0;
         margin-top: 10px;
     }
-
     /* General Body Adjustments */
     .hero-section {
         padding: 30px 15px;
