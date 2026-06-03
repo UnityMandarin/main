@@ -114,162 +114,163 @@
     /* ==========================================================================
        ADVANCED NAVIGATION HEADER FRAMEWORK
        ========================================================================== */
-    header {
-        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
-        min-height: var(--header-height);
-        position: sticky;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-bottom: 1px solid var(--mint-nav-border);
-        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
-                    0 2px 10px var(--mint-shadow-tint);
-        will-change: transform;
-        transition: var(--transition-smooth);
-    }
-
-    .header-container {
-        width: 100%;
-        max-width: var(--max-content-width);
-        padding: 0 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-sizing: border-box;
-        flex-wrap: wrap;
-    }
-
-    .logo-group {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        height: var(--header-height);
-        outline: none;
-        transition: var(--transition-smooth);
-    }
-
-    .logo-group:hover {
-        transform: translateY(-1px);
-    }
-
-    .logo-group img {
-        height: 44px;
-        width: auto;
-        object-fit: contain;
-        display: block;
-        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
-    }
-        
-        /* Animation to transform the hamburger bars into a Close X icon */
-.mobile-menu-btn.is-active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-.mobile-menu-btn.is-active span:nth-child(2) {
-    opacity: 0;
-}
-.mobile-menu-btn.is-active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+    /* Container & Background */
+header {
+    background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+    min-height: var(--header-height);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--mint-nav-border);
+    box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
+    will-change: transform;
+    transition: var(--transition-smooth);
 }
 
-    /* ==========================================================================
-       INLINE NAVIGATION SYSTEM
-       ========================================================================== */
-    nav {
-        display: flex;
-        align-items: center;
-        gap: 4px; 
-        height: 100%;
-    }
+.header-container {
+    width: 100%;
+    max-width: var(--max-content-width);
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    flex-wrap: wrap; /* Allows menu to wrap on mobile */
+}
 
-    nav a {
-        font-family: var(--font-interface);
-        text-decoration: none;
-        color: var(--text-navbar-link);
-        font-weight: 600;
-        font-size: 14px;
-        letter-spacing: 0.15px;
-        padding: 10px 18px;
-        border-radius: 8px;
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: var(--transition-smooth);
-        box-sizing: border-box;
-    }
+/* Logo */
+.logo-group {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    height: var(--header-height);
+    outline: none;
+    transition: var(--transition-smooth);
+}
+.logo-group:hover { transform: translateY(-1px); }
+.logo-group img, header img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+    transition: var(--transition-smooth);
+}
 
-    nav a:hover {
-        color: var(--brand-orange);
-        background-color: var(--brand-orange-subtle);
-    }
+/* Desktop Navigation Links */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 4px; 
+    height: 100%;
+}
+nav a {
+    font-family: var(--font-interface);
+    text-decoration: none;
+    color: var(--text-navbar-link);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.15px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+    box-sizing: border-box;
+}
+nav a:hover {
+    color: var(--brand-orange);
+    background-color: var(--brand-orange-subtle);
+}
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 18px;
+    right: 18px;
+    height: 2px;
+    background-color: var(--brand-orange);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transition: var(--transition-smooth);
+}
+nav a:hover::after { transform: scaleX(1); }
+nav a:focus-visible { outline: 2px solid var(--brand-orange); outline-offset: -2px; }
+nav a.active-page {
+    color: #FFFFFF;
+    background-color: var(--brand-orange);
+    box-shadow: 0 4px 12px var(--brand-orange-glow);
+}
+nav a.active-page::after { display: none; }
+nav a[href*="contact"], nav a:last-of-type {
+    background-color: transparent;
+    border: 1.5px solid var(--brand-orange);
+    color: var(--brand-orange);
+    margin-left: 8px;
+    padding: 8px 20px;
+}
+nav a[href*="contact"]:hover, nav a:last-of-type:hover {
+    background-color: var(--brand-orange);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px var(--brand-orange-glow);
+    transform: translateY(-1px);
+}
+nav a[href*="contact"]:hover::after, nav a:last-of-type:hover::after { display: none; }
 
-    nav a::after {
-        content: '';
-        position: absolute;
-        bottom: 4px;
-        left: 18px;
-        right: 18px;
-        height: 2px;
-        background-color: var(--brand-orange);
-        border-radius: 2px;
-        transform: scaleX(0);
-        transition: var(--transition-smooth);
-    }
+/* Desktop Language Switcher */
+.lang-switcher-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.lang-btn {
+    background: transparent;
+    color: #A3B8CC;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.lang-btn:hover { color: #ffffff; }
 
-    nav a:hover::after {
-        transform: scaleX(1);
-    }
-
-    nav a.active-page {
-        color: #FFFFFF;
-        background-color: var(--brand-orange);
-        box-shadow: 0 4px 12px var(--brand-orange-glow);
-    }
-
-    nav a.active-page::after {
-        display: none; 
-    }
-
-    nav a[href*="contact"],
-    nav a:last-of-type {
-        background-color: transparent;
-        border: 1.5px solid var(--brand-orange);
-        color: var(--brand-orange);
-        margin-left: 8px;
-        padding: 8px 20px;
-    }
-
-    nav a[href*="contact"]:hover,
-    nav a:last-of-type:hover {
-        background-color: var(--brand-orange);
-        color: #FFFFFF;
-        box-shadow: 0 4px 14px var(--brand-orange-glow);
-        transform: translateY(-1px);
-    }
-
-    .mobile-menu-btn {
-        display: none;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        flex-direction: column;
-        gap: 5px;
-        z-index: 1001;
-    }
-
-    .mobile-menu-btn span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background-color: var(--text-primary);
-        border-radius: 2px;
-        transition: var(--transition-smooth);
-    }
+/* Hide Mobile Elements on Desktop */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1001;
+}
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition-smooth);
+}
+nav.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
     /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
