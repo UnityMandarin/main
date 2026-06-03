@@ -69,105 +69,8 @@
         overflow-x: hidden;
     }
 
-    /* PERFECT MOBILE FIXED BACKGROUND LAYER */
-    @media (max-width: 900px) {
-        body {
-            background-image: none !important;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -10;
-            
-            background-image: url('aboutbg.png') !important;
-            background-position: center top !important;
-            background-repeat: repeat !important;
-            background-size: cover !important;
-            background-attachment: fixed !important;
-        }
-
-        .header-container {
-            padding: 10px 20px;
-            position: relative; /* Establishes context to cleanly map absolute button positioning */
-        }
-
-        /* Prevent the wide logo configuration from pushing elements off-screen */
-        .logo-group {
-            max-width: calc(100% - 60px); 
-        }
-
-        /* Scale down the combined logo images slightly on mobile so everything fits */
-        .logo-group img {
-            height: 30px !important; 
-        }
-
-        /* Secure button placement permanently to the top-right row corner */
-        .mobile-menu-btn {
-            display: flex !important;
-            position: absolute;
-            right: 20px;
-            top: 18px; /* Perfectly centers it vertically inside the 72px bar row */
-        }
-
-        nav.nav-menu {
-            display: none; /* Hide default inline menu */
-            width: 100%;
-            flex-direction: column;
-            gap: 10px;
-            padding: 20px 0;
-            border-top: 1px solid rgba(88, 185, 131, 0.2);
-            margin-top: 10px;
-        }
-
-        nav.nav-menu.is-open {
-            display: flex;
-            animation: slideDown 0.3s ease forwards;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        nav a {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-        }
-
-        nav a::after {
-            display: none; /* Disable underline effect on mobile */
-        }
-
-        nav a[href*="contact"],
-        nav a:last-of-type {
-            margin-left: 0;
-            margin-top: 10px;
-        }
-
-        /* Close icon X animation shapes */
-        .mobile-menu-btn.is-active span:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-        .mobile-menu-btn.is-active span:nth-child(2) {
-            opacity: 0;
-        }
-        .mobile-menu-btn.is-active span:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-        
-        .main-container { padding: 40px 20px 60px 20px; }
-        .contact-hero-card { padding: 40px 20px !important; }
-        .giant-email { font-size: 24px !important; }
-    }
-
     /* ==========================================================================
-       ADVANCED NAVIGATION HEADER FRAMEWORK
+       ADVANCED NAVIGATION HEADER FRAMEWORK (DESKTOP)
        ========================================================================== */
     header {
         background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
@@ -223,7 +126,7 @@
     }
 
     /* ==========================================================================
-       INLINE NAVIGATION SYSTEM
+       INLINE NAVIGATION SYSTEM (DESKTOP)
        ========================================================================== */
     nav.nav-menu {
         display: flex;
@@ -308,30 +211,47 @@
         display: none;
     }
 
+    /* Base Setup for Menu Trigger Button */
     .mobile-menu-btn {
         display: none;
         background: transparent;
         border: none;
         cursor: pointer;
-        padding: 8px;
-        flex-direction: column;
-        gap: 5px;
+        width: 24px;
+        height: 24px;
+        position: relative;
         z-index: 1001;
+        padding: 0;
     }
 
     .mobile-menu-btn span {
+        position: absolute;
+        left: 0;
         display: block;
-        width: 25px;
-        height: 3px;
+        width: 100%;
+        height: 2px;
         background-color: var(--text-primary);
         border-radius: 2px;
-        transition: var(--transition-smooth);
+        transition: transform 0.25s ease-in-out, top 0.25s ease-in-out, opacity 0.25s ease-in-out;
     }
-            
-    /* Hamburger Morphing Animations */
-    .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Geometric setup mapping to render clean transitions */
+    .mobile-menu-btn span:nth-child(1) { top: 4px; }
+    .mobile-menu-btn span:nth-child(2) { top: 11px; }
+    .mobile-menu-btn span:nth-child(3) { top: 18px; }
+
+    /* Morphing configuration converting lines to an 'X' close mark */
+    .mobile-menu-btn.is-active span:nth-child(1) {
+        top: 11px;
+        transform: rotate(45deg);
+    }
+    .mobile-menu-btn.is-active span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu-btn.is-active span:nth-child(3) {
+        top: 11px;
+        transform: rotate(-45deg);
+    }
 
     /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
@@ -574,6 +494,111 @@
     .lang-btn:hover {
         color: #ffffff;
     }
+
+    /* ==========================================================================
+       RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS (PLACED AT BOTTOM FOR PRIORITY)
+       ========================================================================== */
+    @media (max-width: 900px) {
+        body {
+            background-image: none !important;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10;
+            
+            background-image: url('aboutbg.png') !important;
+            background-position: center top !important;
+            background-repeat: repeat !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+        }
+
+        .header-container {
+            padding: 16px 20px;
+            position: relative; /* Context positioning for absolute placement tracking */
+        }
+
+        /* Prevent your beautiful combined wide logo images from pushing things off-screen */
+        .logo-group {
+            max-width: calc(100% - 50px);
+        }
+
+        .logo-group img {
+            height: 34px !important; /* Slightly scales logo size down to make space */
+        }
+
+        /* Lock structural location coordinates for button visibility */
+        .mobile-menu-btn {
+            display: block !important;
+            position: absolute;
+            right: 20px;
+            top: 24px; /* Perfectly centers button inline with logo elements */
+        }
+
+        nav.nav-menu {
+            display: none; 
+            width: 100%;
+            flex-direction: column;
+            gap: 12px;
+            padding: 24px 0 12px 0;
+            border-top: 1px solid rgba(88, 185, 131, 0.2);
+            margin-top: 12px;
+        }
+
+        nav.nav-menu.is-open {
+            display: flex;
+            animation: slideDown 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        nav a {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            text-align: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        nav a::after {
+            display: none; 
+        }
+
+        /* Renders a beautiful solid highlighted button for the active page matching layout designs */
+        nav a.active-page {
+            color: #FFFFFF !important;
+            background-color: var(--brand-orange) !important;
+            box-shadow: 0 4px 12px var(--brand-orange-glow) !important;
+            border: none !important;
+        }
+
+        nav a[href*="contact"],
+        nav a:last-of-type {
+            margin-left: 0;
+            margin-top: 4px;
+            border: 1.5px solid var(--brand-orange);
+        }
+        
+        .lang-switcher-container {
+            margin-top: 12px;
+            justify-content: center;
+            align-self: center;
+        }
+        
+        .main-container { padding: 40px 20px 60px 20px; }
+        .contact-hero-card { padding: 40px 20px !important; }
+        .giant-email { font-size: 24px !important; }
+    }
     </style>
 </head>
 <body>
@@ -751,7 +776,7 @@
 </footer>
 
 <script>
-    // 1. Force all expansion panels to close safely when the DOM finishes loading
+    // 1. Close extra items safely on load bounds tracking
     document.addEventListener("DOMContentLoaded", function() {
         var panels = document.querySelectorAll('.pillar-expandable-content');
         panels.forEach(function(panel) {
@@ -767,7 +792,7 @@
         });
     });
 
-    // 2. Multi-toggle logic for Team Bio cards (Runs seamlessly on Mobile + Desktop click tracks)
+    // 2. Multi-toggle logic tracker
     function togglePillar(id) {
         var cleanId = String(id).trim();
         var details = document.getElementById("pillar-details-" + cleanId);
@@ -793,21 +818,21 @@
         var btn = document.querySelector('.mobile-menu-btn');
         
         if (nav) {
-            nav.classList.toggle("is-open"); /* Drops menu down / retracts it */
+            nav.classList.toggle("is-open"); 
         }
         if (btn) {
-            btn.classList.toggle("is-active"); /* Animates Hamburger to 'X' icon */
+            btn.classList.toggle("is-active"); 
         }
     }
 </script>
 
 <script>
 function switchLanguage(lang) {
-    // 1. Hide all language elements safely
+    // 1. Hide alternate global variations
     const allElements = document.querySelectorAll('.lang-el');
     allElements.forEach(el => el.style.display = 'none');
 
-    // 2. Dynamically show the selected language elements based on their type
+    // 2. Render tracking loops inline or block
     const selectedElements = document.querySelectorAll('.' + lang + '-content');
     selectedElements.forEach(el => {
         if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
@@ -817,7 +842,7 @@ function switchLanguage(lang) {
         }
     });
 
-    // 3. Keep button styling synced cleanly
+    // 3. Match indicator colors
     const allButtons = document.querySelectorAll('.lang-btn');
     allButtons.forEach(btn => {
         btn.style.background = 'transparent';
@@ -830,11 +855,9 @@ function switchLanguage(lang) {
         activeBtn.style.color = '#ffffff';
     }
 
-    // 4. Persist the language across your site's pages
     localStorage.setItem('umc_preferred_lang', lang);
 }
     
-// Auto-run layout selections when page components mount
 document.addEventListener("DOMContentLoaded", function() {
     const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
     switchLanguage(savedLang);
