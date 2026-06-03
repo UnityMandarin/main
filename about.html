@@ -68,23 +68,6 @@
         
         overflow-x: hidden;
     }
-
-    /* PERFECT MOBILE FIXED BACKGROUND LAYER */
-    nav.nav-menu {
-    display: none; /* Hide default inline menu */
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px 0;
-    border-top: 1px solid rgba(88, 185, 131, 0.2);
-    margin-top: 10px;
-}
-
-/* Toggled class via JavaScript */
-nav.nav-menu.is-open {
-    display: flex;
-    animation: slideDown 0.3s ease forwards;
-}
         @media (max-width: 900px) {
         /* 1. We remove the background from the main body on mobile */
         body {
@@ -874,15 +857,17 @@ nav.nav-menu.is-open {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(28, 51, 37, 0.05); /* Fits naturally with the mint header background */
     padding: 4px 8px;
     border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(88, 185, 131, 0.2);
+    margin-left: 20px;   /* Positions it right next to your logo */
+    margin-right: auto;  /* Core layout feature: pushes nav links to the far right side */
 }
 
 .lang-btn {
     background: transparent;
-    color: #A3B8CC;
+    color: var(--text-navbar-link); /* High contrast readable dark green text */
     border: none;
     padding: 6px 14px;
     border-radius: 20px;
@@ -893,7 +878,16 @@ nav.nav-menu.is-open {
 }
 
 .lang-btn:hover {
-    color: #ffffff;
+    color: var(--brand-orange);
+}
+        .lang-switcher-container {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 12px;
+        width: 100%;
+        justify-content: center;
+        background: rgba(28, 51, 37, 0.04);
+    }
 }
 </style>
 </head>
