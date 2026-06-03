@@ -575,6 +575,12 @@ footer {
 /* =========================================
    RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
    ========================================= */
+nav.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+     
 @media (max-width: 900px) {
     /* Header & Mobile Navigation Breakpoint */
     .header-container {
@@ -730,7 +736,7 @@ footer {
             <span></span>
         </button>
         
-        <nav id="main-nav" style="display: flex; align-items: center; gap: 20px;">
+        <nav id="main-nav" class="nav-menu">
             <a href="index.html" class="active-page">
                 <span class="lang-el en-content">Home</span>
                 <span class="lang-el zh-hans-content" style="display: none;">首页</span>
