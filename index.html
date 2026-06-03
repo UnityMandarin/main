@@ -1129,8 +1129,12 @@ function toggleMobileMenu() {
     const nav = document.getElementById('main-nav');
     const menuBtn = document.querySelector('.mobile-menu-btn');
     
-    nav.classList.toggle('open');
-    menuBtn.classList.toggle('active');
+    if (nav) {
+        nav.classList.toggle('is-open');
+    }
+    if (menuBtn) {
+        menuBtn.classList.toggle('is-active');
+    }
 }
 
 // Auto-run layout selections when page components mount
