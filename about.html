@@ -7,8 +7,8 @@
     <title>About Us - Unity Mandarin Center</title>
     <style>
     /* ==========================================================================
-    GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
-    ========================================================================== */
+       GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
+       ========================================================================== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
     :root {
@@ -68,247 +68,255 @@
         
         overflow-x: hidden;
     }
-        @media (max-width: 900px) {
-        /* 1. We remove the background from the main body on mobile */
-        body {
-            background-image: none !important;
-        }
 
-        /* 2. We inject a dedicated layer that locks the mountain image completely still */
-        body::before {
-            content: "";
-            position: fixed; /* Forces it to stay pinned to the glass of the screen */
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -10; /* Pushes it safely behind all your white text boxes */
-            
-            background-image: url('aboutbg.png') !important;
-            background-position: left top !important; /* Grabs the left 1/3 of the landscape */
-            background-repeat: no-repeat !important; /* Prevents it from duplicating vertically */
-            background-size: auto 100vh !important; /* Forces it to scale perfectly to the phone height */
-            background-attachment: scroll !important; /* Essential for mobile layer rendering */
-        }
-
-        /* Keep your existing mobile design structure unchanged below: */
-        .header-container { padding: 10px 20px; }
-        .mobile-menu-btn { display: flex; }
-        nav { display: none; width: 100%; flex-direction: column; gap: 10px; padding: 20px 0; border-top: 1px solid rgba(88, 185, 131, 0.2); margin-top: 10px; }
-        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        nav a { width: 100%; padding: 12px; font-size: 16px; }
-        nav a::after { display: none; }
-        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
-        .about-container { padding: 40px 20px 60px 20px; }
-        .about-header-container { padding: 10px; max-width: 100%; }
-        .about-lead-card { padding: 30px 20px; }
-        .about-lead-card h2 { font-size: 24px; }
-        .vision-mission-grid { grid-template-columns: 1fr; }
-        .pillar-card { padding: 30px 20px; }
-        .pillar-header h2 { font-size: 20px; }
-        .feature-list-grid { grid-template-columns: 1fr; }
-        .conclusion-ribbon { padding: 30px 20px; }
-        .conclusion-ribbon h3 { font-size: 22px; }
-    }
     /* ==========================================================================
-   ADVANCED NAVIGATION HEADER FRAMEWORK
-   ========================================================================== */
-header {
-    background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
-    min-height: var(--header-height);
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid var(--mint-nav-border);
-    box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
-                0 2px 10px var(--mint-shadow-tint);
-    will-change: transform;
-    transition: var(--transition-smooth);
-}
+       ADVANCED NAVIGATION HEADER FRAMEWORK (Imported from index.html)
+       ========================================================================== */
+    header {
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+        min-height: var(--header-height);
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--mint-nav-border);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
+                    0 2px 10px var(--mint-shadow-tint);
+        will-change: transform;
+        transition: var(--transition-smooth);
+    }
 
-.header-container {
-    width: 100%;
-    max-width: var(--max-content-width);
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    flex-wrap: wrap; 
-}
+    .header-container {
+        width: 100%;
+        max-width: var(--max-content-width);
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        flex-wrap: wrap; 
+    }
 
-.logo-group {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    height: var(--header-height);
-    outline: none;
-    transition: var(--transition-smooth);
-}
+    .logo-group {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        height: var(--header-height);
+        outline: none;
+        transition: var(--transition-smooth);
+    }
 
-.logo-group:hover {
-    transform: translateY(-1px);
-}
+    .logo-group:hover {
+        transform: translateY(-1px);
+    }
 
-.logo-group img, 
-header img {
-    height: 44px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-    filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
-    transition: var(--transition-smooth);
-}
+    .logo-group img, 
+    header img {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+        transition: var(--transition-smooth);
+    }
 
-/* ==========================================================================
-   MODERNIZED INLINE NAVIGATION SYSTEM
-   ========================================================================== */
-nav.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 4px; 
-    height: 100%;
-}
+    /* ==========================================================================
+       MODERNIZED INLINE NAVIGATION SYSTEM
+       ========================================================================== */
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 4px; 
+        height: 100%;
+    }
 
-nav a {
-    font-family: var(--font-interface);
-    text-decoration: none;
-    color: var(--text-navbar-link);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.15px;
-    padding: 10px 18px;
-    border-radius: 8px;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
-    box-sizing: border-box;
-}
+    nav a {
+        font-family: var(--font-interface);
+        text-decoration: none;
+        color: var(--text-navbar-link);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+        box-sizing: border-box;
+    }
 
-nav a:hover {
-    color: var(--brand-orange);
-    background-color: var(--brand-orange-subtle);
-}
+    nav a:hover {
+        color: var(--brand-orange);
+        background-color: var(--brand-orange-subtle);
+    }
 
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 18px;
-    right: 18px;
-    height: 2px;
-    background-color: var(--brand-orange);
-    border-radius: 2px;
-    transform: scaleX(0);
-    transition: var(--transition-smooth);
-}
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 18px;
+        right: 18px;
+        height: 2px;
+        background-color: var(--brand-orange);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: var(--transition-smooth);
+    }
 
-nav a:hover::after {
-    transform: scaleX(1);
-}
+    nav a:hover::after {
+        transform: scaleX(1);
+    }
 
-nav a:focus-visible {
-    outline: 2px solid var(--brand-orange);
-    outline-offset: -2px;
-}
+    nav a:focus-visible {
+        outline: 2px solid var(--brand-orange);
+        outline-offset: -2px;
+    }
 
-nav a.active-page {
-    color: #FFFFFF;
-    background-color: var(--brand-orange);
-    box-shadow: 0 4px 12px var(--brand-orange-glow);
-}
+    nav a.active-page {
+        color: #FFFFFF;
+        background-color: var(--brand-orange);
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    }
 
-nav a.active-page::after {
-    display: none; 
-}
+    nav a.active-page::after {
+        display: none; 
+    }
 
-nav a[href*="contact"],
-nav a:last-of-type {
-    background-color: transparent;
-    border: 1.5px solid var(--brand-orange);
-    color: var(--brand-orange);
-    margin-left: 8px;
-    padding: 8px 20px;
-}
+    nav a[href*="contact"],
+    nav a:last-of-type {
+        background-color: transparent;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        margin-left: 8px;
+        padding: 8px 20px;
+    }
 
-nav a[href*="contact"]:hover,
-nav a:last-of-type:hover {
-    background-color: var(--brand-orange);
-    color: #FFFFFF;
-    box-shadow: 0 4px 14px var(--brand-orange-glow);
-    transform: translateY(-1px);
-}
+    nav a[href*="contact"]:hover,
+    nav a:last-of-type:hover {
+        background-color: var(--brand-orange);
+        color: #FFFFFF;
+        box-shadow: 0 4px 14px var(--brand-orange-glow);
+        transform: translateY(-1px);
+    }
 
-nav a[href*="contact"]:hover::after,
-nav a:last-of-type:hover::after {
-    display: none;
-}
+    nav a[href*="contact"]:hover::after,
+    nav a:last-of-type:hover::after {
+        display: none;
+    }
 
-/* ==========================================================================
-   LANGUAGE SWITCHER (From index.html)
-   ========================================================================== */
-.lang-switcher-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px 8px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
+    /* ==========================================================================
+       YMCA-STYLE LANGUAGE DROPDOWN
+       ========================================================================== */
+    .lang-dropdown {
+        position: relative;
+        margin-left: 10px;
+    }
 
-.lang-btn {
-    background: transparent;
-    color: #A3B8CC;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
+    .lang-dropdown-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        color: var(--text-navbar-link); 
+        border: none;
+        padding: 8px 12px;
+        font-family: var(--font-interface);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: var(--transition-smooth);
+    }
 
-.lang-btn:hover {
-    color: #ffffff;
-}
+    .lang-dropdown-btn:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+        color: var(--brand-orange);
+    }
 
-/* ==========================================================================
-   MOBILE MENU TOGGLE BUTTON (Hidden on Desktop)
-   ========================================================================== */
-.mobile-menu-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    flex-direction: column;
-    gap: 5px;
-    z-index: 1001;
-}
+    .lang-dropdown-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+    }
 
-.mobile-menu-btn span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--text-primary);
-    border-radius: 2px;
-    transition: var(--transition-smooth);
-}
+    .lang-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 5px;
+        background: #FFFFFF;
+        border: 1px solid var(--mint-nav-border);
+        border-radius: 8px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        list-style: none;
+        padding: 8px 0;
+        min-width: 140px;
+        display: none; /* Hidden until clicked */
+        flex-direction: column;
+        z-index: 2000;
+    }
 
-/* Animation to transform the hamburger bars into a Close X icon */
-.mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-.mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
-.mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-        /* ==========================================================================
+    .lang-dropdown-menu.show {
+        display: flex;
+    }
+
+    .lang-dropdown-menu li {
+        width: 100%;
+    }
+
+    .lang-dropdown-menu button {
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border: none;
+        padding: 10px 20px;
+        font-family: var(--font-interface);
+        font-size: 14px;
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .lang-dropdown-menu button:hover {
+        background: var(--brand-orange-subtle);
+        color: var(--brand-orange);
+    }
+
+    /* ==========================================================================
+       MOBILE MENU TOGGLE BUTTON (Hidden on Desktop)
+       ========================================================================== */
+    .mobile-menu-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 1001;
+    }
+
+    .mobile-menu-btn span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: var(--transition-smooth);
+    }
+
+    /* Animation to transform the hamburger bars into a Close X icon */
+    .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
        ========================================================================== */
     .about-container {
@@ -760,15 +768,65 @@ nav a:last-of-type:hover::after {
         font-family: var(--font-editorial);
     }
 
+    /* =========================================
+       CONSOLIDATED MOBILE BREAKPOINT
+       ========================================= */
     @media (max-width: 900px) {
+        /* Background overrides */
+        body {
+            background-image: none !important;
+        }
+        body::before {
+            content: "";
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10; 
+            background-image: url('aboutbg.png') !important;
+            background-position: left top !important; 
+            background-repeat: no-repeat !important; 
+            background-size: auto 100vh !important; 
+            background-attachment: scroll !important; 
+        }
+
+        /* Nav & Header overrides */
         .header-container { padding: 10px 20px; }
         .mobile-menu-btn { display: flex; }
-        nav { display: none; width: 100%; flex-direction: column; gap: 10px; padding: 20px 0; border-top: 1px solid rgba(88, 185, 131, 0.2); margin-top: 10px; }
-        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
+        nav.nav-menu { 
+            display: none; 
+            width: 100%; 
+            flex-direction: column; 
+            gap: 10px; 
+            padding: 20px 0; 
+            border-top: 1px solid rgba(88, 185, 131, 0.2); 
+            margin-top: 10px; 
+        }
+        nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         nav a { width: 100%; padding: 12px; font-size: 16px; }
         nav a::after { display: none; }
         nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+
+        /* Dropdown mobile override */
+        .lang-dropdown {
+            margin-left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lang-dropdown-menu {
+            position: static;
+            width: 100%;
+            box-shadow: none;
+            border: none;
+            background: rgba(255, 255, 255, 0.5);
+            margin-top: 0;
+        }
+
+        /* Page specific overrides */
         .about-container { padding: 40px 20px 60px 20px; }
         .about-header-container { padding: 10px; max-width: 100%; }
         .about-lead-card { padding: 30px 20px; }
@@ -780,155 +838,11 @@ nav a:last-of-type:hover::after {
         .conclusion-ribbon { padding: 30px 20px; }
         .conclusion-ribbon h3 { font-size: 22px; }
     }
-        /* =========================================
-   RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
-   ========================================= */
-@media (max-width: 900px) {
-    /* Header & Mobile Navigation Breakpoint */
-    .header-container {
-        padding: 10px 20px;
-    }
-
-    .mobile-menu-btn {
-        display: flex; 
-    }
-
-    nav.nav-menu {
-        display: none; 
-        width: 100%;
-        flex-direction: column;
-        gap: 10px;
-        padding: 20px 0;
-        border-top: 1px solid rgba(88, 185, 131, 0.2);
-        margin-top: 10px;
-    }
-
-    nav.nav-menu.is-open {
-        display: flex;
-        animation: slideDown 0.3s ease forwards;
-    }
-
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    nav a {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-    }
-
-    nav a::after {
-        display: none; 
-    }
-
-    nav a[href*="contact"],
-    nav a:last-of-type {
-        margin-left: 0;
-        margin-top: 10px;
-    }
-    /* General Body Adjustments */
-    .hero-section {
-        padding: 30px 15px;
-    }
-
-    .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .approach-block {
-        padding: 30px 20px 60px 20px;
-    }
-
-    .section-header-group h2 {
-        font-size: 32px;
-    }
-    
-    .value-ribbon {
-        font-size: 16px;
-        padding: 18px;
-    }
-}
-     
-     .expand-btn {
-        background-color: transparent;
-        border: 1.5px solid var(--brand-orange);
-        color: var(--brand-orange);
-        padding: 8px 18px;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 6px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 15px;
-        transition: var(--transition-smooth);
-    }
-
-    .expand-btn:hover {
-        background-color: var(--brand-orange);
-        color: #FFFFFF;
-        box-shadow: 0 4px 12px var(--brand-orange-glow);
-    }
-
-    .pillar-expandable-content {
-        animation: fadeInSmooth 0.35s ease forwards;
-    }
-     
-     /* Animation to transform the hamburger bars into a Close X icon */
-.mobile-menu-btn.is-active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-.mobile-menu-btn.is-active span:nth-child(2) {
-    opacity: 0;
-}
-.mobile-menu-btn.is-active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-.lang-switcher-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(28, 51, 37, 0.05); /* Fits naturally with the mint header background */
-    padding: 4px 8px;
-    border-radius: 30px;
-    border: 1px solid rgba(88, 185, 131, 0.2);
-    margin-left: 20px;   /* Positions it right next to your logo */
-    margin-right: auto;  /* Core layout feature: pushes nav links to the far right side */
-}
-
-.lang-btn {
-    background: transparent;
-    color: var(--text-navbar-link); /* High contrast readable dark green text */
-    border: none;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.lang-btn:hover {
-    color: var(--brand-orange);
-}
-        .lang-switcher-container {
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 12px;
-        width: 100%;
-        justify-content: center;
-        background: rgba(28, 51, 37, 0.04);
-    }
-}
-</style>
+    </style>
 </head>
 <body>
 
- <header>
+<header>
     <div class="header-container">
         <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
             <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
@@ -984,12 +898,23 @@ nav a:last-of-type:hover::after {
                 <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
             </a>
 
-            <div class="lang-switcher-container">
-                <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">English</button>
-                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
-                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
+            <div class="lang-dropdown">
+                <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <span id="current-lang-text">English</span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+                <ul class="lang-dropdown-menu" id="lang-menu">
+                    <li><button onclick="switchLanguage('en', 'English')">English</button></li>
+                    <li><button onclick="switchLanguage('zh-hans', '简体中文')">简体中文</button></li>
+                    <li><button onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
+                </ul>
             </div>
-        </nav>
+            </nav>
     </div>
 </header>
 
@@ -1384,9 +1309,99 @@ nav a:last-of-type:hover::after {
 </footer>
 
 <script>
-    // 1. Force all expansion panels to close safely when the DOM finishes loading
+    // ==========================================
+    // ALL UNIFIED JAVASCRIPT
+    // ==========================================
+
+    // 1. Language Dropdown Controller
+    function toggleLangMenu(event) {
+        if (event) event.stopPropagation();
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.toggle('show');
+    }
+
+    // Close language menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('lang-menu');
+        const dropdown = document.querySelector('.lang-dropdown');
+        if (menu && dropdown && !dropdown.contains(event.target)) {
+            menu.classList.remove('show');
+        }
+    });
+
+    // 2. Multi-Language Switcher Core Function
+    function switchLanguage(lang, langName) {
+        // Hide all language elements safely
+        const allElements = document.querySelectorAll('.lang-el');
+        allElements.forEach(el => el.style.display = 'none');
+
+        // Dynamically show the selected language elements
+        const selectedElements = document.querySelectorAll('.' + lang + '-content');
+        selectedElements.forEach(el => {
+            if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
+                el.style.display = 'inline-block';
+            } else {
+                el.style.display = 'block';
+            }
+        });
+
+        // Update Dropdown Button Text
+        const currentLangText = document.getElementById('current-lang-text');
+        if (currentLangText && langName) {
+            currentLangText.textContent = langName;
+        }
+
+        // Hide Dropdown after click
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.remove('show');
+
+        // Save preference
+        localStorage.setItem('umc_preferred_lang', lang);
+    }
+
+    // 3. Mobile Navigation Header Panel Handler
+    function toggleMobileMenu() {
+        const nav = document.getElementById('main-nav');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        
+        if (nav) {
+            nav.classList.toggle('is-open');
+        }
+        if (menuBtn) {
+            menuBtn.classList.toggle('is-active');
+        }
+    }
+
+    // 4. Multi-toggle logic for Team Bio cards
+    function togglePillar(id) {
+        var cleanId = String(id).trim();
+        var details = document.getElementById("pillar-details-" + cleanId);
+        var textNode = document.getElementById("btn-text-" + cleanId);
+        var arrowNode = document.getElementById("btn-arrow-" + cleanId);
+        
+        if (!details || !textNode || !arrowNode) return;
+        
+        if (details.style.display === "none" || details.style.display === "") {
+            details.style.display = "block";
+            textNode.textContent = "Hide Extra Bio Details";
+            arrowNode.textContent = "▲";
+        } else {
+            details.style.display = "none";
+            textNode.textContent = "Read More Details";
+            arrowNode.textContent = "▼";
+        }
+    }
+
+    // 5. Auto-run layout selections when page components mount
     document.addEventListener("DOMContentLoaded", function() {
-        // Find every pillar expandable container element
+        // Auto-select preferred language
+        const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+        let defaultLangName = 'English';
+        if (savedLang === 'zh-hans') defaultLangName = '简体中文';
+        if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
+        switchLanguage(savedLang, defaultLangName);
+
+        // Force all expansion panels to close safely
         var panels = document.querySelectorAll('.pillar-expandable-content');
         panels.forEach(function(panel) {
             panel.style.display = "none";
@@ -1401,84 +1416,6 @@ nav a:last-of-type:hover::after {
             if (btnArrow) btnArrow.textContent = "▼";
         });
     });
-
-    // 2. Multi-toggle logic for Team Bio cards (Runs seamlessly on Mobile + Desktop click tracks)
-    function togglePillar(id) {
-        var cleanId = String(id).trim();
-        
-        var details = document.getElementById("pillar-details-" + cleanId);
-        var textNode = document.getElementById("btn-text-" + cleanId);
-        var arrowNode = document.getElementById("btn-arrow-" + cleanId);
-        
-        if (!details || !textNode || !arrowNode) return;
-        
-        // Check computed visibility state to catch dynamic CSS transitions
-        if (details.style.display === "none" || details.style.display === "") {
-            details.style.display = "block";
-            textNode.textContent = "Hide Extra Bio Details";
-            arrowNode.textContent = "▲";
-        } else {
-            details.style.display = "none";
-            textNode.textContent = "Read More Details";
-            arrowNode.textContent = "▼";
-        }
-    }
-</script>
-     <script>
-function switchLanguage(lang) {
-    // 1. Hide all language elements safely
-    const allElements = document.querySelectorAll('.lang-el');
-    allElements.forEach(el => el.style.display = 'none');
-
-    // 2. Dynamically show the selected language elements based on their type
-    const selectedElements = document.querySelectorAll('.' + lang + '-content');
-    selectedElements.forEach(el => {
-        // If it's inline text or an image inside the logo/links, use inline-block
-        if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
-            el.style.display = 'inline-block';
-        } else {
-            el.style.display = 'block';
-        }
-    });
-
-    // 3. Keep button styling synced cleanly
-    const allButtons = document.querySelectorAll('.lang-btn');
-    allButtons.forEach(btn => {
-        btn.style.background = 'transparent';
-        btn.style.color = '#A3B8CC';
-    });
-
-    const activeBtn = document.getElementById('btn-' + lang);
-    if (activeBtn) {
-        activeBtn.style.background = '#E0533C'; 
-        activeBtn.style.color = '#ffffff';
-    }
-
-    // 4. Persist the language across your site's pages
-    localStorage.setItem('umc_preferred_lang', lang);
-}
-
-// Ensure your mobile menu toggle function targets classes cleanly
-function toggleMobileMenu() {
-    const nav = document.getElementById('main-nav');
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    
-    if (nav) {
-        nav.classList.toggle('is-open');
-    }
-    if (menuBtn) {
-        menuBtn.classList.toggle('is-active');
-    }
-}
-
-// Auto-run layout selections when page components mount
-document.addEventListener("DOMContentLoaded", function() {
-    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
-    switchLanguage(savedLang);
-});
 </script>
 </body>
 </html>
-
-
-
