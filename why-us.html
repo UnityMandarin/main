@@ -498,7 +498,12 @@
     /* =========================================
        RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
        ========================================= */
-    @media (max-width: 900px) {
+    nav.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+        @media (max-width: 900px) {
         .header-container {
             padding: 10px 20px;
         }
@@ -508,18 +513,18 @@
         }
 
         nav {
-            display: none;
-            width: 100%;
-            flex-direction: column;
-            gap: 10px;
-            padding: 20px 0;
-            border-top: 1px solid rgba(88, 185, 131, 0.2);
-            margin-top: 10px;
+           display: none; /* Hide default inline menu */
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(88, 185, 131, 0.2);
+    margin-top: 10px;
         }
 
         nav.is-open {
-            display: flex;
-            animation: slideDown 0.3s ease forwards;
+           display: flex;
+    animation: slideDown 0.3s ease forwards;
         }
 
         @keyframes slideDown {
@@ -720,7 +725,7 @@
             <span></span>
         </button>
         
-        <nav id="main-nav" style="display: flex; align-items: center; gap: 20px;">
+        <nav id="main-nav" class="nav-menu">
             <a href="index.html">
                 <span class="lang-el en-content">Home</span>
                 <span class="lang-el zh-hans-content" style="display: none;">首页</span>
