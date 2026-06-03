@@ -62,7 +62,7 @@
     }
 
     /* ==========================================================================
-       ADVANCED NAVIGATION HEADER FRAMEWORK
+       ADVANCED NAVIGATION HEADER FRAMEWORK (Matched to about.html)
        ========================================================================== */
     header {
         background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
@@ -119,11 +119,13 @@
     /* ==========================================================================
        MODERNIZED INLINE NAVIGATION SYSTEM
        ========================================================================== */
-    nav {
+    nav.nav-menu {
         display: flex;
         align-items: center;
         gap: 4px; 
-        height: 100%;
+        flex-grow: 1;
+        justify-content: flex-end;
+        margin-right: 15px;
     }
 
     nav a {
@@ -165,6 +167,11 @@
         transform: scaleX(1);
     }
 
+    nav a:focus-visible {
+        outline: 2px solid var(--brand-orange);
+        outline-offset: -2px;
+    }
+
     nav a.active-page {
         color: #FFFFFF;
         background-color: var(--brand-orange);
@@ -198,11 +205,27 @@
     }
 
     /* ==========================================================================
+       HEADER ACTIONS (Groups Language Picker + Mobile Menu Button)
+       ========================================================================== */
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    @media (min-width: 901px) {
+        .header-actions {
+            border-left: 1px solid var(--mint-nav-border);
+            padding-left: 15px;
+            margin-left: 5px;
+        }
+    }
+
+    /* ==========================================================================
        YMCA-STYLE LANGUAGE DROPDOWN
        ========================================================================== */
     .lang-dropdown {
         position: relative;
-        margin-left: 10px;
     }
 
     .lang-dropdown-btn {
@@ -236,17 +259,24 @@
         position: absolute;
         top: 100%;
         right: 0;
-        margin-top: 5px;
+        margin-top: 12px;
         background: #FFFFFF;
         border: 1px solid var(--mint-nav-border);
         border-radius: 8px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
         list-style: none;
         padding: 8px 0;
         min-width: 140px;
-        display: none; /* Hidden until clicked */
+        display: none;
         flex-direction: column;
         z-index: 2000;
+        transform-origin: top right;
+        animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes dropFade {
+        from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .lang-dropdown-menu.show {
@@ -532,7 +562,7 @@
     }
 
     /* =========================================
-       EXPANDED FOOTER COMPONENT METERING
+       EXPANDED FOOTER COMPONENT
        ========================================= */
     footer {
         background-color: #142219;
@@ -627,97 +657,50 @@
     }
 
     /* =========================================
-       RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
+       CONSOLIDATED MOBILE BREAKPOINT (Smooth & Beautiful)
        ========================================= */
-    nav.nav-menu {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-         
     @media (max-width: 900px) {
-        .header-container {
-            padding: 10px 20px;
-        }
-
-        .mobile-menu-btn {
-            display: flex; 
-        }
-
-        nav.nav-menu {
-            display: none; 
-            width: 100%;
-            flex-direction: column;
-            gap: 10px;
-            padding: 20px 0;
-            border-top: 1px solid rgba(88, 185, 131, 0.2);
-            margin-top: 10px;
-        }
-
-        nav.nav-menu.is-open {
-            display: flex;
-            animation: slideDown 0.3s ease forwards;
-        }
-     
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        nav a {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-        }
-
-        nav a::after {
-            display: none; 
-        }
-
-        nav a[href*="contact"],
-        nav a:last-of-type {
-            margin-left: 0;
-            margin-top: 10px;
-        }
-
-        .lang-dropdown {
-            margin-left: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .lang-dropdown-menu {
-            position: static;
-            width: 100%;
-            box-shadow: none;
-            border: none;
-            background: rgba(255, 255, 255, 0.5);
-            margin-top: 0;
-        }
-
-        .hero-section {
-            padding: 30px 15px;
-        }
-
-        .cards-grid {
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-
-        .approach-block {
-            padding: 30px 20px 60px 20px;
-        }
-
-        .section-header-group h2 {
-            font-size: 32px;
-        }
+        /* Nav & Header grouping on Mobile */
+        .header-container { padding: 10px 15px; }
+        .logo-group img, header img { height: 36px; } 
         
-        .value-ribbon {
-            font-size: 16px;
-            padding: 18px;
+        .mobile-menu-btn { display: flex; }
+        .header-actions { order: 2; gap: 8px; } 
+        
+        /* Mobile Dropdown styling so it isn't squeezed */
+        .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
+        .lang-dropdown-btn svg { width: 18px; height: 18px; }
+        
+        /* Mobile Slide Down Menu */
+        nav.nav-menu { 
+            order: 3; 
+            display: none; 
+            width: 100%; 
+            flex-direction: column; 
+            gap: 10px; 
+            padding: 20px 0; 
+            border-top: 1px solid rgba(88, 185, 131, 0.2); 
+            margin-top: 10px; 
         }
+        nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        nav a { width: 100%; padding: 12px; font-size: 16px; }
+        nav a::after { display: none; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+
+        /* RECLAIMING SCREEN SPACE (Fixing the narrow text boxes for index.html) */
+        .hero-section { padding: 30px 15px; }
+        .approach-block { padding: 25px 12px 50px 12px; }
+        .section-header-group h2 { font-size: 32px; }
+        
+        .cards-grid { gap: 20px; }
+        
+        /* Reduced horizontal padding on feature cards */
+        .feature-card { padding: 25px 18px 20px 18px; border-radius: 8px; }
+        .feature-card h3 { font-size: 22px; }
+        .img-frame { height: 200px; margin-bottom: 20px; }
+        
+        .value-ribbon { padding: 18px 12px; font-size: 18px; border-radius: 8px; }
     }
     </style>
 </head>
@@ -736,12 +719,6 @@
             <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
         </a>
 
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
         <nav id="main-nav" class="nav-menu">
             <a href="index.html" class="active-page">
                 <span class="lang-el en-content">Home</span>
@@ -778,7 +755,9 @@
                 <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
                 <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
             </a>
+        </nav>
 
+        <div class="header-actions">
             <div class="lang-dropdown">
                 <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -795,7 +774,14 @@
                     <li><button onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
                 </ul>
             </div>
-            </nav>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
     </div>
 </header>
 
@@ -856,7 +842,7 @@
                         <li>
                             <span class="lang-el en-content"><strong>Playful & Collaborative Learning:</strong> Children learn alongside peers through hands-on activities, creative exploration, and group interaction that support both language growth and social confidence.</span>
                             <span class="lang-el zh-hans-content" style="display: none;"><strong>寓教于乐与协作：</strong> 孩子们与同龄伙伴一起通过动手实践、创造性探索和团队互动共同学习，全面促进语言成长与社交自信。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;"><strong>寓教於樂與協作：</strong>  hea子們與同齡夥伴一起通過動手實踐、創造性探索和團隊互動共同學習，全面促進語言成長與社交自信。</span>
+                            <span class="lang-el zh-hant-content" style="display: none;"><strong>寓教於樂與協作：</strong> 孩子們與同齡夥伴一起通過動手實踐、創造性探索和團隊互動共同學習，全面促進語言成長與社交自信。</span>
                         </li>
                     </ul>
                 </div>
@@ -890,7 +876,7 @@
                         <li>
                             <span class="lang-el en-content"><strong>Learning Environment:</strong> We provide a quiet, distraction-free classroom where students work alongside their peers under direct teacher guidance. This focused atmosphere helps your child stay completely on task and finish their assignments on time.</span>
                             <span class="lang-el zh-hans-content" style="display: none;"><strong>专注学习环境：</strong> 我们提供安静、无干扰的教室，孩子们在老师的直接看护与指导下与同龄人共同写作业。这种专注的气氛能够确保孩子全程紧跟进度，按时保质完成任务。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;"><strong>專注學習環境：</strong> 我們提供安靜、無干擾的教室， hea子們在老師的直接看護與指導下與同齡人共同寫作業。這種專注的氣氛能夠確保孩子全程緊跟進度，按時保質完成任務。</span>
+                            <span class="lang-el zh-hant-content" style="display: none;"><strong>專注學習環境：</strong> 我們提供安靜、無干擾的教室， 孩子們在老師的直接看護與指導下與同齡人共同寫作業。這種專注的氣氛能夠確保孩子全程緊跟進度，按時保質完成任務。</span>
                         </li>
                         <li>
                             <span class="lang-el en-content"><strong>Independent Learning:</strong> Our teachers encourage students to think through problems on their own first, stepping in to guide them only when they get stuck. This approach teaches them how to problem-solve independently instead of simply waiting for the answers.</span>
@@ -927,7 +913,7 @@
                 
                 <p class="intro-body lang-el en-content">True literacy extends deep beyond standard grammar. We celebrate the vivid traditions of the Chinese-speaking world by linking technical mechanics to artistic innovation.</p>
                 <p class="intro-body lang-el zh-hans-content" style="display: none;">真正的语言素养远不止于枯燥的语法规则。我们通过将语言技能与艺术创新深度结合，带领孩子们共同领略华语世界深厚、生动的传统文化。</p>
-                <p class="intro-body lang-el zh-hant-content" style="display: none;">真正的語言素養遠不止於枯燥的語法規則。我們通過將語言技能與藝術創新深度結合，帶領 hea子們共同領略華語世界深厚、生動的傳統文化。</p>
+                <p class="intro-body lang-el zh-hant-content" style="display: none;">真正的語言素養遠不止於枯燥的語法規則。我們通過將語言技能與藝術創新深度結合，帶領孩子們共同領略華語世界深厚、生動的傳統文化。</p>
                 
                 <div class="drawer-content" id="drawer-cultural">
                     <ul>
@@ -939,7 +925,7 @@
                         <li>
                             <span class="lang-el en-content"><strong>Dynamic Narratives:</strong> Enriching structural language understanding through traditional folklore metrics, performing arts, and musical themes.</span>
                             <span class="lang-el zh-hans-content" style="display: none;"><strong>动态故事诠释：</strong> 借助传统的民间故事寓言、青少年舞台表演艺术和趣味乐理律动，丰富孩子们对中文底层结构的认知。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;"><strong>動態故事詮釋：</strong> 借助傳統的民間故事寓言、青少年舞台表演藝術和趣味樂理律動，豐富 hea子們對中文底層結構的認知。</span>
+                            <span class="lang-el zh-hant-content" style="display: none;"><strong>動態故事詮釋：</strong> 借助傳統的民間故事寓言、青少年舞台表演藝術和趣味樂理律動，豐富孩子們對中文底層結構的認知。</span>
                         </li>
                         <li>
                             <span class="lang-el en-content"><strong>Seasonal Events:</strong> Engaging in historic annual festival markers to secure a broad, globally inclusive cultural awareness matrix.</span>
@@ -1135,7 +1121,7 @@
         switchLanguage(savedLang, defaultLangName);
 
         // Force all expansion panels to close safely
-        var panels = document.querySelectorAll('.pillar-expandable-content');
+        var panels = document.querySelectorAll('.drawer-content');
         panels.forEach(function(panel) {
             panel.style.display = "none";
         });
