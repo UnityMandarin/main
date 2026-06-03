@@ -591,22 +591,22 @@ nav.nav-menu {
         display: flex; /* Display hamburger button */
     }
 
-    nav {
-        display: none; /* Hide default inline menu */
-        width: 100%;
-        flex-direction: column;
-        gap: 10px;
-        padding: 20px 0;
-        border-top: 1px solid rgba(88, 185, 131, 0.2);
-        margin-top: 10px;
-    }
+    nav.nav-menu {
+    display: none; /* Hide default inline menu */
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(88, 185, 131, 0.2);
+    margin-top: 10px;
+}
 
-    /* Toggled class via JavaScript */
-    nav.is-open {
-        display: flex;
-        animation: slideDown 0.3s ease forwards;
-    }
-
+/* Toggled class via JavaScript */
+nav.nav-menu.is-open {
+    display: flex;
+    animation: slideDown 0.3s ease forwards;
+}
+ 
     @keyframes slideDown {
         from { opacity: 0; transform: translateY(-10px); }
         to { opacity: 1; transform: translateY(0); }
