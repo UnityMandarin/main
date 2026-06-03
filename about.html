@@ -70,7 +70,12 @@
     }
 
     /* PERFECT MOBILE FIXED BACKGROUND LAYER */
-    @media (max-width: 900px) {
+    nav.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+        @media (max-width: 900px) {
         /* 1. We remove the background from the main body on mobile */
         body {
             background-image: none !important;
@@ -903,7 +908,7 @@
             <span></span>
         </button>
         
-        <nav id="main-nav" style="display: flex; align-items: center; gap: 20px;">
+        <nav id="main-nav" class="nav-menu">
             
             <a href="index.html">
                 <span class="lang-el en-content">Home</span>
@@ -1433,8 +1438,12 @@ function toggleMobileMenu() {
     const nav = document.getElementById('main-nav');
     const menuBtn = document.querySelector('.mobile-menu-btn');
     
-    nav.classList.toggle('open');
-    menuBtn.classList.toggle('active');
+    if (nav) {
+        nav.classList.toggle('is-open');
+    }
+    if (menuBtn) {
+        menuBtn.classList.toggle('is-active');
+    }
 }
 
 // Auto-run layout selections when page components mount
