@@ -874,17 +874,15 @@ nav.nav-menu.is-open {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(28, 51, 37, 0.05);
+    background: rgba(255, 255, 255, 0.1);
     padding: 4px 8px;
     border-radius: 30px;
-    border: 1px solid rgba(88, 185, 131, 0.2);
-    margin-left: 20px;   /* Sets spacing to the right of the logo */
-    margin-right: auto;  /* Magic spacer that pushes nav menu to the far right side */
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .lang-btn {
     background: transparent;
-    color: var(--text-navbar-link); /* Fixes dark text contrast for mint header background */
+    color: #A3B8CC;
     border: none;
     padding: 6px 14px;
     border-radius: 20px;
@@ -897,16 +895,6 @@ nav.nav-menu.is-open {
 .lang-btn:hover {
     color: #ffffff;
 }
-        
-        .lang-switcher-container {
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 12px;
-        width: 100%;
-        justify-content: center;
-        background: rgba(28, 51, 37, 0.04);
-    }
-}
 </style>
 </head>
 <body>
@@ -914,13 +902,15 @@ nav.nav-menu.is-open {
  <header>
     <div class="header-container">
         <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-            </a>
-
-        <div class="lang-switcher-container">
-            <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">English</button>
-            <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
-            <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
-        </div>
+            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
+            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px; width: auto; object-fit: contain;">
+            
+            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            
+            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+        </a>
 
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
             <span></span>
@@ -1474,5 +1464,6 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
+
 
 
