@@ -59,7 +59,6 @@
         -moz-osx-font-smoothing: grayscale;
         background-color: #f3efe3;
         
-        /* DESKTOP BACKGROUND SETTINGS (Keeps the Green Header lined up perfectly) */
         background-image: url('aboutbg.png');
         background-repeat: repeat;
         background-position: center top;
@@ -70,7 +69,7 @@
     }
 
     /* ==========================================================================
-       ADVANCED NAVIGATION HEADER FRAMEWORK (Imported from index.html)
+       ADVANCED NAVIGATION HEADER FRAMEWORK
        ========================================================================== */
     header {
         background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
@@ -127,11 +126,13 @@
     /* ==========================================================================
        MODERNIZED INLINE NAVIGATION SYSTEM
        ========================================================================== */
-    nav {
+    nav.nav-menu {
         display: flex;
         align-items: center;
         gap: 4px; 
-        height: 100%;
+        flex-grow: 1;
+        justify-content: flex-end;
+        margin-right: 15px;
     }
 
     nav a {
@@ -211,11 +212,28 @@
     }
 
     /* ==========================================================================
+       HEADER ACTIONS (Groups Language Picker + Mobile Menu Button)
+       ========================================================================== */
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Desktop Vertical Divider */
+    @media (min-width: 901px) {
+        .header-actions {
+            border-left: 1px solid var(--mint-nav-border);
+            padding-left: 15px;
+            margin-left: 5px;
+        }
+    }
+
+    /* ==========================================================================
        YMCA-STYLE LANGUAGE DROPDOWN
        ========================================================================== */
     .lang-dropdown {
         position: relative;
-        margin-left: 10px;
     }
 
     .lang-dropdown-btn {
@@ -249,17 +267,24 @@
         position: absolute;
         top: 100%;
         right: 0;
-        margin-top: 5px;
+        margin-top: 12px;
         background: #FFFFFF;
         border: 1px solid var(--mint-nav-border);
         border-radius: 8px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
         list-style: none;
         padding: 8px 0;
         min-width: 140px;
         display: none; /* Hidden until clicked */
         flex-direction: column;
         z-index: 2000;
+        transform-origin: top right;
+        animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes dropFade {
+        from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .lang-dropdown-menu.show {
@@ -355,7 +380,8 @@
         position: relative;
     }
 
-    .about-lead-card::before {
+    .about-lead-card::before,
+    .pillar-card::before {
         content: '';
         position: absolute;
         top: 0; left: 0; bottom: 0;
@@ -385,48 +411,6 @@
         line-height: 1.7;
         color: var(--text-main);
         margin: 0 0 24px 0;
-    }
-
-    .slogan-badge {
-        display: inline-block;
-        background-color: #FFFFFF;
-        border: 1.5px solid var(--brand-orange);
-        color: var(--brand-orange);
-        padding: 10px 24px;
-        font-size: 16px;
-        font-weight: 700;
-        border-radius: 30px;
-        letter-spacing: 0.5px;
-        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.08);
-    }
-
-    .vision-mission-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-bottom: 55px;
-    }
-
-    .vision-card {
-        background-color: #FFFFFF;
-        border-radius: 12px;
-        padding: 35px;
-        border: 1px solid rgba(114, 208, 155, 0.2);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.02);
-    }
-
-    .vision-card h4 {
-        font-family: var(--font-editorial);
-        font-size: 20px;
-        color: var(--brand-orange);
-        margin: 0 0 14px 0;
-    }
-
-    .vision-card p {
-        font-size: 15px;
-        line-height: 1.65;
-        color: var(--text-main);
-        margin: 0;
     }
 
     .section-title {
@@ -460,16 +444,6 @@
         transform: translateY(-3px);
         box-shadow: 0 15px 40px rgba(255, 87, 34, 0.08);
         border-color: rgba(255, 87, 34, 0.2);
-    }
-
-    .pillar-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; bottom: 0;
-        width: 6px;
-        background: linear-gradient(to bottom, var(--scroll-jade), var(--brand-orange));
-        border-top-left-radius: 12px;
-        border-bottom-left-radius: 12px;
     }
 
     .pillar-header {
@@ -634,6 +608,7 @@
         margin: 0 auto;
     }
 
+    /* Footer Styles */
     footer {
         background-color: #142219;
         color: #CFEAD6;
@@ -641,7 +616,6 @@
         border-top: 4px solid var(--scroll-jade);
         margin-top: auto;
     }
-
     .footer-grid {
         max-width: var(--max-width);
         margin: 0 auto 40px auto;
@@ -649,7 +623,6 @@
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 40px;
     }
-
     .footer-col h4 {
         color: #FFFFFF;
         font-size: 18px;
@@ -658,7 +631,6 @@
         padding-bottom: 8px;
         letter-spacing: 0.5px;
     }
-
     .footer-col h4::after {
         content: '';
         position: absolute;
@@ -668,49 +640,13 @@
         height: 2px;
         background-color: var(--brand-orange);
     }
-
-    .footer-col p {
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 12px;
-        opacity: 0.85;
-    }
-
-    .contact-listing, .links-listing {
-        list-style: none;
-        padding: 0;
-    }
-
-    .contact-listing li {
-        font-size: 14px;
-        margin-bottom: 14px;
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .contact-listing .icon {
-        color: var(--brand-orange);
-        flex-shrink: 0;
-    }
-
-    .links-listing li {
-        margin-bottom: 10px;
-    }
-
-    .links-listing a {
-        color: #CFEAD6;
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.2s ease, padding-left 0.2s ease;
-        display: inline-block;
-    }
-
-    .links-listing a:hover {
-        color: var(--brand-orange);
-        padding-left: 4px;
-    }
-
+    .footer-col p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; opacity: 0.85; }
+    .contact-listing, .links-listing { list-style: none; padding: 0; }
+    .contact-listing li { font-size: 14px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 10px; }
+    .contact-listing .icon { color: var(--brand-orange); flex-shrink: 0; }
+    .links-listing li { margin-bottom: 10px; }
+    .links-listing a { color: #CFEAD6; text-decoration: none; font-size: 14px; transition: color 0.2s ease, padding-left 0.2s ease; display: inline-block; }
+    .links-listing a:hover { color: var(--brand-orange); padding-left: 4px; }
     .copyright-bar {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -721,9 +657,7 @@
         opacity: 0.5;
     }
 
-    /* ==========================================================================
-       CARDS INTEGRATED HEADERS VIEWPORT 
-       ========================================================================== */
+    /* Cards Integrated Headers Viewport */
     .integrated-title {
         font-family: var(--font-editorial);
         font-size: 24px;
@@ -736,65 +670,48 @@
         align-items: center;
         gap: 10px;
     }
-
-    .decorated-card {
-        position: relative;
-        overflow: hidden;
-    }
-
+    .decorated-card { position: relative; overflow: hidden; }
     .decorated-card::after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 4px;
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
         background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
     }
-
     .card-accent-line {
-        position: absolute;
-        top: 4px; left: 0; bottom: 0;
-        width: 4px;
+        position: absolute; top: 4px; left: 0; bottom: 0; width: 4px;
         background-color: rgba(114, 208, 155, 0.3);
     }
-
     .card-watermark {
-        position: absolute;
-        bottom: 10px; right: 15px;
-        font-size: 75px;
-        opacity: 0.04;
-        pointer-events: none;
-        user-select: none;
-        line-height: 1;
+        position: absolute; bottom: 10px; right: 15px; font-size: 75px;
+        opacity: 0.04; pointer-events: none; user-select: none; line-height: 1;
         font-family: var(--font-editorial);
     }
 
     /* =========================================
-       CONSOLIDATED MOBILE BREAKPOINT
+       CONSOLIDATED MOBILE BREAKPOINT (Smooth & Beautiful)
        ========================================= */
     @media (max-width: 900px) {
         /* Background overrides */
-        body {
-            background-image: none !important;
-        }
+        body { background-image: none !important; }
         body::before {
-            content: "";
-            position: fixed; 
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -10; 
-            background-image: url('aboutbg.png') !important;
-            background-position: left top !important; 
-            background-repeat: no-repeat !important; 
-            background-size: auto 100vh !important; 
-            background-attachment: scroll !important; 
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -10; background-image: url('aboutbg.png') !important;
+            background-position: left top !important; background-repeat: no-repeat !important; 
+            background-size: auto 100vh !important; background-attachment: scroll !important; 
         }
 
-        /* Nav & Header overrides */
-        .header-container { padding: 10px 20px; }
+        /* Nav & Header grouping on Mobile */
+        .header-container { padding: 10px 15px; }
+        .logo-group img, header img { height: 36px; } /* Slightly smaller logo to fit buttons nicely */
+        
         .mobile-menu-btn { display: flex; }
+        .header-actions { order: 2; gap: 8px; } /* Keeps Lang + Menu side-by-side */
+        
+        /* Mobile Dropdown styling so it isn't squeezed */
+        .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
+        .lang-dropdown-btn svg { width: 18px; height: 18px; }
+        
+        /* Mobile Slide Down Menu */
         nav.nav-menu { 
+            order: 3; /* Pushes the menu row under the header row */
             display: none; 
             width: 100%; 
             flex-direction: column; 
@@ -809,34 +726,22 @@
         nav a::after { display: none; }
         nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
 
-        /* Dropdown mobile override */
-        .lang-dropdown {
-            margin-left: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .lang-dropdown-menu {
-            position: static;
-            width: 100%;
-            box-shadow: none;
-            border: none;
-            background: rgba(255, 255, 255, 0.5);
-            margin-top: 0;
-        }
-
-        /* Page specific overrides */
-        .about-container { padding: 40px 20px 60px 20px; }
-        .about-header-container { padding: 10px; max-width: 100%; }
-        .about-lead-card { padding: 30px 20px; }
+        /* RECLAIMING SCREEN SPACE (Fixing the narrow text boxes) */
+        .about-container { padding: 25px 12px 50px 12px; }
+        .about-header-container { padding: 5px; max-width: 100%; }
+        
+        /* Reduced horizontal padding on cards so text goes closer to the screen edges */
+        .about-lead-card { padding: 25px 18px; border-radius: 8px; margin-bottom: 30px; }
         .about-lead-card h2 { font-size: 24px; }
-        .vision-mission-grid { grid-template-columns: 1fr; }
-        .pillar-card { padding: 30px 20px; }
-        .pillar-header h2 { font-size: 20px; }
-        .feature-list-grid { grid-template-columns: 1fr; }
-        .conclusion-ribbon { padding: 30px 20px; }
+        .pillar-card { padding: 25px 18px; border-radius: 8px; }
+        .pillar-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+        .knot-hanger-wrapper { display: none; } /* Hide the decorative knot line to save horizontal space on mobile */
+        .pillar-header h2 { font-size: 22px; }
+        
+        .conclusion-ribbon { padding: 30px 18px; border-radius: 8px; }
         .conclusion-ribbon h3 { font-size: 22px; }
+        
+        .card-watermark { font-size: 55px; right: 10px; bottom: 5px; }
     }
     </style>
 </head>
@@ -855,12 +760,6 @@
             <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
         </a>
 
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
         <nav id="main-nav" class="nav-menu">
             <a href="index.html">
                 <span class="lang-el en-content">Home</span>
@@ -897,7 +796,9 @@
                 <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
                 <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
             </a>
+        </nav>
 
+        <div class="header-actions">
             <div class="lang-dropdown">
                 <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -914,7 +815,14 @@
                     <li><button onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
                 </ul>
             </div>
-            </nav>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
     </div>
 </header>
 
@@ -1261,7 +1169,7 @@
 
          <article class="pillar-card" style="border-style: dashed; border-color: rgba(114,208,155,0.4); box-shadow: none; background: transparent;">
             <div class="pillar-header">
-                <p style="margin: 0; text-align: center; font-style: italic; color: var(--text-muted); font-weight: 500;">
+                <p style="margin: 0; font-style: italic; color: var(--text-muted); font-weight: 500;">
                     <span class="lang-el en-content">(More team members coming soon...)</span><span class="lang-el zh-hans-content" style="display: none;">（更多团队成员即将推出...）</span><span class="lang-el zh-hant-content" style="display: none;">（更多團隊成員即將推出...）</span>
                 </p>
             </div>
@@ -1331,11 +1239,9 @@
 
     // 2. Multi-Language Switcher Core Function
     function switchLanguage(lang, langName) {
-        // Hide all language elements safely
         const allElements = document.querySelectorAll('.lang-el');
         allElements.forEach(el => el.style.display = 'none');
 
-        // Dynamically show the selected language elements
         const selectedElements = document.querySelectorAll('.' + lang + '-content');
         selectedElements.forEach(el => {
             if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
@@ -1345,17 +1251,14 @@
             }
         });
 
-        // Update Dropdown Button Text
         const currentLangText = document.getElementById('current-lang-text');
         if (currentLangText && langName) {
             currentLangText.textContent = langName;
         }
 
-        // Hide Dropdown after click
         const menu = document.getElementById('lang-menu');
         if (menu) menu.classList.remove('show');
 
-        // Save preference
         localStorage.setItem('umc_preferred_lang', lang);
     }
 
@@ -1394,20 +1297,17 @@
 
     // 5. Auto-run layout selections when page components mount
     document.addEventListener("DOMContentLoaded", function() {
-        // Auto-select preferred language
         const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
         let defaultLangName = 'English';
         if (savedLang === 'zh-hans') defaultLangName = '简体中文';
         if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
         switchLanguage(savedLang, defaultLangName);
 
-        // Force all expansion panels to close safely
         var panels = document.querySelectorAll('.pillar-expandable-content');
         panels.forEach(function(panel) {
             panel.style.display = "none";
         });
 
-        // Reset all corresponding button text markers and arrows
         var buttons = document.querySelectorAll('.expand-btn');
         buttons.forEach(function(btn) {
             var btnText = btn.querySelector('[id^="btn-text-"]');
