@@ -62,6 +62,13 @@
         -moz-osx-font-smoothing: grayscale;
         background-color: #f3efe3;
         overflow-x: hidden;
+
+        /* DESKTOP BACKGROUND SETTINGS (Restored to match about.html) */
+        background-image: url('aboutbg.png');
+        background-repeat: repeat;
+        background-position: center top;
+        background-attachment: fixed;
+        background-size: cover;
     }
 
     /* ==========================================================================
@@ -214,82 +221,45 @@
     }
 
     /* LANGUAGE DROPDOWN */
-    .lang-dropdown {
-        position: relative;
-    }
-
+    .lang-dropdown { position: relative; }
     .lang-dropdown-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: transparent;
-        color: var(--text-navbar-link); 
-        border: none;
-        padding: 8px 12px;
-        font-family: var(--font-interface);
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        border-radius: 6px;
-        transition: var(--transition-smooth);
+        display: flex; align-items: center; gap: 8px; background: transparent;
+        color: var(--text-navbar-link); border: none; padding: 8px 12px;
+        font-family: var(--font-interface); font-size: 14px; font-weight: 600;
+        cursor: pointer; border-radius: 6px; transition: var(--transition-smooth);
     }
-
-    .lang-dropdown-btn:hover {
-        background-color: rgba(255, 255, 255, 0.4);
-        color: var(--brand-orange);
-    }
-
+    .lang-dropdown-btn:hover { background-color: rgba(255, 255, 255, 0.4); color: var(--brand-orange); }
     .lang-dropdown-btn svg { width: 16px; height: 16px; fill: currentColor; }
-
+    
     .lang-dropdown-menu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        margin-top: 12px;
-        background: #FFFFFF;
-        border: 1px solid var(--mint-nav-border);
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        list-style: none;
-        padding: 8px 0;
-        min-width: 140px;
-        display: none;
-        flex-direction: column;
-        z-index: 2000;
-        transform-origin: top right;
+        position: absolute; top: 100%; right: 0; margin-top: 12px;
+        background: #FFFFFF; border: 1px solid var(--mint-nav-border);
+        border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        list-style: none; padding: 8px 0; min-width: 140px; display: none;
+        flex-direction: column; z-index: 2000; transform-origin: top right;
         animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
-
     @keyframes dropFade {
         from { opacity: 0; transform: translateY(-5px) scale(0.98); }
         to { opacity: 1; transform: translateY(0) scale(1); }
     }
-
     .lang-dropdown-menu.show { display: flex; }
     .lang-dropdown-menu li { width: 100%; margin: 0; }
     .lang-dropdown-menu button {
-        width: 100%; text-align: left; background: transparent;
-        border: none; padding: 10px 20px; font-family: var(--font-interface);
-        font-size: 14px; color: var(--text-primary); cursor: pointer;
-        transition: background 0.2s, color 0.2s;
+        width: 100%; text-align: left; background: transparent; border: none;
+        padding: 10px 20px; font-family: var(--font-interface); font-size: 14px;
+        color: var(--text-primary); cursor: pointer; transition: background 0.2s, color 0.2s;
     }
     .lang-dropdown-menu button:hover { background: var(--brand-orange-subtle); color: var(--brand-orange); }
 
     /* MOBILE MENU BUTTON */
     .mobile-menu-btn {
-        display: none;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        flex-direction: column;
-        gap: 5px;
-        z-index: 1001;
+        display: none; background: transparent; border: none; cursor: pointer;
+        padding: 8px; flex-direction: column; gap: 5px; z-index: 1001;
     }
     .mobile-menu-btn span {
-        display: block; width: 25px; height: 3px;
-        background-color: var(--text-primary); border-radius: 2px;
-        transition: var(--transition-smooth);
+        display: block; width: 25px; height: 3px; background-color: var(--text-primary);
+        border-radius: 2px; transition: var(--transition-smooth);
     }
     .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
@@ -298,337 +268,139 @@
     /* ==========================================================================
        JOIN US SPECIFIC CONTENT ARCHITECTURE (UNIFIED TO GLOBAL BRANDING)
        ========================================================================== */
-    .container {
+    .main-container {
         max-width: var(--max-width);
         margin: 0 auto;
-        padding: 0 40px;
-        width: 100%;
+        padding: 60px 40px 100px 40px;
         box-sizing: border-box;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 40px; /* Clean spacing between cards */
     }
 
-    /* --- Hero Section --- */
-    .hero-section {
-        background: linear-gradient(135deg, #1C3325 0%, #0E1B13 100%);
-        color: #ffffff;
-        padding: 80px 0;
-        text-align: center;
+    .joinus-card {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(114, 208, 155, 0.25);
+        border-radius: 16px;
+        padding: 50px 40px;
+        box-shadow: 0 15px 45px rgba(168, 223, 181, 0.15);
         position: relative;
-        border-bottom: 5px solid var(--brand-orange);
+        overflow: hidden;
     }
 
-    .hero-section h1 {
-        font-family: var(--font-editorial);
-        font-size: 2.8rem;
-        margin: 0 0 15px 0;
-        font-weight: 700;
-        color: var(--mint-light);
-    }
-
-    .hero-slogan {
-        font-size: 1.3rem;
-        color: var(--scroll-jade);
-        font-weight: 600;
-        margin-bottom: 20px;
-        letter-spacing: 0.5px;
-    }
-
-    .hero-subtitle {
-        font-size: 1.1rem;
-        color: #CFEAD6;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 0 15px;
-        line-height: 1.7;
-    }
-
-    /* --- Why Us Section --- */
-    .why-us-section {
-        padding: 80px 0;
+    .joinus-card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
     }
 
     .section-title {
         text-align: center;
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-family: var(--font-editorial);
         color: var(--text-primary);
-        margin-bottom: 45px;
+        margin: 0 0 45px 0;
         position: relative;
     }
 
     .section-title::after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 3px;
-        background-color: var(--brand-orange);
-        margin: 15px auto 0 auto;
-        border-radius: 2px;
+        content: ''; display: block; width: 60px; height: 3px;
+        background-color: var(--brand-orange); margin: 15px auto 0 auto; border-radius: 2px;
     }
 
-    .grid-benefits {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
+    /* --- Hero Section Elements --- */
+    .hero-slogan {
+        font-size: 1.3rem; color: var(--scroll-jade); font-weight: 600;
+        margin-bottom: 20px; letter-spacing: 0.5px;
     }
 
-    .benefit-card {
-        background-color: #FFFFFF;
-        border: 1px solid rgba(114, 208, 155, 0.25);
-        border-left: 5px solid var(--brand-orange);
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(168, 223, 181, 0.12);
-        transition: var(--transition-smooth);
-    }
-    
-    .benefit-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(255, 87, 34, 0.08);
+    .hero-subtitle {
+        font-size: 1.1rem; color: var(--text-secondary); max-width: 800px;
+        margin: 0 auto; line-height: 1.7;
     }
 
-    .benefit-card h3 {
-        margin: 0 0 12px 0;
-        color: var(--text-primary);
-        font-size: 1.3rem;
-        font-family: var(--font-editorial);
+    /* --- Why Us Benefits --- */
+    .grid-benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .benefit-item {
+        background-color: #fafafa; border-left: 5px solid var(--brand-orange);
+        padding: 25px; border-radius: 8px; transition: var(--transition-smooth);
     }
+    .benefit-item:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255, 87, 34, 0.08); }
+    .benefit-item h3 { margin: 0 0 12px 0; color: var(--text-primary); font-size: 1.2rem; font-family: var(--font-editorial); }
+    .benefit-item p { margin: 0; font-size: 1rem; color: var(--text-main); line-height: 1.6; }
 
-    .benefit-card p {
-        margin: 0;
-        font-size: 1rem;
-        color: var(--text-main);
-        line-height: 1.6;
-    }
-
-    /* --- Openings Section --- */
-    .openings-section {
-        padding: 80px 0;
-        background-color: #E8FBF0; /* Subtle mint background */
-        border-top: 1px solid var(--mint-nav-border);
-        border-bottom: 1px solid var(--mint-nav-border);
-    }
-
+    /* --- Job Cards --- */
     .job-card {
-        background-color: #ffffff;
-        border: 1px solid rgba(114, 208, 155, 0.3);
-        border-radius: 12px;
-        padding: 40px;
-        margin-bottom: 30px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        transition: var(--transition-smooth);
+        background-color: #fafafa; border: 1px solid rgba(114, 208, 155, 0.3);
+        border-radius: 12px; padding: 35px; margin-bottom: 30px; transition: var(--transition-smooth);
     }
-    
-    .job-card:hover {
-        border-color: rgba(255, 87, 34, 0.3);
-    }
-
+    .job-card:hover { border-color: rgba(255, 87, 34, 0.3); background-color: #ffffff; box-shadow: 0 8px 25px rgba(168, 223, 181, 0.2); }
     .job-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        border-bottom: 1px solid var(--mint-nav-border);
-        padding-bottom: 20px;
-        margin-bottom: 25px;
-        flex-wrap: wrap;
-        gap: 15px;
+        display: flex; justify-content: space-between; align-items: flex-start;
+        border-bottom: 1px solid var(--mint-nav-border); padding-bottom: 20px; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;
     }
-
-    .job-title-group h3 {
-        margin: 0 0 10px 0;
-        color: var(--text-primary);
-        font-size: 1.6rem;
-        font-family: var(--font-editorial);
-    }
-
-    .job-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        font-weight: 500;
-        align-items: center;
-    }
-
-    .meta-tag {
-        background-color: var(--mint-light);
-        color: #225C3B;
-        padding: 4px 10px;
-        border-radius: 6px;
-        border: 1px solid var(--scroll-jade);
-    }
-
-    .meta-tag.hourly {
-        background-color: var(--brand-orange-subtle);
-        color: var(--brand-orange-hover);
-        border-color: rgba(255, 87, 34, 0.3);
-    }
+    .job-title-group h3 { margin: 0 0 10px 0; color: var(--text-primary); font-size: 1.5rem; font-family: var(--font-editorial); }
+    .job-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.9rem; color: var(--text-muted); font-weight: 500; align-items: center; }
+    
+    .meta-tag { background-color: var(--mint-light); color: #225C3B; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--scroll-jade); }
+    .meta-tag.hourly { background-color: var(--brand-orange-subtle); color: var(--brand-orange-hover); border-color: rgba(255, 87, 34, 0.3); }
 
     .btn-apply {
-        background-color: var(--brand-orange);
-        color: #ffffff;
-        text-decoration: none;
-        padding: 12px 24px;
-        border-radius: 6px;
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition: var(--transition-smooth);
-        box-shadow: 0 4px 12px var(--brand-orange-glow);
-        white-space: nowrap;
+        background-color: var(--brand-orange); color: #ffffff; text-decoration: none;
+        padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 0.95rem;
+        transition: var(--transition-smooth); box-shadow: 0 4px 12px var(--brand-orange-glow); white-space: nowrap;
     }
+    .btn-apply:hover { background-color: var(--brand-orange-hover); transform: translateY(-2px); }
 
-    .btn-apply:hover {
-        background-color: var(--brand-orange-hover);
-        transform: translateY(-2px);
-    }
-
-    .job-body h4 {
-        color: var(--text-secondary);
-        margin: 20px 0 10px 0;
-        font-size: 1.1rem;
-    }
-
-    .job-body ul {
-        margin: 0 0 20px 0;
-        padding-left: 20px;
-        font-size: 1rem;
-        color: var(--text-main);
-        line-height: 1.7;
-    }
-
-    .job-body li {
-        margin-bottom: 8px;
-    }
-
+    .job-body h4 { color: var(--text-secondary); margin: 20px 0 10px 0; font-size: 1.1rem; }
+    .job-body ul { margin: 0 0 20px 0; padding-left: 20px; font-size: 1rem; color: var(--text-main); line-height: 1.7; }
+    .job-body li { margin-bottom: 8px; }
     .highlight-req {
-        background-color: var(--brand-orange-subtle);
-        border-left: 3px solid var(--brand-orange);
-        padding: 12px 15px;
-        margin-bottom: 12px;
-        border-radius: 0 6px 6px 0;
-        color: var(--brand-orange-hover);
+        background-color: var(--brand-orange-subtle); border-left: 3px solid var(--brand-orange);
+        padding: 12px 15px; margin-bottom: 12px; border-radius: 0 6px 6px 0; color: var(--brand-orange-hover);
     }
 
-    /* --- Application Form Section --- */
-    .form-section {
-        padding: 80px 0;
-    }
-
-    .form-box {
-        max-width: 700px;
-        margin: 0 auto;
-        background: #FFFFFF;
-        padding: 45px;
-        border-radius: 12px;
-        border: 1px solid rgba(114, 208, 155, 0.3);
-        box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
-    }
-
-    .form-group {
-        margin-bottom: 25px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        font-size: 0.95rem;
-        color: var(--text-primary);
-    }
-
+    /* --- Application Form --- */
+    .form-wrapper { max-width: 700px; margin: 0 auto; }
+    .form-group { margin-bottom: 20px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; color: var(--text-primary); }
     .form-group input, .form-group select {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #cbd5e0;
-        border-radius: 6px;
-        font-size: 1rem;
-        font-family: var(--font-interface);
-        box-sizing: border-box;
-        transition: var(--transition-smooth);
-        background-color: #fafafa;
+        width: 100%; padding: 12px 15px; border: 1px solid #cbd5e0; border-radius: 6px;
+        font-size: 1rem; font-family: var(--font-interface); box-sizing: border-box;
+        transition: var(--transition-smooth); background-color: #fafafa;
     }
-
     .form-group input:focus, .form-group select:focus {
-        outline: none;
-        border-color: var(--scroll-jade);
-        box-shadow: 0 0 0 3px var(--mint-shadow-tint);
-        background-color: #ffffff;
+        outline: none; border-color: var(--scroll-jade);
+        box-shadow: 0 0 0 3px var(--mint-shadow-tint); background-color: #ffffff;
     }
-
     .btn-submit {
-        width: 100%;
-        background-color: var(--text-primary);
-        color: white;
-        border: none;
-        padding: 15px;
-        font-size: 1.05rem;
-        font-weight: 600;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: var(--transition-smooth);
-        margin-top: 10px;
+        width: 100%; background-color: var(--text-primary); color: white; border: none;
+        padding: 15px; font-size: 1.05rem; font-weight: 600; border-radius: 6px; cursor: pointer;
+        transition: var(--transition-smooth); margin-top: 10px;
     }
-
-    .btn-submit:hover {
-        background-color: var(--brand-orange);
-        box-shadow: 0 4px 15px var(--brand-orange-glow);
-    }
+    .btn-submit:hover { background-color: var(--brand-orange); box-shadow: 0 4px 15px var(--brand-orange-glow); }
 
     .talent-pool-note {
-        text-align: center;
-        max-width: 700px;
-        margin: 50px auto 0 auto;
-        padding: 30px;
-        border-top: 1px dashed rgba(114, 208, 155, 0.5);
-        font-size: 1rem;
-        color: var(--text-main);
-        line-height: 1.6;
+        text-align: center; max-width: 700px; margin: 50px auto 0 auto; padding: 30px 0 0 0;
+        border-top: 1px dashed rgba(114, 208, 155, 0.5); font-size: 1rem; color: var(--text-main); line-height: 1.6;
     }
-
-    .email-link {
-        color: var(--brand-orange);
-        font-weight: 700;
-        text-decoration: none;
-        transition: var(--transition-smooth);
-    }
-
-    .email-link:hover {
-        color: var(--brand-orange-hover);
-        text-decoration: underline;
-    }
+    .email-link { color: var(--brand-orange); font-weight: 700; text-decoration: none; transition: var(--transition-smooth); }
+    .email-link:hover { color: var(--brand-orange-hover); text-decoration: underline; }
 
     /* ==========================================================================
        SITE FOOTER CANVAS
        ========================================================================== */
     footer {
-        background-color: #142219;
-        color: #CFEAD6;
-        padding: 50px 40px 30px 40px;
-        border-top: 4px solid var(--scroll-jade);
-        margin-top: auto;
+        background-color: #142219; color: #CFEAD6; padding: 50px 40px 30px 40px;
+        border-top: 4px solid var(--scroll-jade); margin-top: auto;
     }
-
-    .footer-grid {
-        max-width: var(--max-width);
-        margin: 0 auto 40px auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 40px;
-    }
-
-    .footer-col h4 {
-        color: #FFFFFF;
-        font-size: 18px;
-        margin-bottom: 20px;
-        position: relative;
-        padding-bottom: 8px;
-        letter-spacing: 0.5px;
-    }
-
-    .footer-col h4::after {
-        content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background-color: var(--brand-orange);
-    }
-
+    .footer-grid { max-width: var(--max-width); margin: 0 auto 40px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
+    .footer-col h4 { color: #FFFFFF; font-size: 18px; margin-bottom: 20px; position: relative; padding-bottom: 8px; letter-spacing: 0.5px; }
+    .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background-color: var(--brand-orange); }
     .footer-col p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; opacity: 0.85; }
     .links-listing { list-style: none; padding: 0; margin: 0; }
     .links-listing li { margin-bottom: 10px; }
@@ -642,6 +414,15 @@
        RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS (MOBILE POLISH)
        ========================================================================== */
     @media (max-width: 900px) {
+        /* Fixes Background Layering for Mobile */
+        body { background-image: none !important; }
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -10; background-image: url('aboutbg.png') !important;
+            background-position: center top !important; background-repeat: repeat !important;
+            background-size: cover !important; background-attachment: fixed !important;
+        }
+
         /* Header Layout & Grouping */
         .header-container { padding: 10px 15px; position: relative; }
         .logo-group { max-width: calc(100% - 80px); }
@@ -653,14 +434,8 @@
         .lang-dropdown-btn svg { width: 18px; height: 18px; }
 
         nav.nav-menu {
-            order: 3;
-            display: none; 
-            width: 100%;
-            flex-direction: column;
-            gap: 12px;
-            padding: 20px 0 10px 0;
-            border-top: 1px solid rgba(88, 185, 131, 0.2);
-            margin-top: 12px;
+            order: 3; display: none; width: 100%; flex-direction: column; gap: 12px;
+            padding: 20px 0 10px 0; border-top: 1px solid rgba(88, 185, 131, 0.2); margin-top: 12px;
         }
         nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
         nav a { width: 100%; padding: 12px; font-size: 16px; justify-content: center; border-radius: 8px;}
@@ -679,22 +454,14 @@
         }
 
         /* RECLAIMING SCREEN SPACE (Fixing narrow text boxes) */
-        .container { padding: 0 15px; }
+        .main-container { padding: 30px 12px 60px 12px; gap: 20px; }
+        .joinus-card { padding: 30px 15px; border-radius: 12px; }
         
-        .hero-section { padding: 50px 0; }
-        .hero-section h1 { font-size: 2.2rem; }
-        
-        .why-us-section, .openings-section, .form-section { padding: 50px 0; }
-        .section-title { font-size: 1.6rem; margin-bottom: 30px; }
-        
-        .benefit-card { padding: 25px 20px; }
-        
-        .job-card { padding: 25px 15px; }
+        .section-title { font-size: 1.8rem; margin-bottom: 30px; }
+        .job-card { padding: 20px 12px; }
         .job-header { flex-direction: column; align-items: stretch; gap: 20px; }
         .btn-apply { text-align: center; width: 100%; box-sizing: border-box; }
         .job-title-group h3 { font-size: 1.3rem; }
-        
-        .form-box { padding: 25px 15px; border-radius: 8px; }
     }
     </style>
 </head>
@@ -778,330 +545,323 @@
     </div>
 </header>
 
-<main>
-    <section class="hero-section">
-        <div class="container">
-            <h1>
-                <span class="lang-el en-content">Unity Mandarin Enrichment Center</span>
-                <span class="lang-el zh-hans-content" style="display: none;">同心中文教育中心</span>
-                <span class="lang-el zh-hant-content" style="display: none;">同心中文教育中心</span>
-            </h1>
-            <div class="hero-slogan">
-                <span class="lang-el en-content">Learn Mandarin, Connect Cultures</span>
-                <span class="lang-el zh-hans-content" style="display: none;">同心共学，爱上中文</span>
-                <span class="lang-el zh-hant-content" style="display: none;">同心共學，愛上中文</span>
-            </div>
-            <p class="hero-subtitle">
-                <span class="lang-el en-content">Join the UMC family and inspire a lifelong love for Mandarin and cultural connection in the hearts of children.</span>
-                <span class="lang-el zh-hans-content" style="display: none;">加入同心大家庭，点燃孩子们心中对中文与多元文化探索的热情。</span>
-                <span class="lang-el zh-hant-content" style="display: none;">加入同心大家庭，點燃孩子們心中對中文與多元文化探索的熱情。</span>
-            </p>
+<main class="main-container">
+
+    <section class="joinus-card" style="text-align: center;">
+        <h1 class="section-title" style="margin-bottom: 15px;">
+            <span class="lang-el en-content">Unity Mandarin Enrichment Center</span>
+            <span class="lang-el zh-hans-content" style="display: none;">同心中文教育中心</span>
+            <span class="lang-el zh-hant-content" style="display: none;">同心中文教育中心</span>
+        </h1>
+        <div class="hero-slogan">
+            <span class="lang-el en-content">Learn Mandarin, Connect Cultures</span>
+            <span class="lang-el zh-hans-content" style="display: none;">同心共学，爱上中文</span>
+            <span class="lang-el zh-hant-content" style="display: none;">同心共學，愛上中文</span>
         </div>
+        <p class="hero-subtitle">
+            <span class="lang-el en-content">Join the UMC family and inspire a lifelong love for Mandarin and cultural connection in the hearts of children.</span>
+            <span class="lang-el zh-hans-content" style="display: none;">加入同心大家庭，点燃孩子们心中对中文与多元文化探索的热情。</span>
+            <span class="lang-el zh-hant-content" style="display: none;">加入同心大家庭，點燃孩子們心中對中文與多元文化探索的熱情。</span>
+        </p>
     </section>
 
-    <section class="why-us-section">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="lang-el en-content">Why Join UMC</span>
-                <span class="lang-el zh-hans-content" style="display: none;">为什么选择同心</span>
-                <span class="lang-el zh-hant-content" style="display: none;">為什麼選擇同心</span>
-            </h2>
-            <div class="grid-benefits">
-                <div class="benefit-card">
-                    <h3>
-                        <span class="lang-el en-content">Professional Growth</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">专业成长</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">專業成長</span>
-                    </h3>
-                    <p>
-                        <span class="lang-el en-content">Systematic training and research support in Dual-Language Immersion methodology to build your career.</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">系统化的美国本土沉浸式中文教学法（Dual-Language Immersion）培训与教研支持。</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">系統化的美國本土沉浸式中文教學法（Dual-Language Immersion）培訓與教研支持。</span>
-                    </p>
-                </div>
-                <div class="benefit-card">
-                    <h3>
-                        <span class="lang-el en-content">Inclusive Culture</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">温馨氛围</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">溫馨氛圍</span>
-                    </h3>
-                    <p>
-                        <span class="lang-el en-content">A vibrant, innovative, and warm team environment that deeply respects diverse cultural backgrounds.</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">一个充满活力、支持创新、像家一样温暖且尊重多元文化背景的团队。</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">一個充滿活力、支持創新、像家一樣溫暖且尊重多元文化背景的團隊。</span>
-                    </p>
-                </div>
-                <div class="benefit-card">
-                    <h3>
-                        <span class="lang-el en-content">Official Certification</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">官方认证</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">官方認證</span>
-                    </h3>
-                    <p>
-                        <span class="lang-el en-content">Providing officially recognized volunteer hours and high-quality recommendation letters for high school and college students.</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">为加入我们的高中生与大学生志愿者提供官方认可的社会实践义工小时证明及高质量推荐信。</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">為加入我們的高中生與大學生志愿者提供官方認可的社會實踐義工小時證明及高品質推薦信。</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="openings-section" id="jobs-list">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="lang-el en-content">Current Openings</span>
-                <span class="lang-el zh-hans-content" style="display: none;">开放机会</span>
-                <span class="lang-el zh-hant-content" style="display: none;">開放機會</span>
-            </h2>
-
-            <div class="job-card">
-                <div class="job-header">
-                    <div class="job-title-group">
-                        <h3>
-                            <span class="lang-el en-content">After-School Mandarin Teacher</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">校内课后中文主讲老师</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">校內課後中文主講老師</span>
-                        </h3>
-                        <div class="job-meta">
-                            <span class="meta-tag">
-                                <span class="lang-el en-content">Part-Time</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">兼职</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">兼職</span>
-                            </span>
-                            <span class="meta-tag hourly">
-                                <span class="lang-el en-content">Hourly Rate</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">按时薪酬</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">按時薪酬</span>
-                            </span>
-                            <span>📍 San Francisco (SFUSD 校区内)</span>
-                        </div>
-                    </div>
-                    <a href="#apply-form" class="btn-apply">
-                        <span class="lang-el en-content">Apply Now</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">立即申请</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">立即申請</span>
-                    </a>
-                </div>
-                <div class="job-body">
-                    <h4>
-                        <span class="lang-el en-content">Core Responsibilities:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">核心职责：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">核心职责：</span>
-                    </h4>
-                    <ul>
-                        <li>
-                            <span class="lang-el en-content">Lead daily instruction, lesson plan implementation, and classroom management for K-5 after-school immersion programs.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">负责 K-5 年级课后沉浸式中文课程的日常教学、教案实施与班级管理。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">負責 K-5 年級課後沉浸式中文課程的日常教學、教案實施與班級管理。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Design engaging language games and cultural activities (e.g., Lunar New Year, Mid-Autumn Festival).</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">设计寓教于乐的语言游戏与文化拓展活动（如农历新年、中秋节等传统项目）。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">設計寓教於樂的語言遊戲與文化拓展活動（如農曆新年、中秋節等傳統項目）。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Maintain excellent daily communication with school principals, homeroom teachers, and parents.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">维护与合作学校校长、公立学校班主任以及学生家长的日常良好沟通。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">維護與合作學校校長、公立學校班主任以及學生家長的日常良好溝通。</span>
-                        </li>
-                    </ul>
-                    <h4>
-                        <span class="lang-el en-content">Requirements:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">任职要求：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">任職要求：</span>
-                    </h4>
-                    <ul>
-                        <li class="highlight-req"><strong>
-                            <span class="lang-el en-content">Native-level Mandarin proficiency with clear pronunciation. PSC certification highly preferred.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">具备母语级的标准普通话听说读写能力，发音标准，无明显地方口音；持有“普通话水平测试（PSC）”等级证书者更佳。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">具備母語級的標準普通話聽說讀寫能力，發音標準，無明顯地方口音；持有“普通話水平測試（PSC）”等級證書者更佳。</span>
-                        </strong></li>
-                        <li>
-                            <span class="lang-el en-content">Fluent English communication skills to ensure smooth coordination with school staff and parents.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">具备流利的英语沟通能力，以确保与学区校园及家长的顺畅对接。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">具備流利的英語溝通能力，以確保與學區校園及家長的順暢對接。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Passionate about early childhood education, energetic, patient, and skilled in classroom management.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">热爱幼儿/小学教育，充满活力，对孩子有耐心，并具备良好的班级秩序管理能力。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">熱愛幼兒/小學教育，充滿活力，對孩子有耐心，並具備良好的班級秩序管理能力。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Prior experience in US local after-school programs or immersion schools is a plus.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">有美国本地课后托管（After-School）或沉浸式语言学校教学经验者优先。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">有美國本地課後托管（After-School）或沉浸式語言學校教學經驗者優先。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Must pass required background checks, including Livescan fingerprinting and TB clearance.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">须通过法定的背景调查，包括 Livescan 指纹检查及肺结核（TB）体检证明。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">須通過法定的背景調查，包括 Livescan 指紋檢查及肺結核（TB）體檢證明。</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="job-card">
-                <div class="job-header">
-                    <div class="job-title-group">
-                        <h3>
-                            <span class="lang-el en-content">After-School Teaching Assistant</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">课后托育助教</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">課後托育助教</span>
-                        </h3>
-                        <div class="job-meta">
-                            <span class="meta-tag">
-                                <span class="lang-el en-content">Part-Time</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">兼职</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">兼職</span>
-                            </span>
-                            <span class="meta-tag hourly">
-                                <span class="lang-el en-content">Hourly Rate</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">按时薪酬</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">按時薪酬</span>
-                            </span>
-                            <span>📍 San Francisco (SFUSD 校区内)</span>
-                        </div>
-                    </div>
-                    <a href="#apply-form" class="btn-apply">
-                        <span class="lang-el en-content">Apply Now</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">立即申请</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">立即申請</span>
-                    </a>
-                </div>
-                <div class="job-body">
-                    <h4>
-                        <span class="lang-el en-content">Core Responsibilities:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">核心职责：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">核心职责：</span>
-                    </h4>
-                    <ul>
-                        <li>
-                            <span class="lang-el en-content">Assist the lead teacher with daily campus pickup, ensuring student safety during the transition.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">协助主讲老师进行日常的学生接托（Campus Pickup），确保 student 从日校教室到课后班的安全过渡。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">協助主講老師進行日常的學生接托（Campus Pickup），確保 student 從日校教室到課後班的安全過渡。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Guide students with regular English/Math homework and help distribute daily healthy snacks.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">辅导学生的常规英文/数学家庭作业，协助分发每日健康点心。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">輔導學生的常規英文/數學家庭作業，協助分發每日健康點心。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Collaborate in the immersion environment to maintain classroom order and campus safety.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">在中文沉浸式环境中配合主讲老师，协助维护课堂秩序及学生在校安全。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">在中文沉浸式環境中配合主講老師，協助維護課堂秩序及學生在校安全。</span>
-                        </li>
-                    </ul>
-                    <h4>
-                        <span class="lang-el en-content">Requirements:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">任职要求：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">任職要求：</span>
-                    </h4>
-                    <ul>
-                        <li>
-                            <span class="lang-el en-content">Good bilingual communication skills (English & Mandarin); able to understand basic Mandarin.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">具备良好的中英双语沟通能力，能听懂并进行基础的普通话交流。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">具備良好的中英雙語溝通能力，能聽懂並進行基礎的普通話交流。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Responsible, punctual, enjoys interacting with children, and strong team player.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">有责任心、准时守时、乐于与儿童互动，具备良好的团队协作精神。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">有責任心、準時守時、樂於與兒童互動，具備良好的團隊協作精神。</span>
-                        </li>
-                        <li>
-                            <span class="lang-el en-content">Must pass Livescan fingerprint background check and TB clearance.</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">须通过 Livescan 指纹背景调查及肺结核（TB）体检。</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">須通過 Livescan 指紋背景調查及肺結核（TB）體檢。</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="form-section" id="apply-form">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="lang-el en-content">Quick Application</span>
-                <span class="lang-el zh-hans-content" style="display: none;">快捷申请</span>
-                <span class="lang-el zh-hant-content" style="display: none;">快捷申請</span>
-            </h2>
-            
-            <div class="form-box">
-                <form action="https://formspree.io/f/xojbbrnb" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="name">
-                            <span class="lang-el en-content">Full Name *</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">姓名 *</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">姓名 *</span>
-                        </label>
-                        <input type="text" id="name" name="name" required placeholder="Jane Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="position">
-                            <span class="lang-el en-content">Position Applying For *</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">申请岗位 *</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">申請崗位 *</span>
-                        </label>
-                        <select id="position" name="position" required>
-                            <option value="">-- Please Select --</option>
-                            <option value="teacher">After-School Mandarin Teacher</option>
-                            <option value="assistant">After-School Teaching Assistant</option>
-                            <option value="volunteer">Cultural & Community Volunteer</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">
-                            <span class="lang-el en-content">Email *</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">电子邮箱 *</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">電子郵箱 *</span>
-                        </label>
-                        <input type="email" id="email" name="email" required placeholder="yourname@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">
-                            <span class="lang-el en-content">Phone *</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">联系电话 *</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">聯繫電話 *</span>
-                        </label>
-                        <input type="tel" id="phone" name="phone" required placeholder="(xxx) xxx-xxxx">
-                    </div>
-                    <div class="form-group">
-                        <label for="salary">
-                            <span class="lang-el en-content">Expected Hourly Rate ($/hour) *</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">期望时薪 ($/hour) *</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">期望時薪 ($/hour) *</span>
-                        </label>
-                        <input type="number" id="salary" name="salary" required min="0" step="0.1" placeholder="e.g. 25">
-                    </div>
-                    <div class="form-group">
-                        <label for="resume">
-                            <span class="lang-el en-content">Upload Resume (PDF/Word) *</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">上传简历 (PDF/Word) *</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">上傳簡歷 (PDF/Word) *</span>
-                        </label>
-                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
-                    </div>
-                    <button type="submit" class="btn-submit">
-                        <span class="lang-el en-content">Submit Application</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">提交申请</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">提交申請</span>
-                    </button>
-                </form>
-            </div>
-
-            <div class="talent-pool-note">
-                <p><strong>
-                    <span class="lang-el en-content">Can't find a perfect match right now? We'd still love to hear from you!</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">目前没有找到完全匹配的职位？没关系！</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">目前沒有找到完全匹配的職位？沒關係！</span>
-                </strong></p>
+    <section class="joinus-card">
+        <h2 class="section-title">
+            <span class="lang-el en-content">Why Join UMC</span>
+            <span class="lang-el zh-hans-content" style="display: none;">为什么选择同心</span>
+            <span class="lang-el zh-hant-content" style="display: none;">為什麼選擇同心</span>
+        </h2>
+        <div class="grid-benefits">
+            <div class="benefit-item">
+                <h3>
+                    <span class="lang-el en-content">Professional Growth</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">专业成长</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">專業成長</span>
+                </h3>
                 <p>
-                    <span class="lang-el en-content">Send your resume and a brief introduction to our team at <a href="mailto:hr@unitymandarin.org" class="email-link">hr@unitymandarin.org</a>. We will keep your profile in our talent pool for future opportunities.</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">欢迎将您的简历及简短自荐发送至我们的官方邮箱：<a href="mailto:hr@unitymandarin.org" class="email-link">hr@unitymandarin.org</a>。我们将您的信息纳入同心中文（UMC）的精英人才储备库，一旦有新位置将优先与您联系。</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">歡迎將您的簡歷及簡短自薦發送至我們的官方郵箱：<a href="mailto:hr@unitymandarin.org" class="email-link">hr@unitymandarin.org</a>。我們將您的信息納入同心中文（UMC）的精英人才儲備庫，一旦有新位置將優先與您聯繫。</span>
+                    <span class="lang-el en-content">Systematic training and research support in Dual-Language Immersion methodology to build your career.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">系统化的美国本土沉浸式中文教学法（Dual-Language Immersion）培训与教研支持。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">系統化的美國本土沉浸式中文教學法（Dual-Language Immersion）培訓與教研支持。</span>
                 </p>
             </div>
+            <div class="benefit-item">
+                <h3>
+                    <span class="lang-el en-content">Inclusive Culture</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">温馨氛围</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">溫馨氛圍</span>
+                </h3>
+                <p>
+                    <span class="lang-el en-content">A vibrant, innovative, and warm team environment that deeply respects diverse cultural backgrounds.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">一个充满活力、支持创新、像家一样温暖且尊重多元文化背景的团队。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">一個充滿活力、支持創新、像家一樣溫暖且尊重多元文化背景的團隊。</span>
+                </p>
+            </div>
+            <div class="benefit-item">
+                <h3>
+                    <span class="lang-el en-content">Official Certification</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">官方认证</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">官方認證</span>
+                </h3>
+                <p>
+                    <span class="lang-el en-content">Providing officially recognized volunteer hours and high-quality recommendation letters for high school and college students.</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">为加入我们的高中生与大学生志愿者提供官方认可的社会实践义工小时证明及高质量推荐信。</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">為加入我們的高中生與大學生志愿者提供官方認可的社會實踐義工小時證明及高品質推薦信。</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="joinus-card" id="jobs-list">
+        <h2 class="section-title">
+            <span class="lang-el en-content">Current Openings</span>
+            <span class="lang-el zh-hans-content" style="display: none;">开放机会</span>
+            <span class="lang-el zh-hant-content" style="display: none;">開放機會</span>
+        </h2>
+
+        <div class="job-card">
+            <div class="job-header">
+                <div class="job-title-group">
+                    <h3>
+                        <span class="lang-el en-content">After-School Mandarin Teacher</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">校内课后中文主讲老师</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">校內課後中文主講老師</span>
+                    </h3>
+                    <div class="job-meta">
+                        <span class="meta-tag">
+                            <span class="lang-el en-content">Part-Time</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">兼职</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">兼職</span>
+                        </span>
+                        <span class="meta-tag hourly">
+                            <span class="lang-el en-content">Hourly Rate</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">按时薪酬</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">按時薪酬</span>
+                        </span>
+                        <span>📍 San Francisco (SFUSD 校区内)</span>
+                    </div>
+                </div>
+                <a href="#apply-form" class="btn-apply">
+                    <span class="lang-el en-content">Apply Now</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">立即申请</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">立即申請</span>
+                </a>
+            </div>
+            <div class="job-body">
+                <h4>
+                    <span class="lang-el en-content">Core Responsibilities:</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">核心职责：</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">核心职责：</span>
+                </h4>
+                <ul>
+                    <li>
+                        <span class="lang-el en-content">Lead daily instruction, lesson plan implementation, and classroom management for K-5 after-school immersion programs.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">负责 K-5 年级课后沉浸式中文课程的日常教学、教案实施与班级管理。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">負責 K-5 年級課後沉浸式中文課程的日常教學、教案實施與班級管理。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Design engaging language games and cultural activities (e.g., Lunar New Year, Mid-Autumn Festival).</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">设计寓教于乐的语言游戏与文化拓展活动（如农历新年、中秋节等传统项目）。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">設計寓教於樂的語言遊戲與文化拓展活動（如農曆新年、中秋節等傳統項目）。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Maintain excellent daily communication with school principals, homeroom teachers, and parents.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">维护与合作学校校长、公立学校班主任以及学生家长的日常良好沟通。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">維護與合作學校校長、公立學校班主任以及學生家長的日常良好溝通。</span>
+                    </li>
+                </ul>
+                <h4>
+                    <span class="lang-el en-content">Requirements:</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">任职要求：</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">任職要求：</span>
+                </h4>
+                <ul>
+                    <li class="highlight-req"><strong>
+                        <span class="lang-el en-content">Native-level Mandarin proficiency with clear pronunciation. PSC certification highly preferred.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">具备母语级的标准普通话听说读写能力，发音标准，无明显地方口音；持有“普通话水平测试（PSC）”等级证书者更佳。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">具備母語級的標準普通話聽說讀寫能力，發音標準，無明顯地方口音；持有“普通話水平測試（PSC）”等級證書者更佳。</span>
+                    </strong></li>
+                    <li>
+                        <span class="lang-el en-content">Fluent English communication skills to ensure smooth coordination with school staff and parents.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">具备流利的英语沟通能力，以确保与学区校园及家长的顺畅对接。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">具備流利的英語溝通能力，以確保與學區校園及家長的順暢對接。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Passionate about early childhood education, energetic, patient, and skilled in classroom management.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">热爱幼儿/小学教育，充满活力，对孩子有耐心，并具备良好的班级秩序管理能力。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">熱愛幼兒/小學教育，充滿活力，對孩子有耐心，並具備良好的班級秩序管理能力。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Prior experience in US local after-school programs or immersion schools is a plus.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">有美国本地课后托管（After-School）或沉浸式语言学校教学经验者优先。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">有美國本地課後托管（After-School）或沉浸式語言學校教學經驗者優先。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Must pass required background checks, including Livescan fingerprinting and TB clearance.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">须通过法定的背景调查，包括 Livescan 指纹检查及肺结核（TB）体检证明。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">須通過法定的背景調查，包括 Livescan 指紋檢查及肺結核（TB）體檢證明。</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <div class="job-title-group">
+                    <h3>
+                        <span class="lang-el en-content">After-School Teaching Assistant</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">课后托育助教</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">課後托育助教</span>
+                    </h3>
+                    <div class="job-meta">
+                        <span class="meta-tag">
+                            <span class="lang-el en-content">Part-Time</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">兼职</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">兼職</span>
+                        </span>
+                        <span class="meta-tag hourly">
+                            <span class="lang-el en-content">Hourly Rate</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">按时薪酬</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">按時薪酬</span>
+                        </span>
+                        <span>📍 San Francisco (SFUSD 校区内)</span>
+                    </div>
+                </div>
+                <a href="#apply-form" class="btn-apply">
+                    <span class="lang-el en-content">Apply Now</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">立即申请</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">立即申請</span>
+                </a>
+            </div>
+            <div class="job-body">
+                <h4>
+                    <span class="lang-el en-content">Core Responsibilities:</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">核心职责：</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">核心职责：</span>
+                </h4>
+                <ul>
+                    <li>
+                        <span class="lang-el en-content">Assist the lead teacher with daily campus pickup, ensuring student safety during the transition.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">协助主讲老师进行日常的学生接托（Campus Pickup），确保 student 从日校教室到课后班的安全过渡。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">協助主講老師進行日常的學生接托（Campus Pickup），確保 student 從日校教室到課後班的安全過渡。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Guide students with regular English/Math homework and help distribute daily healthy snacks.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">辅导学生的常规英文/数学家庭作业，协助分发每日健康点心。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">輔導學生的常規英文/數學家庭作業，協助分發每日健康點心。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Collaborate in the immersion environment to maintain classroom order and campus safety.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">在中文沉浸式环境中配合主讲老师，协助维护课堂秩序及学生在校安全。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">在中文沉浸式環境中配合主講老師，協助維護課堂秩序及學生在校安全。</span>
+                    </li>
+                </ul>
+                <h4>
+                    <span class="lang-el en-content">Requirements:</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">任职要求：</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">任職要求：</span>
+                </h4>
+                <ul>
+                    <li>
+                        <span class="lang-el en-content">Good bilingual communication skills (English & Mandarin); able to understand basic Mandarin.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">具备良好的中英双语沟通能力，能听懂并进行基础的普通话交流。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">具備良好的中英雙語溝通能力，能聽懂並進行基礎的普通話交流。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Responsible, punctual, enjoys interacting with children, and strong team player.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">有责任心、准时守时、乐于与儿童互动，具备良好的团队协作精神。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">有責任心、準時守時、樂於與兒童互動，具備良好的團隊協作精神。</span>
+                    </li>
+                    <li>
+                        <span class="lang-el en-content">Must pass Livescan fingerprint background check and TB clearance.</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">须通过 Livescan 指纹背景调查及肺结核（TB）体检。</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">須通過 Livescan 指紋背景調查及肺結核（TB）體檢。</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="joinus-card" id="apply-form">
+        <h2 class="section-title">
+            <span class="lang-el en-content">Quick Application</span>
+            <span class="lang-el zh-hans-content" style="display: none;">快捷申请</span>
+            <span class="lang-el zh-hant-content" style="display: none;">快捷申請</span>
+        </h2>
+        
+        <div class="form-wrapper">
+            <form action="https://formspree.io/f/xojbbrnb" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">
+                        <span class="lang-el en-content">Full Name *</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">姓名 *</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">姓名 *</span>
+                    </label>
+                    <input type="text" id="name" name="name" required placeholder="Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label for="position">
+                        <span class="lang-el en-content">Position Applying For *</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">申请岗位 *</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">申請崗位 *</span>
+                    </label>
+                    <select id="position" name="position" required>
+                        <option value="">-- Please Select --</option>
+                        <option value="teacher">After-School Mandarin Teacher</option>
+                        <option value="assistant">After-School Teaching Assistant</option>
+                        <option value="volunteer">Cultural & Community Volunteer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">
+                        <span class="lang-el en-content">Email *</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">电子邮箱 *</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">電子郵箱 *</span>
+                    </label>
+                    <input type="email" id="email" name="email" required placeholder="yourname@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">
+                        <span class="lang-el en-content">Phone *</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">联系电话 *</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">聯繫電話 *</span>
+                    </label>
+                    <input type="tel" id="phone" name="phone" required placeholder="(xxx) xxx-xxxx">
+                </div>
+                <div class="form-group">
+                    <label for="salary">
+                        <span class="lang-el en-content">Expected Hourly Rate ($/hour) *</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">期望时薪 ($/hour) *</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">期望時薪 ($/hour) *</span>
+                    </label>
+                    <input type="number" id="salary" name="salary" required min="0" step="0.1" placeholder="e.g. 25">
+                </div>
+                <div class="form-group">
+                    <label for="resume">
+                        <span class="lang-el en-content">Upload Resume (PDF/Word) *</span>
+                        <span class="lang-el zh-hans-content" style="display: none;">上传简历 (PDF/Word) *</span>
+                        <span class="lang-el zh-hant-content" style="display: none;">上傳簡歷 (PDF/Word) *</span>
+                    </label>
+                    <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <span class="lang-el en-content">Submit Application</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">提交申请</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">提交申請</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="talent-pool-note">
+            <p><strong>
+                <span class="lang-el en-content">Can't find a perfect match right now? We'd still love to hear from you!</span>
+                <span class="lang-el zh-hans-content" style="display: none;">目前没有找到完全匹配的职位？没关系！</span>
+                <span class="lang-el zh-hant-content" style="display: none;">目前沒有找到完全匹配的職位？沒關係！</span>
+            </strong></p>
+            <p>
+                <span class="lang-el en-content">Send your resume and a brief introduction to our team at <a href="mailto:hr@unitymandarin.org" class="email-link">hr@unitymandarin.org</a>. We will keep your profile in our talent pool for future opportunities.</span>
+                <span class="lang-el zh-hans-content" style="display: none;">欢迎将您的简历及简短自荐发送至我们的官方邮箱：<a href="mailto:hr@unitymandarin.org" class="email-link">hr@unitymandarin.org</a>。我们将您的信息纳入同心中文的精英人才储备库，有新位置将优先联系您。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">歡迎將您的簡歷及簡短自薦發送至我們的官方郵箱：<a href="mailto:hr@unitymandarin.org" class="email-link">hr@unitymandarin.org</a>。我們將您的信息納入同心中文的精英人才儲備庫，有新位置將優先聯繫您。</span>
+            </p>
         </div>
     </section>
 </main>
