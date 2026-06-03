@@ -91,61 +91,61 @@
             background-attachment: fixed !important;
         }
 
-        /* Inside @media (max-width: 900px) */
-.header-container {
-    padding: 10px 20px;
-}
+        .header-container {
+            padding: 10px 20px;
+        }
 
-.mobile-menu-btn {
-    display: flex; /* Display hamburger button */
-}
+        .mobile-menu-btn {
+            display: flex; /* Display hamburger button */
+        }
 
-nav.nav-menu {
-    display: none; /* Hide default inline menu */
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px 0;
-    border-top: 1px solid rgba(88, 185, 131, 0.2);
-    margin-top: 10px;
-}
+        nav.nav-menu {
+            display: none; /* Hide default inline menu */
+            width: 100%;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(88, 185, 131, 0.2);
+            margin-top: 10px;
+        }
 
-nav.nav-menu.is-open {
-    display: flex;
-    animation: slideDown 0.3s ease forwards;
-}
+        nav.nav-menu.is-open {
+            display: flex;
+            animation: slideDown 0.3s ease forwards;
+        }
 
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-nav a {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-}
+        nav a {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+        }
 
-nav a::after {
-    display: none; /* Disable underline effect on mobile */
-}
+        nav a::after {
+            display: none; /* Disable underline effect on mobile */
+        }
 
-nav a[href*="contact"],
-nav a:last-of-type {
-    margin-left: 0;
-    margin-top: 10px;
-}
+        nav a[href*="contact"],
+        nav a:last-of-type {
+            margin-left: 0;
+            margin-top: 10px;
+        }
 
-/* Close icon X animation shapes */
-.mobile-menu-btn.is-active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-.mobile-menu-btn.is-active span:nth-child(2) {
-    opacity: 0;
-}
-.mobile-menu-btn.is-active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
+        /* Close icon X animation shapes */
+        .mobile-menu-btn.is-active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .mobile-menu-btn.is-active span:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu-btn.is-active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
         .main-container { padding: 40px 20px 60px 20px; }
         .contact-hero-card { padding: 40px 20px !important; }
         .giant-email { font-size: 24px !important; }
@@ -154,34 +154,35 @@ nav a:last-of-type {
     /* ==========================================================================
        ADVANCED NAVIGATION HEADER FRAMEWORK
        ========================================================================== */
-   header {
-    background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
-    min-height: var(--header-height);
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid var(--mint-nav-border);
-    box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
-                0 2px 10px var(--mint-shadow-tint);
-    will-change: transform;
-    transition: var(--transition-smooth);
-}
+    header {
+        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+        min-height: var(--header-height);
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--mint-nav-border);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
+                    0 2px 10px var(--mint-shadow-tint);
+        will-change: transform;
+        transition: var(--transition-smooth);
+    }
 
-.header-container {
-    width: 100%;
-    max-width: var(--max-content-width);
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    flex-wrap: wrap; /* Allows menu to wrap on mobile */
-}
+    .header-container {
+        width: 100%;
+        max-width: var(--max-content-width);
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        flex-wrap: wrap; 
+    }
+
     .logo-group {
         display: flex;
         align-items: center;
@@ -191,138 +192,126 @@ nav a:last-of-type {
         transition: var(--transition-smooth);
         flex-shrink: 0;
     }
-   .logo-group {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    height: var(--header-height);
-    outline: none;
-    transition: var(--transition-smooth);
-}
 
-.logo-group:hover {
-    transform: translateY(-1px);
-}
+    .logo-group:hover {
+        transform: translateY(-1px);
+    }
 
-.logo-group img, 
-header img {
-    height: 44px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-    filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
-    transition: var(--transition-smooth);
-}
+    .logo-group img, 
+    header img {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+        transition: var(--transition-smooth);
+    }
+
     /* ==========================================================================
        INLINE NAVIGATION SYSTEM
        ========================================================================== */
-   nav.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 20px; 
-    height: 100%;
-}
+    nav.nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 20px; 
+        height: 100%;
+    }
 
-nav a {
-    font-family: var(--font-interface);
-    text-decoration: none;
-    color: var(--text-navbar-link);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.15px;
-    padding: 10px 18px;
-    border-radius: 8px;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
-    box-sizing: border-box;
-}
+    nav a {
+        font-family: var(--font-interface);
+        text-decoration: none;
+        color: var(--text-navbar-link);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        padding: 10px 18px;
+        border-radius: 8px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+        box-sizing: border-box;
+    }
 
-nav a:hover {
-    color: var(--brand-orange);
-    background-color: var(--brand-orange-subtle);
-}
+    nav a:hover {
+        color: var(--brand-orange);
+        background-color: var(--brand-orange-subtle);
+    }
 
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 18px;
-    right: 18px;
-    height: 2px;
-    background-color: var(--brand-orange);
-    border-radius: 2px;
-    transform: scaleX(0);
-    transition: var(--transition-smooth);
-}
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 18px;
+        right: 18px;
+        height: 2px;
+        background-color: var(--brand-orange);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transition: var(--transition-smooth);
+    }
 
-nav a:hover::after {
-    transform: scaleX(1);
-}
+    nav a:hover::after {
+        transform: scaleX(1);
+    }
 
-nav a:focus-visible {
-    outline: 2px solid var(--brand-orange);
-    outline-offset: -2px;
-}
+    nav a:focus-visible {
+        outline: 2px solid var(--brand-orange);
+        outline-offset: -2px;
+    }
 
-nav a.active-page {
-    color: #FFFFFF;
-    background-color: var(--brand-orange);
-    box-shadow: 0 4px 12px var(--brand-orange-glow);
-}
+    nav a.active-page {
+        color: #FFFFFF;
+        background-color: var(--brand-orange);
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    }
 
-nav a.active-page::after {
-    display: none; 
-}
-        
-nav a[href*="contact"],
-nav a:last-of-type {
-    background-color: transparent;
-    border: 1.5px solid var(--brand-orange);
-    color: var(--brand-orange);
-    margin-left: 8px;
-    padding: 8px 20px;
-}
+    nav a.active-page::after {
+        display: none; 
+    }
+            
+    nav a[href*="contact"],
+    nav a:last-of-type {
+        background-color: transparent;
+        border: 1.5px solid var(--brand-orange);
+        color: var(--brand-orange);
+        margin-left: 8px;
+        padding: 8px 20px;
+    }
 
-nav a[href*="contact"]:hover,
-nav a:last-of-type:hover {
-    background-color: var(--brand-orange);
-    color: #FFFFFF;
-    box-shadow: 0 4px 14px var(--brand-orange-glow);
-    transform: translateY(-1px);
-}
+    nav a[href*="contact"]:hover,
+    nav a:last-of-type:hover {
+        background-color: var(--brand-orange);
+        color: #FFFFFF;
+        box-shadow: 0 4px 14px var(--brand-orange-glow);
+        transform: translateY(-1px);
+    }
 
-nav a[href*="contact"]:hover::after,
-nav a:last-of-type:hover::after {
-    display: none;
-}
+    nav a[href*="contact"]:hover::after,
+    nav a:last-of-type:hover::after {
+        display: none;
+    }
 
     .mobile-menu-btn {
-    display: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    flex-direction: column;
-    gap: 5px;
-    z-index: 1001;
-}
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 1001;
+    }
 
-.mobile-menu-btn span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--text-primary);
-    border-radius: 2px;
-    transition: var(--transition-smooth);
-}
-        
-    /* Hamburger Morphing Animations */
-    .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .mobile-menu-btn span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: var(--transition-smooth);
+    }
 
     /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
@@ -333,7 +322,7 @@ nav a:last-of-type:hover::after {
         padding: 60px 40px 100px 40px;
         box-sizing: border-box;
     }
-        
+            
     .about-header-container {
         width: 48%;
         max-width: 480px;
@@ -341,7 +330,7 @@ nav a:last-of-type:hover::after {
         padding: 20px;
         box-sizing: border-box;
     }
-        
+            
     .main-container {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -541,35 +530,35 @@ nav a:last-of-type:hover::after {
     }
 
     .lang-switcher-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px 8px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 4px 8px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-.lang-btn {
-    background: transparent;
-    color: #A3B8CC;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
+    .lang-btn {
+        background: transparent;
+        color: #A3B8CC;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
 
-.lang-btn:hover {
-    color: #ffffff;
-}
+    .lang-btn:hover {
+        color: #ffffff;
+    }
     </style>
 </head>
 <body>
 
-     <header>
+<header>
     <div class="header-container">
         <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
             <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
@@ -588,8 +577,7 @@ nav a:last-of-type:hover::after {
             <span></span>
         </button>
         
-     <nav id="main-nav" class="nav-menu">
-         
+        <nav id="main-nav" class="nav-menu">
             <a href="index.html">
                 <span class="lang-el en-content">Home</span>
                 <span class="lang-el zh-hans-content" style="display: none;">首页</span>
@@ -634,6 +622,7 @@ nav a:last-of-type:hover::after {
         </nav>
     </div>
 </header>
+
 <main class="main-container">
     <section class="page-hero">
         <div class="about-header-container">
@@ -641,117 +630,114 @@ nav a:last-of-type:hover::after {
         </div>
     </section>
         
-        <section class="contact-hero-card">
-            <h1>
-                <span class="lang-el en-content">Connect With Our Admissions Desk</span>
-                <span class="lang-el zh-hans-content" style="display: none;">联系我们的招生办公室</span>
-                <span class="lang-el zh-hant-content" style="display: none;">聯繫我們的招生辦公室</span>
-            </h1>
-            <p class="subtitle">
-                <span class="lang-el en-content">Have questions about our SFUSD schedules, placement mapping, or tracking protocols? Reach out directly and our coordination operations will assist you.</span>
-                <span class="lang-el zh-hans-content" style="display: none;">对我们旧金山学区（SFUSD）的课程安排、分班规划或跟进流程有任何疑问？请直接与我们联系，我们的协调团队将竭诚为您提供协助。</span>
-                <span class="lang-el zh-hant-content" style="display: none;">對我們舊金山學區（SFUSD）的課程安排、分班規劃或跟進流程有任何疑問？請直接與我們聯繫，我們的協調團隊將竭誠為您提供協助。</span>
+    <section class="contact-hero-card">
+        <h1>
+            <span class="lang-el en-content">Connect With Our Admissions Desk</span>
+            <span class="lang-el zh-hans-content" style="display: none;">联系我们的招生办公室</span>
+            <span class="lang-el zh-hant-content" style="display: none;">聯繫我們的招生辦公室</span>
+        </h1>
+        <p class="subtitle">
+            <span class="lang-el en-content">Have questions about our SFUSD schedules, placement mapping, or tracking protocols? Reach out directly and our coordination operations will assist you.</span>
+            <span class="lang-el zh-hans-content" style="display: none;">对我们旧金山学区（SFUSD）的课程安排、分班规划或跟进流程有任何疑问？请直接与我们联系，我们的协调团队将竭诚为您提供协助。</span>
+            <span class="lang-el zh-hant-content" style="display: none;">對我們舊金山學區（SFUSD）的課程安排、分班規劃或跟进流程有任何疑問？請直接與我們聯繫，我們的協調團隊將竭誠為您提供協助。</span>
+        </p>
+        
+        <div class="giant-email-container">
+            <a href="mailto:hello@unitymandarin.org" class="giant-email">hello@unitymandarin.org</a>
+            <div class="action-tip">
+                <span class="lang-el en-content">Click the link above to open your email client directly</span>
+                <span class="lang-el zh-hans-content" style="display: none;">点击上方链接可直接打开您的电子邮件客户端</span>
+                <span class="lang-el zh-hant-content" style="display: none;">點擊上方鏈接可直接打開您的電子郵件客戶端</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>
+                <span class="lang-el en-content">Unity Mandarin Enrichment Center</span>
+                <span class="lang-el zh-hans-content" style="display: none;">Unity 中文拓展中心</span>
+                <span class="lang-el zh-hant-content" style="display: none;">Unity 中文拓展中心</span>
+            </h4>
+            <p>
+                <span class="lang-el en-content">Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</span>
+                <span class="lang-el zh-hans-content" style="display: none;">培养年幼学习者对语言学习、文化创造力的终身热爱，以及全球化沟通意识。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">培養年幼學習者對語言學習、文化創造力的終身熱愛，以及全球化溝通意識。</span>
             </p>
-            
-            <div class="giant-email-container">
-                <a href="mailto:hello@unitymandarin.org" class="giant-email">hello@unitymandarin.org</a>
-                <div class="action-tip">
-                    <span class="lang-el en-content">Click the link above to open your email client directly</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">点击上方链接可直接打开您的电子邮件客户端</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">點擊上方鏈接可直接打開您的電子郵件客戶端</span>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-  <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>
-                    <span class="lang-el en-content">Unity Mandarin Enrichment Center</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">Unity 中文拓展中心</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">Unity 中文拓展中心</span>
-                </h4>
-                <p>
-                    <span class="lang-el en-content">Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">培养年幼学习者对语言学习、文化创造力的终身热爱，以及全球化沟通意识。</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">培養年幼學習者對語言學習、文化創造力的終身熱愛，以及全球化溝通意識。</span>
-                </p>
-            </div>
-            <div class="footer-col">
-                <h4>
-                    <span class="lang-el en-content">Quick Access</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">快速通道</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">快速通道</span>
-                </h4>
-                <ul class="links-listing">
-                    <li><a href="index.html">
-                        <span class="lang-el en-content">Home</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">首页</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
-                    </a></li>
-                    <li><a href="about.html">
-                        <span class="lang-el en-content">About Us</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
-                    </a></li>
-                    <li><a href="program.html">
-                        <span class="lang-el en-content">Program</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
-                    </a></li>
-                    <li><a href="why-us.html">
-                        <span class="lang-el en-content">Why Us</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
-                    </a></li>
-                    <li><a href="joinus.html">
-                        <span class="lang-el en-content">Join Us</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
-                    </a></li>
-                    <li><a herf="contact.html">
-                        <span class="lang-el en-content">Contact</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
-                    </a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>
-                    <span class="lang-el en-content">Contact Details</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">联系方式</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">聯繫方式</span>
-                </h4>
-                <ul class="contact-listing">
-                    <li><span class="icon" aria-hidden="true">📞</span><span>(415) 658-2516</span></li>
-                    <li><span class="icon" aria-hidden="true">✉️</span><span>hello@unitymandarin.org</span></li>
-                    <li><span class="icon" aria-hidden="true">📍</span><span>
-                        <span class="lang-el en-content">San Francisco, CA</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">加州 旧金山</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">加州 舊金山</span>
-                    </span></li>
-                </ul>
-            </div>
         </div>
-        <div class="copyright-bar">
-            <span class="lang-el en-content">&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</span>
-            <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版权所有。</span>
-            <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版權所有。</span>
+        <div class="footer-col">
+            <h4>
+                <span class="lang-el en-content">Quick Access</span>
+                <span class="lang-el zh-hans-content" style="display: none;">快速通道</span>
+                <span class="lang-el zh-hant-content" style="display: none;">快速通道</span>
+            </h4>
+            <ul class="links-listing">
+                <li><a href="index.html">
+                    <span class="lang-el en-content">Home</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">首页</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
+                </a></li>
+                <li><a href="about.html">
+                    <span class="lang-el en-content">About Us</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
+                </a></li>
+                <li><a href="program.html">
+                    <span class="lang-el en-content">Program</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
+                </a></li>
+                <li><a href="why-us.html">
+                    <span class="lang-el en-content">Why Us</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
+                </a></li>
+                <li><a href="joinus.html">
+                    <span class="lang-el en-content">Join Us</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
+                </a></li>
+                <li><a href="contact.html">
+                    <span class="lang-el en-content">Contact</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
+                </a></li>
+            </ul>
         </div>
-    </footer>
+        <div class="footer-col">
+            <h4>
+                <span class="lang-el en-content">Contact Details</span>
+                <span class="lang-el zh-hans-content" style="display: none;">联系方式</span>
+                <span class="lang-el zh-hant-content" style="display: none;">聯繫方式</span>
+            </h4>
+            <ul class="contact-listing">
+                <li><span class="icon" aria-hidden="true">📞</span><span>(415) 658-2516</span></li>
+                <li><span class="icon" aria-hidden="true">✉️</span><span>hello@unitymandarin.org</span></li>
+                <li><span class="icon" aria-hidden="true">📍</span><span>
+                    <span class="lang-el en-content">San Francisco, CA</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">加州 旧金山</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">加州 舊金山</span>
+                </span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright-bar">
+        <span class="lang-el en-content">&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</span>
+        <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版权所有。</span>
+        <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版權所有。</span>
+    </div>
+</footer>
 
-   <script>
+<script>
     // 1. Force all expansion panels to close safely when the DOM finishes loading
     document.addEventListener("DOMContentLoaded", function() {
-        // Find every pillar expandable container element
         var panels = document.querySelectorAll('.pillar-expandable-content');
         panels.forEach(function(panel) {
             panel.style.display = "none";
         });
 
-        // Reset all corresponding button text markers and arrows
         var buttons = document.querySelectorAll('.expand-btn');
         buttons.forEach(function(btn) {
             var btnText = btn.querySelector('[id^="btn-text-"]');
@@ -764,14 +750,12 @@ nav a:last-of-type:hover::after {
     // 2. Multi-toggle logic for Team Bio cards (Runs seamlessly on Mobile + Desktop click tracks)
     function togglePillar(id) {
         var cleanId = String(id).trim();
-        
         var details = document.getElementById("pillar-details-" + cleanId);
         var textNode = document.getElementById("btn-text-" + cleanId);
         var arrowNode = document.getElementById("btn-arrow-" + cleanId);
         
         if (!details || !textNode || !arrowNode) return;
         
-        // Check computed visibility state to catch dynamic CSS transitions
         if (details.style.display === "none" || details.style.display === "") {
             details.style.display = "block";
             textNode.textContent = "Hide Extra Bio Details";
@@ -785,17 +769,18 @@ nav a:last-of-type:hover::after {
 
     // 3. Consolidated Unified Mobile Navigation Header Panel Handler
     function toggleMobileMenu() {
-    var nav = document.getElementById("main-nav");
-    var btn = document.querySelector('.mobile-menu-btn');
-    
-    if (nav) {
-        nav.classList.toggle("is-open"); /* Drops menu down / retracts it */
+        var nav = document.getElementById("main-nav");
+        var btn = document.querySelector('.mobile-menu-btn');
+        
+        if (nav) {
+            nav.classList.toggle("is-open"); /* Drops menu down / retracts it */
+        }
+        if (btn) {
+            btn.classList.toggle("is-active"); /* Animates Hamburger to 'X' icon */
+        }
     }
-    if (btn) {
-        btn.classList.toggle("is-active"); /* Animates Hamburger to 'X' icon */
-    }
-}
-   </script>
+</script>
+
 <script>
 function switchLanguage(lang) {
     // 1. Hide all language elements safely
@@ -805,7 +790,6 @@ function switchLanguage(lang) {
     // 2. Dynamically show the selected language elements based on their type
     const selectedElements = document.querySelectorAll('.' + lang + '-content');
     selectedElements.forEach(el => {
-        // If it's inline text or an image inside the logo/links, use inline-block
         if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
             el.style.display = 'inline-block';
         } else {
