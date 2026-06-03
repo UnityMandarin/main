@@ -1209,15 +1209,6 @@ function switchLanguage(lang) {
     localStorage.setItem('umc_preferred_lang', lang);
 }
 
-// Ensure your mobile menu toggle function targets classes cleanly
-function toggleMobileMenu() {
-    const nav = document.getElementById('main-nav');
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    
-    nav.classList.toggle('open');
-    menuBtn.classList.toggle('active');
-}
-
 // Auto-run layout selections when page components mount
 document.addEventListener("DOMContentLoaded", function() {
     const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
