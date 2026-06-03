@@ -6,36 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMC After School Program</title>
     <style>
+    /* ==========================================================================
+       GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
+       ========================================================================== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
-    html {
-        scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     :root {
         --brand-orange: #FF5722;
         --brand-orange-hover: #E64A19;
         --brand-orange-glow: rgba(255, 87, 34, 0.15);
         --brand-orange-subtle: rgba(255, 87, 34, 0.04);
+        
         --mint-nav-core: #D1F7DB;
         --mint-nav-light: #EBFDF2;
         --mint-nav-border: rgba(88, 185, 131, 0.35);
         --mint-shadow-tint: rgba(88, 185, 131, 0.12);
         --mint-light: #E8FBF0;
         --scroll-jade: #72D09B;
+        
         --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
         --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
+        
         --text-primary: #1C3325;
         --text-secondary: #3A5243;
         --text-navbar-link: #243E2E;
         --text-main: #2C3E50;
         --text-muted: #5A6B7C;
+        
         --header-height: 72px;
         --max-content-width: 1440px;
         --max-width: 1100px;
         --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
+    /* ==========================================================================
+       BASE CORE BODY RESET & CANVAS GROUNDING
+       ========================================================================== */
     body {
         font-family: var(--font-interface);
         color: var(--text-primary);
@@ -55,34 +63,36 @@
         overflow-x: hidden;
     }
 
-   /* ═══════════════════════════════════════════════════
-       DESKTOP NAVIGATION HEADER STYLES
-       ═══════════════════════════════════════════════════ */
+    /* ==========================================================================
+       ADVANCED NAVIGATION HEADER FRAMEWORK (MATCHED 100%)
+       ========================================================================== */
     header {
         background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
         min-height: var(--header-height);
         position: sticky;
-        top: 0; left: 0; right: 0;
+        top: 0;
+        left: 0;
+        right: 0;
         z-index: 1000;
         display: flex;
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid var(--mint-nav-border);
-        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
+        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
+                    0 2px 10px var(--mint-shadow-tint);
         will-change: transform;
         transition: var(--transition-smooth);
     }
 
     .header-container {
         width: 100%;
-        max-width: var(--max-width); 
+        max-width: var(--max-content-width);
         padding: 0 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         box-sizing: border-box;
-        flex-wrap: wrap;
-        margin: 0 auto; 
+        flex-wrap: wrap; 
     }
 
     .logo-group {
@@ -93,16 +103,30 @@
         outline: none;
         transition: var(--transition-smooth);
     }
-    .logo-group:hover { transform: translateY(-1px); }
-    .logo-group img {
+
+    .logo-group:hover {
+        transform: translateY(-1px);
+    }
+
+    .logo-group img, 
+    header img {
         height: 44px;
         width: auto;
         object-fit: contain;
         display: block;
         filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+        transition: var(--transition-smooth);
     }
 
-    nav { display: flex; align-items: center; gap: 4px; height: 100%; }
+    nav.nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 4px; 
+        flex-grow: 1;
+        justify-content: flex-end;
+        margin-right: 15px;
+    }
+
     nav a {
         font-family: var(--font-interface);
         text-decoration: none;
@@ -119,66 +143,139 @@
         transition: var(--transition-smooth);
         box-sizing: border-box;
     }
-    nav a:hover { color: var(--brand-orange); background-color: var(--brand-orange-subtle); }
+
+    nav a:hover {
+        color: var(--brand-orange);
+        background-color: var(--brand-orange-subtle);
+    }
 
     nav a::after {
         content: '';
         position: absolute;
-        bottom: 4px; left: 18px; right: 18px;
+        bottom: 4px;
+        left: 18px;
+        right: 18px;
         height: 2px;
         background-color: var(--brand-orange);
         border-radius: 2px;
         transform: scaleX(0);
         transition: var(--transition-smooth);
     }
-    nav a:hover::after { transform: scaleX(1); }
 
-    nav a.active-page { color: #FFFFFF; background-color: var(--brand-orange); box-shadow: 0 4px 12px var(--brand-orange-glow); }
-    nav a.active-page::after { display: none; }
+    nav a:hover::after {
+        transform: scaleX(1);
+    }
 
-    nav a[href*="contact"], nav a:last-of-type {
+    nav a.active-page {
+        color: #FFFFFF;
+        background-color: var(--brand-orange);
+        box-shadow: 0 4px 12px var(--brand-orange-glow);
+    }
+
+    nav a.active-page::after {
+        display: none; 
+    }
+
+    nav a[href*="contact"],
+    nav a:last-of-type {
         background-color: transparent;
         border: 1.5px solid var(--brand-orange);
         color: var(--brand-orange);
         margin-left: 8px;
         padding: 8px 20px;
     }
-    nav a[href*="contact"]:hover, nav a:last-of-type:hover {
+
+    nav a[href*="contact"]:hover,
+    nav a:last-of-type:hover {
         background-color: var(--brand-orange);
         color: #FFFFFF;
         box-shadow: 0 4px 14px var(--brand-orange-glow);
         transform: translateY(-1px);
     }
 
-    .lang-switcher-container {
+    nav a[href*="contact"]:hover::after,
+    nav a:last-of-type:hover::after {
+        display: none;
+    }
+
+    /* HEADER ACTIONS */
+    .header-actions {
         display: flex;
         align-items: center;
-        gap: 6px;
-        background: rgba(28, 51, 37, 0.05);
-        padding: 4px 8px;
-        border-radius: 30px;
-        border: 1px solid rgba(88, 185, 131, 0.3);
-        margin-left: 10px;
+        gap: 12px;
     }
 
-    .lang-btn {
+    @media (min-width: 901px) {
+        .header-actions {
+            border-left: 1px solid var(--mint-nav-border);
+            padding-left: 15px;
+            margin-left: 5px;
+        }
+    }
+
+    /* LANGUAGE DROPDOWN */
+    .lang-dropdown {
+        position: relative;
+    }
+
+    .lang-dropdown-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         background: transparent;
-        color: var(--text-secondary);
+        color: var(--text-navbar-link); 
         border: none;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: bold;
+        padding: 8px 12px;
+        font-family: var(--font-interface);
+        font-size: 14px;
+        font-weight: 600;
         cursor: pointer;
-        transition: all 0.2s ease;
+        border-radius: 6px;
+        transition: var(--transition-smooth);
     }
 
-    .lang-btn.active {
-        background: var(--brand-orange);
-        color: #ffffff;
-        box-shadow: 0 2px 8px var(--brand-orange-glow);
+    .lang-dropdown-btn:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+        color: var(--brand-orange);
     }
 
+    .lang-dropdown-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .lang-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 12px;
+        background: #FFFFFF;
+        border: 1px solid var(--mint-nav-border);
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        list-style: none;
+        padding: 8px 0;
+        min-width: 140px;
+        display: none;
+        flex-direction: column;
+        z-index: 2000;
+        transform-origin: top right;
+        animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes dropFade {
+        from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .lang-dropdown-menu.show { display: flex; }
+    .lang-dropdown-menu li { width: 100%; }
+    .lang-dropdown-menu button {
+        width: 100%; text-align: left; background: transparent;
+        border: none; padding: 10px 20px; font-family: var(--font-interface);
+        font-size: 14px; color: var(--text-primary); cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+    }
+    .lang-dropdown-menu button:hover { background: var(--brand-orange-subtle); color: var(--brand-orange); }
+
+    /* MOBILE MENU BUTTON */
     .mobile-menu-btn {
         display: none;
         background: transparent;
@@ -189,56 +286,19 @@
         gap: 5px;
         z-index: 1001;
     }
-    .mobile-menu-btn span { display: block; width: 25px; height: 3px; background-color: var(--text-primary); border-radius: 2px; transition: var(--transition-smooth); }
-
-    /* Hamburger Morphing Animations */
+    .mobile-menu-btn span {
+        display: block; width: 25px; height: 3px;
+        background-color: var(--text-primary); border-radius: 2px;
+        transition: var(--transition-smooth);
+    }
     .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
     .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
 
-   /* ═══════════════════════════════════════════════════
-       MOBILE RESPONSIVE OVERRIDES
-       ═══════════════════════════════════════════════════ */
-    @media (max-width: 900px) {
-        body { background-image: none !important; }
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: -10;
-            background-image: url('aboutbg.png') !important;
-            background-position: left top !important;
-            background-repeat: no-repeat !important;
-            background-size: auto 100vh !important;
-            background-attachment: scroll !important;
-        }
-
-        .header-container { padding: 10px 20px; }
-        .mobile-menu-btn { display: flex; }
-        
-        nav { 
-            display: none; 
-            width: 100%; 
-            flex-direction: column; 
-            gap: 10px; 
-            padding: 20px 0; 
-            border-top: 1px solid rgba(88, 185, 131, 0.2); 
-            margin-top: 10px; 
-        }
-        
-        nav.is-open { display: flex; width: 100%; animation: slideDown 0.3s ease forwards; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        nav a { width: 100%; padding: 12px; font-size: 16px; }
-        nav a::after { display: none; }
-        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
-        .lang-switcher-container { margin-left: 0; margin-top: 10px; justify-content: center; width: 100%; }
-    }
-    /* ═══════════════════════════════════════════════════
-       MAIN LAYOUT & CARDS MATRIX
-       ═══════════════════════════════════════════════════ */
+    /* ==========================================================================
+       MAIN LAYOUT & CARDS MATRIX (PROGRAM.HTML SPECIFIC)
+       ========================================================================== */
     .main-container {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -248,6 +308,7 @@
     }
 
     .programs-container { width: 100%; }
+    
     .section-title {
         font-family: var(--font-editorial);
         font-size: 32px;
@@ -255,6 +316,7 @@
         margin: 0 0 10px 0;
         text-align: center;
     }
+    
     .section-subtitle {
         font-size: 16px;
         color: var(--text-secondary);
@@ -264,7 +326,6 @@
         line-height: 1.6;
     }
 
-    /* Merged Elements from Snippet 2 styled with Snippet 1 Variables */
     .benefits-box {
         background: var(--mint-light);
         border: 1px solid var(--mint-nav-border);
@@ -298,21 +359,10 @@
         transition: transform 0.2s;
         box-shadow: 0 4px 12px rgba(168, 223, 181, 0.08);
     }
-
     .benefit-card:hover { transform: translateY(-2px); }
     .benefit-icon { font-size: 2rem; margin-bottom: 10px; }
-    
-    .benefit-card h4 {
-        margin: 0 0 8px 0;
-        color: var(--text-primary);
-        font-size: 17px;
-    }
-
-    .benefit-card p {
-        margin: 0;
-        font-size: 14px;
-        color: var(--text-secondary);
-    }
+    .benefit-card h4 { margin: 0 0 8px 0; color: var(--text-primary); font-size: 17px; }
+    .benefit-card p { margin: 0; font-size: 14px; color: var(--text-secondary); }
 
     .programs-grid {
         display: flex;
@@ -320,6 +370,7 @@
         margin-bottom: 40px;
         flex-wrap: wrap;
     }
+    
     .program-card {
         background-color: #FFFFFF;
         border: 1px solid rgba(114, 208, 155, 0.25);
@@ -332,82 +383,39 @@
         min-width: 300px;
     }
     .program-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; bottom: 0;
-        width: 6px;
-        border-top-left-radius: 12px;
-        border-bottom-left-radius: 12px;
+        content: ''; position: absolute; top: 0; left: 0; bottom: 0;
+        width: 6px; border-top-left-radius: 12px; border-bottom-left-radius: 12px;
     }
     .onsite-card::before { background: linear-gradient(to bottom, var(--scroll-jade), var(--brand-orange)); }
     .outsite-card::before { background: linear-gradient(to bottom, #2E5C43, var(--scroll-jade)); }
 
     .card-badge {
-        display: inline-block;
-        font-size: 12px;
-        font-weight: 700;
-        padding: 4px 12px;
-        border-radius: 20px;
-        margin-bottom: 12px;
-        letter-spacing: 0.5px;
+        display: inline-block; font-size: 12px; font-weight: 700;
+        padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; letter-spacing: 0.5px;
     }
     .badge-green { background: #D1F7DB; color: #1C5C34; }
     .badge-blue  { background: #DBEAFE; color: #1E40AF; }
 
-    .program-card h3 {
-        font-family: var(--font-editorial);
-        font-size: 24px;
-        color: var(--text-primary);
-        margin: 0 0 12px 0;
-    }
-    .card-desc {
-        font-size: 14.5px;
-        color: var(--text-main);
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
+    .program-card h3 { font-family: var(--font-editorial); font-size: 24px; color: var(--text-primary); margin: 0 0 12px 0; }
+    .card-desc { font-size: 14.5px; color: var(--text-main); line-height: 1.6; margin-bottom: 20px; }
 
     .onsite-compliance-alert {
-        background: #FFFBEB;
-        border: 1px solid #F3E3A4;
-        border-left: 4px solid #F59E0B;
-        border-radius: 8px;
-        padding: 18px 20px;
-        margin: 15px 0;
-        font-size: 14px;
-        line-height: 1.6;
-        color: #78350F;
+        background: #FFFBEB; border: 1px solid #F3E3A4; border-left: 4px solid #F59E0B;
+        border-radius: 8px; padding: 18px 20px; margin: 15px auto 30px auto;
+        font-size: 14px; line-height: 1.6; color: #78350F; max-width: 800px; text-align: center;
     }
     .onsite-compliance-alert strong { color: #92400E; }
+    
     .onsite-apply-link {
-        display: inline-block;
-        margin-top: 12px;
-        background: var(--brand-orange);
-        color: #FFF;
-        padding: 10px 20px;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 13.5px;
-        text-decoration: none;
-        transition: var(--transition-smooth);
+        display: inline-block; margin-top: 12px; background: var(--brand-orange); color: #FFF;
+        padding: 10px 20px; border-radius: 6px; font-weight: 700; font-size: 13.5px;
+        text-decoration: none; transition: var(--transition-smooth);
     }
     .onsite-apply-link:hover { background: var(--brand-orange-hover); transform: translateY(-1px); }
 
     .feature-list { list-style: none; padding: 0; margin: 20px 0 0 0; }
-    .feature-list li {
-        margin-bottom: 16px;
-        font-size: 14.5px;
-        line-height: 1.6;
-        color: var(--text-primary);
-        position: relative;
-        padding-left: 5px;
-    }
-    .feature-list li small {
-        display: block;
-        font-size: 13px;
-        margin-top: 2px;
-        line-height: 1.4;
-    }
+    .feature-list li { margin-bottom: 16px; font-size: 14.5px; line-height: 1.6; color: var(--text-primary); padding-left: 5px; }
+    .feature-list li small { display: block; font-size: 13px; margin-top: 2px; line-height: 1.4; color: #666; }
 
     /* Curriculum & Credentials Merged Styles */
     .curriculum-showcase-box {
@@ -419,65 +427,23 @@
         box-shadow: 0 10px 35px rgba(168, 223, 181, 0.12);
     }
     
-    .curriculum-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 25px;
-        margin-bottom: 30px;
-    }
+    .curriculum-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-bottom: 30px; }
+    .curriculum-item-card { background-color: var(--mint-light); border: 1px solid rgba(114, 208, 155, 0.25); border-radius: 12px; padding: 25px; }
 
-    .curriculum-item-card {
-        background-color: var(--mint-light);
-        border: 1px solid rgba(114, 208, 155, 0.25);
-        border-radius: 12px;
-        padding: 25px;
-    }
-
-    .curr-tag {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 4px;
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 12px;
-    }
-
+    .curr-tag { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 12px; }
     .tag-orange { background-color: var(--brand-orange-subtle); color: var(--brand-orange); border: 1px solid rgba(255, 87, 34, 0.2); }
     .tag-purple { background-color: #faf5ff; color: #805ad5; border: 1px solid #e9d8fd; }
 
     .curriculum-item-card h4 { margin: 0 0 10px 0; font-size: 18px; color: var(--text-primary); }
     .curr-desc { margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
 
-    .pdf-links-matrix {
-        background-color: #F8FAFC;
-        border: 1px solid #E2E8F0;
-        border-radius: 10px;
-        padding: 20px;
-        margin-top: 10px;
-    }
-
+    .pdf-links-matrix { background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 20px; margin-top: 10px; }
     .matrix-title { display: block; font-weight: 700; font-size: 14px; color: var(--text-main); margin-bottom: 15px; }
-    
-    .pdf-buttons-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-
+    .pdf-buttons-grid { display: flex; flex-wrap: wrap; gap: 12px; }
     .pdf-btn {
-        background-color: #ffffff;
-        border: 1px solid #cbd5e0;
-        color: var(--text-main);
-        text-align: center;
-        padding: 10px 15px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: var(--transition-smooth);
+        background-color: #ffffff; border: 1px solid #cbd5e0; color: var(--text-main); text-align: center;
+        padding: 10px 15px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;
+        display: flex; align-items: center; justify-content: center; transition: var(--transition-smooth);
     }
     .pdf-btn:hover { border-color: var(--brand-orange); color: var(--brand-orange); background-color: var(--brand-orange-subtle); }
 
@@ -494,29 +460,12 @@
         gap: 20px;
         margin-bottom: 40px;
     }
-
-    .teacher-badge {
-        background-color: var(--brand-orange);
-        color: #ffffff;
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-size: 14px;
-        font-weight: bold;
-        white-space: nowrap;
-    }
+    .teacher-badge { background-color: var(--brand-orange); color: #ffffff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: bold; white-space: nowrap; }
     .teacher-text { margin: 0; font-size: 14px; color: var(--text-main); flex-grow: 1; min-width: 200px; line-height: 1.6; }
-    
     .verify-btn {
-        background-color: #ffffff;
-        border: 1px solid var(--scroll-jade);
-        color: var(--text-primary);
-        padding: 10px 18px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 13.5px;
-        font-weight: 700;
-        white-space: nowrap;
-        transition: var(--transition-smooth);
+        background-color: #ffffff; border: 1px solid var(--scroll-jade); color: var(--text-primary);
+        padding: 10px 18px; border-radius: 8px; text-decoration: none; font-size: 13.5px;
+        font-weight: 700; white-space: nowrap; transition: var(--transition-smooth);
     }
     .verify-btn:hover { background-color: var(--scroll-jade); color: #ffffff; }
 
@@ -529,156 +478,73 @@
         margin-top: 40px;
         box-sizing: border-box;
     }
-    .price-calculator-box h3 {
-        font-family: var(--font-editorial);
-        font-size: 24px;
-        color: var(--text-primary);
-        margin: 0 0 15px 0;
-    }
+    .price-calculator-box h3 { font-family: var(--font-editorial); font-size: 24px; color: var(--text-primary); margin: 0 0 15px 0; }
 
     .disclaimer-alert-box {
-        background: #FFFBEB;
-        border: 1px solid #F3E3A4;
-        border-left: 4px solid #F59E0B;
-        border-radius: 8px;
-        padding: 18px 22px;
-        margin-bottom: 25px;
-        font-size: 14px;
-        line-height: 1.7;
-        color: #78350F;
+        background: #FFFBEB; border: 1px solid #F3E3A4; border-left: 4px solid #F59E0B;
+        border-radius: 8px; padding: 18px 22px; margin-bottom: 25px; font-size: 14px; line-height: 1.7; color: #78350F;
     }
     .disclaimer-alert-box strong { color: #92400E; }
 
     .calc-controls {
-        display: flex;
-        gap: 30px;
-        margin: 25px 0;
-        background: #F8FAFC;
-        padding: 25px;
-        border-radius: 10px;
-        border: 1px solid #E2E8F0;
-        flex-wrap: wrap;
+        display: flex; gap: 30px; margin: 25px 0; background: #F8FAFC;
+        padding: 25px; border-radius: 10px; border: 1px solid #E2E8F0; flex-wrap: wrap;
     }
     .control-group { flex: 1; display: flex; flex-direction: column; min-width: 250px; }
-    .control-group label {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-secondary);
-        margin-bottom: 10px;
-    }
+    .control-group label { font-size: 15px; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; }
     .form-select {
-        width: 100%;
-        padding: 14px;
-        font-size: 14.5px;
-        border: 2px solid #E2E8F0;
-        border-radius: 8px;
-        outline: none;
-        background-color: #FFF;
-        cursor: pointer;
-        color: var(--text-primary);
-        font-family: var(--font-interface);
-        transition: var(--transition-smooth);
+        width: 100%; padding: 14px; font-size: 14.5px; border: 2px solid #E2E8F0;
+        border-radius: 8px; outline: none; background-color: #FFF; cursor: pointer;
+        color: var(--text-primary); font-family: var(--font-interface); transition: var(--transition-smooth);
     }
-    .form-select:focus {
-        border-color: var(--scroll-jade);
-        box-shadow: 0 0 0 3px rgba(114, 208, 155, 0.15);
-    }
+    .form-select:focus { border-color: var(--scroll-jade); box-shadow: 0 0 0 3px rgba(114, 208, 155, 0.15); }
 
     .radio-toggle { display: flex; gap: 12px; flex-wrap: wrap; }
     .radio-toggle input[type="radio"] { display: none; }
     .radio-toggle .toggle-btn {
-        display: block;
-        padding: 12px 18px;
-        background: #FFFFFF;
-        border: 2px solid #E2E8F0;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 13.5px;
-        font-weight: 500;
-        transition: var(--transition-smooth);
-        user-select: none;
-        flex: 1;
-        min-width: 200px;
-        text-align: center;
+        display: block; padding: 12px 18px; background: #FFFFFF; border: 2px solid #E2E8F0;
+        border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: 500;
+        transition: var(--transition-smooth); user-select: none; flex: 1; min-width: 200px; text-align: center;
     }
     .radio-toggle input[type="radio"]:checked + .toggle-btn {
-        background: #FFF8F6;
-        border-color: var(--brand-orange);
-        color: var(--text-primary);
-        box-shadow: 0 4px 12px var(--brand-orange-glow);
-        font-weight: 600;
+        background: #FFF8F6; border-color: var(--brand-orange); color: var(--text-primary);
+        box-shadow: 0 4px 12px var(--brand-orange-glow); font-weight: 600;
     }
 
     .price-result-display { margin-top: 30px; min-height: 100px; }
     .placeholder-text {
-        width: 100%;
-        text-align: center;
-        padding: 40px;
-        background: #FAFAFA;
-        border: 2px dashed #E2E8F0;
-        border-radius: 10px;
-        color: var(--text-muted);
-        font-style: italic;
-        font-size: 15px;
-        box-sizing: border-box;
+        width: 100%; text-align: center; padding: 40px; background: #FAFAFA;
+        border: 2px dashed #E2E8F0; border-radius: 10px; color: var(--text-muted);
+        font-style: italic; font-size: 15px; box-sizing: border-box;
     }
 
     .pricing-result-grid { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; }
     .price-card {
-        background-color: #FFFFFF;
-        border-radius: 12px;
-        padding: 35px;
-        border: 1px solid rgba(114, 208, 155, 0.25);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.02);
-        flex: 1;
-        min-width: 300px;
-        max-width: 500px;
-        box-sizing: border-box;
-        position: relative;
-        overflow: hidden;
-        transition: var(--transition-smooth);
+        background-color: #FFFFFF; border-radius: 12px; padding: 35px; border: 1px solid rgba(114, 208, 155, 0.25);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.02); flex: 1; min-width: 300px; max-width: 500px;
+        box-sizing: border-box; position: relative; overflow: hidden; transition: var(--transition-smooth);
     }
-    .price-card::after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 5px;
-    }
+    .price-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
     .price-card.option-one::after   { background: var(--scroll-jade); }
     .price-card.option-two::after   { background: #2E5C43; }
     .price-card.option-three::after { background: #3B82F6; }
     .price-card.option-elite::after { background: var(--brand-orange); }
 
-    .price-card h4 {
-        font-family: var(--font-editorial);
-        font-size: 19px;
-        color: var(--text-primary);
-        margin: 5px 0 15px 0;
-    }
-    .price-card .price {
-        font-size: 38px;
-        font-weight: 700;
-        color: var(--brand-orange);
-        margin: 15px 0;
-    }
+    .price-card h4 { font-family: var(--font-editorial); font-size: 19px; color: var(--text-primary); margin: 5px 0 15px 0; }
+    .price-card .price { font-size: 38px; font-weight: 700; color: var(--brand-orange); margin: 15px 0; }
     .price-card .price span { font-size: 15px; font-weight: normal; color: var(--text-muted); }
     .price-card p { font-size: 14px; margin: 8px 0; color: var(--text-main); }
     .price-card ul { padding-left: 20px; margin-top: 20px; color: var(--text-main); }
     .price-card ul li { margin-bottom: 12px; font-size: 13.5px; line-height: 1.6; }
+    
     .value-badge {
-        display: inline-block;
-        background-color: #FFFCEB;
-        border: 1px solid #F3E3A4;
-        color: #8A6517;
-        padding: 6px 14px;
-        border-radius: 6px;
-        font-size: 13px;
-        font-weight: bold;
-        margin: 12px 0;
+        display: inline-block; background-color: #FFFCEB; border: 1px solid #F3E3A4;
+        color: #8A6517; padding: 6px 14px; border-radius: 6px; font-size: 13px;
+        font-weight: bold; margin: 12px 0;
     }
     .bottom-disclaimer-text { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
         background-color: #142219;
         color: #CFEAD6;
@@ -686,46 +552,60 @@
         border-top: 4px solid var(--scroll-jade);
         margin-top: auto;
     }
-    .footer-grid {
-        max-width: var(--max-width);
-        margin: 0 auto 40px auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 40px;
-    }
-    .footer-col h4 {
-        color: #FFFFFF;
-        font-size: 18px;
-        margin-bottom: 20px;
-        position: relative;
-        padding-bottom: 8px;
-    }
-    .footer-col h4::after {
-        content: '';
-        position: absolute;
-        left: 0; bottom: 0;
-        width: 40px; height: 2px;
-        background-color: var(--brand-orange);
-    }
+    .footer-grid { max-width: var(--max-width); margin: 0 auto 40px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
+    .footer-col h4 { color: #FFFFFF; font-size: 18px; margin-bottom: 20px; position: relative; padding-bottom: 8px; }
+    .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background-color: var(--brand-orange); }
     .footer-col p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; opacity: 0.85; }
     .links-listing { list-style: none; padding: 0; margin: 0; }
     .links-listing li { margin-bottom: 10px; }
-    .links-listing a {
-        color: #CFEAD6;
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.2s, padding-left 0.2s;
-        display: inline-block;
-    }
+    .links-listing a { color: #CFEAD6; text-decoration: none; font-size: 14px; transition: color 0.2s, padding-left 0.2s; display: inline-block; }
     .links-listing a:hover { color: var(--brand-orange); padding-left: 4px; }
-    .copyright-bar {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        padding-top: 24px;
-        border-top: 1px solid rgba(255,255,255,0.06);
-        text-align: center;
-        font-size: 13px;
-        opacity: 0.5;
+    .copyright-bar { max-width: var(--max-width); margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 13px; opacity: 0.5; }
+
+    /* =========================================
+       CONSOLIDATED MOBILE BREAKPOINT
+       ========================================= */
+    @media (max-width: 900px) {
+        body { background-image: none !important; }
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -10; background-image: url('aboutbg.png') !important;
+            background-position: left top !important; background-repeat: no-repeat !important;
+            background-size: auto 100vh !important; background-attachment: scroll !important;
+        }
+
+        /* Nav & Header grouping on Mobile */
+        .header-container { padding: 10px 15px; }
+        .logo-group img, header img { height: 36px; } 
+        
+        .mobile-menu-btn { display: flex; }
+        .header-actions { order: 2; gap: 8px; } 
+        
+        /* Dropdown styling */
+        .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
+        .lang-dropdown-btn svg { width: 18px; height: 18px; }
+        
+        /* Mobile Slide Down Menu */
+        nav.nav-menu { 
+            order: 3; display: none; width: 100%; flex-direction: column; 
+            gap: 10px; padding: 20px 0; border-top: 1px solid rgba(88, 185, 131, 0.2); margin-top: 10px; 
+        }
+        nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        nav a { width: 100%; padding: 12px; font-size: 16px; }
+        nav a::after { display: none; }
+        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+
+        /* RECLAIMING SCREEN SPACE (Fixing narrow boxes) */
+        .main-container { padding: 25px 12px 50px 12px; }
+        .benefits-box { padding: 20px 15px; }
+        .program-card { padding: 25px 18px; min-width: 100%; }
+        .curriculum-showcase-box { padding: 25px 15px; }
+        .teacher-credentials-box { padding: 20px 15px; }
+        .price-calculator-box { padding: 25px 15px; }
+        .calc-controls { padding: 15px; gap: 15px; }
+        .price-card { padding: 25px 15px; min-width: 100%; }
+        .disclaimer-alert-box { padding: 15px; }
     }
     </style>
 </head>
@@ -733,60 +613,79 @@
 
 <header>
     <div class="header-container">
-        <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
-            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px; width: auto; object-fit: contain;">
+        <a href="index.html" class="logo-group">
+            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px;">
+            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px;">
             
-            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
-            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; display: none;">
             
-            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
-            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; display: none;">
         </a>
-        
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <nav id="main-nav">
+
+        <nav id="main-nav" class="nav-menu">
             <a href="index.html">
                 <span class="lang-el en-content">Home</span>
                 <span class="lang-el zh-hans-content" style="display: none;">首页</span>
                 <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
             </a>
+
             <a href="about.html">
                 <span class="lang-el en-content">About Us</span>
                 <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
                 <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
             </a>
+
             <a href="program.html" class="active-page">
                 <span class="lang-el en-content">Program</span>
                 <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
                 <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
             </a>
+
             <a href="why-us.html">
                 <span class="lang-el en-content">Why Us</span>
                 <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
                 <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
             </a>
+
             <a href="joinus.html">
                 <span class="lang-el en-content">Join Us</span>
                 <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
                 <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
             </a>
+
             <a href="contact.html">
                 <span class="lang-el en-content">Contact</span>
                 <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
                 <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
             </a>
-            <div class="lang-switcher-container">
-                <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn active">English</button>
-                <button onclick="switchLanguage('zh-hans')" id="btn-zh-hans" class="lang-btn">简体中文</button>
-                <button onclick="switchLanguage('zh-hant')" id="btn-zh-hant" class="lang-btn">繁體中文</button>
-            </div>
         </nav>
+
+        <div class="header-actions">
+            <div class="lang-dropdown">
+                <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <span id="current-lang-text">English</span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+                <ul class="lang-dropdown-menu" id="lang-menu">
+                    <li><button onclick="switchLanguage('en', 'English')">English</button></li>
+                    <li><button onclick="switchLanguage('zh-hans', '简体中文')">简体中文</button></li>
+                    <li><button onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
+                </ul>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </div>
 </header>
     
@@ -949,9 +848,7 @@
             </a>
         </div>
 
-        <main class="main-container">
-    <section class="programs-container">
-        <h2 class="section-title">
+        <h2 class="section-title" style="margin-top: 60px;">
             <span class="lang-el en-content">✨ UMC 2026 Fall Program Matrix</span>
             <span class="lang-el zh-hans-content" style="display: none;">✨ UMC 2026 秋季课程项目矩阵</span>
             <span class="lang-el zh-hant-content" style="display: none;">✨ UMC 2026 秋季課程項目矩陣</span>
@@ -962,7 +859,7 @@
             <span class="lang-el zh-hant-content" style="display: none;">首要覆蓋1小時分級中文課！全線啟用 Brightwheel 智能系統保障孩子安全與家校即時互動。</span>
         </p>
 
-        <div class="onsite-compliance-alert" style="max-width: 800px; margin: 0 auto 30px auto; text-align: center;">
+        <div class="onsite-compliance-alert">
             <p>⚠️ <strong>
                 <span class="lang-el en-content">Critical Enrollment Prerequisite:</span>
                 <span class="lang-el zh-hans-content" style="display: none;">重要入驻前提:</span>
@@ -972,8 +869,8 @@
                 <span class="lang-el en-content">The establishment and activation of this On-site program are <strong>strictly contingent upon receiving official approval and partnership clearance</strong> from your child's School Principal and the designated After School Lead Agent.</span>
                 <span class="lang-el zh-hans-content" style="display: none;">本校内 (On-site) 项目最终落地与开班，<strong>严格以获得您孩子所在小学校长及课后托管主管方的官方准入与合规同意为绝对前提</strong>。</span>
                 <span class="lang-el zh-hant-content" style="display: none;">本校內 (On-site) 項目最終落地與開班，<strong>嚴格以獲得您孩子所在小學校長及課後託管主管方的官方准入與合規同意為絕對前提</strong>。</span>
-           </p>
-            <a href="form.html"_blank" class="onsite-apply-link" style="display: inline-block; margin-top: 10px; font-weight: bold; text-decoration: underline;">
+            </p>
+            <a href="form.html" target="_blank" class="onsite-apply-link" style="text-decoration: underline;">
                 <span class="lang-el en-content">👉 2026-2027 After-School Mandarin Program: Interest Form & Special Offers</span>
                 <span class="lang-el zh-hans-content" style="display: none;">👉 2026-2027 课后中文托管项目: 意向表单与专属特惠</span>
                 <span class="lang-el zh-hant-content" style="display: none;">👉 2026-2027 課後中文託管項目: 意向表單與專屬特惠</span>
@@ -981,7 +878,6 @@
         </div>
 
         <div class="programs-grid">
-
             <div class="program-card onsite-card">
                 <div class="card-badge badge-green">校内直达站 / On-site Campus</div>
                 <h3>On-site After School Program</h3>
@@ -991,37 +887,38 @@
 
                 <ul class="feature-list">
                     <li>📱 <strong>【智能家校 / Smart Campus】</strong>全面接入 Brightwheel App，每日安全扫码签到、实时图文更新与自主账单管理。<br>
-                    <small style="color:#666;">Fully integrated with Brightwheel for daily digital check-ins, real-time photo/activity updates, and paperless billing.</small></li>
+                    <small>Fully integrated with Brightwheel for daily digital check-ins, real-time photo/activity updates, and paperless billing.</small></li>
                     <li>📚 <strong>【核心学术 / Core Mandarin】</strong>所有班型首要覆盖 1 小时高纯度、系统化沉浸式中文分级核心课。<br>
-                    <small style="color:#666;">All options strictly prioritize a 1-hour high-density, systematically leveled immersive Mandarin core class.</small></li>
+                    <small>All options strictly prioritize a 1-hour high-density, systematically leveled immersive Mandarin core class.</small></li>
                     <li>✏️ <strong>【学科辅导 / Academic Support】</strong>5:15点/6点选项包含学校中英文家庭作业日常督导，并增设基础数学辅导答疑。<br>
-                    <small style="color:#666;">5:15 PM/6 PM options include daily supervision of school homework (Chinese & English) plus foundational Math support/Q&A.</small></li>
+                    <small>5:15 PM/6 PM options include daily supervision of school homework (Chinese & English) plus foundational Math support/Q&A.</small></li>
                     <li>🎨 <strong>【才艺融入 / Enrichment Culture】</strong>日常时间段内，适当注入趣味手工、创意绘画、中华武术/韵律等特色才艺体验。<br>
-                    <small style="color:#666;">Enrichment sessions dynamically weave in arts & crafts, creative drawing, and Chinese Martial Arts/rhythm exploration.</small></li>
+                    <small>Enrichment sessions dynamically weave in arts & crafts, creative drawing, and Chinese Martial Arts/rhythm exploration.</small></li>
                     <li>🍎 <strong>【点心供应 / Snacks Supply】</strong>5:15点/6点选项每日傍晚提供高品质营养能量点心。<br>
-                    <small style="color:#666;">High-quality nutritional afternoon snacks are provided daily for 5:15 PM and 6 PM extended tracks.</small></li>
-                    <li>📌 <em>各项均需另缴 / Additional Fees: 注册费/Registration: $80/yr + 书本材料费/Materials: $80/yr</em></li>
+                    <small>High-quality nutritional afternoon snacks are provided daily for 5:15 PM and 6 PM extended tracks.</small></li>
+                    <li>📌 <em style="color:#666; font-size:13px;">各项均需另缴 / Additional Fees: 注册费/Registration: $80/yr + 书本材料费/Materials: $80/yr</em></li>
                 </ul>
             </div>
 
             <div class="program-card outsite-card">
                 <div class="card-badge badge-blue">校外旗舰基地 / Off-site Facility</div>
                 <h3>Off-site After School Program</h3>
-                <p class="card-desc">独立大教室学术闭环。由 UMC Instructor 团队全程贴身安全护送离校。护送离校及抵达基地均通过 Brightwheel 触发即时安全通知，给您100%的安心。<br>
+                
+                <p class="card-desc" style="margin-top: 12px;">独立大教室学术闭环。由 UMC Instructor 团队全程贴身安全护送离校。护送离校及抵达基地均通过 Brightwheel 触发即时安全通知，给您100%的安心。<br>
                 <em style="font-size: 0.85rem; color: #666; display: block; margin-top: 4px;">An independent, spacious educational space. Students are safely escorted from school by the UMC Instructor team, with real-time safety alerts sent via Brightwheel.</em></p>
 
                 <ul class="feature-list">
                     <li>🛡️ <strong>【安全升级 / Escort Safety】</strong> 由讲师团队全程贴身安全护送离校 (Escorted Transport)，全程 Brightwheel 动态追踪。<br>
-                    <small style="color:#666;">Fully includes daily foot/vehicular safe transition from campus to our facility, escorted by UMC Instructors and logged in Brightwheel.</small></li>
+                    <small>Fully includes daily foot/vehicular safe transition from campus to our facility, escorted by UMC Instructors and logged in Brightwheel.</small></li>
                     <li>📱 <strong>【智能家校 / Smart App】</strong>全面接入 Brightwheel App，随时随地接收孩子 learning 照片、活动动态与 FSA 报销账单。<br>
-                    <small style="color:#666;">Stay connected anywhere with instant classroom photos, developmental updates, and downloadable tax-ready statements.</small></li>
+                    <small>Stay connected anywhere with instant classroom photos, developmental updates, and downloadable tax-ready statements.</small></li>
                     <li>📚 <strong>【核心学术 / Core Mandarin】</strong>所有班型首要覆盖 1 小时高纯度、系统化沉浸式中文分级核心课。<br>
-                    <small style="color:#666;">Ensures an uninterrupted 1-hour immersion core Mandarin block tailored to your child's proficiency tier.</small></li>
+                    <small>Ensures an uninterrupted 1-hour immersion core Mandarin block tailored to your child's proficiency tier.</small></li>
                     <li>✏️ <strong>【学科辅导 / Academic Support】</strong>5:15点/6点选项由专属老师进行中英文功课督导，针对学校数学作业进行难点启发与辅导。<br>
-                    <small style="color:#666;">Dedicated teachers facilitate full-subject homework guidance (Chinese/English/Math), resolving academic roadblocks.</small></li>
+                    <small>Dedicated teachers facilitate full-subject homework guidance (Chinese/English/Math), resolving academic roadblocks.</small></li>
                     <li>🎨 <strong>【才艺融入 / Enrichment Matrix】</strong>独立大空间，适当穿插动态武术健身、趣味手工、绘画美育等多元拓展活动。<br>
-                    <small style="color:#666;">Utilizing our expansive classrooms for specialized tracks, including Martial Arts fitness, immersive crafts, and fine arts.</small></li>
-                    <li>📌 <em>各项均需另缴 / Additional Fees: 注册费/Registration: $80/yr + 书本材料费/Materials: $80/yr</em></li>
+                    <small>Utilizing our expansive classrooms for specialized tracks, including Martial Arts fitness, immersive crafts, and fine arts.</small></li>
+                    <li>📌 <em style="color:#666; font-size:13px;">各项均需另缴 / Additional Fees: 注册费/Registration: $80/yr + 书本材料费/Materials: $80/yr</em></li>
                 </ul>
             </div>
         </div>
@@ -1042,21 +939,21 @@
                     <label>1. 选择放学时段 / School Dismissal Time:</label>
                     <select id="dismissalTier" class="form-select">
                         <option value="" disabled selected>-- Select Dismissal Time --</option>
-                        <option value="tier1">Tier 1: 2:05 PM 放学学校 (特设 4点/5:15点/6点 三大精细化选项 / 3 Detailed Options)</option>
-                        <option value="tier2">Tier 2: 2:40 PM 放学学校 (特设 4点/5:15点/6点 三大精细化选项 / 3 Detailed Options)</option>
-                        <option value="tier3">Tier 3: 2:55 PM 放学学校 (特设 4点/5:15点/6点 三大精细化选项 / 3 Detailed Options)</option>
-                        <option value="tier4">Tier 4: 3:15 PM 放学学校 (直达6点长托专属计划 / 6 PM Single Extended Plan)</option>
-                        <option value="tier5">Tier 5: 3:30 PM 放学学校 (直达6点长托专属计划 / 6 PM Single Extended Plan)</option>
-                        <option value="tier6">Tier 6: 3:45 / 4:00 PM 放学学校 (直达6点长托专属计划 / 6 PM Single Extended Plan)</option>
+                        <option value="tier1">Tier 1: 2:05 PM 放学学校 (特设 4点/5:15点/6点 三大精细化选项)</option>
+                        <option value="tier2">Tier 2: 2:40 PM 放学学校 (特设 4点/5:15点/6点 三大精细化选项)</option>
+                        <option value="tier3">Tier 3: 2:55 PM 放学学校 (特设 4点/5:15点/6点 三大精细化选项)</option>
+                        <option value="tier4">Tier 4: 3:15 PM 放学学校 (直达6点长托专属计划)</option>
+                        <option value="tier5">Tier 5: 3:30 PM 放学学校 (直达6点长托专属计划)</option>
+                        <option value="tier6">Tier 6: 3:45 / 4:00 PM 放学学校 (直达6点长托专属计划)</option>
                     </select>
                 </div>
                 <div class="control-group">
                     <label>2. 选择项目类型 / Program Track:</label>
                     <div class="radio-toggle">
                         <input type="radio" id="typeOnsite" name="progType" value="onsite" checked>
-                        <label for="typeOnsite" class="toggle-btn">On-site (含Brightwheel/含点心/无校外车辆护送)</label>
+                        <label for="typeOnsite" class="toggle-btn">On-site (含Brightwheel/含点心/无护送)</label>
                         <input type="radio" id="typeOffsite" name="progType" value="offsite">
-                        <label for="typeOffsite" class="toggle-btn">Off-site (含Brightwheel/含点心/含Instructor贴身护送)</label>
+                        <label for="typeOffsite" class="toggle-btn">Off-site (含Brightwheel/含点心/含护送)</label>
                     </div>
                 </div>
             </div>
@@ -1080,28 +977,28 @@
                 <span style="font-size:0.78rem; color:#777; display:block; margin-top:3px;">* Monthly billing follows a standard calendar-month cycle, fully incorporating all Brightwheel platform licensing fees. Academic coaching provides multi-subject homework guidance and Q&A; it does not constitute a rigid guarantee of 100% completion or perfect accuracy. Tax-ready statements for Dependent Care FSA/Child Care Tax Credits can be conveniently exported directly via Brightwheel.</span>
             </p>
         </div>
+    </section>
 </main>
 
-        
 <footer>
     <div class="footer-grid">
         <div class="footer-col">
             <h4>
                 <span class="lang-el en-content">Unity Mandarin Enrichment Center</span>
-                <span class="lang-el zh-hans-content" style="display: none;">Unity 中文拓展中心</span>
-                <span class="lang-el zh-hant-content" style="display: none;">Unity 中文拓展中心</span>
+                <span class="lang-el zh-hans-content" style="display: none;">同心中文教育中心</span>
+                <span class="lang-el zh-hant-content" style="display: none;">同心中文教育中心</span>
             </h4>
             <p>
                 <span class="lang-el en-content">Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</span>
-                <span class="lang-el zh-hans-content" style="display: none;">培养年幼学习者对语言学习、文化创造力的终身热爱，以及全球化沟通意识。</span>
-                <span class="lang-el zh-hant-content" style="display: none;">培養年幼學習者對語言學習、文化創造力的終身熱愛，以及全球化溝通意識。</span>
+                <span class="lang-el zh-hans-content" style="display: none;">全心培养低龄学习者对语言学习、文化创意以及全球沟通意识的终身热爱与深刻理解。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">全心培養低齡學習者對語言學習、文化創意以及全球溝通意識的終身熱愛與深刻理解。</span>
             </p>
         </div>
         <div class="footer-col">
             <h4>
                 <span class="lang-el en-content">Quick Access</span>
-                <span class="lang-el zh-hans-content" style="display: none;">快速通道</span>
-                <span class="lang-el zh-hant-content" style="display: none;">快速通道</span>
+                <span class="lang-el zh-hans-content" style="display: none;">快速链接</span>
+                <span class="lang-el zh-hant-content" style="display: none;">快速鏈接</span>
             </h4>
             <ul class="links-listing">
                 <li><a href="index.html">
@@ -1139,310 +1036,353 @@
         <div class="footer-col">
             <h4>
                 <span class="lang-el en-content">Contact Details</span>
-                <span class="lang-el zh-hans-content" style="display: none;">联系方式</span>
-                <span class="lang-el zh-hant-content" style="display: none;">聯繫方式</span>
+                <span class="lang-el zh-hans-content" style="display: none;">联系详情</span>
+                <span class="lang-el zh-hant-content" style="display: none;">聯繫詳情</span>
             </h4>
-            <ul class="links-listing">
-                <li>📞 (415) 658-2516</li>
-                <li>✉️ hello@unitymandarin.org</li>
-                <li>📍 
+            <ul class="contact-listing" style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 10px; display: flex; gap: 8px;">
+                    <span style="color: var(--brand-orange);">📞</span> (415) 658-2516
+                </li>
+                <li style="margin-bottom: 10px; display: flex; gap: 8px;">
+                    <span style="color: var(--brand-orange);">✉️</span> hello@unitymandarin.org
+                </li>
+                <li style="margin-bottom: 10px; display: flex; gap: 8px;">
+                    <span style="color: var(--brand-orange);">📍</span> 
                     <span class="lang-el en-content">San Francisco, CA</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">加州 旧金山</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">加州 舊金山</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">旧金山, 加州</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">舊金山, 加州</span>
                 </li>
             </ul>
         </div>
     </div>
     <div class="copyright-bar">
         <span class="lang-el en-content">&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</span>
-        <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版权所有。</span>
-        <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 Unity 中文拓展中心。版權所有。</span>
+        <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 同心中文教育中心。保留所有权利。</span>
+        <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 同心中文教育中心。保留所有權利。</span>
     </div>
 </footer>
 
 <script>
-function toggleMobileMenu() {
-    var nav = document.getElementById("main-nav");
-    var btn = document.querySelector('.mobile-menu-btn');
-    if (nav) nav.classList.toggle("is-open");
-    if (btn) btn.classList.toggle("is-active");
-}
+    // ==========================================
+    // LANGUAGE & NAVIGATION SYSTEMS
+    // ==========================================
 
-const pricingMatrix = {
-    'tier1': { onsite: 725, offsite: 875 },
-    'tier2': { onsite: 795, offsite: 965 }
-};
+    function toggleLangMenu(event) {
+        if (event) event.stopPropagation();
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.toggle('show');
+    }
 
-function updateProgramView() {
-    const selectEl     = document.getElementById('dismissalTier');
-    const container    = document.getElementById('dynamicPriceDisplay');
-    const checkedRadio = document.querySelector('input[name="progType"]:checked');
-    if (!selectEl || !container || !checkedRadio) return;
-    
-    const selectedTier = selectEl.value;
-    const isOutsite = checkedRadio.value === 'offsite';
-    const baseCost = pricingMatrix[selectedTier][checkedRadio.value];
-
-    container.innerHTML = `
-        <div class="pricing-result-grid">
-            <div class="price-card option-elite" style="max-width:650px; margin:0 auto; flex:1;">
-                <h4>
-                    <span class="lang-el en-content">🟠 All-Inclusive Extended Plan</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">🟠 全包长托计划</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">🟠 全包長托計劃</span>
-                </h4>
-                <div class="price">$${baseCost}
-                    <span>
-                        <span class="lang-el en-content"> / month</span>
-                        <span class="lang-el zh-hans-content" style="display: none;"> / 每月</span>
-                        <span class="lang-el zh-hant-content" style="display: none;"> / 每月</span>
-                    </span>
-                </div>
-                <p><strong>
-                    <span class="lang-el en-content">Pickup by:</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">接走时间：</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">接走時間：</span>
-                </strong> 6:00 PM</p>
-                ${isOutsite ? `
-                <p style="font-size:13px; color:#1D4ED8; margin:6px 0 0 0;">🛡️ <strong>
-                    <span class="lang-el en-content">Includes daily safe escort</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">包含每日安全护送</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">包含每日安全護送</span>
-                </strong> 
-                    <span class="lang-el en-content">from school to our off-site facility logged in Brightwheel.</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">从学校到校外基地的接送行程均通过 Brightwheel 记录。</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">從學校到校外基地的接送行程均通過 Brightwheel 記錄。</span>
-                </p>` : ''}
-                <div class="value-badge">
-                    <span class="lang-el en-content">💎 Maximized Educational Output Window</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">💎 极致教育产出窗口</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">💎 極致教育產出窗口</span>
-                </div>
-                <ul>
-                    <li>📱 <strong>
-                        <span class="lang-el en-content">Brightwheel System Smart Integration:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">Brightwheel 系统智能整合：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">Brightwheel 系統智能整合：</span>
-                    </strong> 
-                        <span class="lang-el en-content">Real-time secure check-in/out alerts, activity updates, and tax-ready automatic statements.</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">实时安全签到/签退通知、活动更新及税务自动账单。</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">實時安全簽到/簽退通知、活動更新及稅務自動賬單。</span>
-                    </li>
-                    <li>📚 <strong>
-                        <span class="lang-el en-content">Core Mandarin:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">核心中文：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">核心中文：</span>
-                    </strong> 
-                        <span class="lang-el en-content">1 full hour of daily leveled immersive Mandarin instruction.</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">每日1整小时的分级沉浸式中文教学。</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">每日1整小時的分級沉浸式中文教學。</span>
-                    </li>
-                    <li>✏️ <strong>
-                        <span class="lang-el en-content">Homework &amp; Cultural Crafts:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">作业与文化手工：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">作業與文化手工：</span>
-                    </strong> 
-                        <span class="lang-el en-content">Comprehensive academic tracking alongside art modules.</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">全面的学术跟进与艺术模块相结合。</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">全面的學術跟進與藝術模塊相結合。</span>
-                    </li>
-                    <li>🍎 <strong>
-                        <span class="lang-el en-content">Free Daily Supper:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">免费每日晚餐：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">免費每日晚餐：</span>
-                    </strong> 
-                        <span class="lang-el en-content">Hot, balanced evening meal included directly inside the plan.</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">计划内已包含营养均衡的热腾腾晚餐。</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">計劃內已包含營養均衡的熱騰騰晚餐。</span>
-                    </li>
-                </ul>
-            </div>
-        </div>`;
-
-    // Re-apply language visibility rules for newly injected DOM elements
-    const activeLang = localStorage.getItem('umc_preferred_lang') || 'en';
-    switchLanguage(activeLang);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const tierSelect = document.getElementById('dismissalTier');
-    const typeRadios = document.getElementsByName('progType');
-    if (tierSelect) tierSelect.addEventListener('change', updateProgramView);
-    typeRadios.forEach(r => r.addEventListener('change', updateProgramView));
-});
-
-function switchLanguage(lang) {
-    const allElements = document.querySelectorAll('.lang-el');
-    allElements.forEach(el => el.style.display = 'none');
-
-    const selectedElements = document.querySelectorAll('.' + lang + '-content');
-    selectedElements.forEach(el => {
-        if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
-            el.style.display = 'inline-block';
-        } else {
-            el.style.display = 'block';
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('lang-menu');
+        const dropdown = document.querySelector('.lang-dropdown');
+        if (menu && dropdown && !dropdown.contains(event.target)) {
+            menu.classList.remove('show');
         }
     });
 
-    const allButtons = document.querySelectorAll('.lang-btn');
-    allButtons.forEach(btn => btn.classList.remove('active'));
+    function switchLanguage(lang, langName) {
+        const allElements = document.querySelectorAll('.lang-el');
+        allElements.forEach(el => el.style.display = 'none');
 
-    const activeBtn = document.getElementById('btn-' + lang);
-    if (activeBtn) activeBtn.classList.add('active');
+        const selectedElements = document.querySelectorAll('.' + lang + '-content');
+        selectedElements.forEach(el => {
+            if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
+                el.style.display = 'inline-block';
+            } else {
+                el.style.display = 'block';
+            }
+        });
 
-    localStorage.setItem('umc_preferred_lang', lang);
-}
+        const currentLangText = document.getElementById('current-lang-text');
+        if (currentLangText && langName) {
+            currentLangText.textContent = langName;
+        }
 
-document.addEventListener("DOMContentLoaded", function() {
-    const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
-    switchLanguage(savedLang);
-    updateProgramView(); 
-});
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.remove('show');
 
-    /* ════════════════════════════════════════════════════
-   PRICING CALCULATOR
-════════════════════════════════════════════════════ */
-const DATA_MATRIX = Object.freeze({
-    tier1: {
-        type: 'triple',
-        opt1_price: '$500', opt2_price: '$615', opt3_price: '$795',
-        opt1_text: '2:05 PM – 4:00 PM (Wed: 12:50 PM – 4:00 PM)',
-        opt2_text: '2:05 PM – 5:15 PM (Wed: 12:50 PM – 5:15 PM)',
-        opt3_text: '2:05 PM – 6:00 PM (Wed: 12:50 PM – 6:00 PM)'
-    },
-    tier2: {
-        type: 'triple',
-        opt1_price: '$470', opt2_price: '$585', opt3_price: '$760',
-        opt1_text: '2:40 PM – 4:00 PM (Wed: 1:25 PM – 4:00 PM)',
-        opt2_text: '2:40 PM – 5:15 PM (Wed: 1:25 PM – 5:15 PM)',
-        opt3_text: '2:40 PM – 6:00 PM (Wed: 1:25 PM – 6:00 PM)'
-    },
-    tier3: {
-        type: 'triple',
-        opt1_price: '$450', opt2_price: '$555', opt3_price: '$735',
-        opt1_text: '2:55 PM – 4:00 PM (Wed: 1:40 PM – 4:00 PM)',
-        opt2_text: '2:55 PM – 5:15 PM (Wed: 1:40 PM – 5:15 PM)',
-        opt3_text: '2:55 PM – 6:00 PM (Wed: 1:40 PM – 6:00 PM)'
-    },
-    tier4: { type: 'single', price: '$710', text: '3:15 PM – 6:00 PM (Wed: 2:00 PM – 6:00 PM)' },
-    tier5: { type: 'single', price: '$680', text: '3:30 PM – 6:00 PM (Wed: 2:15 PM – 6:00 PM)' },
-    tier6: { type: 'single', price: '$630', text: '3:45 / 4:00 PM – 6:00 PM (Wed: 2:30 / 2:45 PM – 6:00 PM)' }
-});
-
-const OUTSITE_ADDER = { tier1: 30, tier2: 30, tier3: 30, tier4: 25, tier5: 25, tier6: 25 };
-
-function addToPrice(priceStr, add) {
-    return '$' + (parseInt(priceStr.replace('$', '')) + add);
-}
-
-function updateProgramView() {
-    const selectEl     = document.getElementById('dismissalTier');
-    const container    = document.getElementById('dynamicPriceDisplay');
-    const checkedRadio = document.querySelector('input[name="progType"]:checked');
-    if (!selectEl || !container || !checkedRadio) return;
-    const selectedTier = selectEl.value;
-    if (!selectedTier) return;
-
-    const isOutsite = checkedRadio.value === 'offsite';
-    const addAmt    = OUTSITE_ADDER[selectedTier] || 0;
-    const data      = DATA_MATRIX[selectedTier];
-    if (!data) {
-        container.innerHTML = `<div class="placeholder-text">No plan found for this time. Please contact us directly.</div>`;
-        return;
+        localStorage.setItem('umc_preferred_lang', lang);
     }
 
-    const escortNote = isOutsite
-        ? '<p style="font-size:13px; color:#1D4ED8; margin:6px 0 0 0;">🛡️ <strong>Includes daily safe escort</strong> from school to our off-site facility logged in Brightwheel.</p>'
-        : '';
-    const brightwheelNote = '<li>📱 <strong>Brightwheel System Smart Integration:</strong> Real-time secure check-in/out alerts, activity updates, and tax-ready automatic statements.</li>';
+    function toggleMobileMenu() {
+        const nav = document.getElementById('main-nav');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        if (nav) nav.classList.toggle('is-open');
+        if (menuBtn) menuBtn.classList.toggle('is-active');
+    }
 
-    if (data.type === 'triple') {
-        const p1 = isOutsite ? addToPrice(data.opt1_price, addAmt) : data.opt1_price;
-        const p2 = isOutsite ? addToPrice(data.opt2_price, addAmt) : data.opt2_price;
-        const p3 = isOutsite ? addToPrice(data.opt3_price, addAmt) : data.opt3_price;
-        container.innerHTML = `
-            <div class="pricing-result-grid">
-                <div class="price-card option-one">
-                    <h4>🟢 Option 1 — Mandarin Class Only</h4>
-                    <div class="price">${p1}<span> / month</span></div>
-                    <p><strong>Pickup by:</strong> 4:00 PM</p>
-                    <p><strong>Program Hours:</strong> ${data.opt1_text}</p>
-                    ${escortNote}
-                    <ul>${brightwheelNote}
-                        <li>Safe direct handover right at school dismissal (Grades K–5).</li>
-                        <li>Healthy snack break followed by transition supervision.</li>
-                        <li>📚 <strong>Core Mandarin Class:</strong> 1 hour of systematic, leveled immersive Mandarin learning daily.</li>
-                        <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
-                    </ul>
-                </div>
-                <div class="price-card option-two">
-                    <h4>🔵 Option 2 — Core Class + Homework + Snacks</h4>
-                    <div class="price">${p2}<span> / month</span></div>
-                    <p><strong>Pickup by:</strong> 5:15 PM</p>
-                    <p><strong>Program Hours:</strong> ${data.opt2_text}</p>
-                    ${escortNote}
-                    <ul>${brightwheelNote}
-                        <li>Includes everything in Option 1 (Core Mandarin block included).</li>
-                        <li>✏️ <strong>Homework Supervision:</strong> Monitored school assignments support.</li>
-                        <li>🍎 <strong>Evening Snacks:</strong> Nutritional afternoon fuel provided.</li>
-                        <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
-                    </ul>
-                </div>
-                <div class="price-card option-three">
-                    <h4>🟣 Option 3 — Extended Care + Homework + Arts + Supper</h4>
-                    <div class="price">${p3}<span> / month</span></div>
-                    <p><strong>Pickup by:</strong> 6:00 PM</p>
-                    <p><strong>Program Hours:</strong> ${data.opt3_text}</p>
-                    ${escortNote}
-                    <ul>${brightwheelNote}
-                        <li>Includes everything in Option 1 &amp; 2 blocks.</li>
-                        <li>🎨 <strong>Arts &amp; Cultural Enrichment:</strong> Daily dedicated crafts, origami, and painting projects.</li>
-                        <li>🍎 <strong>Free Daily Supper:</strong> A hot evening meal is fully provided before checkout.</li>
-                        <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
-                    </ul>
-                </div>
-            </div>`;
-    } else {
-        const p = isOutsite ? addToPrice(data.price, addAmt) : data.price;
-        container.innerHTML = `
-            <div class="pricing-result-grid">
-                <div class="price-card option-elite" style="max-width:650px; margin:0 auto; flex:1;">
-                    <h4>🟠 All-Inclusive Extended Plan</h4>
-                    <div class="price">${p}<span> / month</span></div>
-                    <p><strong>Pickup by:</strong> 6:00 PM</p>
-                    <p><strong>Program Hours:</strong> ${data.text}</p>
-                    ${escortNote}
-                    <div class="value-badge">💎 Maximized Educational Output Window</div>
-                    <p style="margin-top:15px; font-size:13.5px; color:var(--text-muted);">Because your school's later dismissal naturally modifies the total afternoon window, this single plan cleanly optimizes every minute — focusing on high-value learning, arts, homework support, and hot dinner.</p>
-                    <ul>${brightwheelNote}
-                        <li>Safe direct connection right at school dismissal gates for grades K–5.</li>
-                        <li>📚 <strong>Core Mandarin:</strong> 1 full hour of daily leveled immersive Mandarin instruction.</li>
-                        <li>✏️ <strong>Homework &amp; Cultural Crafts:</strong> Comprehensive academic tracking alongside art modules.</li>
-                        <li>🍎 <strong>Free Daily Supper:</strong> Hot, balanced evening meal included directly inside the plan.</li>
-                        <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
-                    </ul>
-                </div>
-            </div>`;
-    }
-}
+    // ==========================================
+    // PRICING MATRIX LOGIC
+    // ==========================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    const tierSelect = document.getElementById('dismissalTier');
-    const typeRadios = document.getElementsByName('progType');
-    if (tierSelect) tierSelect.addEventListener('change', updateProgramView);
-    typeRadios.forEach(r => r.addEventListener('change', updateProgramView));
-});
-function toggleMobileMenu() {
-    var nav = document.getElementById("main-nav");
-    var btn = document.querySelector('.mobile-menu-btn');
-    
-    if (nav) {
-        nav.classList.toggle("is-open"); /* Drops menu down / retracts it */
+    const DATA_MATRIX = Object.freeze({
+        tier1: {
+            type: 'triple',
+            opt1_price: '$500', opt2_price: '$615', opt3_price: '$795',
+            opt1_text: '2:05 PM – 4:00 PM (Wed: 12:50 PM – 4:00 PM)',
+            opt2_text: '2:05 PM – 5:15 PM (Wed: 12:50 PM – 5:15 PM)',
+            opt3_text: '2:05 PM – 6:00 PM (Wed: 12:50 PM – 6:00 PM)'
+        },
+        tier2: {
+            type: 'triple',
+            opt1_price: '$470', opt2_price: '$585', opt3_price: '$760',
+            opt1_text: '2:40 PM – 4:00 PM (Wed: 1:25 PM – 4:00 PM)',
+            opt2_text: '2:40 PM – 5:15 PM (Wed: 1:25 PM – 5:15 PM)',
+            opt3_text: '2:40 PM – 6:00 PM (Wed: 1:25 PM – 6:00 PM)'
+        },
+        tier3: {
+            type: 'triple',
+            opt1_price: '$450', opt2_price: '$555', opt3_price: '$735',
+            opt1_text: '2:55 PM – 4:00 PM (Wed: 1:40 PM – 4:00 PM)',
+            opt2_text: '2:55 PM – 5:15 PM (Wed: 1:40 PM – 5:15 PM)',
+            opt3_text: '2:55 PM – 6:00 PM (Wed: 1:40 PM – 6:00 PM)'
+        },
+        tier4: { type: 'single', price: '$710', text: '3:15 PM – 6:00 PM (Wed: 2:00 PM – 6:00 PM)' },
+        tier5: { type: 'single', price: '$680', text: '3:30 PM – 6:00 PM (Wed: 2:15 PM – 6:00 PM)' },
+        tier6: { type: 'single', price: '$630', text: '3:45 / 4:00 PM – 6:00 PM (Wed: 2:30 / 2:45 PM – 6:00 PM)' }
+    });
+
+    const OUTSITE_ADDER = { tier1: 30, tier2: 30, tier3: 30, tier4: 25, tier5: 25, tier6: 25 };
+
+    function addToPrice(priceStr, add) {
+        return '$' + (parseInt(priceStr.replace('$', '')) + add);
     }
-    if (btn) {
-        btn.classList.toggle("is-active"); /* Animates Hamburger to 'X' icon */
+
+    function updateProgramView() {
+        const selectEl     = document.getElementById('dismissalTier');
+        const container    = document.getElementById('dynamicPriceDisplay');
+        const checkedRadio = document.querySelector('input[name="progType"]:checked');
+        if (!selectEl || !container || !checkedRadio) return;
+        
+        const selectedTier = selectEl.value;
+        if (!selectedTier) return;
+
+        const isOutsite = checkedRadio.value === 'offsite';
+        const addAmt    = OUTSITE_ADDER[selectedTier] || 0;
+        const data      = DATA_MATRIX[selectedTier];
+        
+        if (!data) {
+            container.innerHTML = `<div class="placeholder-text">No plan found for this time. Please contact us directly.</div>`;
+            return;
+        }
+
+        const escortNote = isOutsite
+            ? `<p style="font-size:13px; color:#1D4ED8; margin:6px 0 0 0;">🛡️ <strong>
+                <span class="lang-el en-content">Includes daily safe escort</span>
+                <span class="lang-el zh-hans-content" style="display: none;">包含每日安全护送</span>
+                <span class="lang-el zh-hant-content" style="display: none;">包含每日安全護送</span>
+              </strong> 
+                <span class="lang-el en-content">from school to our off-site facility logged in Brightwheel.</span>
+                <span class="lang-el zh-hans-content" style="display: none;">从学校到校外基地的接送行程均通过 Brightwheel 记录。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">從學校到校外基地的接送行程均通過 Brightwheel 記錄。</span>
+              </p>` 
+            : '';
+            
+        const brightwheelNote = `<li>📱 <strong>
+            <span class="lang-el en-content">Brightwheel System Smart Integration:</span>
+            <span class="lang-el zh-hans-content" style="display: none;">Brightwheel 系统智能整合：</span>
+            <span class="lang-el zh-hant-content" style="display: none;">Brightwheel 系統智能整合：</span>
+        </strong> 
+            <span class="lang-el en-content">Real-time secure check-in/out alerts, activity updates, and tax-ready automatic statements.</span>
+            <span class="lang-el zh-hans-content" style="display: none;">实时安全签到/签退通知、活动更新及税务自动账单。</span>
+            <span class="lang-el zh-hant-content" style="display: none;">實時安全簽到/簽退通知、活動更新及稅務自動賬單。</span>
+        </li>`;
+
+        if (data.type === 'triple') {
+            const p1 = isOutsite ? addToPrice(data.opt1_price, addAmt) : data.opt1_price;
+            const p2 = isOutsite ? addToPrice(data.opt2_price, addAmt) : data.opt2_price;
+            const p3 = isOutsite ? addToPrice(data.opt3_price, addAmt) : data.opt3_price;
+            container.innerHTML = `
+                <div class="pricing-result-grid">
+                    <div class="price-card option-one">
+                        <h4>
+                            <span class="lang-el en-content">🟢 Option 1 — Mandarin Class Only</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">🟢 选项 1 — 仅核心中文课</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">🟢 選項 1 — 僅核心中文課</span>
+                        </h4>
+                        <div class="price">${p1}<span>
+                            <span class="lang-el en-content"> / month</span>
+                            <span class="lang-el zh-hans-content" style="display: none;"> / 每月</span>
+                            <span class="lang-el zh-hant-content" style="display: none;"> / 每月</span>
+                        </span></div>
+                        <p><strong>
+                            <span class="lang-el en-content">Pickup by:</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">接走时间：</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">接走時間：</span>
+                        </strong> 4:00 PM</p>
+                        <p><strong>Program Hours:</strong> ${data.opt1_text}</p>
+                        ${escortNote}
+                        <ul>${brightwheelNote}
+                            <li>📚 <strong>
+                                <span class="lang-el en-content">Core Mandarin Class:</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">核心中文：</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">核心中文：</span>
+                            </strong> 
+                                <span class="lang-el en-content">1 hour of systematic, leveled immersive Mandarin learning daily.</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">每日1整小时的分级沉浸式中文教学。</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">每日1整小時的分級沉浸式中文教學。</span>
+                            </li>
+                            <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="price-card option-two">
+                        <h4>
+                            <span class="lang-el en-content">🔵 Option 2 — Core Class + Homework + Snacks</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">🔵 选项 2 — 中文 + 作业督导 + 点心</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">🔵 選項 2 — 中文 + 作業督導 + 點心</span>
+                        </h4>
+                        <div class="price">${p2}<span>
+                            <span class="lang-el en-content"> / month</span>
+                            <span class="lang-el zh-hans-content" style="display: none;"> / 每月</span>
+                            <span class="lang-el zh-hant-content" style="display: none;"> / 每月</span>
+                        </span></div>
+                        <p><strong>
+                            <span class="lang-el en-content">Pickup by:</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">接走时间：</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">接走時間：</span>
+                        </strong> 5:15 PM</p>
+                        <p><strong>Program Hours:</strong> ${data.opt2_text}</p>
+                        ${escortNote}
+                        <ul>${brightwheelNote}
+                            <li>✏️ <strong>
+                                <span class="lang-el en-content">Homework Supervision:</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">日常作业督导：</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">日常作業督導：</span>
+                            </strong> 
+                                <span class="lang-el en-content">Monitored school assignments support.</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">支持并监督学校每日作业完成。</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">支持並監督學校每日作業完成。</span>
+                            </li>
+                            <li>🍎 <strong>
+                                <span class="lang-el en-content">Evening Snacks:</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">能量补充点心：</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">能量補充點心：</span>
+                            </strong> 
+                                <span class="lang-el en-content">Nutritional afternoon fuel provided.</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">提供高品质营养下午点心。</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">提供高品質營養下午點心。</span>
+                            </li>
+                            <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="price-card option-three">
+                        <h4>
+                            <span class="lang-el en-content">🟣 Option 3 — Extended Care + Supper</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">🟣 选项 3 — 全包长托计划 + 晚餐</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">🟣 選項 3 — 全包長托計劃 + 晚餐</span>
+                        </h4>
+                        <div class="price">${p3}<span>
+                            <span class="lang-el en-content"> / month</span>
+                            <span class="lang-el zh-hans-content" style="display: none;"> / 每月</span>
+                            <span class="lang-el zh-hant-content" style="display: none;"> / 每月</span>
+                        </span></div>
+                        <p><strong>
+                            <span class="lang-el en-content">Pickup by:</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">接走时间：</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">接走時間：</span>
+                        </strong> 6:00 PM</p>
+                        <p><strong>Program Hours:</strong> ${data.opt3_text}</p>
+                        ${escortNote}
+                        <ul>${brightwheelNote}
+                            <li>🎨 <strong>
+                                <span class="lang-el en-content">Arts &amp; Cultural Enrichment:</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">文化拓展活动：</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">文化拓展活動：</span>
+                            </strong> 
+                                <span class="lang-el en-content">Daily dedicated crafts, origami, and painting projects.</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">专设创意手工、折纸或绘画项目。</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">專設創意手工、折紙或繪畫項目。</span>
+                            </li>
+                            <li>🍎 <strong>
+                                <span class="lang-el en-content">Free Daily Supper:</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">免费每日晚餐：</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">免費每日晚餐：</span>
+                            </strong> 
+                                <span class="lang-el en-content">A hot evening meal is fully provided before checkout.</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">包含营养均衡的热腾腾晚餐。</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">包含營養均衡的熱騰騰晚餐。</span>
+                            </li>
+                            <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                        </ul>
+                    </div>
+                </div>`;
+        } else {
+            const p = isOutsite ? addToPrice(data.price, addAmt) : data.price;
+            container.innerHTML = `
+                <div class="pricing-result-grid">
+                    <div class="price-card option-elite" style="max-width:650px; margin:0 auto; flex:1;">
+                        <h4>
+                            <span class="lang-el en-content">🟠 All-Inclusive Extended Plan</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">🟠 全包长托计划</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">🟠 全包長托計劃</span>
+                        </h4>
+                        <div class="price">${p}<span>
+                            <span class="lang-el en-content"> / month</span>
+                            <span class="lang-el zh-hans-content" style="display: none;"> / 每月</span>
+                            <span class="lang-el zh-hant-content" style="display: none;"> / 每月</span>
+                        </span></div>
+                        <p><strong>
+                            <span class="lang-el en-content">Pickup by:</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">接走时间：</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">接走時間：</span>
+                        </strong> 6:00 PM</p>
+                        <p><strong>Program Hours:</strong> ${data.text}</p>
+                        ${escortNote}
+                        <div class="value-badge">
+                            <span class="lang-el en-content">💎 Maximized Educational Output Window</span>
+                            <span class="lang-el zh-hans-content" style="display: none;">💎 极致教育产出窗口</span>
+                            <span class="lang-el zh-hant-content" style="display: none;">💎 極致教育產出窗口</span>
+                        </div>
+                        <ul>${brightwheelNote}
+                            <li>📚 <strong>
+                                <span class="lang-el en-content">Core Mandarin:</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">核心中文：</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">核心中文：</span>
+                            </strong> 
+                                <span class="lang-el en-content">1 full hour of daily leveled immersive Mandarin instruction.</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">每日1整小时的分级沉浸式中文教学。</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">每日1整小時的分級沉浸式中文教學。</span>
+                            </li>
+                            <li>🍎 <strong>
+                                <span class="lang-el en-content">Free Daily Supper:</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">免费每日晚餐：</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">免費每日晚餐：</span>
+                            </strong> 
+                                <span class="lang-el en-content">Hot, balanced evening meal included directly inside the plan.</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">计划内已包含营养均衡的热腾腾晚餐。</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">計劃內已包含營養均衡的熱騰騰晚餐。</span>
+                            </li>
+                            <li><em style="font-size:12.5px; color:#777;">+ $80/yr registration fee &amp; $80/yr materials fee</em></li>
+                        </ul>
+                    </div>
+                </div>`;
+        }
+
+        // Re-apply language visibility rules for newly injected DOM elements
+        const activeLang = localStorage.getItem('umc_preferred_lang') || 'en';
+        let defaultLangName = 'English';
+        if (activeLang === 'zh-hans') defaultLangName = '简体中文';
+        if (activeLang === 'zh-hant') defaultLangName = '繁體中文';
+        switchLanguage(activeLang, defaultLangName);
     }
-}
+
+    // Initialize Page logic 
+    document.addEventListener("DOMContentLoaded", function() {
+        const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+        let defaultLangName = 'English';
+        if (savedLang === 'zh-hans') defaultLangName = '简体中文';
+        if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
+        switchLanguage(savedLang, defaultLangName);
+        
+        const tierSelect = document.getElementById('dismissalTier');
+        const typeRadios = document.getElementsByName('progType');
+        if (tierSelect) tierSelect.addEventListener('change', updateProgramView);
+        typeRadios.forEach(r => r.addEventListener('change', updateProgramView));
+    });
+
 </script>
 </body>
 </html>
