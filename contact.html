@@ -93,10 +93,25 @@
 
         .header-container {
             padding: 10px 20px;
+            position: relative; /* Establishes context to cleanly map absolute button positioning */
         }
 
+        /* Prevent the wide logo configuration from pushing elements off-screen */
+        .logo-group {
+            max-width: calc(100% - 60px); 
+        }
+
+        /* Scale down the combined logo images slightly on mobile so everything fits */
+        .logo-group img {
+            height: 30px !important; 
+        }
+
+        /* Secure button placement permanently to the top-right row corner */
         .mobile-menu-btn {
-            display: flex; /* Display hamburger button */
+            display: flex !important;
+            position: absolute;
+            right: 20px;
+            top: 18px; /* Perfectly centers it vertically inside the 72px bar row */
         }
 
         nav.nav-menu {
@@ -312,6 +327,11 @@
         border-radius: 2px;
         transition: var(--transition-smooth);
     }
+            
+    /* Hamburger Morphing Animations */
+    .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* ==========================================================================
        CONTENT CONTAINER ARCHITECTURE
@@ -639,7 +659,7 @@
         <p class="subtitle">
             <span class="lang-el en-content">Have questions about our SFUSD schedules, placement mapping, or tracking protocols? Reach out directly and our coordination operations will assist you.</span>
             <span class="lang-el zh-hans-content" style="display: none;">对我们旧金山学区（SFUSD）的课程安排、分班规划或跟进流程有任何疑问？请直接与我们联系，我们的协调团队将竭诚为您提供协助。</span>
-            <span class="lang-el zh-hant-content" style="display: none;">對我們舊金山學區（SFUSD）的課程安排、分班規劃或跟进流程有任何疑問？請直接與我們聯繫，我們的協調團隊將竭誠為您提供協助。</span>
+            <span class="lang-el zh-hant-content" style="display: none;">對我們舊金山學區（SFUSD）的課程安排、分班規劃或跟進流程有任何疑問？請直接與我們聯繫，我們的協調團隊將竭誠為您提供協助。</span>
         </p>
         
         <div class="giant-email-container">
