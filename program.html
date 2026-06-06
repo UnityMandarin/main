@@ -969,21 +969,6 @@
                         <span class="lang-el zh-hant-content" style="display: none;">拓展課程動態融入了手工藝、創意繪畫以及中國武術/韻律探索。</span>
                     </small></li>
 
-                    <li>🍎 <strong>
-                        <span class="lang-el en-content">【Snacks Supply】</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">【点心供应】</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">【點心供應】</span>
-                    </strong>
-                    <span class="lang-el en-content">The 6 PM options provide high-quality nutritional energy snacks every late afternoon.</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">6点选项每日傍晚提供高品质营养能量点心。</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">6點選項每日傍晚提供高品質營養能量點心。</span>
-                    <br>
-                    <small>
-                        <span class="lang-el en-content">High-quality nutritional afternoon snacks are provided daily for 6 PM extended tracks.</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">6点长托选项每日提供高品质的营养下午茶点心。</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">6點長託選項每日提供高品質的營養下午茶點心。</span>
-                    </small></li>
-
                     <li>📌 <em style="color:#666; font-size:13px;">
                         <span class="lang-el en-content">Additional Fees: Registration: $80/yr + Materials: $80/yr</span>
                         <span class="lang-el zh-hans-content" style="display: none;">各项均需另缴：注册费: $80/年 + 书本材料费: $80/年</span>
@@ -1198,7 +1183,6 @@
                 data-zh-hant="Tier 6: 3:45 / 4:00 PM 放學學校 (直達6點長託專屬計劃)">Tier 6: 3:45 / 4:00 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</option>
     </select>
 </div>
-                </div>
                 <div class="control-group">
                     <label>
                         <span class="lang-el en-content">2. Program Track:</span>
@@ -1396,6 +1380,22 @@
         if (nav) nav.classList.toggle('is-open');
         if (menuBtn) menuBtn.classList.toggle('is-active');
     }
+
+    const dropdownOptions = document.querySelectorAll('#dismissalTier option');
+    dropdownOptions.forEach(opt => {
+        let labelText = opt.getAttribute('data-' + lang);
+        
+        // Quick fallback safely in case data structures aren't matched perfectly
+        if (!labelText && lang === 'zh-hans') labelText = opt.getAttribute('data-zh');
+        if (!labelText) labelText = opt.getAttribute('data-en'); 
+        
+        opt.textContent = labelText;
+    });
+
+    // Save preference
+    localStorage.setItem('umc_preferred_lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
+}
 
     // ==========================================
     // PRICING MATRIX LOGIC
