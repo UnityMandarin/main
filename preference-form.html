@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>West Portal Campus Preference Form - Unity Mandarin</title>
+    <style>
+        /* === UNIFIED DESIGN SYSTEM VARIABLES === */
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #e53e3e;
+            --bg-color: #f7f5f0;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-main: #374151;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --mint-nav-border: rgba(0, 0, 0, 0.08);
+            --font-editorial: "Georgia", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* === GLOBAL RESETS & TYPOGRAPHY === */
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 核心 DOM i18n 显隐控制器 */
+        body[lang="en"] .zh-hans, body[lang="en"] .zh-hant { display: none !important; }
+        body[lang="zh-hans"] .en, body[lang="zh-hans"] .zh-hant { display: none !important; }
+        body[lang="zh-hant"] .en, body[lang="zh-hant"] .zh-hans { display: none !important; }
+
+        /* === HEADER === */
+        .site-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--mint-nav-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: var(--font-editorial);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .nav-lang-bar {
+            display: flex;
+            gap: 6px;
+        }
+        .dev-lang-btn {
+            background-color: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .dev-lang-btn:hover {
+            color: var(--primary-color);
+            background-color: #f3f4f6;
+        }
+        .dev-lang-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* === MAIN LAYOUT === */
+        .page-wrapper {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .form-container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        /* === TYPOGRAPHY === */
+        h1 {
+            font-family: var(--font-editorial);
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-top: 0;
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+        p, ul {
+            margin-bottom: 18px;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+
+        /* === CALLOUT BOXES === */
+        .highlight-box {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+        }
+        .disclaimer-box {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+            font-size: 0.9rem;
+            color: #b91c1c;
+        }
+
+        /* === FORM ELEMENTS === */
+        .section-title {
+            font-family: var(--font-editorial);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 40px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+        .hint {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        /* Mobile-safe input sizing (16px prevents iOS zoom) */
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: inherit;
+            color: var(--text-primary);
+            background-color: #f9fafb;
+            transition: all 0.2s ease;
+            appearance: none;
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            background-color: var(--card-bg);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Checkboxes and Radios */
+        .radio-grid, .checkbox-group { margin-top: 12px; }
+        .radio-item, .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+        .radio-item:hover, .checkbox-item:hover {
+            background-color: #f3f4f6;
+        }
+        .radio-item input, .checkbox-item input {
+            margin-top: 4px;
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+        .radio-item label, .checkbox-item label {
+            margin-bottom: 0;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        /* === DYNAMIC CARDS === */
+        .dynamic-node-card {
+            background-color: #f9fafb;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .remove-node-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #fee2e2;
+            color: #dc2626;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .remove-node-btn:hover { background-color: #fecaca; }
+
+        .add-trigger-btn {
+            background-color: transparent;
+            border: 2px dashed #cbd5e1;
+            color: var(--text-main);
+            padding: 16px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 8px;
+            margin-bottom: 32px;
+            transition: all 0.2s ease;
+        }
+        .add-trigger-btn:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+            background-color: #eff6ff;
+        }
+
+        /* === BUTTONS === */
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 32px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.1);
+        }
+        .submit-btn:hover {
+            background-color: #1e40af;
+            box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .required-star { color: var(--accent-color); margin-left: 4px; }
+
+        /* === FOOTER === */
+        .site-footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 32px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* === MOBILE OPTIMIZATIONS === */
+        @media (max-width: 640px) {
+            .page-wrapper { margin: 24px auto; padding: 0 16px; }
+            .form-container { padding: 24px 20px; border-radius: 12px; }
+            h1 { font-size: 1.6rem; }
+            .dynamic-node-card { padding: 20px 16px; }
+            .header-inner { flex-direction: column; gap: 12px; padding: 12px 16px; }
+            .remove-node-btn { position: relative; top: 0; right: 0; margin-bottom: 16px; width: 100%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body lang="en">
+
+<header class="site-header">
+    <div class="header-inner">
+        <a href="#" class="logo">Unity Mandarin</a>
+        <div class="nav-lang-bar">
+            <button type="button" class="dev-lang-btn active" onclick="switchLanguage('en')">EN</button>
+            <button type="button" class="dev-lang-btn" onclick="switchLanguage('zh-hans')">简体</button>
+            <button type="button" class="dev-lang-btn" onclick="switchLanguage('zh-hant')">繁體</button>
+        </div>
+    </div>
+</header>
+
+<main class="page-wrapper">
+    <div class="form-container">
+        
+        <h1>
+            <span class="en">West Portal Campus: 2026-2027 Fall Mandarin Program Enrollment Preference & Founding Member Welcome Form</span>
+            <span class="zh-hans">West Portal 校区：2026-2027学年秋季中文课后项目意向登记与创始成员欢迎表</span>
+            <span class="zh-hant">West Portal 校區：2026-2027學年秋季中文課後項目意向登記與創始成員歡迎表</span>
+        </h1>
+
+        <div class="intro-block">
+            <p>
+                <span class="en"><strong>Dear West Portal Families,</strong><br>With the aim of providing a stable, seamless, and enriched after-school Mandarin experience for our children in the upcoming <strong>2026-2027 school year</strong>, our dedicated team of familiar and trusted educators has come together under <strong>Unity Mandarin Enrichment Center (hereinafter referred to as Unity Mandarin)</strong>. As we prepare for the upcoming school year and finalize our operational coordination with the school district, our focus remains entirely on ensuring classroom continuity and a smooth transition for every single child.</span>
+                <span class="zh-hans"><strong>亲爱的 West Portal 家长：</strong><br>旨在为孩子们在即将到来的 <strong>2026-2027 学年</strong> 提供一个稳定、无缝衔接且高品质的课后中文体验，大家熟悉且信任的教师团队共同组建了 <strong>“同心中文 (Unity Mandarin Enrichment Center，以下简称 Unity Mandarin)”</strong>。我们目前正在积极推进与学区的开学对接工作，每个家庭的关注与支持都是我们最宝贵的财富。</span>
+                <span class="zh-hant"><strong>親愛的 West Portal 家長：</strong><br>旨在為孩子們在即將到來的 <strong>2026-2027 學年</strong> 提供一個穩定、無縫銜接且高品質的課後中文體驗，大家熟悉且信任的教師團隊共同組建了 <strong>“同心中文 (Unity Mandarin Enrichment Center，以下簡稱 Unity Mandarin)”</strong>。我們目前正在積極推進與學區的開學對接工作，每個家庭的關注與支持都是我們最寶貴的財富。</span>
+            </p>
+
+            <div class="highlight-box">
+                <span class="en"><strong>🌟 FACULTY & CAMPUS CONTINUITY:</strong><br>We know how much stability matters to our children. <strong>Teacher Wang</strong> will serve as the <strong>Site Director</strong>, leading our familiar and deeply trusted teacher team to care for, inspire, and guide our children in the same environment they love.</span>
+                <span class="zh-hans"><strong>🌟 教学与校区延续性声明：</strong><br>我们深知稳定的环境对孩子至关重要。<strong>将由大家深切熟悉与信任的王老师继续担任校区主管（Site Director）</strong>，带领原班教师团队，在孩子们熟悉的校园环境中，继续守护、引领他们的中文成长！</span>
+                <span class="zh-hant"><strong>🌟 教學與校區延續性聲明：</strong><br>我們深知穩定的環境對孩子至關重要。<strong>將由大家深切熟悉與信任的王老師繼續擔任校區主管（Site Director）</strong>，帶領原班教師團隊，在孩子們熟悉的校園環境中，繼續守護、引領他們的中文成長！</span>
+            </div>
+
+            <p><span class="en">Our standard program options and tuition frameworks for the full 9.5-month academic year are outlined below:</span><span class="zh-hans">我们目前的标准课程方案与全学年 9.5 个月的收费标准规划如下：</span><span class="zh-hant">我們目前的標準課程方案與全學年 9.5 個月的收費標準規劃如下：</span></p>
+            <ul>
+                <li><strong>Session 1: Only Mandarin</strong> (2:05 PM - 3:50 PM, Wed 12:50 PM - 3:50 PM) | <strong>$340/month</strong></li>
+                <li><strong>Session 2: Mandarin + Extension</strong> (2:05 PM - 6:00 PM, Wed 12:50 PM - 6:00 PM) | <strong>$560/month</strong></li>
+            </ul>
+            <p class="hint">
+                <span class="en">*Note: Supplementary weekly rates ($90/wk for Mandarin, $60/wk for Extension) and flexible drop-in options ($25/hr) will be fully accessible within the formal registration portal.</span>
+                <span class="zh-hans">*注：正式报名时，按周计费以及临时按小时计费方案也将作为配套方案在系统全面开放。</span>
+                <span class="zh-hant">*註：正式報名時，按週計費以及臨時按小時計費方案也將作為配套方案在系統全面開放。</span>
+            </p>
+
+            <p>
+                <span class="en">🎁 <strong>FOUNDING COMMUNITY PRIVILEGE (1ST-MONTH CREDIT):</strong><br>To express our gratitude for walking alongside our teachers, families who submit this initial preference form before <strong>June 20 at 24:00</strong> will be welcomed as our Founding Community Members. You will receive a <strong>1ST-MONTH TUITION CREDIT</strong> subsidized by Unity Mandarin’s Community Initiative, automatically applied upon formal enrollment. There is no financial commitment or fees required today—this simply helps our teaching team plan classroom sizes and resources ahead of time.</span>
+                <span class="zh-hans">🎁 <strong>创始社区礼遇（首月学费减免）：</strong><br>为了感谢一直与老师们并肩同行的家庭，在 <strong>6月20日 24:00 前</strong> 提交此初始意向表的家长，将自动享有“创始社区成员”礼遇。您将获得由 Unity Mandarin 社区专项倡议补贴的<strong>【首月学费全免】</strong>额度，该额度将在正式注册时自动生效。今日登记无需支付任何费用，这主要用于帮助教师团队提前规划班级规模与教学资源。</span>
+                <span class="zh-hant">🎁 <strong>創始社區禮遇（首月學費減免）：</strong><br>為了感謝一直與老師們並肩同行的家庭，在 <strong>6月20日 24:00 前</strong> 提交此初始意向表的家長，將自動享有“創始社區成員”禮遇。您將獲得由 Unity Mandarin 社區專項倡議補貼的<strong>【首月學費全免】</strong>額度，該額度將在正式註冊時自動生效。今日登記無需支付任何費用，這主要用於幫助教師團隊提前規劃班級規模與教學資源。</span>
+            </p>
+
+            <p>
+                <span class="en">📣 <strong>COMMUNITY REFERRAL INCENTIVE:</strong><br>Let’s look out for our friends! For every new family you welcome to our Mandarin program who officially completes enrollment for Fall 2026, a <strong>$100 Tuition Credit / Cashback</strong> will be credited to your account at the end of the school year. Simply have your friends note your name, or your child's name + Mom/Dad (e.g., "Kevin's Mom") in the section below.</span>
+                <span class="zh-hans">📣 <strong>社区转推荐 100 刀激励：</strong><br>让我们共同营造这个温暖的社区！每成功推荐一个新家庭加入我们的中文项目（对方成功完成正式注册入读），推荐人均可在学年末获得 <strong>$100 刀的学费减免或现金回馈**，推荐无上限！只需让您的朋友在下方“推荐人”一栏填入您的名字，或者您孩子的名字 + Mom / Dad 即可。</span>
+                <span class="zh-hant">📣 <strong>社區轉推薦 100 刀激勵：</strong><br>讓我們共同營造這個溫暖的社區！每成功推薦一個新家庭加入我們的中文項目（對方成功完成正式註冊入讀），推薦人均可在學年末獲得 <strong>$100 刀的學費減免或現金回饋**，推薦無上限！只需讓您的朋友在下方“推薦人”一欄填入您的名字，或者您孩子的名字 + Mom / Dad 即可。</span>
+            </p>
+
+            <div class="disclaimer-box">
+                <span class="en"><strong>⚠️ OPERATIONAL, FEES & COMPLIANCE NOTICE:</strong> Please note: The tuition framework outlined above is based on current operational projections and standard non-profit facility use cost-sharing with SFUSD. Should finalized district facility configurations or standard district usage fee structures require unexpected adjustments, Unity Mandarin will communicate transparently and reserves the right to review rates to protect the overall quality of our children's education. Additionally, Unity Mandarin reserves the right of final interpretation regarding all promotional programs, credits, incentives, and discount policies outlined in this form.</span>
+                <span class="zh-hans"><strong>⚠️ 运营、费用及合规提示：</strong> 请注意：上述收费方案基于当前的运营规划以及与旧金山联合学区（SFUSD）的常规非营利场地成本分摊。若未来学区最终的课室配置或标准场地使用费结构需要进行意外调整，Unity Mandarin 将保持高度透明的沟通，并保留调整收费标准的权利，以确保我们孩子整体的教学品质。此外，Unity Mandarin（同心中文）保留对本表单中所涉及的所有促销优惠、学费减免、推荐激励及折扣政策的最终解释权。</span>
+                <span class="zh-hant"><strong>⚠️ 運營、費用及合規提示：</strong> 請注意：上述收費方案基於當前的運營規劃以及與舊金山聯合學區（SFUSD）的常規非營利場地成本分攤。若未來學區最終的課室配置或標準場地使用費結構需要進行意外調整，Unity Mandarin 將保持高度透明的溝通，並保留調整收費標準的權利，以確保我們孩子整體的教學品質。此外，Unity Mandarin（同心中文）保留對本表單中所涉及的所有促銷優惠、學費減免、推薦激勵及折扣政策的最終解釋權。</span>
+            </div>
+        </div>
+
+        <form action="https://submit-form.com/YOUR_FORMSPARK_FORM_ID" method="POST" id="preferenceForm">
+            
+            <input type="hidden" id="submitted-lang-tracker" name="submitted_language" value="en">
+
+            <div class="section-title">
+                <span class="en">SECTION 1: Parent/Guardian Information</span>
+                <span class="zh-hans">栏目一：家长/监护人信息</span>
+                <span class="zh-hant">欄目一：家長/監護人信息</span>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="en">Primary Email Address</span><span class="zh-hans">主联系电子邮箱</span><span class="zh-hant">主聯繫電子郵箱</span><span class="required-star">*</span>
+                </label>
+                <span class="hint en">We will use Brightwheel for our official enrollment portal. If you already have an active Brightwheel account, please use the exact same email address here for seamless integration.</span>
+                <span class="hint zh-hans">我们在正式报名注册时将使用 Brightwheel 系统。如果您以前使用过 Brightwheel，请在此处填写您之前用于登录 Brightwheel 的电子邮箱，以确保账户无缝关联。</span>
+                <span class="hint zh-hant">我們在正式報名註冊時將使用 Brightwheel 系統。如果您以前使用過 Brightwheel，請在此處填寫您之前用於登錄 Brightwheel 的電子郵箱，以確保賬戶無縫關聯。</span>
+                <input type="email" name="primary_email" required>
+            </div>
+
+            <div class="form-group">
+                <label><span class="en">Parent #1 First Name</span><span class="zh-hans">家长 #1 名字</span><span class="zh-hant">家長 #1 名字</span> <small style="font-weight:normal; color: var(--text-muted);">(Optional)</small></label>
+                <input type="text" name="parent_first_name[]">
+            </div>
+            <div class="form-group">
+                <label><span class="en">Parent #1 Middle Name</span><span class="zh-hans">家长 #1 中间名</span><span class="zh-hant">家長 #1 中間名</span> <small style="font-weight:normal; color: var(--text-muted);">(Optional)</small></label>
+                <input type="text" name="parent_middle_name[]">
+            </div>
+            <div class="form-group">
+                <label><span class="en">Parent #1 Last Name</span><span class="zh-hans">家长 #1 姓氏</span><span class="zh-hant">家長 #1 姓氏</span> <small style="font-weight:normal; color: var(--text-muted);">(Optional)</small></label>
+                <input type="text" name="parent_last_name[]">
+            </div>
+            <div class="form-group">
+                <label><span class="en">Parent #1 Phone Number</span><span class="zh-hans">家长 #1 联系电话</span><span class="zh-hant">家長 #1 聯繫電話</span> <small style="font-weight:normal; color: var(--text-muted);">(Optional)</small></label>
+                <input type="tel" name="parent_phone[]">
+            </div>
+
+            <div id="dynamic-parents-container"></div>
+            
+            <button type="button" class="add-trigger-btn" onclick="addParentRow()">
+                <span class="en">+ Add Another Parent/Guardian?</span>
+                <span class="zh-hans">+ 添加另一位家长/监护人？</span>
+                <span class="zh-hant">+ 添加另一位家長/監護人？</span>
+            </button>
+
+
+            <div class="section-title">
+                <span class="en">SECTION 2: Child Information</span>
+                <span class="zh-hans">栏目二：学生信息</span>
+                <span class="zh-hant">欄目二：學生信息</span>
+            </div>
+
+            <div class="disclaimer-box" style="margin-top:0; margin-bottom:24px;">
+                <span class="en"><strong>Notice:</strong> Our program currently serves students in Kindergarten through 5th Grade. We are unable to accommodate TK students at this time.</span>
+                <span class="zh-hans"><strong>公告：</strong> 请注意：我们目前的课后项目服务于 K 年级至 5 年级的学生，暂无法接收 TK 年级的学生。</span>
+                <span class="zh-hant"><strong>公告：</strong> 請注意：我們目前的課後項目服務於 K 年級至 5 年級的學生，暫無法接收 TK 年級的學生。</span>
+            </div>
+
+            <div class="dynamic-node-card">
+                <h3 style="margin-top:0; color:var(--text-primary); font-family: var(--font-editorial);">
+                    <span class="en">Child #1</span><span class="zh-hans">第一个孩子</span><span class="zh-hant">第一個孩子</span>
+                </h3>
+                
+                <div class="form-group">
+                    <label><span class="en">Child #1 Legal First Name</span><span class="zh-hans">第一个孩子英文名字</span><span class="zh-hant">第一個孩子英文名字</span><span class="required-star">*</span></label>
+                    <input type="text" name="child_first_name[]" required>
+                </div>
+                <div class="form-group">
+                    <label><span class="en">Child #1 Middle Name</span><span class="zh-hans">第一个孩子中间名</span><span class="zh-hant">第一個孩子中間名</span> <small style="font-weight:normal; color: var(--text-muted);">(Optional)</small></label>
+                    <input type="text" name="child_middle_name[]">
+                </div>
+                <div class="form-group">
+                    <label><span class="en">Child #1 Legal Last Name</span><span class="zh-hans">第一个孩子英文姓氏</span><span class="zh-hant">第一個孩子英文姓氏</span><span class="required-star">*</span></label>
+                    <input type="text" name="child_last_name[]" required>
+                </div>
+                <div class="form-group">
+                    <label><span class="en">Child #1 Chinese Name</span><span class="zh-hans">第一个孩子的中文名字</span><span class="zh-hant">第一個孩子的中文名字</span> <small style="font-weight:normal; color: var(--text-muted);">(Optional)</small></label>
+                    <input type="text" name="child_chinese_name[]">
+                </div>
+
+                <div class="form-group">
+                    <label><span class="en">Upcoming Grade in Fall 2026</span><span class="zh-hans">2026秋季新学期年级</span><span class="zh-hant">2026秋季新學期年級</span><span class="required-star">*</span></label>
+                    <select name="child_grade[]" required>
+                        <option value="">-- Select Grade --</option>
+                        <option value="K">Kindergarten</option>
+                        <option value="1">1st Grade</option>
+                        <option value="2">2nd Grade</option>
+                        <option value="3">3rd Grade</option>
+                        <option value="4">4th Grade</option>
+                        <option value="5">5th Grade</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="en">Target Mandarin Level for Fall 2026</span><span class="zh-hans">2026秋季期望入读的中文等级班</span><span class="zh-hant">2026秋季期望入讀的中文等級班</span><span class="required-star">*</span></label>
+                    <div class="radio-grid">
+                        <div class="radio-item"><input type="radio" name="child_level_0" id="c0_l1" value="Level 1" checked required><label for="c0_l1"><span class="en">Level 1 (Beginner)</span><span class="zh-hans">Level 1 (零基础 / 初学者)</span><span class="zh-hant">Level 1 (零基礎 / 初學者)</span></label></div>
+                        <div class="radio-item"><input type="radio" name="child_level_0" id="c0_l2" value="Level 2"><label for="c0_l2">Level 2</label></div>
+                        <div class="radio-item"><input type="radio" name="child_level_0" id="c0_l3" value="Level 3"><label for="c0_l3">Level 3</label></div>
+                        <div class="radio-item"><input type="radio" name="child_level_0" id="c0_l4" value="Level 4"><label for="c0_l4">Level 4</label></div>
+                        <div class="radio-item"><input type="radio" name="child_level_0" id="c0_l5" value="Level 5"><label for="c0_l5">Level 5</label></div>
+                        <div class="radio-item"><input type="radio" name="child_level_0" id="c0_l6" value="Level 6"><label for="c0_l6"><span class="en">Level 6 (Advanced)</span><span class="zh-hans">Level 6 (高年级熟练听说读写)</span><span class="zh-hant">Level 6 (高年級熟練聽說讀寫)</span></label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span class="en">Which session do you plan to enroll Child #1 in?</span><span class="zh-hans">孩子#1正式入读时倾向报哪一个 Session？</span><span class="zh-hant">孩子#1正式入讀時傾向報哪一個 Session？</span><span class="required-star">*</span></label>
+                    <div class="radio-grid">
+                        <div class="radio-item"><input type="radio" name="child_session_0" id="c0_s1" value="Session 1" checked required><label for="c0_s1">Session 1: Only Mandarin ($340/month)</label></div>
+                        <div class="radio-item"><input type="radio" name="child_session_0" id="c0_s2" value="Session 2"><label for="c0_s2">Session 2: Mandarin + Extension ($560/month)</label></div>
+                        <div class="radio-item"><input type="radio" name="child_session_0" id="c0_su" value="Undecided"><label for="c0_su"><span class="en">Undecided</span><span class="zh-hans">暂未决定</span><span class="zh-hant">暫未決定</span></label></div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:0;">
+                    <label><span class="en">Allergies & Special Care Notes</span><span class="zh-hans">过敏或特殊照顾备注</span><span class="zh-hant">過敏或特殊照顧備註</span> <small style="font-weight:normal; color: var(--text-muted);">(Optional)</small></label>
+                    <span class="hint en">Please briefly share any critical allergy or health notes (e.g., Peanut Allergy).</span>
+                    <span class="hint zh-hans">请简要填写孩子是否有重大过敏或需要核心教师团队特别留意的健康状况（例如：花生过敏）。</span>
+                    <span class="hint zh-hant">請簡要填寫孩子是否有重大過敏或需要核心教師團隊特別留意的健康狀況（例如：花生過敏）。</span>
+                    <textarea name="child_allergies[]" rows="2"></textarea>
+                </div>
+            </div>
+
+            <div id="dynamic-siblings-container"></div>
+
+            <button type="button" class="add-trigger-btn" onclick="addSiblingRow()">
+                <span class="en">+ Add a Sibling? (Enjoy 20% Off Tuition for Siblings!)</span>
+                <span class="zh-hans">+ 增加兄弟姐妹？（多孩入读可享受学费 20% 减免优惠！）</span>
+                <span class="zh-hant">+ 增加兄弟姐妹？（多孩入讀可享受學費 20% 減免優惠！）</span>
+            </button>
+
+
+            <div class="section-title">
+                <span class="en">SECTION 3: Referral Tracking</span>
+                <span class="zh-hans">栏目三：社区转推荐追踪</span>
+                <span class="zh-hant">欄目三：社區轉推薦追蹤</span>
+            </div>
+            <div class="form-group">
+                <label><span class="en">Who referred you to Unity Mandarin?</span><span class="zh-hans">是谁向您推荐了同心中文？</span><span class="zh-hant">是誰向您推薦了同心中文？</span> <small style="font-weight:normal; color: var(--text-muted);">(Optional)</small></label>
+                <span class="hint en">Please check with the referring family before inputting their full name, or their child's name + Mom/Dad (e.g., "Kevin's Mom").</span>
+                <span class="hint zh-hans">请输入推荐人的全名，或对方孩子的名字 + Mom/Dad（例如填写："Kevin's Mom"）。填写前请先跟对方家庭打个招呼，以便我们在学年末准确核销对方的激励。</span>
+                <span class="hint zh-hant">請輸入推薦人的全名，或對方孩子的名字 + Mom/Dad（例如填寫："Kevin's Mom"）。填寫前請先跟對方家庭打個招呼，以便我們在學年末準確核銷對方的激勵。</span>
+                <input type="text" name="referrer_info">
+            </div>
+
+            <div class="section-title">
+                <span class="en">SECTION 4: Community Vision Awareness</span>
+                <span class="zh-hans">栏目四：社区愿景共识</span>
+                <span class="zh-hant">欄目四：社區願景共識</span>
+            </div>
+            <div class="checkbox-group">
+                <div class="checkbox-item" style="background-color: transparent; padding: 0;">
+                    <input type="checkbox" id="alignment-agreement" name="program_continuity_consent" value="Acknowledged" required>
+                    <label for="alignment-agreement" style="font-weight:600; color: var(--text-primary); cursor:pointer;">
+                        <span class="en">I look forward to the continuity of the After-School Mandarin Program at the West Portal Campus for the 2026-2027 school year. <span class="required-star">*</span></span>
+                        <span class="zh-hans">我期待 2026-2027 学年 West Portal 校区课后中文项目的延续。 <span class="required-star">*</span></span>
+                        <span class="zh-hant">我期待 2026-2027 學年 West Portal 校區課後中文項目的延續。 <span class="required-star">*</span></span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <span class="en">Confirm My Preference & Save My Spot</span>
+                <span class="zh-hans">确认我的意向并保留名额</span>
+                <span class="zh-hant">確認我的意向並保留名額</span>
+            </button>
+        </form>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <p>&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    let parentCount = 1;
+    let childCount = 1;
+
+    // 1. 核心语言切换器
+    function switchLanguage(langCode) {
+        document.body.setAttribute('lang', langCode);
+        document.getElementById('submitted-lang-tracker').value = langCode;
+        
+        // 高亮开发测试条上的当前激活语言按钮
+        document.querySelectorAll('.dev-lang-btn').forEach(btn => btn.classList.remove('active'));
+        if(event && event.target && event.target.classList.contains('dev-lang-btn')) {
+            event.target.classList.add('active');
+        }
+    }
+
+    // 2. 动态追加家长逻辑
+    function addParentRow() {
+        parentCount++;
+        const container = document.getElementById('dynamic-parents-container');
+        const card = document.createElement('div');
+        card.className = 'dynamic-node-card';
+        card.id = `parent-row-${parentCount}`;
+        
+        card.innerHTML = `
+            <button type="button" class="remove-node-btn" onclick="removeNode('parent-row-${parentCount}')">
+                <span class="en">Remove</span><span class="zh-hans">删除</span><span class="zh-hant">刪除</span>
+            </button>
+            <h3 style="margin-top:0; color:var(--text-primary); font-family: var(--font-editorial);">
+                <span class="en">Parent/Guardian #${parentCount}</span>
+                <span class="zh-hans">家长/监护人 #${parentCount}</span>
+                <span class="zh-hant">家長/監護人 #${parentCount}</span>
+            </h3>
+            <div class="form-group">
+                <label><span class="en">Parent #${parentCount} First Name</span><span class="zh-hans">家长 #${parentCount} 名字</span><span class="zh-hant">家長 #${parentCount} 名字</span></label>
+                <input type="text" name="parent_first_name[]">
+            </div>
+            <div class="form-group">
+                <label><span class="en">Parent #${parentCount} Middle Name</span><span class="zh-hans">家长 #${parentCount} 中间名</span><span class="zh-hant">家長 #${parentCount} 中間名</span></label>
+                <input type="text" name="parent_middle_name[]">
+            </div>
+            <div class="form-group">
+                <label><span class="en">Parent #${parentCount} Last Name</span><span class="zh-hans">家长 #${parentCount} 姓氏</span><span class="zh-hant">家長 #${parentCount} 姓氏</span></label>
+                <input type="text" name="parent_last_name[]">
+            </div>
+            <div class="form-group">
+                <label><span class="en">Parent #${parentCount} Email Address</span><span class="zh-hans">家长 #${parentCount} 电子邮箱</span><span class="zh-hant">家長 #${parentCount} 電子郵箱</span><span class="required-star">*</span></label>
+                <input type="email" name="parent_email[]" required>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                <label><span class="en">Parent #${parentCount} Phone Number</span><span class="zh-hans">家长 #${parentCount} 联系电话</span><span class="zh-hant">家長 #${parentCount} 聯繫電話</span></label>
+                <input type="tel" name="parent_phone[]">
+            </div>
+        `;
+        container.appendChild(card);
+    }
+
+    // 3. 动态追加孩子多孩逻辑
+    function addSiblingRow() {
+        childCount++;
+        const container = document.getElementById('dynamic-siblings-container');
+        const card = document.createElement('div');
+        card.className = 'dynamic-node-card';
+        card.id = `child-row-${childCount}`;
+        
+        const radioIdx = childCount - 1;
+
+        card.innerHTML = `
+            <button type="button" class="remove-node-btn" onclick="removeNode('child-row-${childCount}')">
+                <span class="en">Remove</span><span class="zh-hans">删除</span><span class="zh-hant">刪除</span>
+            </button>
+            <h3 style="margin-top:0; color:var(--text-primary); font-family: var(--font-editorial);">
+                <span class="en">Child #${childCount} (Sibling Discount Applied)</span>
+                <span class="zh-hans">孩子 #${childCount}（已自动关联多孩优惠标签）</span>
+                <span class="zh-hant">孩子 #${childCount}（已自動關聯多孩優惠標籤）</span>
+            </h3>
+            
+            <div class="form-group">
+                <label><span class="en">Child #${childCount} Legal First Name</span><span class="zh-hans">孩子 #${childCount} 英文名字</span><span class="zh-hant">孩子 #${childCount} 英文名字</span><span class="required-star">*</span></label>
+                <input type="text" name="child_first_name[]" required>
+            </div>
+            <div class="form-group">
+                <label><span class="en">Child #${childCount} Middle Name</span><span class="zh-hans">孩子 #${childCount} 中间名</span><span class="zh-hant">孩子 #${childCount} 中間名</span></label>
+                <input type="text" name="child_middle_name[]">
+            </div>
+            <div class="form-group">
+                <label><span class="en">Child #${childCount} Legal Last Name</span><span class="zh-hans">孩子 #${childCount} 英文姓氏</span><span class="zh-hant">孩子 #${childCount} 英文姓氏</span><span class="required-star">*</span></label>
+                <input type="text" name="child_last_name[]" required>
+            </div>
+            <div class="form-group">
+                <label><span class="en">Child #${childCount} Chinese Name</span><span class="zh-hans">孩子 #${childCount} 的中文名字</span><span class="zh-hant">孩子 #${childCount} 的中文名字</span></label>
+                <input type="text" name="child_chinese_name[]">
+            </div>
+
+            <div class="form-group">
+                <label><span class="en">Upcoming Grade in Fall 2026</span><span class="zh-hans">2026秋季新学期年级</span><span class="zh-hant">2026秋季新學期年級</span><span class="required-star">*</span></label>
+                <select name="child_grade[]" required>
+                    <option value="">-- Select Grade --</option>
+                    <option value="K">Kindergarten</option>
+                    <option value="1">1st Grade</option>
+                    <option value="2">2nd Grade</option>
+                    <option value="3">3rd Grade</option>
+                    <option value="4">4th Grade</option>
+                    <option value="5">5th Grade</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><span class="en">Target Mandarin Level for Fall 2026</span><span class="zh-hans">2026秋季期望入读的中文等级班</span><span class="zh-hant">2026秋季期望入讀的中文等級班</span><span class="required-star">*</span></label>
+                <div class="radio-grid">
+                    <div class="radio-item"><input type="radio" name="child_level_${radioIdx}" id="c${radioIdx}_l1" value="Level 1" checked required><label for="c${radioIdx}_l1"><span class="en">Level 1 (Beginner)</span><span class="zh-hans">Level 1 (零基础 / 初学者)</span><span class="zh-hant">Level 1 (零基礎 / 初學者)</span></label></div>
+                    <div class="radio-item"><input type="radio" name="child_level_${radioIdx}" id="c${radioIdx}_l2" value="Level 2"><label for="c${radioIdx}_l2">Level 2</label></div>
+                    <div class="radio-item"><input type="radio" name="child_level_${radioIdx}" id="c${radioIdx}_l3" value="Level 3"><label for="c${radioIdx}_l3">Level 3</label></div>
+                    <div class="radio-item"><input type="radio" name="child_level_${radioIdx}" id="c${radioIdx}_l4" value="Level 4"><label for="c${radioIdx}_l4">Level 4</label></div>
+                    <div class="radio-item"><input type="radio" name="child_level_${radioIdx}" id="c${radioIdx}_l5" value="Level 5"><label for="c${radioIdx}_l5">Level 5</label></div>
+                    <div class="radio-item"><input type="radio" name="child_level_${radioIdx}" id="c${radioIdx}_l6" value="Level 6"><label for="c${radioIdx}_l6"><span class="en">Level 6 (Advanced)</span><span class="zh-hans">Level 6 (高年级熟练听说读写)</span><span class="zh-hant">Level 6 (高年級熟練聽說讀寫)</span></label></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="en">Which session do you plan to enroll Child #${childCount} in?</span><span class="zh-hans">孩子 #${childCount} 正式入读时倾向报哪一个 Session？</span><span class="zh-hant">孩子 #${childCount} 正式入讀時傾向報哪一個 Session？</span><span class="required-star">*</span></label>
+                <div class="radio-grid">
+                    <div class="radio-item"><input type="radio" name="child_session_${radioIdx}" id="c${radioIdx}_s1" value="Session 1" checked required><label for="c${radioIdx}_s1">Session 1: Only Mandarin ($340/month)</label></div>
+                    <div class="radio-item"><input type="radio" name="child_session_${radioIdx}" id="c${radioIdx}_s2" value="Session 2"><label for="c${radioIdx}_s2">Session 2: Mandarin + Extension ($560/month)</label></div>
+                    <div class="radio-item"><input type="radio" name="child_session_${radioIdx}" id="c${radioIdx}_su" value="Undecided"><label for="c${radioIdx}_su"><span class="en">Undecided</span><span class="zh-hans">暂未决定</span><span class="zh-hant">暫未決定</span></label></div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0;">
+                <label><span class="en">Allergies & Special Care Notes</span><span class="zh-hans">过敏或特殊照顾备注</span><span class="zh-hant">過敏或特殊照顧備註</span></label>
+                <textarea name="child_allergies[]" rows="2"></textarea>
+            </div>
+        `;
+        container.appendChild(card);
+    }
+
+    // 4. 原子节点安全移除处理器
+    function removeNode(id) {
+        const targetNode = document.getElementById(id);
+        if (targetNode) {
+            targetNode.remove();
+        }
+    }
+</script>
+</body>
+</html>
