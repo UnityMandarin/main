@@ -1,1440 +1,887 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unity Mandarin Center — Enrollment Preference</title>
+    <title>UMC — Student Registration Interest List</title>
     
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
     <style>
-    /* ==========================================================================
-       GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
-       ========================================================================== */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
+        /* --- 1. CSS Variables & Theme Tokens --- */
+        :root {
+            --umc-navy: #1B365D;
+            --umc-orange: #E0533C;
+            --umc-orange-hover: #c8442e;
+            --bg-page: #fcfcfc;
+            --bg-card: #ffffff;
+            --bg-section-alt: #f8fafc;
+            --border-color: #e2e8f0;
+            --border-input: #cbd5e1;
+            
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --text-light: #E2E8F0;
+            --text-dark: #1B365D;
+            
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 24px;
+            
+            --shadow-card: 0 10px 35px rgba(0,0,0,0.03);
+            --shadow-btn: 0 4px 15px rgba(224, 83, 60, 0.3);
+            
+            --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            --transition-speed: 0.2s ease-in-out;
+        }
 
-    :root {
-        /* Colors from index.html */
-        --brand-orange: #FF5722;
-        --brand-orange-hover: #E64A19;
-        --brand-orange-glow: rgba(255, 87, 34, 0.15);
-        --brand-orange-subtle: rgba(255, 87, 34, 0.04);
-        
-        --mint-nav-core: #D1F7DB;
-        --mint-nav-light: #EBFDF2;
-        --mint-nav-border: rgba(88, 185, 131, 0.35);
-        --mint-shadow-tint: rgba(88, 185, 131, 0.12);
-        --mint-light: #E8FBF0;
-        --scroll-jade: #72D09B;
-        
-        --font-editorial: 'Noto Serif SC', 'Playfair Display', serif;
-        --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
-        
-        --text-primary: #1C3325;
-        --text-secondary: #3A5243;
-        --text-navbar-link: #243E2E;
-        --text-main: #2C3E50;
-        --text-muted: #5A6B7C;
+        /* --- 2. Base Resets --- */
+        * {
+            box-sizing: border-box;
+        }
 
-        /* Form specific additions mapping to theme */
-        --umc-navy: #1C3325;
-        --bg-card: #ffffff;
-        --bg-section-alt: #f8fafc;
-        --border-color: #e2e8f0;
-        --border-input: #cbd5e1;
-        --text-light: #EBFDF2;
-        --radius-sm: 6px;
-        --radius-md: 8px;
-        --radius-lg: 12px;
-        --radius-xl: 24px;
-        --shadow-card: 0 10px 35px rgba(168, 223, 181, 0.25);
-        --shadow-btn: 0 4px 15px rgba(255, 87, 34, 0.25);
-        
-        --header-height: 72px;
-        --max-content-width: 1440px;
-        --max-width: 1280px;
-        --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-stack);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
 
-    /* ==========================================================================
-       BASE CORE BODY RESET & CANVAS GROUNDING
-       ========================================================================== */
-    body {
-        font-family: var(--font-interface);
-        color: var(--text-primary);
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        background-color: #f3efe3;
-        background-image: url('index-bg.png'); 
-        background-repeat: repeat; 
-        background-position: center top;
-        background-attachment: fixed;
-        background-size: 100% auto; 
-        overflow-x: hidden;
-    }
+        /* --- 3. Form Container Architecture --- */
+        .enrollment-section {
+            padding: 60px 20px;
+            background-color: var(--bg-page);
+        }
 
-    /* ==========================================================================
-       ADVANCED NAVIGATION HEADER FRAMEWORK
-       ========================================================================== */
-    header {
-        background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
-        min-height: var(--header-height);
-        position: sticky;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-bottom: 1px solid var(--mint-nav-border);
-        box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 
-                    0 2px 10px var(--mint-shadow-tint);
-        will-change: transform;
-        transition: var(--transition-smooth);
-    }
+        .form-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+        }
 
-    .header-container {
-        width: 100%;
-        max-width: var(--max-content-width);
-        padding: 0 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-sizing: border-box;
-        flex-wrap: wrap; 
-    }
+        /* --- 4. Header & Hero Section --- */
+        .form-header {
+            background: var(--umc-navy);
+            padding: 45px 40px;
+            color: #ffffff;
+        }
 
-    .logo-group {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        height: var(--header-height);
-        outline: none;
-        transition: var(--transition-smooth);
-    }
+        .form-header h2 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
 
-    .logo-group:hover {
-        transform: translateY(-1px);
-    }
+        .form-header .en-content {
+            font-size: 26px;
+        }
 
-    .logo-group img, 
-    header img {
-        height: 44px;
-        width: auto;
-        object-fit: contain;
-        display: block;
-        filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
-        transition: var(--transition-smooth);
-    }
+        .form-header p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-light);
+            margin: 15px 0 0 0;
+        }
 
-    nav.nav-menu {
-        display: flex;
-        align-items: center;
-        gap: 4px; 
-        flex-grow: 1;
-        justify-content: flex-end;
-        margin-right: 15px;
-    }
+        /* --- 5. Benefits & Highlights Sections --- */
+        .benefits-section {
+            padding: 35px 40px;
+            background: var(--bg-section-alt);
+            border-bottom: 1px solid var(--border-color);
+        }
 
-    nav a {
-        font-family: var(--font-interface);
-        text-decoration: none;
-        color: var(--text-navbar-link);
-        font-weight: 600;
-        font-size: 14px;
-        letter-spacing: 0.15px;
-        padding: 10px 18px;
-        border-radius: 8px;
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: var(--transition-smooth);
-        box-sizing: border-box;
-    }
+        .benefits-list {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
 
-    nav a:hover {
-        color: var(--brand-orange);
-        background-color: var(--brand-orange-subtle);
-    }
+        .benefits-list li {
+            margin-bottom: 12px;
+        }
 
-    nav a::after {
-        content: '';
-        position: absolute;
-        bottom: 4px;
-        left: 18px;
-        right: 18px;
-        height: 2px;
-        background-color: var(--brand-orange);
-        border-radius: 2px;
-        transform: scaleX(0);
-        transition: var(--transition-smooth);
-    }
+        .benefits-list li:last-child {
+            margin-bottom: 0;
+        }
 
-    nav a:hover::after {
-        transform: scaleX(1);
-    }
+        .highlights-section {
+            padding: 35px 40px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+        }
 
-    nav a.active-page {
-        color: #FFFFFF;
-        background-color: var(--brand-orange);
-        box-shadow: 0 4px 12px var(--brand-orange-glow);
-    }
+        .highlights-section h3 {
+            color: var(--umc-navy);
+            font-size: 18px;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+        }
 
-    nav a.active-page::after {
-        display: none; 
-    }
+        .highlights-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #475569;
+        }
 
-    nav a[href*="contact"],
-    nav a:last-of-type {
-        background-color: transparent;
-        border: 1.5px solid var(--brand-orange);
-        color: var(--brand-orange);
-        margin-left: 8px;
-        padding: 8px 20px;
-    }
+        .highlights-text p {
+            margin-bottom: 12px;
+        }
 
-    nav a[href*="contact"]:hover,
-    nav a:last-of-type:hover {
-        background-color: var(--brand-orange);
-        color: #FFFFFF;
-        box-shadow: 0 4px 14px var(--brand-orange-glow);
-        transform: translateY(-1px);
-    }
+        .highlights-text p:last-child {
+            margin-bottom: 0;
+        }
 
-    nav a[href*="contact"]:hover::after,
-    nav a:last-of-type:hover::after {
-        display: none;
-    }
+        .highlights-sublist {
+            display: block;
+            padding-left: 12px;
+            margin-top: 5px;
+        }
 
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
+        /* --- 6. Form Body & Inputs --- */
+        .form-body {
+            padding: 40px;
+        }
 
-    @media (min-width: 901px) {
-        .header-actions {
-            border-left: 1px solid var(--mint-nav-border);
+        .section-title-wrap {
+            margin-bottom: 40px;
+            border-left: 4px solid var(--umc-navy);
             padding-left: 15px;
-            margin-left: 5px;
         }
-    }
 
-    /* ==========================================================================
-       LANGUAGE DROPDOWN
-       ========================================================================== */
-    .lang-dropdown { position: relative; }
-
-    .lang-dropdown-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: transparent;
-        color: var(--text-navbar-link); 
-        border: none;
-        padding: 8px 12px;
-        font-family: var(--font-interface);
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        border-radius: 6px;
-        transition: var(--transition-smooth);
-    }
-
-    .lang-dropdown-btn:hover {
-        background-color: rgba(255, 255, 255, 0.4);
-        color: var(--brand-orange);
-    }
-
-    .lang-dropdown-btn svg { width: 16px; height: 16px; fill: currentColor; }
-
-    .lang-dropdown-menu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        margin-top: 12px;
-        background: #FFFFFF;
-        border: 1px solid var(--mint-nav-border);
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        list-style: none;
-        padding: 8px 0;
-        min-width: 140px;
-        display: none;
-        flex-direction: column;
-        z-index: 2000;
-        transform-origin: top right;
-        animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-    }
-
-    @keyframes dropFade {
-        from { opacity: 0; transform: translateY(-5px) scale(0.98); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .lang-dropdown-menu.show { display: flex; }
-
-    .lang-dropdown-menu li { width: 100%; }
-
-    .lang-dropdown-menu button {
-        width: 100%;
-        text-align: left;
-        background: transparent;
-        border: none;
-        padding: 10px 20px;
-        font-family: var(--font-interface);
-        font-size: 14px;
-        color: var(--text-primary);
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-    }
-
-    .lang-dropdown-menu button:hover {
-        background: var(--brand-orange-subtle);
-        color: var(--brand-orange);
-    }
-
-    /* ==========================================================================
-       MOBILE MENU TOGGLE BUTTON
-       ========================================================================== */
-    .mobile-menu-btn {
-        display: none;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-        flex-direction: column;
-        gap: 5px;
-        z-index: 1001;
-    }
-
-    .mobile-menu-btn span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background-color: var(--text-primary);
-        border-radius: 2px;
-        transition: var(--transition-smooth);
-    }
-
-    .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
-    .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-
-    /* ==========================================================================
-       FORM ARCHITECTURE
-       ========================================================================== */
-    .enrollment-section {
-        padding: 60px 20px;
-    }
-
-    .form-wrapper {
-        max-width: 850px;
-        margin: 0 auto;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-xl);
-        box-shadow: var(--shadow-card);
-        overflow: hidden;
-    }
-
-    .form-header {
-        background: var(--umc-navy);
-        padding: 45px 40px;
-        color: #ffffff;
-    }
-
-    .form-header h2 {
-        margin: 0 0 10px 0;
-        font-size: 28px;
-        font-family: var(--font-editorial);
-        font-weight: 700;
-        letter-spacing: 0.5px;
-    }
-
-    .form-header .en-content {
-        font-size: 26px;
-    }
-
-    .form-header p {
-        font-size: 15px;
-        line-height: 1.6;
-        color: var(--text-light);
-        margin: 15px 0 0 0;
-    }
-
-    .benefits-section {
-        padding: 35px 40px;
-        background: var(--bg-section-alt);
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .benefits-list {
-        margin: 0;
-        padding-left: 20px;
-        font-size: 14px;
-        line-height: 1.6;
-    }
-
-    .benefits-list li { margin-bottom: 12px; }
-    .benefits-list li:last-child { margin-bottom: 0; }
-
-    .highlights-section {
-        padding: 35px 40px;
-        background: var(--bg-card);
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .highlights-section h3 {
-        color: var(--umc-navy);
-        font-size: 18px;
-        margin: 0 0 15px 0;
-        font-weight: 700;
-    }
-
-    .highlights-text {
-        font-size: 14px;
-        line-height: 1.6;
-        color: #475569;
-    }
-
-    .highlights-text p { margin-bottom: 12px; }
-    .highlights-text p:last-child { margin-bottom: 0; }
-
-    .highlights-sublist {
-        display: block;
-        padding-left: 12px;
-        margin-top: 5px;
-    }
-
-    .form-body {
-        padding: 40px;
-    }
-
-    .section-title-wrap {
-        margin-bottom: 40px;
-        border-left: 4px solid var(--umc-navy);
-        padding-left: 15px;
-    }
-
-    .section-title-wrap.alt-color {
-        border-left-color: var(--brand-orange);
-        margin-bottom: 25px;
-    }
-
-    .section-title {
-        margin: 0;
-        font-size: 16px;
-        color: var(--umc-navy);
-        font-weight: 700;
-    }
-
-    .section-subtitle {
-        font-size: 12px;
-        color: var(--text-muted);
-        display: block;
-        margin-top: 4px;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 25px;
-    }
-
-    .form-row.triple {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    .form-group {
-        margin-bottom: 25px;
-    }
-
-    .form-label {
-        display: block;
-        margin-bottom: 8px;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text-main);
-    }
-
-    .form-label-desc {
-        display: block;
-        font-size: 11px;
-        color: var(--text-muted);
-        font-weight: normal;
-        margin-top: 2px;
-    }
-
-    .form-label-desc.alert { color: #ef4444; }
-
-    .form-control {
-        width: 100%;
-        padding: 10px 14px;
-        border: 1px solid var(--border-input);
-        border-radius: var(--radius-md);
-        font-size: 14px;
-        font-family: inherit;
-        background-color: #ffffff;
-        transition: var(--transition-smooth);
-    }
-
-    .form-control.sm {
-        padding: 8px 12px;
-        font-size: 13px;
-        border-radius: var(--radius-sm);
-    }
-
-    .form-control:focus {
-        outline: none;
-        border-color: var(--scroll-jade);
-        box-shadow: 0 0 0 3px rgba(114, 208, 155, 0.2);
-    }
-
-    textarea.form-control {
-        resize: vertical;
-        min-height: 100px;
-    }
-
-    .checkbox-group {
-        display: flex;
-        gap: 15px;
-        padding-top: 8px;
-        flex-wrap: wrap;
-    }
-
-    .checkbox-group.vertical {
-        flex-direction: column;
-        gap: 8px;
-        padding-top: 0;
-    }
-
-    .checkbox-item {
-        font-size: 13px;
-        color: #475569;
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        cursor: pointer;
-        line-height: 1.4;
-    }
-
-    .checkbox-item input {
-        margin-top: 2px;
-        cursor: pointer;
-    }
-
-    .sibling-block {
-        background: #fcfdfe;
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        padding: 25px;
-        margin-bottom: 20px;
-    }
-
-    .sibling-header {
-        font-weight: 700;
-        font-size: 14px;
-        color: var(--umc-navy);
-        margin-bottom: 15px;
-        border-bottom: 1px dashed var(--border-color);
-        padding-bottom: 8px;
-    }
-
-    .btn-add-sibling {
-        display: block;
-        width: 100%;
-        background: none;
-        border: 2px dashed var(--border-input);
-        color: #475569;
-        padding: 14px 0;
-        border-radius: var(--radius-lg);
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        margin-bottom: 35px;
-        transition: var(--transition-smooth);
-    }
-
-    .btn-add-sibling:hover {
-        border-color: var(--brand-orange);
-        color: var(--brand-orange);
-    }
-
-    .privacy-block {
-        background-color: var(--bg-section-alt);
-        border: 1px solid var(--border-color);
-        border-radius: 14px;
-        padding: 25px;
-        margin-bottom: 30px;
-        font-size: 12px;
-        line-height: 1.5;
-        color: #475569;
-    }
-
-    .privacy-block p { margin: 0; }
-    .privacy-title { font-weight: 600; margin-bottom: 10px !important; }
-
-    .btn-submit {
-        display: block;
-        width: 100%;
-        background: var(--brand-orange);
-        color: #ffffff;
-        border: none;
-        padding: 18px 0;
-        border-radius: var(--radius-lg);
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: var(--shadow-btn);
-        transition: var(--transition-smooth);
-    }
-
-    .btn-submit:hover {
-        background: var(--brand-orange-hover);
-        transform: translateY(-2px);
-    }
-
-    /* ==========================================================================
-       EXPANDED FOOTER COMPONENT
-       ========================================================================== */
-    footer {
-        background-color: #142219;
-        color: #CFEAD6;
-        padding: 50px 40px 30px 40px;
-        border-top: 4px solid var(--scroll-jade);
-        margin-top: auto;
-    }
-
-    .footer-grid {
-        max-width: var(--max-width);
-        margin: 0 auto 40px auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 40px;
-    }
-
-    .footer-col h4 {
-        color: #FFFFFF;
-        font-size: 18px;
-        font-family: Arial, sans-serif;
-        margin-bottom: 20px;
-        position: relative;
-        padding-bottom: 8px;
-        letter-spacing: 0.5px;
-    }
-
-    .footer-col h4::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 40px;
-        height: 2px;
-        background-color: var(--brand-orange);
-    }
-
-    .footer-col p {
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 12px;
-        opacity: 0.85;
-    }
-
-    .contact-listing, .links-listing {
-        list-style: none;
-        padding: 0;
-    }
-
-    .contact-listing li {
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        margin-bottom: 14px;
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .contact-listing .icon {
-        color: var(--brand-orange);
-        flex-shrink: 0;
-    }
-
-    .links-listing li { margin-bottom: 10px; }
-
-    .links-listing a {
-        font-family: Arial, sans-serif;
-        color: #CFEAD6;
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.2s ease, padding-left 0.2s ease;
-        display: inline-block;
-    }
-
-    .links-listing a:hover {
-        color: var(--brand-orange);
-        padding-left: 4px;
-    }
-
-    .copyright-bar {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        padding-top: 24px;
-        border-top: 1px solid rgba(255,255,255,0.06);
-        text-align: center;
-        font-family: Arial, sans-serif;
-        font-size: 13px;
-        opacity: 0.5;
-    }
-
-    /* ==========================================================================
-       CONSOLIDATED MOBILE BREAKPOINT (Smooth & Beautiful)
-       ========================================================================== */
-    @media (max-width: 900px) {
-        .header-container { padding: 10px 15px; }
-        .logo-group img, header img { height: 36px; } 
-        .mobile-menu-btn { display: flex; }
-        .header-actions { order: 2; gap: 8px; } 
-        .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
-        .lang-dropdown-btn svg { width: 18px; height: 18px; }
-        
-        nav.nav-menu { 
-            order: 3; 
-            display: none; 
-            width: 100%; 
-            flex-direction: column; 
-            gap: 10px; 
-            padding: 20px 0; 
-            border-top: 1px solid rgba(88, 185, 131, 0.2); 
-            margin-top: 10px; 
+        .section-title-wrap.alt-color {
+            border-left-color: var(--umc-orange);
+            margin-bottom: 25px;
         }
-        nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        nav a { width: 100%; padding: 12px; font-size: 16px; }
-        nav a::after { display: none; }
-        nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
 
-        /* Form Mobile Adjustments */
-        .enrollment-section { padding: 30px 15px; }
-        .form-header, .benefits-section, .highlights-section, .form-body { padding: 25px 20px; }
-        .form-header h2 { font-size: 22px; }
-        .form-header .en-content { font-size: 20px; }
-        
-        /* Grid resets for form elements to make them beautiful and readable */
-        .form-row, .form-row.triple { 
-            grid-template-columns: 1fr; 
-            gap: 15px; 
+        .section-title {
+            margin: 0;
+            font-size: 16px;
+            color: var(--umc-navy);
+            font-weight: 700;
         }
-        .sibling-block { padding: 20px 15px; }
-        .checkbox-group { flex-direction: column; gap: 12px; }
-    }
+
+        .section-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 4px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-row.triple {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-label-desc {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: normal;
+            margin-top: 2px;
+        }
+
+        .form-label-desc.alert {
+            color: #ef4444;
+        }
+
+        /* Input Controls */
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border-input);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-family: inherit;
+            background-color: #ffffff;
+            transition: var(--transition-speed);
+        }
+
+        .form-control.sm {
+            padding: 8px 12px;
+            font-size: 13px;
+            border-radius: var(--radius-sm);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--umc-navy);
+            box-shadow: 0 0 0 3px rgba(27, 54, 93, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Checkboxes & Radios */
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            padding-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-group.vertical {
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 0;
+        }
+
+        .checkbox-item {
+            font-size: 13px;
+            color: #475569;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .checkbox-item input {
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        /* --- 7. Sibling Blocks --- */
+        .sibling-block {
+            background: #fcfdfe;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .sibling-header {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--umc-navy);
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .btn-add-sibling {
+            display: block;
+            width: 100%;
+            background: none;
+            border: 2px dashed var(--border-input);
+            color: #475569;
+            padding: 14px 0;
+            border-radius: var(--radius-lg);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 35px;
+            transition: var(--transition-speed);
+        }
+
+        .btn-add-sibling:hover {
+            border-color: var(--umc-navy);
+            color: var(--umc-navy);
+        }
+
+        /* --- 8. Privacy Block & Submit --- */
+        .privacy-block {
+            background-color: var(--bg-section-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 30px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        .privacy-block p {
+            margin: 0;
+        }
+
+        .privacy-title {
+            font-weight: 600;
+            margin-bottom: 10px !important;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: var(--umc-orange);
+            color: #ffffff;
+            border: none;
+            padding: 18px 0;
+            border-radius: var(--radius-lg);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: var(--shadow-btn);
+            transition: var(--transition-speed);
+        }
+
+        .btn-submit:hover {
+            background: var(--umc-orange-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- 9. Turnstile Wrapper --- */
+        .turnstile-wrap {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- 10. Mobile Responsive Overrides --- */
+        @media (max-width: 768px) {
+            .enrollment-section {
+                padding: 30px 15px;
+            }
+
+            .form-header,
+            .benefits-section,
+            .highlights-section,
+            .form-body {
+                padding: 25px 20px;
+            }
+
+            .form-header h2 {
+                font-size: 22px;
+            }
+
+            .form-header .en-content {
+                font-size: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .form-row.triple {
+                grid-template-columns: 1fr;
+            }
+
+            .sibling-block {
+                padding: 20px 15px;
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
     </style>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
-            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px; width: auto; object-fit: contain;">
+<section id="umc-enrollment-form-section" class="enrollment-section">
+    <div class="form-wrapper">
+        
+        <div class="form-header">
+            <h2 class="lang-el zh-content">2026 秋季课后中文项目：家庭意向与优惠登记表</h2>
+            <h2 class="lang-el en-content" style="display: none;">Fall 2026 After-School Mandarin Program: Interest Form & Special Offers</h2>
             
-            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
-            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
-            
-            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
-            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
-        </a>
-
-        <nav id="main-nav" class="nav-menu">
-            <a href="index.html">
-                <span class="lang-el en-content">Home</span>
-                <span class="lang-el zh-hans-content" style="display: none;">首页</span>
-                <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
-            </a>
-            <a href="about.html">
-                <span class="lang-el en-content">About Us</span>
-                <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
-                <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
-            </a>
-            <a href="program.html">
-                <span class="lang-el en-content">Program</span>
-                <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
-                <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
-            </a>
-            <a href="why-us.html">
-                <span class="lang-el en-content">Why Us</span>
-                <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
-                <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
-            </a>
-            <a href="joinus.html">
-                <span class="lang-el en-content">Join Us</span>
-                <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
-                <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
-            </a>
-            <a href="contact.html">
-                <span class="lang-el en-content">Contact</span>
-                <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
-                <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
-            </a>
-        </nav>
-
-        <div class="header-actions">
-            <div class="lang-dropdown">
-                <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                    </svg>
-                    <span id="current-lang-text">English</span>
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 10l5 5 5-5z"/>
-                    </svg>
-                </button>
-                <ul class="lang-dropdown-menu" id="lang-menu">
-                    <li><button onclick="switchLanguage('en', 'English')">English</button></li>
-                    <li><button onclick="switchLanguage('zh-hans', '简体中文')">简体中文</button></li>
-                    <li><button onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
-                </ul>
-            </div>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <p class="lang-el zh-content">
+                亲爱的家长朋友：您好！为了让孩子们放学后免于奔波，直接在熟悉的校园内上课，同心中文目前正在向旧金山联合学区（SFUSD）申请校内教室。现阶段登记意向的家庭，可以享受以下四项创校福利：
+            </p>
+            <p class="lang-el en-content" style="display: none;">
+                Dear Parents, Hello! To save children from commuting after school and allow them to seamlessly start learning Mandarin right in their most familiar campus, Unity Mandarin is currently applying to the San Francisco Unified School District (SFUSD) for an on-site classroom. Families who register their interest at this stage can directly enjoy the following four Founding Family Benefits:
+            </p>
         </div>
-    </div>
-</header>
 
-<main>
-    <section id="umc-enrollment-form-section" class="enrollment-section">
-        <div class="form-wrapper">
+        <div class="benefits-section">
+            <ul class="benefits-list">
+                <li>
+                    <strong class="lang-el zh-content">首月学费免除：</strong><span class="lang-el zh-content">秋季开学第一个月的学费由同心中文社区基金全额承担。</span>
+                    <strong class="lang-el en-content" style="display: none;">First Month Tuition Deduction:</strong><span class="lang-el en-content" style="display: none;">The tuition for the first month of the Fall opening will be fully funded by the Unity Mandarin Community Fund.</span>
+                </li>
+                <li>
+                    <strong class="lang-el zh-content">别家押金/注册费冲抵：</strong><span class="lang-el zh-content">如果您在其他机构交了不可退的注册费或材料费，开学时提供凭证，我们会为您提供等额的学费减免，不让您掏双份钱。</span>
+                    <strong class="lang-el en-content" style="display: none;">Transfer Tuition Credit:</strong><span class="lang-el en-content" style="display: none;">If you have paid non-refundable registration fees or material fees to another institution, provide proof at the start of the semester, and we will provide you with an equivalent tuition deduction, so you do not have to bear double costs.</span>
+                </li>
+                <li>
+                    <strong class="lang-el zh-content">优先锁定校内名额：</strong><span class="lang-el zh-content">学区的校内教室位置有限，本表提交的先后顺序将作为秋季校内班优先录取、以及常年多子女 20% Off 优惠的依据。（注：因各公立小学放学时间不同，各校对应的准确学费标准将在后续的正式报名注册表中详细列出。）</span>
+                    <strong class="lang-el en-content" style="display: none;">Priority for On-site Spots:</strong><span class="lang-el en-content" style="display: none;">The school district's on-site classroom spaces are very limited. We will completely follow the submission order of this form as the basis for priority admission to the Fall on-site classes, and you will enjoy an ongoing 20% Off discount for siblings. (Note: Because the dismissal times of public elementary schools vary, the exact tuition standards for each school will be listed in the subsequent formal registration form.)</span>
+                </li>
+                <li>
+                    <strong class="lang-el zh-content">推荐人学费奖励（上不封顶）：</strong><span class="lang-el zh-content">欢迎将此表转发给学校或班级的朋友。如果他们通过您的推荐成功报名秋季班并读满整个学年，在学年年底结算时，您将获得 $100 刀的学费减免。推荐成功的家庭越多，您的学费减免就越多，上不封顶！</span>
+                    <strong class="lang-el en-content" style="display: none;">Referral Rewards (No Cap):</strong><span class="lang-el en-content" style="display: none;">You are welcome to forward this form to friends at school or in class. If they successfully register through your recommendation and study for the full academic year, you will receive a $100/household tuition return at the end-of-year settlement. The more you recommend, the more deductions you get, with no cap!</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="highlights-section">
+            <h3 class="lang-el zh-content">📌 项目说明</h3>
+            <h3 class="lang-el en-content" style="display: none;">📌 Program Highlights</h3>
             
-            <div class="form-header">
-                <h2 class="lang-el zh-content">2026 秋季课后中文项目：家庭意向与优惠登记表</h2>
-                <h2 class="lang-el en-content" style="display: none;">Fall 2026 After-School Mandarin Program: Interest Form & Special Offers</h2>
-                
-                <p class="lang-el zh-content">
-                    亲爱的家长朋友：您好！为了让孩子们放学后免于奔波，直接在熟悉的校园内上课，同心中文目前正在向旧金山联合学区（SFUSD）申请校内教室。现阶段登记意向的家庭，可以享受以下四项创校福利：
+            <div class="highlights-text">
+                <p>
+                    • <strong class="lang-el zh-content">上课频率与时间：</strong><span class="lang-el zh-content">本项目为每周 5 天的系统沉浸式中文班（暂不设 2 天或 3 天的选修），招收 K 班及以上学龄儿童。我们会根据不同学校的具体放学时间来对接课后班的开始时间，家长放学后直接在校园内接孩子即可。</span>
+                    <span class="lang-el en-content" style="display: none;"><strong>Frequency and Time:</strong> This program is a 5-day-a-week, full-immersion systematic Mandarin class. To ensure the best language acquisition effect and continuity of learning, this program currently only provides the 5-day full-time choice (part-time or partial-day electives are temporarily not open), enrolling children in Kindergarten and above. We will seamlessly connect with the specific dismissal time of each public elementary school, and parents can simply pick up directly from the school campus after class.</span>
                 </p>
-                <p class="lang-el en-content" style="display: none;">
-                    Dear Parents, Hello! To save children from commuting after school and allow them to seamlessly start learning Mandarin right in their most familiar campus, Unity Mandarin is currently applying to the San Francisco Unified School District (SFUSD) for an on-site classroom. Families who register their interest at this stage can directly enjoy the following four Founding Family Benefits:
-                </p>
-            </div>
-
-            <div class="benefits-section">
-                <ul class="benefits-list">
-                    <li>
-                        <strong class="lang-el zh-content">首月学费免除：</strong><span class="lang-el zh-content">秋季开学第一个月的学费由同心中文社区基金全额承担。</span>
-                        <strong class="lang-el en-content" style="display: none;">First Month Tuition Deduction:</strong><span class="lang-el en-content" style="display: none;">The tuition for the first month of the Fall opening will be fully funded by the Unity Mandarin Community Fund.</span>
-                    </li>
-                    <li>
-                        <strong class="lang-el zh-content">别家押金/注册费冲抵：</strong><span class="lang-el zh-content">如果您在其他机构交了不可退的注册费或材料费，开学时提供凭证，我们会为您提供等额的学费减免，不让您掏双份钱。</span>
-                        <strong class="lang-el en-content" style="display: none;">Transfer Tuition Credit:</strong><span class="lang-el en-content" style="display: none;">If you have paid non-refundable registration fees or material fees to another institution, provide proof at the start of the semester, and we will provide you with an equivalent tuition deduction, so you do not have to bear double costs.</span>
-                    </li>
-                    <li>
-                        <strong class="lang-el zh-content">优先锁定校内名额：</strong><span class="lang-el zh-content">学区的校内教室位置有限，本表提交的先后顺序将作为秋季校内班优先录取、以及常年多子女 20% Off 优惠的依据。（注：因各公立小学放学时间不同，各校对应的准确学费标准将在后续的正式报名注册表中详细列出。）</span>
-                        <strong class="lang-el en-content" style="display: none;">Priority for On-site Spots:</strong><span class="lang-el en-content" style="display: none;">The school district's on-site classroom spaces are very limited. We will completely follow the submission order of this form as the basis for priority admission to the Fall on-site classes, and you will enjoy an ongoing 20% Off discount for siblings. (Note: Because the dismissal times of public elementary schools vary, the exact tuition standards for each school will be listed in the subsequent formal registration form.)</span>
-                    </li>
-                    <li>
-                        <strong class="lang-el zh-content">推荐人学费奖励（上不封顶）：</strong><span class="lang-el zh-content">欢迎将此表转发给学校或班级的朋友。如果他们通过您的推荐成功报名秋季班并读满整个学年，在学年年底结算时，您将获得 $100 刀的学费减免。推荐成功的家庭越多，您的学费减免就越多，上不封顶！</span>
-                        <strong class="lang-el en-content" style="display: none;">Referral Rewards (No Cap):</strong><span class="lang-el en-content" style="display: none;">You are welcome to forward this form to friends at school or in class. If they successfully register through your recommendation and study for the full academic year, you will receive a $100/household tuition return at the end-of-year settlement. The more you recommend, the more deductions you get, with no cap!</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="highlights-section">
-                <h3 class="lang-el zh-content">📌 项目说明</h3>
-                <h3 class="lang-el en-content" style="display: none;">📌 Program Highlights</h3>
-                
-                <div class="highlights-text">
-                    <p>
-                        • <strong class="lang-el zh-content">上课频率与时间：</strong><span class="lang-el zh-content">本项目为每周 5 天的系统沉浸式中文班（暂不设 2 天或 3 天的选修），招收 K 班及以上学龄儿童。我们会根据不同学校的具体放学时间来对接课后班的开始时间，家长放学后直接在校园内接孩子即可。</span>
-                        <span class="lang-el en-content" style="display: none;"><strong>Frequency and Time:</strong> This program is a 5-day-a-week, full-immersion systematic Mandarin class. To ensure the best language acquisition effect and continuity of learning, this program currently only provides the 5-day full-time choice (part-time or partial-day electives are temporarily not open), enrolling children in Kindergarten and above. We will seamlessly connect with the specific dismissal time of each public elementary school, and parents can simply pick up directly from the school campus after class.</span>
-                    </p>
-                    <p>
-                        • <strong class="lang-el zh-content">关于拼音与教材选择（科学分级教学）：</strong>
-                        <span class="lang-el en-content" style="display: none;"><strong>About Pinyin and Textbook Selection (Scientific Level-Based Teaching):</strong></span>
+                <p>
+                    • <strong class="lang-el zh-content">关于拼音与教材选择（科学分级教学）：</strong>
+                    <span class="lang-el en-content" style="display: none;"><strong>About Pinyin and Textbook Selection (Scientific Level-Based Teaching):</strong></span>
+                    <br>
+                    <span class="lang-el zh-content highlights-sublist">
+                        - <strong>Level 1（幼儿启蒙阶段）：</strong> 考虑到这个年龄段的孩子正在公立学校学习英语拼读（Phonics），为了完全避免英文字母和拼音发音搞混，我们在这个阶段不教拼音。教材选择《幼儿汉语》，更符合幼儿的认知特点。通过儿歌、互动游戏、创意手工和角色扮演，让孩子把中文“玩”进大脑，细心呵护与启发孩子对中文的兴趣，培养自然流利的听说语感。
                         <br>
-                        <span class="lang-el zh-content highlights-sublist">
-                            - <strong>Level 1（幼儿启蒙阶段）：</strong> 考虑到这个年龄段的孩子正在公立学校学习英语拼读（Phonics），为了完全避免英文字母和拼音发音搞混，我们在这个阶段不教拼音。教材选择《幼儿汉语》，更符合幼儿的认知特点。通过儿歌、互动游戏、创意手工和角色扮演，让孩子把中文“玩”进大脑，细心呵护与启发孩子对中文的兴趣，培养自然流利的听说语感。
-                            <br>
-                            - <strong>Levels 2 - 6（系统进阶阶段）：</strong> 当孩子具备一定的听说基础后，我们将无缝衔接海外使用最广、最成熟的暨南大学《中文》教材。开始系统拼音识字、阅读理解和汉字书写输出，稳步全面提升听说读写能力。
-                        </span>
-                        <span class="lang-el en-content highlights-sublist" style="display: none;">
-                            - <strong>Level 1 (Early Childhood Enlightenment Stage):</strong> Considering that children in this age group are naturally absorbing phonics in public schools, to completely avoid confusion between English letters and Pinyin pronunciation, our Level 1 stage does not learn Pinyin. The textbook selects You'er Hanyu, which better fits the cognitive characteristics of young children. Through singing, interactive games, creative crafts, and role-play, children "play" Mandarin into their brains, carefully nurturing and inspiring their interest in Mandarin, and developing a natural, fluent sense of listening and speaking.
-                            <br>
-                            - <strong>Levels 2 - 6 (Systemic Progression Stage):</strong> When children have a certain foundation in listening and speaking, we will seamlessly connect with the Jinan University Zhongwen textbooks, which are the most widely used and mature overseas. We will begin systematic Pinyin literacy, reading comprehension, and Mandarin writing output, steadily and comprehensively improving listening, speaking, reading, and writing skills.
-                        </span>
-                    </p>
-                    <p>
-                        • <strong class="lang-el zh-content">关于师资与发音标准：</strong><span class="lang-el zh-content">我们的 Lead Instructors（首席讲师）与骨干教师团队均持有中国国家普通话二级甲等证书（Level 2-A，国内专业语文老师与播音标准）。我们的教学团队成员也通过了系统的发音考核，保持高标准的教学输出，让孩子从小接触纯正流利的中文表达。</span>
-                        <span class="lang-el en-content" style="display: none;"><strong>About Faculty and Pronunciation Standards:</strong> Our Lead Instructors and core faculty members all hold Official Advanced Mandarin Certifications (Level 2-A, meeting the pronunciation and teaching standards of professional elementary school Chinese teachers). Our teaching team members have also passed systematic pronunciation assessments and maintain high standards of teaching output, allowing children to connect with standard, fluent Mandarin expressions from an early age.</span>
-                    </p>
+                        - <strong>Levels 2 - 6（系统进阶阶段）：</strong> 当孩子具备一定的听说基础后，我们将无缝衔接海外使用最广、最成熟的暨南大学《中文》教材。开始系统拼音识字、阅读理解和汉字书写输出，稳步全面提升听说读写能力。
+                    </span>
+                    <span class="lang-el en-content highlights-sublist" style="display: none;">
+                        - <strong>Level 1 (Early Childhood Enlightenment Stage):</strong> Considering that children in this age group are naturally absorbing phonics in public schools, to completely avoid confusion between English letters and Pinyin pronunciation, our Level 1 stage does not learn Pinyin. The textbook selects You'er Hanyu, which better fits the cognitive characteristics of young children. Through singing, interactive games, creative crafts, and role-play, children "play" Mandarin into their brains, carefully nurturing and inspiring their interest in Mandarin, and developing a natural, fluent sense of listening and speaking.
+                        <br>
+                        - <strong>Levels 2 - 6 (Systemic Progression Stage):</strong> When children have a certain foundation in listening and speaking, we will seamlessly connect with the Jinan University Zhongwen textbooks, which are the most widely used and mature overseas. We will begin systematic Pinyin literacy, reading comprehension, and Mandarin writing output, steadily and comprehensively improving listening, speaking, reading, and writing skills.
+                    </span>
+                </p>
+                <p>
+                    • <strong class="lang-el zh-content">关于师资与发音标准：</strong><span class="lang-el zh-content">我们的 Lead Instructors（首席讲师）与骨干教师团队均持有中国国家普通话二级甲等证书（Level 2-A，国内专业语文老师与播音标准）。我们的教学团队成员也通过了系统的发音考核，保持高标准的教学输出，让孩子从小接触纯正流利的中文表达。</span>
+                    <span class="lang-el en-content" style="display: none;"><strong>About Faculty and Pronunciation Standards:</strong> Our Lead Instructors and core faculty members all hold Official Advanced Mandarin Certifications (Level 2-A, meeting the pronunciation and teaching standards of professional elementary school Chinese teachers). Our teaching team members have also passed systematic pronunciation assessments and maintain high standards of teaching output, allowing children to connect with standard, fluent Mandarin expressions from an early age.</span>
+                </p>
+            </div>
+        </div>
+
+        <form action="https://submit-form.com/3J0q4W5i2" method="POST" class="form-body">
+            
+            <input type="hidden" name="_redirect" value="https://www.unitymandarin.org/thank-you.html"/>
+
+            <div class="section-title-wrap">
+                <h4 class="lang-el zh-content section-title">第一部分：家长基础信息</h4>
+                <h4 class="lang-el en-content section-title" style="display:none;">Part I: Parent/Guardian Contact Information</h4>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label class="form-label" for="parent_full_name">
+                        <span class="lang-el zh-content">*Q1. 家长全名 【必填】</span>
+                        <span class="lang-el en-content" style="display:none;">*Q1. Parent/Guardian Full Name [Required]</span>
+                    </label>
+                    <input type="text" id="parent_full_name" name="parent_full_name" required class="form-control" />
+                </div>
+                <div>
+                    <label class="form-label" for="parent_email">
+                        <span class="lang-el zh-content">*Q2. 常用电子邮箱 【必填】</span>
+                        <span class="lang-el en-content" style="display:none;">*Q2. Email Address [Required]</span>
+                    </label>
+                    <input type="email" id="parent_email" name="parent_email" required class="form-control" />
                 </div>
             </div>
 
-            <form action="https://submit-form.com/3J0q4W5i2" method="POST" class="form-body">
-                
-                <input type="hidden" name="_redirect" value="https://www.unitymandarin.org/thank-you.html"/>
-
-                <div class="section-title-wrap">
-                    <h4 class="lang-el zh-content section-title">第一部分：家长基础信息</h4>
-                    <h4 class="lang-el en-content section-title" style="display:none;">Part I: Parent/Guardian Contact Information</h4>
+            <div class="form-row">
+                <div>
+                    <label class="form-label" for="parent_phone">
+                        <span class="lang-el zh-content">*Q3. 联系电话 【必填】</span>
+                        <span class="lang-el en-content" style="display:none;">*Q3. Phone Number [Required]</span>
+                    </label>
+                    <input type="tel" id="parent_phone" name="parent_phone" required class="form-control" />
                 </div>
-
-                <div class="form-row">
-                    <div>
-                        <label class="form-label" for="parent_full_name">
-                            <span class="lang-el zh-content">*Q1. 家长全名 【必填】</span>
-                            <span class="lang-el en-content" style="display:none;">*Q1. Parent/Guardian Full Name [Required]</span>
-                        </label>
-                        <input type="text" id="parent_full_name" name="parent_full_name" required class="form-control" />
-                    </div>
-                    <div>
-                        <label class="form-label" for="parent_email">
-                            <span class="lang-el zh-content">*Q2. 常用电子邮箱 【必填】</span>
-                            <span class="lang-el en-content" style="display:none;">*Q2. Email Address [Required]</span>
-                        </label>
-                        <input type="email" id="parent_email" name="parent_email" required class="form-control" />
+                <div>
+                    <label class="form-label">
+                        <span class="lang-el zh-content">*Q3-A. 您更喜欢哪种联系方式？【必填/可多选】</span>
+                        <span class="lang-el en-content" style="display:none;">*Q3-A. What is your preferred method of contact? [Required/Multi-Select]</span>
+                    </label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" name="preferred_contact[]" value="Text Message"> Text Message (短信)</label>
+                        <label class="checkbox-item"><input type="checkbox" name="preferred_contact[]" value="Email"> Email (电子邮件)</label>
+                        <label class="checkbox-item"><input type="checkbox" name="preferred_contact[]" value="Phone Call"> Phone Call (电话致电)</label>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-row">
-                    <div>
-                        <label class="form-label" for="parent_phone">
-                            <span class="lang-el zh-content">*Q3. 联系电话 【必填】</span>
-                            <span class="lang-el en-content" style="display:none;">*Q3. Phone Number [Required]</span>
-                        </label>
-                        <input type="tel" id="parent_phone" name="parent_phone" required class="form-control" />
+            <div class="section-title-wrap alt-color">
+                <h4 class="lang-el zh-content section-title">第二部分：孩子资料与中文背景</h4>
+                <h4 class="lang-el en-content section-title" style="display:none;">Part II: Student Profile & Mandarin Level</h4>
+                <span class="lang-el zh-content section-subtitle">（如果家里有多个孩子，请在最下方点击“添加孩子”按钮，无需重复填表）</span>
+                <span class="lang-el en-content section-subtitle" style="display:none;">(If you have more than one child, please click the "Add Another Sibling" button at the bottom. There is no need to fill out multiple forms.)</span>
+            </div>
+
+            <div id="sibling-container">
+                <div class="sibling-block">
+                    <div class="sibling-header">
+                        🧒 <span class="lang-el zh-content">孩子 1 资料</span><span class="lang-el en-content" style="display:none;">Student 1 Profile</span>
                     </div>
-                    <div>
+
+                    <div class="form-group">
                         <label class="form-label">
-                            <span class="lang-el zh-content">*Q3-A. 您更喜欢哪种联系方式？【必填/可多选】</span>
-                            <span class="lang-el en-content" style="display:none;">*Q3-A. What is your preferred method of contact? [Required/Multi-Select]</span>
+                            <span class="lang-el zh-content">*Q4. 孩子姓名 【必填】</span>
+                            <span class="lang-el en-content" style="display:none;">*Q4. Child's Name [Required]</span>
                         </label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-item"><input type="checkbox" name="preferred_contact[]" value="Text Message"> Text Message (短信)</label>
-                            <label class="checkbox-item"><input type="checkbox" name="preferred_contact[]" value="Email"> Email (电子邮件)</label>
-                            <label class="checkbox-item"><input type="checkbox" name="preferred_contact[]" value="Phone Call"> Phone Call (电话致电)</label>
+                        <div class="form-row triple" style="margin-bottom:8px;">
+                            <input type="text" name="child1_legal_first" placeholder="English First Name" required class="form-control sm" />
+                            <input type="text" name="child1_legal_middle" placeholder="Middle Name (选填)" class="form-control sm" />
+                            <input type="text" name="child1_legal_last" placeholder="English Last Name" required class="form-control sm" />
                         </div>
+                        <input type="text" name="child1_chinese_name" placeholder="孩子中文全名 / Chinese Full Name (if applicable)" class="form-control sm" />
                     </div>
-                </div>
 
-                <div class="section-title-wrap alt-color">
-                    <h4 class="lang-el zh-content section-title">第二部分：孩子资料与中文背景</h4>
-                    <h4 class="lang-el en-content section-title" style="display:none;">Part II: Student Profile & Mandarin Level</h4>
-                    <span class="lang-el zh-content section-subtitle">（如果家里有多个孩子，请在最下方点击“添加孩子”按钮，无需重复填表）</span>
-                    <span class="lang-el en-content section-subtitle" style="display:none;">(If you have more than one child, please click the "Add Another Sibling" button at the bottom. There is no need to fill out multiple forms.)</span>
-                </div>
-
-                <div id="sibling-container">
-                    <div class="sibling-block">
-                        <div class="sibling-header">
-                            🧒 <span class="lang-el zh-content">孩子 1 资料</span><span class="lang-el en-content" style="display:none;">Student 1 Profile</span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                <span class="lang-el zh-content">*Q4. 孩子姓名 【必填】</span>
-                                <span class="lang-el en-content" style="display:none;">*Q4. Child's Name [Required]</span>
-                            </label>
-                            <div class="form-row triple" style="margin-bottom:8px;">
-                                <input type="text" name="child1_legal_first" placeholder="English First Name" required class="form-control sm" />
-                                <input type="text" name="child1_legal_middle" placeholder="Middle Name (选填)" class="form-control sm" />
-                                <input type="text" name="child1_legal_last" placeholder="English Last Name" required class="form-control sm" />
-                            </div>
-                            <input type="text" name="child1_chinese_name" placeholder="孩子中文全名 / Chinese Full Name (if applicable)" class="form-control sm" />
-                        </div>
-
-                        <div class="form-row">
-                            <div>
-                                <label class="form-label" for="child1_dob">
-                                    <span class="lang-el zh-content">*Q5. 孩子出生日期 【必填】</span>
-                                    <span class="lang-el en-content" style="display:none;">*Q5. Date of Birth [Required]</span>
-                                </label>
-                                <input type="date" id="child1_dob" name="child1_dob" required class="form-control sm" />
-                            </div>
-                            <div>
-                                <label class="form-label" for="child1_grade">
-                                    <span class="lang-el zh-content">*Q6. 2026 秋季入学年级 【必填】</span>
-                                    <span class="lang-el en-content" style="display:none;">*Q6. Grade Level in Fall 2026 [Required]</span>
-                                </label>
-                                <select id="child1_grade" name="child1_grade" required class="form-control sm">
-                                    <option value="">-- Select Grade --</option>
-                                    <option value="Kindergarten">Kindergarten (K班)</option>
-                                    <option value="1st Grade">1年级 / 1st Grade</option>
-                                    <option value="2nd Grade">2年级 / 2nd Grade</option>
-                                    <option value="3rd Grade">3年级 / 3rd Grade</option>
-                                    <option value="4th Grade">4年级 / 4th Grade</option>
-                                    <option value="5th Grade">5年级 / 5th Grade</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="child1_school">
-                                <span class="lang-el zh-content">*Q7. 孩子目前或即将就读的小学 【必填】</span>
-                                <span class="lang-el en-content" style="display:none;">*Q7. Current or Incoming Elementary School [Required]</span>
-                            </label>
-                            <select id="child1_school" name="child1_school" required class="form-control sm">
-                                <option value="">-- Select School --</option>
-                                <option value="Commodore Sloat Elementary">Commodore Sloat Elementary</option>
-                                <option value="West Portal Elementary">West Portal Elementary</option>
-                                <option value="Other SFUSD School">其他旧金山公立小学 / Other SFUSD School</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="child1_medical">
-                                <span class="lang-el zh-content">*Q8. 过敏史及特殊医疗说明 【必填】</span>
-                                <span class="lang-el en-content" style="display:none;">*Q8. Allergies & Medical Concerns [Required]</span>
-                                <span class="form-label-desc alert">(为了孩子安全，请详细填写。若无任何过敏，请填写 “None”。 / For student safety, please list all allergies. If none, you MUST type "None".)</span>
-                            </label>
-                            <input type="text" id="child1_medical" name="child1_medical" required placeholder="None or details..." class="form-control sm" />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                <span class="lang-el zh-content">*Q9. 孩子目前的中文水平 【必填】</span>
-                                <span class="lang-el en-content" style="display:none;">*Q9. Current Mandarin Proficiency Level [Required]</span>
-                            </label>
-                            <div class="checkbox-group vertical">
-                                <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Absolute Beginner" required> <span><strong>零基础：</strong>家里不教中文，没上过课，不会听也不会说。 / Absolute Beginner</span></label>
-                                <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Novice"> <span><strong>初级听说：</strong>家里说一点中文，孩子能听懂简单生活指令，能说单词。 / Novice</span></label>
-                                <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Conversational"> <span><strong>听说流利/不识字：</strong>家里完全说中文，日常聊天没问题，但不认识汉字。 / Conversational/Pre-literate</span></label>
-                                <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Intermediate Reading"> <span><strong>能认少量字：</strong>听说很好，在引导下能认出一小部分常见字。 / Intermediate Reading</span></label>
-                                <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Advanced Beginner Literacy"> <span><strong>简单读写：</strong>能自主读简单绘本，会写一些基础汉字。 / Advanced Beginner Literacy</span></label>
-                                <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Native Track"> <span><strong>母语同步：</strong>有长期扎实的中文基础，读写能力优秀。 / Native Track</span></label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="child1_curriculum_brand">
-                                <span class="lang-el zh-content">*Q9-A. 孩子目前（或之前）正在使用的中文教材大类是？【必填】</span>
-                                <span class="lang-el en-content" style="display:none;">*Q9-A. What curriculum/textbook series is your child currently or previously using? [Required]</span>
-                            </label>
-                            <select id="child1_curriculum_brand" name="child1_curriculum_brand" required class="form-control sm">
-                                <option value="None">没上过中文课/暂无教材 // None</option>
-                                <option value="Jinan Zhongwen">暨南大学《中文》 // Jinan University "Zhongwen"</option>
-                                <option value="Ma Liping">马立平《中文》 // Ma Liping "Zhongwen"</option>
-                                <option value="Better Chinese">《美洲华语》 // Better Chinese / Americas Mandarin</option>
-                                <option value="Shuangshuang">《双双中文》 // Shuangshuang Chinese</option>
-                                <option value="Chinese Made Easy">《轻松学中文》 // Chinese Made Easy</option>
-                                <option value="Other">其他国内/海外本土教材 (请在下方注明) // Other curriculum</option>
-                            </select>
-                            <input type="text" name="child1_curriculum_brand_other" placeholder="若选其他，请注明教材名称 / If other, please specify..." class="form-control sm" style="margin-top:6px;" />
-                        </div>
-
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label class="form-label" for="child1_textbook_level">
-                                <span class="lang-el zh-content">*Q9-B. 孩子目前正在读该教材的哪一册/哪一个级别？【必填】</span>
-                                <span class="lang-el en-content" style="display:none;">*Q9-B. Which specific volume/level is your child currently working on? [Required]</span>
-                                <span class="form-label-desc">(例如：学完第1册、正在读3年级、或刚开始K班教材。若无教材，请填 “None”。)</span>
-                            </label>
-                            <input type="text" id="child1_textbook_level" name="child1_textbook_level" required placeholder="e.g., Finished Book 1 / None" class="form-control sm" />
-                        </div>
-                    </div>
-                </div>
-
-                <button type="button" id="add-sibling-btn" class="btn-add-sibling">
-                    ➕ <span class="lang-el zh-content">添加一位孩子信息 (Add Another Sibling)</span>
-                    <span class="lang-el en-content" style="display:none;">Add Another Sibling</span>
-                </button>
-
-                <div class="form-group">
-                    <label class="form-label">
-                        <span class="lang-el zh-content">*Q10. 您最希望孩子在同心中文获得什么？请按重要程度由高到低，选出您的前三项意愿：【必填】</span>
-                        <span class="lang-el en-content" style="display:none;">*Q10. What are your core expectations for your child? Please rank your top 3 preferences in order of importance: [Required]</span>
-                    </label>
-                    <div class="form-row triple">
+                    <div class="form-row">
                         <div>
-                            <span class="form-label-desc" style="margin-bottom:4px;">第一重要 / Priority 1</span>
-                            <select name="expectation_priority_1" required class="form-control sm">
-                                <option value="">-- Choose 1st --</option>
-                                <option value="1">发音纯正 / Standard Pronunciation</option>
-                                <option value="2">顺畅沟通 / Family Communication</option>
-                                <option value="3">扎实读写 / Reading & Writing Literacy</option>
-                                <option value="4">长远学术 / Academic Track</option>
-                                <option value="5">培养兴趣 / Cultural Interest</option>
-                                <option value="6">作业辅导 / School Homework Support</option>
-                            </select>
+                            <label class="form-label" for="child1_dob">
+                                <span class="lang-el zh-content">*Q5. 孩子出生日期 【必填】</span>
+                                <span class="lang-el en-content" style="display:none;">*Q5. Date of Birth [Required]</span>
+                            </label>
+                            <input type="date" id="child1_dob" name="child1_dob" required class="form-control sm" />
                         </div>
                         <div>
-                            <span class="form-label-desc" style="margin-bottom:4px;">第二重要 / Priority 2</span>
-                            <select name="expectation_priority_2" required class="form-control sm">
-                                <option value="">-- Choose 2nd --</option>
-                                <option value="1">发音纯正 / Standard Pronunciation</option>
-                                <option value="2">顺畅沟通 / Family Communication</option>
-                                <option value="3">扎实读写 / Reading & Writing Literacy</option>
-                                <option value="4">长远学术 / Academic Track</option>
-                                <option value="5">培养兴趣 / Cultural Interest</option>
-                                <option value="6">作业辅导 / School Homework Support</option>
-                            </select>
-                        </div>
-                        <div>
-                            <span class="form-label-desc" style="margin-bottom:4px;">第三重要 / Priority 3</span>
-                            <select name="expectation_priority_3" required class="form-control sm">
-                                <option value="">-- Choose 3rd --</option>
-                                <option value="1">发音纯正 / Standard Pronunciation</option>
-                                <option value="2">顺畅沟通 / Family Communication</option>
-                                <option value="3">扎实读写 / Reading & Writing Literacy</option>
-                                <option value="4">长远学术 / Academic Track</option>
-                                <option value="5">培养兴趣 / Cultural Interest</option>
-                                <option value="6">作业辅导 / School Homework Support</option>
+                            <label class="form-label" for="child1_grade">
+                                <span class="lang-el zh-content">*Q6. 2026 秋季入学年级 【必填】</span>
+                                <span class="lang-el en-content" style="display:none;">*Q6. Grade Level in Fall 2026 [Required]</span>
+                            </label>
+                            <select id="child1_grade" name="child1_grade" required class="form-control sm">
+                                <option value="">-- Select Grade --</option>
+                                <option value="Kindergarten">Kindergarten (K班)</option>
+                                <option value="1st Grade">1年级 / 1st Grade</option>
+                                <option value="2nd Grade">2年级 / 2nd Grade</option>
+                                <option value="3rd Grade">3年级 / 3rd Grade</option>
+                                <option value="4th Grade">4年级 / 4th Grade</option>
+                                <option value="5th Grade">5年级 / 5th Grade</option>
                             </select>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">
-                        <span class="lang-el zh-content">*Q11. 您可以接受的上课区域是？【必填/可多选】</span>
-                        <span class="lang-el en-content" style="display:none;">*Q11. Which campus area works for your family? [Required/Multi-Select]</span>
-                    </label>
-                    <div class="checkbox-group vertical">
-                        <label class="checkbox-item"><input type="checkbox" name="accepted_areas[]" value="West Portal"> <span>West Portal 区域 / West Portal Area</span></label>
-                        <label class="checkbox-item"><input type="checkbox" name="accepted_areas[]" value="Commodore Sloat"> <span>Commodore Sloat 区域 / Commodore Sloat Area</span></label>
-                        <label class="checkbox-item"><input type="checkbox" name="accepted_areas[]" value="Off-site Camp"> <span>校外专业营地（含安全接送服务）/ Off-site Camp Facility (with safe transit service)</span></label>
+                    <div class="form-group">
+                        <label class="form-label" for="child1_school">
+                            <span class="lang-el zh-content">*Q7. 孩子目前或即将就读的小学 【必填】</span>
+                            <span class="lang-el en-content" style="display:none;">*Q7. Current or Incoming Elementary School [Required]</span>
+                        </label>
+                        <select id="child1_school" name="child1_school" required class="form-control sm">
+                            <option value="">-- Select School --</option>
+                            <option value="Commodore Sloat Elementary">Commodore Sloat Elementary</option>
+                            <option value="West Portal Elementary">West Portal Elementary</option>
+                            <option value="Other SFUSD School">其他旧金山公立小学 / Other SFUSD School</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="child1_medical">
+                            <span class="lang-el zh-content">*Q8. 过敏史及特殊医疗说明 【必填】</span>
+                            <span class="lang-el en-content" style="display:none;">*Q8. Allergies & Medical Concerns [Required]</span>
+                            <span class="form-label-desc alert">(为了孩子安全，请详细填写。若无任何过敏，请填写 “None”。 / For student safety, please list all allergies. If none, you MUST type "None".)</span>
+                        </label>
+                        <input type="text" id="child1_medical" name="child1_medical" required placeholder="None or details..." class="form-control sm" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="lang-el zh-content">*Q9. 孩子目前的中文水平 【必填】</span>
+                            <span class="lang-el en-content" style="display:none;">*Q9. Current Mandarin Proficiency Level [Required]</span>
+                        </label>
+                        <div class="checkbox-group vertical">
+                            <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Absolute Beginner" required> <span><strong>零基础：</strong>家里不教中文，没上过课，不会听也不会说。 / Absolute Beginner</span></label>
+                            <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Novice"> <span><strong>初级听说：</strong>家里说一点中文，孩子能听懂简单生活指令，能说单词。 / Novice</span></label>
+                            <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Conversational"> <span><strong>听说流利/不识字：</strong>家里完全说中文，日常聊天没问题，但不认识汉字。 / Conversational/Pre-literate</span></label>
+                            <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Intermediate Reading"> <span><strong>能认少量字：</strong>听说很好，在引导下能认出一小部分常见字。 / Intermediate Reading</span></label>
+                            <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Advanced Beginner Literacy"> <span><strong>简单读写：</strong>能自主读简单绘本，会写一些基础汉字。 / Advanced Beginner Literacy</span></label>
+                            <label class="checkbox-item"><input type="radio" name="child1_proficiency" value="Native Track"> <span><strong>母语同步：</strong>有长期扎实的中文基础，读写能力优秀。 / Native Track</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="child1_curriculum_brand">
+                            <span class="lang-el zh-content">*Q9-A. 孩子目前（或之前）正在使用的中文教材大类是？【必填】</span>
+                            <span class="lang-el en-content" style="display:none;">*Q9-A. What curriculum/textbook series is your child currently or previously using? [Required]</span>
+                        </label>
+                        <select id="child1_curriculum_brand" name="child1_curriculum_brand" required class="form-control sm">
+                            <option value="None">没上过中文课/暂无教材 // None</option>
+                            <option value="Jinan Zhongwen">暨南大学《中文》 // Jinan University "Zhongwen"</option>
+                            <option value="Ma Liping">马立平《中文》 // Ma Liping "Zhongwen"</option>
+                            <option value="Better Chinese">《美洲华语》 // Better Chinese / Americas Mandarin</option>
+                            <option value="Shuangshuang">《双双中文》 // Shuangshuang Chinese</option>
+                            <option value="Chinese Made Easy">《轻松学中文》 // Chinese Made Easy</option>
+                            <option value="Other">其他国内/海外本土教材 (请在下方注明) // Other curriculum</option>
+                        </select>
+                        <input type="text" name="child1_curriculum_brand_other" placeholder="若选其他，请注明教材名称 / If other, please specify..." class="form-control sm" style="margin-top:6px;" />
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label" for="child1_textbook_level">
+                            <span class="lang-el zh-content">*Q9-B. 孩子目前正在读该教材的哪一册/哪一个级别？【必填】</span>
+                            <span class="lang-el en-content" style="display:none;">*Q9-B. Which specific volume/level is your child currently working on? [Required]</span>
+                            <span class="form-label-desc">(例如：学完第1册、正在读3年级、或刚开始K班教材。若无教材，请填 “None”。)</span>
+                        </label>
+                        <input type="text" id="child1_textbook_level" name="child1_textbook_level" required placeholder="e.g., Finished Book 1 / None" class="form-control sm" />
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="form-label">
-                        <span class="lang-el zh-content">*Q12. 您更倾向于哪种课后班形式？【必填】</span>
-                        <span class="lang-el en-content" style="display:none;">*Q12. Which program format do you prefer? [Required]</span>
-                    </label>
-                    <div class="checkbox-group vertical">
-                        <label class="checkbox-item"><input type="radio" name="preferred_format" value="On-site" required> <span><strong>校内直接延伸 (On-site)：</strong>希望放学不离校，直接在原本的公立学校内上课。</span></label>
-                        <label class="checkbox-item"><input type="radio" name="preferred_format" value="Off-site"> <span><strong>校外营地接送 (Off-site)：</strong>支持放学后由老师安全护送至校外的专业场地。</span></label>
-                        <label class="checkbox-item"><input type="radio" name="preferred_format" value="Both"> <span><strong>两种都可以 (Both)：</strong>听从学校和项目的最终统筹。</span></label>
+            <button type="button" id="add-sibling-btn" class="btn-add-sibling">
+                ➕ <span class="lang-el zh-content">添加一位孩子信息 (Add Another Sibling)</span>
+                <span class="lang-el en-content" style="display:none;">Add Another Sibling</span>
+            </button>
+
+            <div class="form-group">
+                <label class="form-label">
+                    <span class="lang-el zh-content">*Q10. 您最希望孩子在同心中文获得什么？请按重要程度由高到低，选出您的前三项意愿：【必填】</span>
+                    <span class="lang-el en-content" style="display:none;">*Q10. What are your core expectations for your child? Please rank your top 3 preferences in order of importance: [Required]</span>
+                </label>
+                <div class="form-row triple">
+                    <div>
+                        <span class="form-label-desc" style="margin-bottom:4px;">第一重要 / Priority 1</span>
+                        <select name="expectation_priority_1" required class="form-control sm">
+                            <option value="">-- Choose 1st --</option>
+                            <option value="1">发音纯正 / Standard Pronunciation</option>
+                            <option value="2">顺畅沟通 / Family Communication</option>
+                            <option value="3">扎实读写 / Reading & Writing Literacy</option>
+                            <option value="4">长远学术 / Academic Track</option>
+                            <option value="5">培养兴趣 / Cultural Interest</option>
+                            <option value="6">作业辅导 / School Homework Support</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span class="form-label-desc" style="margin-bottom:4px;">第二重要 / Priority 2</span>
+                        <select name="expectation_priority_2" required class="form-control sm">
+                            <option value="">-- Choose 2nd --</option>
+                            <option value="1">发音纯正 / Standard Pronunciation</option>
+                            <option value="2">顺畅沟通 / Family Communication</option>
+                            <option value="3">扎实读写 / Reading & Writing Literacy</option>
+                            <option value="4">长远学术 / Academic Track</option>
+                            <option value="5">培养兴趣 / Cultural Interest</option>
+                            <option value="6">作业辅导 / School Homework Support</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span class="form-label-desc" style="margin-bottom:4px;">第三重要 / Priority 3</span>
+                        <select name="expectation_priority_3" required class="form-control sm">
+                            <option value="">-- Choose 3rd --</option>
+                            <option value="1">发音纯正 / Standard Pronunciation</option>
+                            <option value="2">顺畅沟通 / Family Communication</option>
+                            <option value="3">扎实读写 / Reading & Writing Literacy</option>
+                            <option value="4">长远学术 / Academic Track</option>
+                            <option value="5">培养兴趣 / Cultural Interest</option>
+                            <option value="6">作业辅导 / School Homework Support</option>
+                        </select>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group" style="margin-bottom: 40px;">
-                    <label class="form-label">
-                        <span class="lang-el zh-content">*Q13. 提交此表后，您希望激活哪些创校权益？【必填/可多选】</span>
-                        <span class="lang-el en-content" style="display:none;">*Q13. Which benefits do you expect to activate with this submission? [Required/Multi-Select]</span>
-                    </label>
-                    <div class="checkbox-group vertical">
-                        <label class="checkbox-item"><input type="checkbox" name="activated_benefits[]" value="First Month Free" checked> <span>享受秋季开学第一个月免学费。 / Secure the free first-month tuition waiver for the Fall semester.</span></label>
-                        <label class="checkbox-item"><input type="checkbox" name="activated_benefits[]" value="Competitor Credit"> <span>申请别家退不掉的注册费/材料费等额学费冲抵。 / Apply for a tuition credit to offset non-refundable fees.</span></label>
-                        <label class="checkbox-item"><input type="checkbox" name="activated_benefits[]" value="Sibling Discount"> <span>激活多子女常年 20% Off 优惠（适用于二胎及以上家庭）。 / Activate the permanent 20% Sibling Discount.</span></label>
-                        <label class="checkbox-item"><input type="checkbox" name="activated_benefits[]" value="Certified Faculty"> <span>让孩子在持有双二甲标准的教学团队引领下学习，确保纯正发音。 / Learn from standard accent-free educators.</span></label>
-                    </div>
+            <div class="form-group">
+                <label class="form-label">
+                    <span class="lang-el zh-content">*Q11. 您可以接受的上课区域是？【必填/可多选】</span>
+                    <span class="lang-el en-content" style="display:none;">*Q11. Which campus area works for your family? [Required/Multi-Select]</span>
+                </label>
+                <div class="checkbox-group vertical">
+                    <label class="checkbox-item"><input type="checkbox" name="accepted_areas[]" value="West Portal"> <span>West Portal 区域 / West Portal Area</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="accepted_areas[]" value="Commodore Sloat"> <span>Commodore Sloat 区域 / Commodore Sloat Area</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="accepted_areas[]" value="Off-site Camp"> <span>校外专业营地（含安全接送服务）/ Off-site Camp Facility (with safe transit service)</span></label>
                 </div>
+            </div>
 
-                <div class="section-title-wrap">
-                    <h4 class="lang-el zh-content section-title">第三部分：学区申请支持与朋友推荐</h4>
-                    <h4 class="lang-el en-content section-title" style="display:none;">Part III: Space Application Support & Referrals</h4>
+            <div class="form-group">
+                <label class="form-label">
+                    <span class="lang-el zh-content">*Q12. 您更倾向于哪种课后班形式？【必填】</span>
+                    <span class="lang-el en-content" style="display:none;">*Q12. Which program format do you prefer? [Required]</span>
+                </label>
+                <div class="checkbox-group vertical">
+                    <label class="checkbox-item"><input type="radio" name="preferred_format" value="On-site" required> <span><strong>校内直接延伸 (On-site)：</strong>希望放学不离校，直接在原本的公立学校内上课。</span></label>
+                    <label class="checkbox-item"><input type="radio" name="preferred_format" value="Off-site"> <span><strong>校外营地接送 (Off-site)：</strong>支持放学后由老师安全护送至校外的专业场地。</span></label>
+                    <label class="checkbox-item"><input type="radio" name="preferred_format" value="Both"> <span><strong>两种都可以 (Both)：</strong>听从学校和项目的最终统筹。</span></label>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="checkbox-item" style="font-weight:600; color:var(--text-main);">
-                        <input type="checkbox" name="sfusd_consent" value="Agreed" required>
-                        <span>
-                            <span class="lang-el zh-content">*Q14. 【必填】 我同意并支持同心中文将脱敏后的统计人数（不含个人隐私）提交给旧金山学区（SFUSD），用于申请校内场地。</span>
-                            <span class="lang-el en-content" style="display:none;">*Q14. [Required] I acknowledge and support Unity Mandarin using anonymized, statistical enrollment data (excluding personal details) for the on-site classroom application with SFUSD.</span>
-                        </span>
-                    </label>
+            <div class="form-group" style="margin-bottom: 40px;">
+                <label class="form-label">
+                    <span class="lang-el zh-content">*Q13. 提交此表后，您希望激活哪些创校权益？【必填/可多选】</span>
+                    <span class="lang-el en-content" style="display:none;">*Q13. Which benefits do you expect to activate with this submission? [Required/Multi-Select]</span>
+                </label>
+                <div class="checkbox-group vertical">
+                    <label class="checkbox-item"><input type="checkbox" name="activated_benefits[]" value="First Month Free" checked> <span>享受秋季开学第一个月免学费。 / Secure the free first-month tuition waiver for the Fall semester.</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="activated_benefits[]" value="Competitor Credit"> <span>申请别家退不掉的注册费/材料费等额学费冲抵。 / Apply for a tuition credit to offset non-refundable fees.</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="activated_benefits[]" value="Sibling Discount"> <span>激活多子女常年 20% Off 优惠（适用于二胎及以上家庭）。 / Activate the permanent 20% Sibling Discount.</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="activated_benefits[]" value="Certified Faculty"> <span>让孩子在持有双二甲标准的教学团队引领下学习，确保纯正发音。 / Learn from standard accent-free educators.</span></label>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="referral_channel">
-                        <span class="lang-el zh-content">*Q15. 请问您是通过什么渠道了解到我们的？【必填】</span>
-                        <span class="lang-el en-content" style="display:none;">*Q15. How did you hear about us? [Required]</span>
-                    </label>
-                    <select id="referral_channel" name="referral_channel" required class="form-control">
-                        <option value="">-- Select Channel --</option>
-                        <option value="School Community">校园社区/朋友转介 // School Community / Word of Mouth</option>
-                        <option value="WeChat">微信朋友圈/妈妈群 // WeChat Groups / Moments</option>
-                        <option value="Xiaohongshu">小红书 // Xiaohongshu (RED)</option>
-                        <option value="Line">Line 聊天群 // Line Chats</option>
-                        <option value="Other">其他渠道 // Other Channels</option>
-                    </select>
-                </div>
+            <div class="section-title-wrap">
+                <h4 class="lang-el zh-content section-title">第三部分：学区申请支持与朋友推荐</h4>
+                <h4 class="lang-el en-content section-title" style="display:none;">Part III: Space Application Support & Referrals</h4>
+            </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="referrer_name">
-                        <span class="lang-el zh-content">Q16. 朋友推荐登记（如果没有推荐人，请填写 "None"）</span>
-                        <span class="lang-el en-content" style="display:none;">Q16. Referral Verification (If none, please enter "None")</span>
-                        <span class="form-label-desc">(如果您是被朋友介绍来的，请在下方写下推荐您的家长或孩子名字。一旦您秋季成功注册入学并读满这一学年，在学年年底结算时，推荐您的那位朋友将获得 $100 刀的学费减免。每成功推荐一家都能获得 $100 刀，上不封顶！)</span>
-                    </label>
-                    <input type="text" id="referrer_name" name="referrer_name" placeholder="Parent or Student Full Name / None" class="form-control" />
-                </div>
+            <div class="form-group">
+                <label class="checkbox-item" style="font-weight:600; color:var(--text-main);">
+                    <input type="checkbox" name="sfusd_consent" value="Agreed" required>
+                    <span>
+                        <span class="lang-el zh-content">*Q14. 【必填】 我同意并支持同心中文将脱敏后的统计人数（不含个人隐私）提交给旧金山学区（SFUSD），用于申请校内场地。</span>
+                        <span class="lang-el en-content" style="display:none;">*Q14. [Required] I acknowledge and support Unity Mandarin using anonymized, statistical enrollment data (excluding personal details) for the on-site classroom application with SFUSD.</span>
+                    </span>
+                </label>
+            </div>
 
-                <div class="form-group" style="margin-bottom: 35px;">
-                    <label class="form-label" for="additional_comments">
-                        <span class="lang-el zh-content">Q17. 附加备注或您的宝贵意见（选填） / Additional Comments (Optional)</span>
-                    </label>
-                    <textarea id="additional_comments" name="additional_comments" rows="4" class="form-control"></textarea>
-                </div>
+            <div class="form-group">
+                <label class="form-label" for="referral_channel">
+                    <span class="lang-el zh-content">*Q15. 请问您是通过什么渠道了解到我们的？【必填】</span>
+                    <span class="lang-el en-content" style="display:none;">*Q15. How did you hear about us? [Required]</span>
+                </label>
+                <select id="referral_channel" name="referral_channel" required class="form-control">
+                    <option value="">-- Select Channel --</option>
+                    <option value="School Community">校园社区/朋友转介 // School Community / Word of Mouth</option>
+                    <option value="WeChat">微信朋友圈/妈妈群 // WeChat Groups / Moments</option>
+                    <option value="Xiaohongshu">小红书 // Xiaohongshu (RED)</option>
+                    <option value="Line">Line 聊天群 // Line Chats</option>
+                    <option value="Other">其他渠道 // Other Channels</option>
+                </select>
+            </div>
 
-                <div class="privacy-block">
-                    <p class="privacy-title">
-                        🔒 <span class="lang-el zh-content">隐私承诺：</span>
-                        <span class="lang-el en-content" style="display:none;">🔒 Privacy Commitment:</span>
-                    </p>
-                    <p>
-                        <span class="lang-el zh-content">同心中文严格保护家庭隐私，本表收集的所有信息绝对不会转让或出售给任何第三方商业机构。提交本意向表不构成正式的入学合同或学位保证，最终入读名额、学费标准及福利执行将以随后签署的正式《2026-2027学年入学协议》为准。</span>
-                        <span class="lang-el en-content" style="display:none;">Unity Mandarin strictly protects family privacy. All information collected in this form will remain secure and will never be shared or sold to outside commercial third parties. Submission of this interest form does not constitute a formal enrollment contract or guarantee of placement. Final admissions, tuition rates, and benefits execution are strictly subject to the upcoming formal 2026-2027 Enrollment Agreement.</span>
-                    </p>
-                </div>
+            <div class="form-group">
+                <label class="form-label" for="referrer_name">
+                    <span class="lang-el zh-content">Q16. 朋友推荐登记（如果没有推荐人，请填写 "None"）</span>
+                    <span class="lang-el en-content" style="display:none;">Q16. Referral Verification (If none, please enter "None")</span>
+                    <span class="form-label-desc">(如果您是被朋友介绍来的，请在下方写下推荐您的家长或孩子名字。一旦您秋季成功注册入学并读满这一学年，在学年年底结算时，推荐您的那位朋友将获得 $100 刀的学费减免。每成功推荐一家都能获得 $100 刀，上不封顶！)</span>
+                </label>
+                <input type="text" id="referrer_name" name="referrer_name" placeholder="Parent or Student Full Name / None" class="form-control" />
+            </div>
 
-                <div class="turnstile-wrap" style="margin-top: 25px; margin-bottom: 20px; display: flex; justify-content: center;">
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAADf8JVy1_27wil9R"></div>
-                </div>
-        
-                <button type="submit" class="btn-submit">
-                    <span class="lang-el zh-content">➔ 安全提交意向并激活 4 大创校福利</span>
-                    <span class="lang-el en-content" style="display:none;">➔ Secure My Spot & Activate 4 Founding Family Benefits</span>
-                </button>
-                
-            </form>
-        </div>
-    </section>
-</main>
+            <div class="form-group" style="margin-bottom: 35px;">
+                <label class="form-label" for="additional_comments">
+                    <span class="lang-el zh-content">Q17. 附加备注或您的宝贵意见（选填） / Additional Comments (Optional)</span>
+                </label>
+                <textarea id="additional_comments" name="additional_comments" rows="4" class="form-control"></textarea>
+            </div>
 
-<footer>
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4 class="lang-el en-content">Unity Mandarin Enrichment Center</h4>
-            <h4 class="lang-el zh-hans-content" style="display: none;">同心中文教育中心</h4>
-            <h4 class="lang-el zh-hant-content" style="display: none;">同心中文教育中心</h4>
-            
-            <p class="lang-el en-content">Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</p>
-            <p class="lang-el zh-hans-content" style="display: none;">全心培养低龄学习者对语言学习、文化创意以及全球沟通意识的终身热爱与深刻理解。</p>
-            <p class="lang-el zh-hant-content" style="display: none;">全心培養低齡學習者對語言學習、文化創意以及全球溝通意識的終身熱愛與深刻理解。</p>
-        </div>
-        
-        <div class="footer-col">
-            <h4 class="lang-el en-content">Quick Access</h4>
-            <h4 class="lang-el zh-hans-content" style="display: none;">快速链接</h4>
-            <h4 class="lang-el zh-hant-content" style="display: none;">快速鏈接</h4>
-            
-            <ul class="links-listing">
-                <li>
-                    <a href="index.html" class="lang-el en-content">Home</a>
-                    <a href="index.html" class="lang-el zh-hans-content" style="display: none;">首页</a>
-                    <a href="index.html" class="lang-el zh-hant-content" style="display: none;">首頁</a>
-                </li>
-                <li>
-                    <a href="about.html" class="lang-el en-content">About Us</a>
-                    <a href="about.html" class="lang-el zh-hans-content" style="display: none;">关于我们</a>
-                    <a href="about.html" class="lang-el zh-hant-content" style="display: none;">關於我們</a>
-                </li>
-                <li>
-                    <a href="program.html" class="lang-el en-content">Program</a>
-                    <a href="program.html" class="lang-el zh-hans-content" style="display: none;">课程架构</a>
-                    <a href="program.html" class="lang-el zh-hant-content" style="display: none;">課程架構</a>
-                </li>
-                <li>
-                    <a href="why-us.html" class="lang-el en-content">Why Us</a>
-                    <a href="why-us.html" class="lang-el zh-hans-content" style="display: none;">办学优势</a>
-                    <a href="why-us.html" class="lang-el zh-hant-content" style="display: none;">辦學優勢</a>
-                </li>
-                <li>
-                    <a href="joinus.html" class="lang-el en-content">Join Us</a>
-                    <a href="joinus.html" class="lang-el zh-hans-content" style="display: none;">加入我们</a>
-                    <a href="joinus.html" class="lang-el zh-hant-content" style="display: none;">加入我們</a>
-                </li>
-                <li>
-                    <a href="contact.html" class="lang-el en-content">Contact</a>
-                    <a href="contact.html" class="lang-el zh-hans-content" style="display: none;">联系我们</a>
-                    <a href="contact.html" class="lang-el zh-hant-content" style="display: none;">聯繫我們</a>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="footer-col">
-            <h4 class="lang-el en-content">Contact Details</h4>
-            <h4 class="lang-el zh-hans-content" style="display: none;">联系详情</h4>
-            <h4 class="lang-el zh-hant-content" style="display: none;">聯繫詳情</h4>
-            
-            <ul class="contact-listing">
-                <li>
-                    <span class="icon" aria-hidden="true">📞</span>
-                    <span>(415) 658-2516</span>
-                </li>
-                <li>
-                    <span class="icon" aria-hidden="true">✉️</span>
-                    <a href="mailto:hello@unitymandarin.org" style="color: var(--brand-orange); text-decoration: underline; font-weight: 500; transition: color 0.2s ease;" onmouseover="this.style.color='var(--brand-orange-hover)'" onmouseout="this.style.color='var(--brand-orange)'">hello@unitymandarin.org</a>
-                </li>
-                <li>
-                    <span class="icon" aria-hidden="true">📍</span>
-                    <span class="lang-el en-content">San Francisco, CA</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">加州 旧金山</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">加州 舊金山</span>
-                </li>
-            </ul>
-        </div>
-    </div>
+            <div class="privacy-block">
+                <p class="privacy-title">
+                    🔒 <span class="lang-el zh-content">隐私承诺：</span>
+                    <span class="lang-el en-content" style="display:none;">🔒 Privacy Commitment:</span>
+                </p>
+                <p>
+                    <span class="lang-el zh-content">同心中文严格保护家庭隐私，本表收集的所有信息绝对不会转让或出售给任何第三方商业机构。提交本意向表不构成正式的入学合同或学位保证，最终入读名额、学费标准及福利执行将以随后签署的正式《2026-2027学年入学协议》为准。</span>
+                    <span class="lang-el en-content" style="display:none;">Unity Mandarin strictly protects family privacy. All information collected in this form will remain secure and will never be shared or sold to outside commercial third parties. Submission of this interest form does not constitute a formal enrollment contract or guarantee of placement. Final admissions, tuition rates, and benefits execution are strictly subject to the upcoming formal 2026-2027 Enrollment Agreement.</span>
+                </p>
+            </div>
+
+            </div> <div class="turnstile-wrap" style="margin-top: 25px; margin-bottom: 20px; display: flex; justify-content: center;">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADdZabVhHllElB7X"></div>
+            </div>
     
-    <div class="copyright-bar">
-        <span class="lang-el en-content">&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</span>
-        <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 同心中文教育中心。版权所有。</span>
-        <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 同心中文教育中心。版權所有。</span>
+            <button type="submit" class="btn-submit">
+                <span class="lang-el zh-content">➔ 安全提交意向并激活 4 大创校福利</span>
+                <span class="lang-el en-content" style="display:none;">➔ Secure My Spot & Activate 4 Founding Family Benefits</span>
+            </button>
+            
+        </form>
     </div>
-</footer>
+</section>
 
 <script>
-    // ==========================================
-    // ALL UNIFIED JAVASCRIPT
-    // ==========================================
-    
-    // 1. Language Dropdown Controller
-    function toggleLangMenu(event) {
-        if (event) event.stopPropagation();
-        const menu = document.getElementById('lang-menu');
-        if (menu) menu.classList.toggle('show');
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    let siblingCount = 1;
+    const maxSiblings = 5; 
+    const container = document.getElementById('sibling-container');
+    const addBtn = document.getElementById('add-sibling-btn');
 
-    // Close language menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const menu = document.getElementById('lang-menu');
-        const dropdown = document.querySelector('.lang-dropdown');
-        if (menu && dropdown && !dropdown.contains(event.target)) {
-            menu.classList.remove('show');
-        }
-    });
+    if (addBtn && container) {
+        addBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (siblingCount >= maxSiblings) {
+                alert('为了系统安全，单个家庭单次最多可同时追加 5 位子女。\nMaximum 5 siblings allowed per session.');
+                return;
+            }
+            siblingCount++;
 
-    // 2. Multi-Language Switcher Core Function (Updated to seamlessly bridge .zh-content to both zh-hans/hant)
-    function switchLanguage(lang, langName) {
-        // Hide all language elements safely
-        const allElements = document.querySelectorAll('.lang-el');
-        allElements.forEach(el => el.style.display = 'none');
+            const firstBlock = container.querySelector('.sibling-block');
+            if (!firstBlock) return;
+            
+            const newBlock = firstBlock.cloneNode(true);
+            
+            // Increment the sibling title count
+            const titleZh = newBlock.querySelector('.zh-content');
+            const titleEn = newBlock.querySelector('.en-content');
+            if (titleZh) titleZh.textContent = `孩子 ${siblingCount} 资料`;
+            if (titleEn) titleEn.textContent = `Student ${siblingCount} Profile`;
 
-        // Dynamically build the selection query to capture old .zh-content form blocks alongside new classes
-        let query = '.' + lang + '-content';
-        if (lang.includes('zh')) {
-            query += ', .zh-content';
-        }
+            // Data cleanup: Update input names to prevent overwriting child1's data
+            const inputs = newBlock.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'radio' || input.type === 'checkbox') {
+                    input.checked = false;
+                } else {
+                    input.value = '';
+                }
+                
+                // Formspark Integration requirement: ensuring distinct names
+                if (input.name) {
+                    input.name = input.name.replace('child1_', `child${siblingCount}_`);
+                }
+                
+                // Remove strong validation on dynamically added sibling radios to prevent blockages
+                if (input.type === 'radio') {
+                    input.removeAttribute('required'); 
+                }
+            });
 
-        // Show the selected language elements
-        const selectedElements = document.querySelectorAll(query);
-        selectedElements.forEach(el => {
-            if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A' || el.tagName === 'STRONG') {
-                el.style.display = 'inline-block';
-            } else {
-                el.style.display = 'block';
+            // Append a lightweight removal button for the new sibling block
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.textContent = '❌ 移除该子女信息 / Remove Sibling';
+            removeBtn.style.cssText = 'display:block; margin: 15px 0 0 auto; background:none; border:1px solid #f87171; color:#ef4444; padding:6px 12px; border-radius:6px; font-size:12px; cursor:pointer;';
+            removeBtn.addEventListener('click', function() {
+                newBlock.remove();
+                siblingCount--;
+            });
+            
+            newBlock.appendChild(removeBtn);
+            container.appendChild(newBlock);
+
+            // Auto-sync the language state for the newly appended block
+            const currentLang = document.documentElement.getAttribute('data-lang') || 'zh';
+            if(window.switchUnityLanguage) {
+                window.switchUnityLanguage(currentLang);
             }
         });
+    }
 
-        // Update Dropdown Button Text
-        const currentLangText = document.getElementById('current-lang-text');
-        if (currentLangText && langName) {
-            currentLangText.textContent = langName;
-        }
-
-        // Hide Dropdown after click
-        const menu = document.getElementById('lang-menu');
-        if (menu) menu.classList.remove('show');
-
-        // Save preference
-        localStorage.setItem('umc_preferred_lang', lang);
+    // Global bilingual toggle function
+    window.switchUnityLanguage = function(lang) {
         document.documentElement.setAttribute('data-lang', lang);
-    }
-
-    // 3. Mobile Navigation Header Panel Handler
-    function toggleMobileMenu() {
-        const nav = document.getElementById('main-nav');
-        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const zhElements = document.querySelectorAll('.zh-content');
+        const enElements = document.querySelectorAll('.en-content');
         
-        if (nav) {
-            nav.classList.toggle('is-open');
-        }
-        if (menuBtn) {
-            menuBtn.classList.toggle('is-active');
-        }
-    }
-
-    // 4. Sibling Addition Form Logic
-    document.addEventListener('DOMContentLoaded', function() {
-        let siblingCount = 1;
-        const maxSiblings = 5; 
-        const container = document.getElementById('sibling-container');
-        const addBtn = document.getElementById('add-sibling-btn');
-
-        if (addBtn && container) {
-            addBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (siblingCount >= maxSiblings) {
-                    alert('为了系统安全，单个家庭单次最多可同时追加 5 位子女。\nMaximum 5 siblings allowed per session.');
-                    return;
+        if (lang === 'en') {
+            zhElements.forEach(el => el.style.display = 'none');
+            enElements.forEach(el => {
+                if (el.tagName === 'SPAN' || el.tagName === 'STRONG') {
+                    el.style.display = 'inline';
+                } else {
+                    el.style.display = 'block';
                 }
-                siblingCount++;
-
-                const firstBlock = container.querySelector('.sibling-block');
-                if (!firstBlock) return;
-                
-                const newBlock = firstBlock.cloneNode(true);
-                
-                // Increment the sibling title count
-                const titleZh = newBlock.querySelector('.zh-content');
-                const titleEn = newBlock.querySelector('.en-content');
-                if (titleZh) titleZh.textContent = `孩子 ${siblingCount} 资料`;
-                if (titleEn) titleEn.textContent = `Student ${siblingCount} Profile`;
-
-                // Data cleanup: Update input names to prevent overwriting child1's data
-                const inputs = newBlock.querySelectorAll('input, select, textarea');
-                inputs.forEach(input => {
-                    if (input.type === 'radio' || input.type === 'checkbox') {
-                        input.checked = false;
-                    } else {
-                        input.value = '';
-                    }
-                    
-                    // Formspark Integration requirement: ensuring distinct names
-                    if (input.name) {
-                        input.name = input.name.replace('child1_', `child${siblingCount}_`);
-                    }
-                    
-                    // Remove strong validation on dynamically added sibling radios to prevent blockages
-                    if (input.type === 'radio') {
-                        input.removeAttribute('required'); 
-                    }
-                });
-
-                // Append a lightweight removal button for the new sibling block
-                const removeBtn = document.createElement('button');
-                removeBtn.type = 'button';
-                removeBtn.textContent = '❌ 移除该子女信息 / Remove Sibling';
-                removeBtn.style.cssText = 'display:block; margin: 15px 0 0 auto; background:none; border:1px solid #f87171; color:#ef4444; padding:6px 12px; border-radius:6px; font-size:12px; cursor:pointer;';
-                removeBtn.addEventListener('click', function() {
-                    newBlock.remove();
-                    siblingCount--;
-                });
-                
-                newBlock.appendChild(removeBtn);
-                container.appendChild(newBlock);
-
-                // Auto-sync the language state for the newly appended block
-                const currentLang = localStorage.getItem('umc_preferred_lang') || 'en';
-                if(typeof switchLanguage === 'function') {
-                    switchLanguage(currentLang);
+            });
+        } else {
+            enElements.forEach(el => el.style.display = 'none');
+            zhElements.forEach(el => {
+                if (el.tagName === 'SPAN' || el.tagName === 'STRONG') {
+                    el.style.display = 'inline';
+                } else {
+                    el.style.display = 'block';
                 }
             });
         }
-    });
-
-    // 5. Auto-run layout language selections when page components mount
-    document.addEventListener("DOMContentLoaded", function() {
-        // Auto-select preferred language
-        const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
-        let defaultLangName = 'English';
-        if (savedLang === 'zh-hans') defaultLangName = '简体中文';
-        if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
-        switchLanguage(savedLang, defaultLangName);
-    });
+    };
+});
 </script>
+
 </body>
 </html>
+
+
