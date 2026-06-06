@@ -1161,50 +1161,43 @@
                 </span>
             </p>
 
-            <div class="calc-controls">
-                <div class="control-group">
-                    <label>
-                        <span class="lang-el en-content">1. School Dismissal Time:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">1. 选择放学时段：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">1. 選擇放學時段：</span>
-                    </label>
-                    <select id="dismissalTier" class="form-select">
-                        <option value="" disabled selected>
-                            <span class="lang-el en-content">-- Select Dismissal Time --</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">-- 选择放学时段 --</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">-- 選擇放學時段 --</span>
-                        </option>
-                        <option value="tier1">
-                            <span class="lang-el en-content">Tier 1: 2:05 PM Dismissal Schools (Special 4 PM / 6 PM options)</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">Tier 1: 2:05 PM 放学学校 (特设 4点/6点 两大精细化选项)</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">Tier 1: 2:05 PM 放學學校 (特設 4點/6點 兩大精細化選項)</span>
-                        </option>
-                        <option value="tier2">
-                            <span class="lang-el en-content">Tier 2: 2:40 PM Dismissal Schools (Special 4 PM / 6 PM options)</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">Tier 2: 2:40 PM 放学学校 (特设 4点/6点 两大精细化选项)</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">Tier 2: 2:40 PM 放學學校 (特設 4點/6點 兩大精細化選項)</span>
-                        </option>
-                        <option value="tier3">
-                            <span class="lang-el en-content">Tier 3: 2:55 PM Dismissal Schools (Special 4 PM / 6 PM options)</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">Tier 3: 2:55 PM 放学学校 (特设 4点/6点 两大精细化选项)</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">Tier 3: 2:55 PM 放學學校 (特設 4點/6點 兩大精細化選項)</span>
-                        </option>
-                        <option value="tier4">
-                            <span class="lang-el en-content">Tier 4: 3:15 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">Tier 4: 3:15 PM 放学学校 (直达6点长托专属计划)</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">Tier 4: 3:15 PM 放學學校 (直達6點長託專屬計劃)</span>
-                        </option>
-                        <option value="tier5">
-                            <span class="lang-el en-content">Tier 5: 3:30 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">Tier 5: 3:30 PM 放学学校 (直达6点长托专属计划)</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">Tier 5: 3:30 PM 放學學校 (直達6點長託專屬計劃)</span>
-                        </option>
-                        <option value="tier6">
-                            <span class="lang-el en-content">Tier 6: 3:45 / 4:00 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">Tier 6: 3:45 / 4:00 PM 放学学校 (直达6点长托专属计划)</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">Tier 6: 3:45 / 4:00 PM 放學學校 (直達6點長託專屬計劃)</span>
-                        </option>
-                    </select>
+            <div class="control-group">
+    <label>
+        <span class="lang-el en-content">1. School Dismissal Time:</span>
+        <span class="lang-el zh-hans-content" style="display: none;">1. 选择放学时段：</span>
+        <span class="lang-el zh-hant-content" style="display: none;">1. 選擇放學時段：</span>
+    </label>
+    <select id="dismissalTier" class="form-select">
+        <option value="" disabled selected 
+                data-en="-- Select Dismissal Time --" 
+                data-zh-hans="-- 选择放学时段 --" 
+                data-zh-hant="-- 選擇放學時段 --">-- Select Dismissal Time --</option>
+        <option value="tier1" 
+                data-en="Tier 1: 2:05 PM Dismissal Schools (Special 4 PM / 6 PM options)" 
+                data-zh-hans="Tier 1: 2:05 PM 放学学校 (特设 4点/6点 两大精细化选项)" 
+                data-zh-hant="Tier 1: 2:05 PM 放學學校 (特設 4點/6點 兩大精細化選項)">Tier 1: 2:05 PM Dismissal Schools (Special 4 PM / 6 PM options)</option>
+        <option value="tier2" 
+                data-en="Tier 2: 2:40 PM Dismissal Schools (Special 4 PM / 6 PM options)" 
+                data-zh-hans="Tier 2: 2:40 PM 放学学校 (特设 4点/6点 两大精细化选项)" 
+                data-zh-hant="Tier 2: 2:40 PM 放學學校 (特設 4點/6點 兩大精細化選項)">Tier 2: 2:40 PM Dismissal Schools (Special 4 PM / 6 PM options)</option>
+        <option value="tier3" 
+                data-en="Tier 3: 2:55 PM Dismissal Schools (Special 4 PM / 6 PM options)" 
+                data-zh-hans="Tier 3: 2:55 PM 放学学校 (特设 4点/6点 两大精细化选项)" 
+                data-zh-hant="Tier 3: 2:55 PM 放學學校 (特設 4點/6點 兩大精細化選項)">Tier 3: 2:55 PM Dismissal Schools (Special 4 PM / 6 PM options)</option>
+        <option value="tier4" 
+                data-en="Tier 4: 3:15 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)" 
+                data-zh-hans="Tier 4: 3:15 PM 放学学校 (直达6点长托专属计划)" 
+                data-zh-hant="Tier 4: 3:15 PM 放學學校 (直達6點長託專屬計劃)">Tier 4: 3:15 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</option>
+        <option value="tier5" 
+                data-en="Tier 5: 3:30 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)" 
+                data-zh-hans="Tier 5: 3:30 PM 放学学校 (直达6点长托专属计划)" 
+                data-zh-hant="Tier 5: 3:30 PM 放學學校 (直達6點長託專屬計劃)">Tier 5: 3:30 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</option>
+        <option value="tier6" 
+                data-en="Tier 6: 3:45 / 4:00 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)" 
+                data-zh-hans="Tier 6: 3:45 / 4:00 PM 放学学校 (直达6点长托专属计划)" 
+                data-zh-hant="Tier 6: 3:45 / 4:00 PM 放學學校 (直達6點長託專屬計劃)">Tier 6: 3:45 / 4:00 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</option>
+    </select>
+</div>
                 </div>
                 <div class="control-group">
                     <label>
@@ -1534,6 +1527,15 @@
                         <p><strong>Program Hours:</strong> ${data.opt2_text}</p>
                         ${escortNote}
                         <ul>${brightwheelNote}
+                        <li>📚 <strong>
+                                <span class="lang-el en-content">Core Mandarin Class:</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">核心中文：</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">核心中文：</span>
+                            </strong> 
+                                <span class="lang-el en-content">1 hour of systematic, leveled immersive Mandarin learning daily.</span>
+                                <span class="lang-el zh-hans-content" style="display: none;">每日1整小时的分级沉浸式中文教学。</span>
+                                <span class="lang-el zh-hant-content" style="display: none;">每日1整小時的分級沉浸式中文教學。</span>
+                            </li>
                             <li>🎨 <strong>
                                 <span class="lang-el en-content">Arts &amp; Cultural Enrichment:</span>
                                 <span class="lang-el zh-hans-content" style="display: none;">文化拓展活动：</span>
