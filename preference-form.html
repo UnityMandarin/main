@@ -1011,30 +1011,37 @@
         if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
         switchLanguage(savedLang, defaultLangName);
 
-        // === FORM EXPIRATION LOGIC (June 20, 2026 at 24:00) ===
-        const expirationDeadline = new Date('2026-05-21T00:00:00'); 
+       // === FORM EXPIRATION LOGIC (June 20, 2026 at 24:00) ===
+        const expirationDeadline = new Date('2026-06-21T00:00:00'); 
         if (new Date() >= expirationDeadline) {
-            const formElement = document.getElementById('preferenceForm');
-            if (formElement) {
-                formElement.innerHTML = `
-                    <div style="margin: 20px 0; padding: 30px; text-align: center; background-color: #FFF5F5; border: 1px solid #FED7D7; color: #C53030; border-radius: 8px;">
-                        <p style="margin: 0 0 10px 0; font-size: 1.2rem; font-weight: 700;">
-                            <span class="en">Enrollment Preference Window Closed</span>
-                            <span class="zh-hans">意向登记窗口已关闭</span>
-                            <span class="zh-hant">意向登記窗口已關閉</span>
-                        </p>
-                        <p style="margin: 0; font-size: 1rem; line-height: 1.6;">
-                            <span class="en">This form expired on June 20, 2026. If you still need assistance or wish to inquire about open spots, please contact our team directly at <a href="mailto:hello@unitymandarin.org" style="color: var(--brand-orange); font-weight:600;">hello@unitymandarin.org</a>.</span>
-                            <span class="zh-hans">此优先登记表已于 2026年6月20日 截止。如果您仍需协助或想咨询剩余名额，请直接通过邮件联系我们：<a href="mailto:hello@unitymandarin.org" style="color: var(--brand-orange); font-weight:600;">hello@unitymandarin.org</a>。</span>
-                            <span class="zh-hant">此優先登記表已於 2026年6月20日 截止。如果您仍需協助或想諮詢剩餘名額，請直接通過郵件聯繫我們：<a href="mailto:hello@unitymandarin.org" style="color: var(--brand-orange); font-weight:600;">hello@unitymandarin.org</a>。</span>
-                        </p>
-                    </div>
+            const container = document.querySelector('.form-container');
+            if (container) {
+                // Style the container for a beautiful, clean, centered look
+                container.style.textAlign = 'center';
+                container.style.padding = '60px 24px';
+                
+                container.innerHTML = `
+                    <div style="font-size: 64px; margin-bottom: 24px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.05));">⏰</div>
+                    <h2 style="font-family: var(--font-editorial); color: var(--brand-orange); font-size: 2rem; margin: 0 0 16px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <span class="en">Form Expired</span>
+                        <span class="zh-hans">登记窗口已关闭</span>
+                        <span class="zh-hant">登記窗口已關閉</span>
+                    </h2>
+                    <p style="font-size: 1.1rem; color: var(--text-main); max-width: 540px; margin: 0 auto 32px auto; line-height: 1.6; font-family: var(--font-interface);">
+                        <span class="en">The submission window for the West Portal Fall Mandarin Program preference form has officially closed.</span>
+                        <span class="zh-hans">West Portal 校区秋季中文课后项目意向登记表已截止提交。</span>
+                        <span class="zh-hant">West Portal 校區秋季中文課後項目意向登記表已截止提交。</span>
+                    </p>
+                    <a href="mailto:hello@unitymandarin.org" style="display: inline-block; background-color: var(--brand-orange); color: white; text-decoration: none; padding: 14px 36px; border-radius: 30px; font-weight: 600; font-size: 0.95rem; box-shadow: 0 4px 14px var(--brand-orange-glow); transition: var(--transition-smooth); font-family: var(--font-interface);">
+                        <span class="en">Contact Support</span>
+                        <span class="zh-hans">联系同心中文</span>
+                        <span class="zh-hant">聯繫同心中文</span>
+                    </a>
                 `;
-                // Re-trigger language sync so the correct expiration text stays visible
+                // Re-trigger language synchronization for the dynamic navbar language menu
                 switchLanguage(savedLang, defaultLangName);
             }
         }
-    });
 
     // Form Dynamic Nodes Logic
     function addParentRow() {
