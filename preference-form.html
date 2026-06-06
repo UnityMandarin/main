@@ -1003,7 +1003,7 @@
         if (menuBtn) menuBtn.classList.toggle('is-active');
     }
 
-    // Initialize saved language on load & check expiration
+    /// Initialize saved language on load & check expiration
     document.addEventListener("DOMContentLoaded", function() {
         const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
         let defaultLangName = 'English';
@@ -1011,7 +1011,7 @@
         if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
         switchLanguage(savedLang, defaultLangName);
 
-       // === FORM EXPIRATION LOGIC (June 20, 2026 at 24:00) ===
+        // === FORM EXPIRATION LOGIC (June 20, 2026 at 24:00) ===
         const expirationDeadline = new Date('2026-05-21T00:00:00'); 
         if (new Date() >= expirationDeadline) {
             const fullContainer = document.querySelector('.form-container');
@@ -1023,25 +1023,26 @@
                 fullContainer.innerHTML = `
                     <div style="font-size: 64px; margin-bottom: 24px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.05));">⏰</div>
                     <h2 style="font-family: var(--font-editorial); color: var(--brand-orange); font-size: 2rem; margin: 0 0 16px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-                        <span class="en">Form Expired</span>
-                        <span class="zh-hans">登记窗口已关闭</span>
-                        <span class="zh-hant">登記窗口已關閉</span>
+                        <span class="lang-el en en-content">Form Expired</span>
+                        <span class="lang-el zh-hans zh-hans-content">登记窗口已关闭</span>
+                        <span class="lang-el zh-hant zh-hant-content">登記窗口已關閉</span>
                     </h2>
                     <p style="font-size: 1.1rem; color: var(--text-main); max-width: 540px; margin: 0 auto 32px auto; line-height: 1.6; font-family: var(--font-interface);">
-                        <span class="en">The submission window for the West Portal Fall Mandarin Program preference form has officially closed.</span>
-                        <span class="zh-hans">West Portal 校区秋季中文课后项目意向登记表已截止提交。</span>
-                        <span class="zh-hant">West Portal 校區秋季中文課後項目意向登記表已截止提交。</span>
+                        <span class="lang-el en en-content">The submission window for the West Portal Fall Mandarin Program preference form has officially closed.</span>
+                        <span class="lang-el zh-hans zh-hans-content">West Portal 校区秋季中文课后项目意向登记表已截止提交。</span>
+                        <span class="lang-el zh-hant zh-hant-content">West Portal 校區秋季中文課後項目意向登記表已截止提交。</span>
                     </p>
                     <a href="mailto:hello@unitymandarin.org" style="display: inline-block; background-color: var(--brand-orange); color: white; text-decoration: none; padding: 14px 36px; border-radius: 30px; font-weight: 600; font-size: 0.95rem; box-shadow: 0 4px 14px var(--brand-orange-glow); transition: var(--transition-smooth); font-family: var(--font-interface);">
-                        <span class="en">Contact Support</span>
-                        <span class="zh-hans">联系同心中文</span>
-                        <span class="zh-hant">聯繫同心中文</span>
+                        <span class="lang-el en en-content">Contact Support</span>
+                        <span class="lang-el zh-hans zh-hans-content">联系同心中文</span>
+                        <span class="lang-el zh-hant zh-hant-content">聯繫同心中文</span>
                     </a>
                 `;
                 // Re-trigger language sync so the clean screen translates properly on dropdown clicks
                 switchLanguage(savedLang, defaultLangName);
             }
         }
+    }); 
 
     // Form Dynamic Nodes Logic
     function addParentRow() {
