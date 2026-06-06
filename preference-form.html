@@ -1014,13 +1014,13 @@
        // === FORM EXPIRATION LOGIC (June 20, 2026 at 24:00) ===
         const expirationDeadline = new Date('2026-05-21T00:00:00'); 
         if (new Date() >= expirationDeadline) {
-            const container = document.querySelector('.form-container');
-            if (container) {
-                // Style the container for a beautiful, clean, centered look
-                container.style.textAlign = 'center';
-                container.style.padding = '60px 24px';
+            const fullContainer = document.querySelector('.form-container');
+            if (fullContainer) {
+                // Set clean formatting parameters for the expiration layout canvas
+                fullContainer.style.textAlign = 'center';
+                fullContainer.style.padding = '60px 20px';
                 
-                container.innerHTML = `
+                fullContainer.innerHTML = `
                     <div style="font-size: 64px; margin-bottom: 24px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.05));">⏰</div>
                     <h2 style="font-family: var(--font-editorial); color: var(--brand-orange); font-size: 2rem; margin: 0 0 16px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
                         <span class="en">Form Expired</span>
@@ -1038,7 +1038,7 @@
                         <span class="zh-hant">聯繫同心中文</span>
                     </a>
                 `;
-                // Re-trigger language synchronization for the dynamic navbar language menu
+                // Re-trigger language sync so the clean screen translates properly on dropdown clicks
                 switchLanguage(savedLang, defaultLangName);
             }
         }
