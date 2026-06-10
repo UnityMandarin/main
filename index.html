@@ -119,11 +119,13 @@
     /* ==========================================================================
        MODERNIZED INLINE NAVIGATION SYSTEM
        ========================================================================== */
-    nav {
+    nav.nav-menu {
         display: flex;
         align-items: center;
         gap: 4px; 
-        height: 100%;
+        flex-grow: 1;
+        justify-content: flex-end;
+        margin-right: 15px;
     }
 
     nav a {
@@ -198,11 +200,27 @@
     }
 
     /* ==========================================================================
+       HEADER ACTIONS (Groups Language Picker + Mobile Menu Button)
+       ========================================================================== */
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    @media (min-width: 901px) {
+        .header-actions {
+            border-left: 1px solid var(--mint-nav-border);
+            padding-left: 15px;
+            margin-left: 5px;
+        }
+    }
+
+    /* ==========================================================================
        YMCA-STYLE LANGUAGE DROPDOWN
        ========================================================================== */
     .lang-dropdown {
         position: relative;
-        margin-left: 10px;
     }
 
     .lang-dropdown-btn {
@@ -244,7 +262,7 @@
         list-style: none;
         padding: 8px 0;
         min-width: 140px;
-        display: none; /* Hidden until clicked */
+        display: none;
         flex-direction: column;
         z-index: 2000;
     }
@@ -629,22 +647,25 @@
     /* =========================================
        RESPONSIVE STRUCTURAL MEDIA BREAKPOINTS
        ========================================= */
-    nav.nav-menu {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-         
     @media (max-width: 900px) {
         .header-container {
-            padding: 10px 20px;
+            padding: 10px 15px;
         }
 
         .mobile-menu-btn {
             display: flex; 
         }
 
+        .header-actions {
+            order: 2;
+            gap: 8px;
+        }
+
+        .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
+        .lang-dropdown-btn svg { width: 18px; height: 18px; }
+
         nav.nav-menu {
+            order: 3;
             display: none; 
             width: 100%;
             flex-direction: column;
@@ -658,7 +679,7 @@
             display: flex;
             animation: slideDown 0.3s ease forwards;
         }
-     
+      
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -736,12 +757,6 @@
             <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
         </a>
 
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
         <nav id="main-nav" class="nav-menu">
             <a href="index.html" class="active-page">
                 <span class="lang-el en-content">Home</span>
@@ -778,7 +793,9 @@
                 <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
                 <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
             </a>
+        </nav>
 
+        <div class="header-actions">
             <div class="lang-dropdown">
                 <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -795,7 +812,14 @@
                     <li><button onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
                 </ul>
             </div>
-            </nav>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
     </div>
 </header>
 
@@ -1143,4 +1167,3 @@
 </script>
 </body>
 </html>
-
