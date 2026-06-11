@@ -1189,6 +1189,20 @@
             targetNode.remove();
         }
     }
+    document.addEventListener("DOMContentLoaded", function() {
+    var isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+    
+    if (isWeChat) {
+        // Hide the form and show a warning message
+        document.querySelector('.form-container').style.display = 'none';
+        
+        var warning = document.createElement('div');
+        warning.style.cssText = 'padding: 40px 20px; text-align: center; font-size: 18px; color: #E64A19;';
+        warning.innerHTML = '<strong>⚠️ Please open in your system browser</strong><br><br>To submit this form securely, tap the top right corner (...) and select "Open in Browser" or "Open in Safari".';
+        
+        document.querySelector('.page-wrapper').appendChild(warning);
+    }
+});
 </script>
 </body>
 </html>
