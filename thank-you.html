@@ -65,12 +65,63 @@
         background-color: #f3efe3;
         overflow-x: hidden;
 
-        /* DESKTOP BACKGROUND SETTINGS (Restored to match core architecture) */
+        /* DESKTOP BACKGROUND SETTINGS */
         background-image: url('aboutbg.png');
         background-repeat: repeat;
         background-position: center top;
         background-attachment: fixed;
         background-size: cover;
+    }
+
+    /* ==========================================================================
+       NEW GLOBAL ANIMATION KEYFRAMES
+       ========================================================================== */
+    @keyframes slideDownHeader {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes cardFadeUp {
+        from { opacity: 0; transform: translateY(40px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    @keyframes drawCircle {
+        from { stroke-dashoffset: 1000; }
+        to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes drawCheck {
+        from { stroke-dashoffset: 100; }
+        to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes softPulse {
+        0% { box-shadow: 0 4px 14px var(--brand-orange-glow); transform: scale(1); }
+        50% { box-shadow: 0 4px 24px rgba(255, 87, 34, 0.4); transform: scale(1.02); }
+        100% { box-shadow: 0 4px 14px var(--brand-orange-glow); transform: scale(1); }
+    }
+
+    @keyframes fadeUpFooter {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+        0% { opacity: 0; transform: scale(0.5); }
+        70% { transform: scale(1.1); }
+        100% { opacity: 1; transform: scale(1); }
     }
 
     /* ==========================================================================
@@ -92,6 +143,7 @@
                     0 2px 10px var(--mint-shadow-tint);
         will-change: transform;
         transition: var(--transition-smooth);
+        animation: slideDownHeader 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
 
     .header-container {
@@ -115,7 +167,7 @@
     }
 
     .logo-group:hover {
-        transform: translateY(-1px);
+        transform: translateY(-2px) scale(1.02);
     }
 
     .logo-group img {
@@ -168,7 +220,7 @@
         background-color: var(--brand-orange);
         border-radius: 2px;
         transform: scaleX(0);
-        transition: var(--transition-smooth);
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     nav a:hover::after {
@@ -199,7 +251,7 @@
         background-color: var(--brand-orange);
         color: #FFFFFF;
         box-shadow: 0 4px 14px var(--brand-orange-glow);
-        transform: translateY(-1px);
+        transform: translateY(-2px);
     }
 
     nav a[href*="contact"]:hover::after,
@@ -207,7 +259,7 @@
         display: none;
     }
 
-    /* HEADER ACTIONS (Groups Language + Mobile Menu) */
+    /* HEADER ACTIONS */
     .header-actions {
         display: flex;
         align-items: center;
@@ -246,9 +298,15 @@
     .lang-dropdown-btn:hover {
         background-color: rgba(255, 255, 255, 0.4);
         color: var(--brand-orange);
+        transform: translateY(-1px);
     }
 
-    .lang-dropdown-btn svg { width: 16px; height: 16px; fill: currentColor; }
+    .lang-dropdown-btn svg { width: 16px; height: 16px; fill: currentColor; transition: transform 0.3s ease; }
+    
+    /* Rotate the arrow when menu is open (requires JS toggle on class or simple focus trick) */
+    .lang-dropdown-menu.show ~ .lang-dropdown-btn svg:last-child {
+        transform: rotate(180deg);
+    }
 
     .lang-dropdown-menu {
         position: absolute;
@@ -266,11 +324,11 @@
         flex-direction: column;
         z-index: 2000;
         transform-origin: top right;
-        animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        animation: dropFade 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
 
     @keyframes dropFade {
-        from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+        from { opacity: 0; transform: translateY(-10px) scale(0.95); }
         to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
@@ -280,9 +338,13 @@
         width: 100%; text-align: left; background: transparent;
         border: none; padding: 10px 20px; font-family: var(--font-interface);
         font-size: 14px; color: var(--text-primary); cursor: pointer;
-        transition: background 0.2s, color 0.2s;
+        transition: background 0.2s, color 0.2s, padding-left 0.2s;
     }
-    .lang-dropdown-menu button:hover { background: var(--brand-orange-subtle); color: var(--brand-orange); }
+    .lang-dropdown-menu button:hover { 
+        background: var(--brand-orange-subtle); 
+        color: var(--brand-orange); 
+        padding-left: 25px;
+    }
 
     /* MOBILE MENU BUTTON */
     .mobile-menu-btn {
@@ -301,7 +363,7 @@
         transition: var(--transition-smooth);
     }
     .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
     .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
 
@@ -330,12 +392,14 @@
         text-align: center;
         position: relative;
         overflow: hidden;
-        animation: cardFadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        opacity: 0;
+        animation: cardFadeUp 0.8s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
-    @keyframes cardFadeUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    .success-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 50px rgba(168, 223, 181, 0.25);
     }
 
     .success-card::after {
@@ -343,7 +407,9 @@
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 6px;
-        background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 100%);
+        background: linear-gradient(90deg, var(--scroll-jade) 0%, var(--brand-orange) 50%, var(--scroll-jade) 100%);
+        background-size: 200% 100%;
+        animation: gradientShift 3s linear infinite;
     }
 
     /* --- Animated Success Graphic --- */
@@ -357,15 +423,32 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        opacity: 0;
+        animation: popIn 0.6s 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    /* SVG Drawing Animations */
+    .path.circle {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: drawCircle 1s 0.8s ease-out forwards;
+    }
+    
+    .path.check {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: drawCheck 0.6s 1.2s ease-out forwards;
     }
 
     .celebration-sparkle {
         position: absolute;
         font-size: 24px;
         animation: sparkleSpin 4s linear infinite;
+        opacity: 0;
     }
-    .sparkle-1 { top: -5px; left: -5px; animation-delay: 0s; }
-    .sparkle-2 { bottom: -5px; right: -5px; animation-delay: 1.5s; }
+    /* We add an entrance animation for the sparkles too */
+    .sparkle-1 { top: -5px; left: -5px; animation: popIn 0.4s 1.5s forwards, sparkleSpin 4s 1.9s linear infinite; }
+    .sparkle-2 { bottom: -5px; right: -5px; animation: popIn 0.4s 1.7s forwards, sparkleSpin 4s 2.1s linear infinite; }
 
     @keyframes sparkleSpin {
         0% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
@@ -399,6 +482,7 @@
         padding: 30px 25px;
         margin-bottom: 35px;
         text-align: left;
+        overflow: hidden;
     }
 
     .procedural-timeline h2 {
@@ -415,7 +499,15 @@
         gap: 15px;
         margin-bottom: 20px;
         position: relative;
+        opacity: 0;
+        transform: translateX(-30px);
+        animation: slideInRight 0.6s forwards;
     }
+
+    /* Staggered Timings for Steps */
+    .timeline-step:nth-of-type(1) { animation-delay: 1.2s; }
+    .timeline-step:nth-of-type(2) { animation-delay: 1.4s; }
+    .timeline-step:nth-of-type(3) { animation-delay: 1.6s; }
 
     .timeline-step:last-of-type {
         margin-bottom: 0;
@@ -434,6 +526,12 @@
         font-weight: bold;
         flex-shrink: 0;
         box-shadow: 0 2px 6px rgba(114, 208, 155, 0.4);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .timeline-step:hover .step-badge {
+        transform: scale(1.15) rotate(10deg);
+        background-color: var(--brand-orange);
     }
 
     .step-info h3 {
@@ -441,6 +539,11 @@
         font-size: 15px;
         color: var(--text-primary);
         font-weight: 600;
+        transition: color 0.3s ease;
+    }
+    
+    .timeline-step:hover .step-info h3 {
+        color: var(--brand-orange);
     }
 
     .step-info p {
@@ -464,12 +567,22 @@
         font-weight: 600;
         box-shadow: 0 4px 14px var(--brand-orange-glow);
         transition: var(--transition-smooth);
+        animation: softPulse 2.5s 2s infinite;
+    }
+
+    .btn-return-home svg {
+        transition: transform 0.3s ease;
     }
 
     .btn-return-home:hover {
         background-color: var(--brand-orange-hover);
         box-shadow: 0 6px 20px rgba(230, 74, 25, 0.3);
-        transform: translateY(-1px);
+        transform: translateY(-2px);
+        animation: none; /* Stop pulsing on hover */
+    }
+
+    .btn-return-home:hover svg {
+        transform: translateX(-4px); /* Little point left interaction */
     }
 
     /* --- Secure Protocol Badge --- */
@@ -485,7 +598,14 @@
         font-size: 13px;
         color: var(--brand-orange-hover);
         font-weight: 500;
+        transition: transform 0.3s ease, background-color 0.3s ease;
     }
+    
+    .security-lock-notice:hover {
+        transform: translateY(-2px);
+        background-color: rgba(255, 87, 34, 0.08);
+    }
+
     .security-lock-notice svg {
         width: 14px;
         height: 14px;
@@ -504,6 +624,11 @@
         display: flex;
         justify-content: space-between;
         border: 1px solid rgba(0, 0, 0, 0.04);
+        transition: background-color 0.3s ease;
+    }
+    
+    .tracking-metadata-box:hover {
+        background: rgba(0, 0, 0, 0.05);
     }
 
 
@@ -516,6 +641,8 @@
         padding: 50px 40px 30px 40px;
         border-top: 4px solid var(--scroll-jade);
         margin-top: auto;
+        opacity: 0;
+        animation: fadeUpFooter 0.8s 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
     }
 
     .footer-grid {
@@ -543,6 +670,11 @@
         width: 40px;
         height: 2px;
         background-color: var(--brand-orange);
+        transition: width 0.4s ease;
+    }
+    
+    .footer-col:hover h4::after {
+        width: 60px;
     }
 
     .footer-col p {
@@ -562,16 +694,17 @@
         color: #CFEAD6;
         text-decoration: none;
         font-size: 14px;
-        transition: color 0.2s ease, padding-left 0.2s ease;
+        transition: color 0.2s ease, padding-left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         display: inline-block;
     }
     .links-listing a:hover {
         color: var(--brand-orange);
-        padding-left: 4px;
+        padding-left: 8px;
     }
 
     .contact-listing { list-style: none; padding: 0; margin: 0; }
-    .contact-listing li { font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .contact-listing li { font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; transition: transform 0.2s ease;}
+    .contact-listing li:hover { transform: translateX(4px); }
 
     .copyright-bar {
         max-width: var(--max-content-width);
@@ -616,7 +749,7 @@
             border-top: 1px solid rgba(88, 185, 131, 0.2);
             margin-top: 12px;
         }
-        nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
+        nav.nav-menu.is-open { display: flex; animation: slideDownNav 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
         nav a { width: 100%; padding: 12px; font-size: 16px; justify-content: center; border-radius: 8px;}
         nav a::after { display: none; }
         
@@ -627,8 +760,8 @@
 
         nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 4px; border: 1.5px solid var(--brand-orange); }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
+        @keyframes slideDownNav {
+            from { opacity: 0; transform: translateY(-15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -704,7 +837,7 @@
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
                     <span id="current-lang-text">English</span>
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="dropdown-arrow">
                         <path d="M7 10l5 5 5-5z"/>
                     </svg>
                 </button>
@@ -729,8 +862,8 @@
         <div class="celebration-icon-wrap">
             <span class="celebration-sparkle sparkle-1">✨</span>
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" style="width: 50px; height: 50px;">
-                <circle class="path circle" fill="none" stroke="#FF5722" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" style="stroke-dasharray: 1000; stroke-dashoffset: 0;"/>
-                <polyline class="path check" fill="none" stroke="#FF5722" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.1" style="stroke-dasharray: 100; stroke-dashoffset: 0;"/>
+                <circle class="path circle" fill="none" stroke="#FF5722" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#FF5722" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.1"/>
             </svg>
             <span class="celebration-sparkle sparkle-2">🎉</span>
         </div>
