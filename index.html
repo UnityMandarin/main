@@ -1138,19 +1138,39 @@
         }
     }
 
-    // 4. Card Drawer Function
+    // 4. Card Drawer Function (Expands All Drawers Together)
     function toggleAcademicDrawer(drawerId, triggerButton) {
-        var targetDrawer = document.getElementById(drawerId);
+        // Find all drawers and all toggle buttons on the page
+        const allDrawers = document.querySelectorAll('.drawer-content');
+        const allButtons = document.querySelectorAll('.toggle-card-btn');
         
-        if (targetDrawer.style.display === "block") {
-            targetDrawer.style.display = "none";
-            triggerButton.textContent = "Learn More";
-            triggerButton.setAttribute("aria-expanded", "false");
-        } else {
-            targetDrawer.style.display = "block";
-            triggerButton.textContent = "Close Details";
-            triggerButton.setAttribute("aria-expanded", "true");
-        }
+        // Check if the current drawer is opening or closing
+        const targetDrawer = document.getElementById(drawerId);
+        const isOpening = targetDrawer.style.display !== "block";
+
+        // Toggle ALL drawers to match
+        allDrawers.forEach(drawer => {
+            drawer.style.display = isOpening ? "block" : "none";
+        });
+
+        // Update ALL buttons to show the correct language text
+        allButtons.forEach(btn => {
+            btn.setAttribute("aria-expanded", isOpening ? "true" : "false");
+            
+            const enSpan = btn.querySelector('.en-content');
+            const hansSpan = btn.querySelector('.zh-hans-content');
+            const hantSpan = btn.querySelector('.zh-hant-content');
+            
+            if (isOpening) {
+                if (enSpan) enSpan.textContent = "Close Details";
+                if (hansSpan) hansSpan.textContent = "关闭详情";
+                if (hantSpan) hantSpan.textContent = "關閉詳情";
+            } else {
+                if (enSpan) enSpan.textContent = "Learn More";
+                if (hansSpan) hansSpan.textContent = "了解更多";
+                if (hantSpan) hantSpan.textContent = "了解更多";
+            }
+        });
     }
 
     // 5. Auto-run layout selections when page components mount
