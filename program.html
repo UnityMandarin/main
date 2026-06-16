@@ -1011,117 +1011,7 @@
         </div>
 
         <div class="price-calculator-box">
-            <h3>
-                <span class="lang-el en-content">📊 Monthly Tuition Matrix</span>
-                <span class="lang-el zh-hans-content" style="display: none;">📊 动态学费及杂费联动看板</span>
-                <span class="lang-el zh-hant-content" style="display: none;">📊 動態學費及雜費連動看板</span>
-            </h3>
-
-            <div class="disclaimer-alert-box">
-    <p>
-        <span class="lang-el en-content">
-            ⚠️ <strong>Important Notice:</strong> All tuition rates shown on this page are <strong>projected/estimated pricing for the 2026-2027 school year</strong>. Due to fluctuations in rigid staffing costs in the Bay Area, final binding tuition structures <strong>must be determined exclusively by the official registration forms signed at actual enrollment</strong>. This matrix does not constitute a rigid contractual offer.
-            <br>
-            <span style="font-size: 0.85rem; opacity: 0.9; display:block; margin-top:3px;">
-                All rates displayed on this page represent <strong>projected/estimated pricing</strong> for the 2026-2027 school year. Final binding tuition structures are determined exclusively by the official registration forms signed at actual enrollment. This matrix does not constitute a rigid contractual offer.
-            </span>
-        </span>
-
-        <span class="lang-el zh-hans-content" style="display: none;">
-            ⚠️ <strong>重要提示：</strong>本页面所示的所有学费及费率均为 2026-2027 学年度之<strong>【预测与预估价格】(Estimated Pricing)</strong>。由于湾区师资刚性成本波动，准确的最终收费标准<strong>必须以您在实际申请时签署的正式报名表为准</strong>。本看板不构成刚性要约邀请。
-            <br>
-            <span style="font-size: 0.85rem; opacity: 0.9; display:block; margin-top:3px;">
-                本页面显示的所有费率代表<strong>预测/预估价格</strong>（2026-2027学年）。最终具有约束力的学费结构完全由实际注册时签署的官方注册表格决定。本看板不构成硬性合同要约。
-            </span>
-        </span>
-
-        <span class="lang-el zh-hant-content" style="display: none;">
-            ⚠️ <strong>重要提示：</strong>本頁面所示的所有學費及費率均為 2026-2027 學年度之<strong>【預測與預估價格】(Estimated Pricing)</strong>。由於灣區學資剛性成本波動，準確的最終收費標準<strong>必須以您在實際申請時簽署的正式報名表為準</strong>。本看板不構成剛性要約邀請。
-            <br>
-            <span style="font-size: 0.85rem; opacity: 0.9; display:block; margin-top:3px;">
-                本頁面顯示的所有費率代表<strong>預測/預估價格</strong>（2026-2027學年）。最終具有約束力的學費結構完全由實際註冊時簽署的官方註冊表格決定。本看板不構成硬性合同要約。
-            </span>
-        </span>
-    </p>
-</div>
-
-<p style="margin-top: 15px;">
-    <span class="lang-el en-content">
-        Please select your child's school dismissal tier and program track to view the precise estimated monthly tuition:
-        <br>
-    </span>
-
-    <span class="lang-el zh-hans-content" style="display: none;">
-        请选择孩子学校的【放学时段】并切换【项目类型】查看精确预估月费：
-        <br>
-    </span>
-
-    <span class="lang-el zh-hant-content" style="display: none;">
-        請選擇孩子學校的【放學時段】並切換【項目類型】查看精確預估月費：
-        <br>
-    </span>
-</p>
-            
-            <div class="calc-controls">
-                <div class="control-group">
-                    <label>
-                        <span class="lang-el en-content">1. School Dismissal Time:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">1. 选择放学时段：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">1. 選擇放學時段：</span>
-                    </label>
-                    <select id="dismissalTier" class="form-select">
-                        <option value="" disabled selected 
-                                data-en="-- Select Dismissal Time --" 
-                                data-zh-hans="-- 选择放学时段 --" 
-                                data-zh-hant="-- 選擇放學時段 --">-- Select Dismissal Time --</option>
-                        <option value="tier1" 
-                                data-en="Tier 1: 2:05 PM Dismissal Schools (Special 4 PM / 6 PM options)" 
-                                data-zh-hans="Tier 1: 2:05 PM 放学学校 (特设 4点/6点 两大精细化选项)" 
-                                data-zh-hant="Tier 1: 2:05 PM 放學學校 (特設 4點/6點 兩大精細化選項)">Tier 1: 2:05 PM Dismissal Schools (Special 4 PM / 6 PM options)</option>
-                        <option value="tier2" 
-                                data-en="Tier 2: 2:40 PM Dismissal Schools (Special 4 PM / 6 PM options)" 
-                                data-zh-hans="Tier 2: 2:40 PM 放学学校 (特设 4点/6点 两大精细化选项)" 
-                                data-zh-hant="Tier 2: 2:40 PM 放學學校 (特設 4點/6點 兩大精細化選項)">Tier 2: 2:40 PM Dismissal Schools (Special 4 PM / 6 PM options)</option>
-                        <option value="tier3" 
-                                data-en="Tier 3: 2:55 PM Dismissal Schools (Special 4 PM / 6 PM options)" 
-                                data-zh-hans="Tier 3: 2:55 PM 放学学校 (特设 4点/6点 两大精细化选项)" 
-                                data-zh-hant="Tier 3: 2:55 PM 放學學校 (特設 4點/6點 兩大精細化選項)">Tier 3: 2:55 PM Dismissal Schools (Special 4 PM / 6 PM options)</option>
-                        <option value="tier4" 
-                                data-en="Tier 4: 3:15 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)" 
-                                data-zh-hans="Tier 4: 3:15 PM 放学学校 (直达6点长托专属计划)" 
-                                data-zh-hant="Tier 4: 3:15 PM 放學學校 (直達6點長託專屬計劃)">Tier 4: 3:15 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</option>
-                        <option value="tier5" 
-                                data-en="Tier 5: 3:30 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)" 
-                                data-zh-hans="Tier 5: 3:30 PM 放学学校 (直达6点长托专属计划)" 
-                                data-zh-hant="Tier 5: 3:30 PM 放學學校 (直達6點長託專屬計劃)">Tier 5: 3:30 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</option>
-                        <option value="tier6" 
-                                data-en="Tier 6: 3:45 / 4:00 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)" 
-                                data-zh-hans="Tier 6: 3:45 / 4:00 PM 放学学校 (直达6点长托专属计划)" 
-                                data-zh-hant="Tier 6: 3:45 / 4:00 PM 放學學校 (直達6點長託專屬計劃)">Tier 6: 3:45 / 4:00 PM Dismissal Schools (Direct to 6 PM Extended Care Exclusive Plan)</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label>
-                        <span class="lang-el en-content">2. Program Track:</span>
-                        <span class="lang-el zh-hans-content" style="display: none;">2. 选择项目类型：</span>
-                        <span class="lang-el zh-hant-content" style="display: none;">2. 選擇項目類型：</span>
-                    </label>
-                    <div class="radio-toggle">
-                        <input type="radio" id="typeOnsite" name="progType" value="onsite" checked>
-                        <label for="typeOnsite" class="toggle-btn">
-                            <span class="lang-el en-content">On-site (Brightwheel Included / Snacks Included / No Escort)</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">On-site (含Brightwheel/含点心/无护送)</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">On-site (含Brightwheel/含點心/無護送)</span>
-                        </label>
-                        <input type="radio" id="typeOffsite" name="progType" value="offsite">
-                        <label for="typeOffsite" class="toggle-btn">
-                            <span class="lang-el en-content">Off-site (Brightwheel Included / Snacks Included / Escort Included)</span>
-                            <span class="lang-el zh-hans-content" style="display: none;">Off-site (含Brightwheel/含点心/含护送)</span>
-                            <span class="lang-el zh-hant-content" style="display: none;">Off-site (含Brightwheel/含點心/含護送)</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
+           
 
             <div id="dynamicPriceDisplay" class="price-result-display">
                 <div class="placeholder-text">
@@ -1133,9 +1023,9 @@
 
             <div class="disclaimer-alert-box" style="background-color: #f0fdf4; border-left-color: #16a34a; margin-top: 20px;">
                 <p style="color: #166534; font-weight: 700; font-size: 1.05rem;">
-                    <span class="lang-el en-content">🤝 3. Dual-Income Support & Late Pickup Grace Policy</span>
-                    <span class="lang-el zh-hans-content" style="display: none;">🤝 3. 双职工支持与晚接宽容政策</span>
-                    <span class="lang-el zh-hant-content" style="display: none;">🤝 3. 雙職工支持與晚接寬容政策</span>
+                    <span class="lang-el en-content">🤝 Dual-Income Support & Late Pickup Grace Policy</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">🤝 双职工支持与晚接宽容政策</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">🤝 雙職工支持與晚接寬容政策</span>
                 </p>
                 <p style="font-size: 0.88rem; color: #166534; margin-top: 6px; line-height: 1.6;">
                     <span class="lang-el en-content">To support dual-income families and show our understanding and care for parents, UMC will never implement a strict late pickup fine system during unexpected circumstances. All childcare operational expenses incurred during these times will be fully covered by our academy. Alignment on individual terms and specific seasonal schedules will be clearly and formally managed through your family's Brightwheel profile.</span>
