@@ -2,79 +2,804 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Support Unity Mandarin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>West Portal Campus Preference Form - Unity Mandarin</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 500px; margin: 40px auto; padding: 20px; color: #333; line-height: 1.5; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin: 10px 0; cursor: pointer; }
-        input[type="radio"], input[type="checkbox"] { margin-right: 10px; transform: scale(1.1); }
-        button { width: 100%; padding: 12px; background: #0071e3; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
-        button:hover { background: #0077ed; }
-        .disclaimer { font-size: 12px; color: #6e6e73; margin-top: 25px; border-top: 1px solid #d2d2d7; padding-top: 15px; }
-        .error-msg { color: #ff3b30; font-weight: bold; text-align: center; display: none; }
-    </style>
-</head>
-<body>
+        /* ==========================================================================
+           GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES (From index.html)
+           ========================================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
-    <div id="form-container">
-        <h2 style="margin-bottom: 5px;">Stand with Unity Mandarin</h2>
-        <p style="color: #6e6e73; margin-top: 0; font-size: 14px;">Thank you for helping us return to West Portal Elementary for the 2026-2027 school year.</p>
-
-        <!-- Formspark 表单 -->
-        <form action="https://submit.formspark.io/YOUR_FORM_ID" method="POST" id="support-form">
+        :root {
+            --brand-orange: #D35400;
+            --brand-orange-hover: #B34700;
+            --brand-orange-glow: rgba(255, 87, 34, 0.15);
+            --brand-orange-subtle: rgba(255, 87, 34, 0.04);
             
-            <!-- 动态注入的隐藏邮箱字段 -->
-            <input type="hidden" id="email-input" name="email" required />
+            --mint-nav-core: #D1F7DB;
+            --mint-nav-light: #EBFDF2;
+            --mint-nav-border: rgba(88, 185, 131, 0.35);
+            --mint-shadow-tint: rgba(88, 185, 131, 0.12);
+            --mint-light: #E8FBF0;
+            --scroll-jade: #72D09B;
+            
+            --font-editorial: 'Noto Serif SC', 'Playfair Display', "Georgia", serif;
+            --font-interface: 'Inter', system-ui, -apple-system, sans-serif;
+            
+            --bg-color: #f3efe3;
+            --card-bg: #FFFFFF;
+            --text-primary: #1C3325;
+            --text-secondary: #3A5243;
+            --text-navbar-link: #243E2E;
+            --text-main: #2C3E50;
+            --text-muted: #5A6B7C;
+            --border-color: #e5e7eb;
+            
+            --header-height: 72px;
+            --max-content-width: 1440px;
+            --max-width: 1280px;
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
-            <!-- 年级单选（保护隐私，强化精准数据） -->
+        /* ==========================================================================
+           BASE CORE BODY RESET & CANVAS GROUNDING
+           ========================================================================== */
+        body {
+            font-family: var(--font-interface);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: var(--bg-color);
+            background-image: url('index-bg.png'); 
+            background-repeat: repeat; 
+            background-position: center top;
+            background-attachment: fixed;
+            background-size: 100% auto; 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 核心 DOM i18n 显隐控制器 */
+        body[lang="en"] .zh-hans, body[lang="en"] .zh-hant, body[lang="en"] .zh-hans-content, body[lang="en"] .zh-hant-content { display: none !important; }
+        body[lang="zh-hans"] .en, body[lang="zh-hans"] .zh-hant, body[lang="zh-hans"] .en-content, body[lang="zh-hans"] .zh-hant-content { display: none !important; }
+        body[lang="zh-hant"] .en, body[lang="zh-hant"] .zh-hans, body[lang="zh-hant"] .en-content, body[lang="zh-hant"] .zh-hans-content { display: none !important; }
+
+        /* ==========================================================================
+           HEADER (From index.html)
+           ========================================================================== */
+        header {
+            background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
+            min-height: var(--header-height);
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid var(--mint-nav-border);
+            box-shadow: 0 4px 25px rgba(243, 239, 227, 0.75), 0 2px 10px var(--mint-shadow-tint);
+            transition: var(--transition-smooth);
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: var(--max-content-width);
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            flex-wrap: wrap; 
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            height: var(--header-height);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .logo-group:hover { transform: translateY(-1px); }
+
+        .logo-group img, header img {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(28, 51, 37, 0.06));
+            transition: var(--transition-smooth);
+        }
+
+        nav.nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 4px; 
+            flex-grow: 1;
+            justify-content: flex-end;
+            margin-right: 15px;
+        }
+
+        nav a {
+            font-family: var(--font-interface);
+            text-decoration: none;
+            color: var(--text-navbar-link);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.15px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            box-sizing: border-box;
+        }
+
+        nav a:hover {
+            color: var(--brand-orange);
+            background-color: var(--brand-orange-subtle);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 18px;
+            right: 18px;
+            height: 2px;
+            background-color: var(--brand-orange);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+        }
+
+        nav a:hover::after { transform: scaleX(1); }
+
+        nav a.active-page {
+            color: #FFFFFF;
+            background-color: var(--brand-orange);
+            box-shadow: 0 4px 12px var(--brand-orange-glow);
+        }
+        nav a.active-page::after { display: none; }
+
+        nav a[href*="contact"], nav a:last-of-type {
+            background-color: transparent;
+            border: 1.5px solid var(--brand-orange);
+            color: var(--brand-orange);
+            margin-left: 8px;
+            padding: 8px 20px;
+        }
+
+        nav a[href*="contact"]:hover, nav a:last-of-type:hover {
+            background-color: var(--brand-orange);
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px var(--brand-orange-glow);
+            transform: translateY(-1px);
+        }
+        nav a[href*="contact"]:hover::after, nav a:last-of-type:hover::after { display: none; }
+
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        @media (min-width: 901px) {
+            .header-actions {
+                border-left: 1px solid var(--mint-nav-border);
+                padding-left: 15px;
+                margin-left: 5px;
+            }
+        }
+
+        /* Dropdown Language Picker */
+        .lang-dropdown { position: relative; }
+        .lang-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text-navbar-link); 
+            border: none;
+            padding: 8px 12px;
+            font-family: var(--font-interface);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
+        }
+        .lang-dropdown-btn:hover { background-color: rgba(255, 255, 255, 0.4); color: var(--brand-orange); }
+        .lang-dropdown-btn svg { width: 16px; height: 16px; fill: currentColor; }
+        
+        .lang-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 12px;
+            background: #FFFFFF;
+            border: 1px solid var(--mint-nav-border);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            list-style: none;
+            padding: 8px 0;
+            min-width: 140px;
+            display: none;
+            flex-direction: column;
+            z-index: 2000;
+            transform-origin: top right;
+            animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        @keyframes dropFade {
+            from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .lang-dropdown-menu.show { display: flex; }
+        .lang-dropdown-menu li { width: 100%; }
+        .lang-dropdown-menu button {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            font-family: var(--font-interface);
+            font-size: 14px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .lang-dropdown-menu button:hover { background: var(--brand-orange-subtle); color: var(--brand-orange); }
+
+        /* Mobile Menu Btn */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1001;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+        .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        /* ==========================================================================
+           FORM LAYOUT & STYLES (Adapted to brand colors)
+           ========================================================================== */
+        .page-wrapper {
+            max-width: 800px;
+            margin: 40px auto 60px auto;
+            padding: 0 20px;
+            flex-grow: 1;
+        }
+
+        .form-container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 35px rgba(168, 223, 181, 0.15);
+            border: 1px solid var(--mint-nav-border);
+        }
+
+        h1 {
+            font-family: var(--font-editorial);
+            font-size: 1.8rem;
+            color: var(--brand-orange);
+            margin-top: 0;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        p {
+            margin-bottom: 18px;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .section-title {
+            font-family: var(--font-editorial);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 35px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--mint-nav-border);
+        }
+
+        .form-group { margin-bottom: 22px; }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        /* Mobile-safe input sizing (16px prevents iOS zoom) */
+        input[type="email"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #CBD5E0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: var(--font-interface);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #FAFAFA;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--brand-orange);
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 3px var(--brand-orange-glow);
+        }
+
+        .radio-grid { margin-top: 8px; }
+
+        .radio-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .radio-item input {
+            margin-top: 4px;
+            margin-right: 12px;
+            transform: scale(1.2);
+            accent-color: var(--brand-orange);
+        }
+
+        .submit-btn {
+            background-color: var(--brand-orange);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px var(--brand-orange-glow);
+            transition: all 0.2s;
+            font-family: var(--font-interface);
+        }
+        .submit-btn:hover {
+            background-color: var(--brand-orange-hover);
+            box-shadow: 0 6px 16px rgba(255, 87, 34, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .required-star { color: #E53E3E; margin-left: 3px; }
+
+        /* ==========================================================================
+           FOOTER (From index.html)
+           ========================================================================== */
+        footer {
+            background-color: #142219;
+            color: #CFEAD6;
+            padding: 50px 40px 30px 40px;
+            border-top: 4px solid var(--scroll-jade);
+            margin-top: auto;
+        }
+        .footer-grid {
+            max-width: var(--max-width);
+            margin: 0 auto 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+        }
+        .footer-col h4 {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-family: var(--font-interface);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--brand-orange);
+        }
+        .footer-col p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; opacity: 0.85; }
+        .contact-listing, .links-listing { list-style: none; padding: 0; margin: 0; }
+        .contact-listing li { font-size: 14px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 10px; }
+        .contact-listing .icon { color: var(--brand-orange); flex-shrink: 0; }
+        .links-listing li { margin-bottom: 10px; }
+        .links-listing a { color: #CFEAD6; text-decoration: none; font-size: 14px; transition: color 0.2s ease, padding-left 0.2s ease; display: inline-block; }
+        .links-listing a:hover { color: var(--brand-orange); padding-left: 4px; }
+        .copyright-bar {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.5;
+        }
+
+        /* ==========================================================================
+           MOBILE RESPONSIVENESS
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .header-container { padding: 10px 15px; }
+            .logo-group img, header img { height: 36px; } 
+            
+            .mobile-menu-btn { display: flex; }
+            .header-actions { order: 2; gap: 8px; } 
+            
+            .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
+            .lang-dropdown-btn svg { width: 18px; height: 18px; }
+            
+            nav.nav-menu { 
+                order: 3; 
+                display: none; 
+                width: 100%; 
+                flex-direction: column; 
+                gap: 10px; 
+                padding: 20px 0; 
+                border-top: 1px solid rgba(88, 185, 131, 0.2); 
+                margin-top: 10px; 
+            }
+            nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
+            @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+            nav a { width: 100%; padding: 12px; font-size: 16px; }
+            nav a::after { display: none; }
+            nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+
+            .page-wrapper { margin: 25px auto; padding: 0 15px; }
+            .form-container { padding: 25px 20px; }
+            h1 { font-size: 1.5rem; }
+        }
+   </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+    
+<body lang="en">
+
+<header>
+    <div class="header-container">
+        <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
+            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px; width: auto; object-fit: contain;">
+            
+            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            
+            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+        </a>
+
+        <nav id="main-nav" class="nav-menu">
+            <a href="index.html">
+                <span class="lang-el en-content">Home</span>
+                <span class="lang-el zh-hans-content" style="display: none;">首页</span>
+                <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
+            </a>
+            <a href="about.html">
+                <span class="lang-el en-content">About Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
+            </a>
+            <a href="program.html">
+                <span class="lang-el en-content">Program</span>
+                <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
+                <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
+            </a>
+            <a href="why-us.html">
+                <span class="lang-el en-content">Why Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
+                <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
+            </a>
+            <a href="joinus.html">
+                <span class="lang-el en-content">Join Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
+            </a>
+            <a href="contact.html">
+                <span class="lang-el en-content">Contact</span>
+                <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
+            </a>
+        </nav>
+
+        <div class="header-actions">
+            <div class="lang-dropdown">
+                <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <span id="current-lang-text">English</span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+                <ul class="lang-dropdown-menu" id="lang-menu">
+                    <li><button type="button" onclick="switchLanguage('en', 'English')">English</button></li>
+                    <li><button type="button" onclick="switchLanguage('zh-hans', '简体中文')">简体中文</button></li>
+                    <li><button type="button" onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
+                </ul>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="page-wrapper">
+    <div class="form-container">
+        
+        <h1>
+            <span class="en">Unity Mandarin After-School Program Level Selection</span>
+            <span class="zh-hans">同心中文课后项目等级选择表</span>
+            <span class="zh-hant">同心中文課後項目等級選擇表</span>
+        </h1>
+
+        <p>
+            <span class="en">Please provide your email address and select your child's target Mandarin level for the upcoming school year.</span>
+            <span class="zh-hans">请提供您的电子邮箱，并为您的孩子选择下一学年的目标中文等级。</span>
+            <span class="zh-hant">請提供您的電子郵箱，並為您的孩子選擇下一學年的目標中文等級。</span>
+        </p>
+
+        <form action="https://api.formspark.io/NqFNrvU3m" method="POST" class="form-body">
+            
+            <input type="hidden" id="submitted-lang-tracker" name="submitted_language" value="en">
+
+            <div class="section-title">
+                <span class="en">Parent/Guardian Information</span>
+                <span class="zh-hans">家长/监护人信息</span>
+                <span class="zh-hant">家長/監護人信息</span>
+            </div>
+
             <div class="form-group">
-                <p style="font-weight: 600; margin-bottom: 10px;">My child is entering West Portal this Fall in Grade:</p>
-                <label><input type="radio" name="grade" value="K" required> Kindergarten</label>
-                <label><input type="radio" name="grade" value="1st"> 1st Grade</label>
-                <label><input type="radio" name="grade" value="2nd"> 2nd Grade</label>
-                <label><input type="radio" name="grade" value="3rd"> 3rd Grade</label>
-                <label><input type="radio" name="grade" value="4th"> 4th Grade</label>
-                <label><input type="radio" name="grade" value="5th"> 5th Grade</label>
-                <label><input type="radio" name="grade" value="Incoming/Other"> Other / Prospective Family</label>
+                <label>
+                    <span class="en">Primary Email Address</span>
+                    <span class="zh-hans">主联系电子邮箱</span>
+                    <span class="zh-hant">主聯繫電子郵箱</span>
+                    <span class="required-star">*</span>
+                </label>
+                <input type="email" name="primary_email" required placeholder="parent@example.com">
             </div>
 
-            <!-- 核心诉求多选（默认全选，谈判核心筹码） -->
-            <div class="form-group" style="background: #f5f5f7; padding: 12px; border-radius: 8px; font-size: 14px;">
-                <label><input type="checkbox" name="advocate_teachers" value="Yes" checked> I want my child to learn with their familiar teachers.</label>
-                <label><input type="checkbox" name="advocate_continuity" value="Yes" checked> I highly value the continuity of this Mandarin program.</label>
+            <div class="section-title">
+                <span class="en">Program Details</span>
+                <span class="zh-hans">课程细节</span>
+                <span class="zh-hant">課程細節</span>
             </div>
 
-            <button type="submit">Confirm My Support</button>
+            <div class="form-group">
+                <label>
+                    <span class="en">Target Mandarin Level</span>
+                    <span class="zh-hans">期望入读的中文等级</span>
+                    <span class="zh-hant">期望入讀的中文等級</span>
+                    <span class="required-star">*</span>
+                </label>
+                <div class="radio-grid">
+                    <div class="radio-item">
+                        <input type="radio" name="child_level" id="l1" value="Level 1" checked required>
+                        <label for="l1">
+                            <span class="en">Level 1 (Beginner)</span>
+                            <span class="zh-hans">Level 1 (零基础 / 初学者)</span>
+                            <span class="zh-hant">Level 1 (零基礎 / 初學者)</span>
+                        </label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="child_level" id="l2" value="Level 2">
+                        <label for="l2">Level 2</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="child_level" id="l3" value="Level 3">
+                        <label for="l3">Level 3</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="child_level" id="l4" value="Level 4">
+                        <label for="l4">Level 4</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="child_level" id="l5" value="Level 5">
+                        <label for="l5">Level 5</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="child_level" id="l6" value="Level 6">
+                        <label for="l6">
+                            <span class="en">Level 6 (Advanced)</span>
+                            <span class="zh-hans">Level 6 (高年级熟练听说读写)</span>
+                            <span class="zh-hant">Level 6 (高年級熟練聽說讀寫)</span>
+                        </label>
+                    </div>
+                </div> </div> <input type="hidden" name="_redirect" value="https://www.unitymandarin.org/thank-you.html">
 
-            <!-- 严格的加州隐私与合规免责声明 -->
-            <div class="disclaimer">
-                <strong>Privacy & Disclaimer:</strong> By clicking submit, you agree to let Unity Mandarin include your email and child's upcoming grade in our collective support summary for the West Portal administration. This data will be used <strong>solely</strong> for this purpose and never shared or used for marketing. Unity Mandarin is an independent after-school enrichment provider and an approved SFUSD vendor; this form is not an official communication or binding enrollment by SFUSD or West Portal Elementary. To opt-out anytime, contact [Your Email].
+            <div class="form-group" style="margin-top: 25px; display: flex; justify-content: center;">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADmpKsQjVYckkZjU"></div>
             </div>
+
+            <button type="submit" class="submit-btn">
+                <span class="en">Submit Registration</span>
+                <span class="zh-hans">提交注册</span>
+                <span class="zh-hant">提交註冊</span>
+            </button>
         </form>
     </div>
+</main>
 
-    <!-- 漏洞封堵：防刷、防空URL、安全校验逻辑 -->
-    <div id="error-container" class="error-msg">
-        Invalid or expired link. Please access this page through the official email received.
-    </div>
-
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const parentEmail = urlParams.get('email');
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4 class="lang-el en-content">Unity Mandarin Enrichment Center</h4>
+            <h4 class="lang-el zh-hans-content" style="display: none;">同心中文教育中心</h4>
+            <h4 class="lang-el zh-hant-content" style="display: none;">同心中文教育中心</h4>
             
-            // 验证邮箱格式的简单正则
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            <p class="lang-el en-content">Nurturing a lifelong appreciation for language learning, cultural creativity, and global communication awareness in young learners.</p>
+            <p class="lang-el zh-hans-content" style="display: none;">全心培养低龄学习者对语言学习、文化创意以及全球沟通意识的终身热爱与深刻理解。</p>
+            <p class="lang-el zh-hant-content" style="display: none;">全心培養低齡學習者對語言學習、文化創意以及全球溝通意識的終身熱愛與深刻理解。</p>
+        </div>
+        
+        <div class="footer-col">
+            <h4 class="lang-el en-content">Quick Access</h4>
+            <h4 class="lang-el zh-hans-content" style="display: none;">快速链接</h4>
+            <h4 class="lang-el zh-hant-content" style="display: none;">快速鏈接</h4>
+            
+            <ul class="links-listing">
+                <li>
+                    <a href="index.html" class="lang-el en-content">Home</a>
+                    <a href="index.html" class="lang-el zh-hans-content" style="display: none;">首页</a>
+                    <a href="index.html" class="lang-el zh-hant-content" style="display: none;">首頁</a>
+                </li>
+                <li>
+                    <a href="about.html" class="lang-el en-content">About Us</a>
+                    <a href="about.html" class="lang-el zh-hans-content" style="display: none;">关于我们</a>
+                    <a href="about.html" class="lang-el zh-hant-content" style="display: none;">關於我們</a>
+                </li>
+                <li>
+                    <a href="program.html" class="lang-el en-content">Program</a>
+                    <a href="program.html" class="lang-el zh-hans-content" style="display: none;">课程架构</a>
+                    <a href="program.html" class="lang-el zh-hant-content" style="display: none;">課程架構</a>
+                </li>
+                <li>
+                    <a href="why-us.html" class="lang-el en-content">Why Us</a>
+                    <a href="why-us.html" class="lang-el zh-hans-content" style="display: none;">办学优势</a>
+                    <a href="why-us.html" class="lang-el zh-hant-content" style="display: none;">辦學優勢</a>
+                </li>
+                <li>
+                    <a href="joinus.html" class="lang-el en-content">Join Us</a>
+                    <a href="joinus.html" class="lang-el zh-hans-content" style="display: none;">加入我们</a>
+                    <a href="joinus.html" class="lang-el zh-hant-content" style="display: none;">加入我們</a>
+                </li>
+                <li>
+                    <a href="contact.html" class="lang-el en-content">Contact</a>
+                    <a href="contact.html" class="lang-el zh-hans-content" style="display: none;">联系我们</a>
+                    <a href="contact.html" class="lang-el zh-hant-content" style="display: none;">聯繫我們</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="footer-col">
+            <h4 class="lang-el en-content">Contact Details</h4>
+            <h4 class="lang-el zh-hans-content" style="display: none;">联系详情</h4>
+            <h4 class="lang-el zh-hant-content" style="display: none;">聯繫詳情</h4>
+            
+            <ul class="contact-listing">
+                <li>
+                    <span class="icon" aria-hidden="true">📞</span>
+                    <span>(415) 658-2516</span>
+                </li>
+                <li>
+                    <span class="icon" aria-hidden="true">✉️</span>
+                    <a href="mailto:hello@unitymandarin.org" style="color: var(--brand-orange); text-decoration: underline; font-weight: 500; transition: color 0.2s ease;" onmouseover="this.style.color='var(--brand-orange-hover)'" onmouseout="this.style.color='var(--brand-orange)'">hello@unitymandarin.org</a>
+                </li>
+                <li>
+                    <span class="icon" aria-hidden="true">📍</span>
+                    <span class="lang-el en-content">San Francisco, CA</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">加州 旧金山</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">加州 舊金山</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="copyright-bar">
+        <span class="lang-el en-content">&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</span>
+        <span class="lang-el zh-hans-content" style="display: none;">&copy; 2026 同心中文教育中心。版权所有。</span>
+        <span class="lang-el zh-hant-content" style="display: none;">&copy; 2026 同心中文教育中心。版權所有。</span>
+    </div>
+</footer>
 
-            if (parentEmail && emailRegex.test(decodeURIComponent(parentEmail))) {
-                // URL 参数合规，注入隐藏表单
-                document.getElementById('email-input').value = decodeURIComponent(parentEmail);
+<script>
+    // ==========================================
+    // UNIFIED JAVASCRIPT: Header + Form Controls
+    // ==========================================
+
+    function toggleLangMenu(event) {
+        if (event) event.stopPropagation();
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.toggle('show');
+    }
+
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('lang-menu');
+        const dropdown = document.querySelector('.lang-dropdown');
+        if (menu && dropdown && !dropdown.contains(event.target)) {
+            menu.classList.remove('show');
+        }
+    });
+
+    // Integrated Language Switcher (handles form body tags AND header display logic)
+    function switchLanguage(langCode, langName) {
+        // 1. Update the body attribute for the Form content
+        document.body.setAttribute('lang', langCode);
+        const tracker = document.getElementById('submitted-lang-tracker');
+        if (tracker) tracker.value = langCode;
+
+        // 2. Hide/Show Header and Footer elements explicitly via classes
+        const allElements = document.querySelectorAll('.lang-el');
+        allElements.forEach(el => el.style.display = 'none');
+
+        const selectedElements = document.querySelectorAll('.' + langCode + '-content');
+        selectedElements.forEach(el => {
+            if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
+                el.style.display = 'inline-block';
             } else {
-                // 漏洞拦截：如果没有邮箱参数或格式不对，直接隐藏表单，显示错误提示，防止恶搞提交
-                document.getElementById('form-container').style.display = 'none';
-                document.getElementById('error-container').style.display = 'block';
+                el.style.display = 'block';
             }
         });
-    </script>
+
+        // 3. Update Dropdown Text
+        const currentLangText = document.getElementById('current-lang-text');
+        if (currentLangText && langName) {
+            currentLangText.textContent = langName;
+        }
+
+        // Close menu & save choice
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.remove('show');
+        localStorage.setItem('umc_preferred_lang', langCode);
+    }
+
+    function toggleMobileMenu() {
+        const nav = document.getElementById('main-nav');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        if (nav) nav.classList.toggle('is-open');
+        if (menuBtn) menuBtn.classList.toggle('is-active');
+    }
+
+    // Initialize saved language on load
+    document.addEventListener("DOMContentLoaded", function() {
+        const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+        let defaultLangName = 'English';
+        if (savedLang === 'zh-hans') defaultLangName = '简体中文';
+        if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
+        switchLanguage(savedLang, defaultLangName);
+    });
+</script>
 </body>
 </html>
+
+
