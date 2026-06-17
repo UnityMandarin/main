@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>West Portal Campus Preference Form - Unity Mandarin</title>
     <style>
-        .checkbox-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-        .checkbox-item { display: flex; align-items: flex-start; cursor: pointer; }
-        .checkbox-item input { margin-top: 4px; margin-right: 12px; transform: scale(1.2); accent-color: var(--brand-orange); }
+        .checkbox-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+        .level-stepper-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed rgba(0,0,0,0.05); }
+        .level-stepper-item:last-child { border-bottom: none; }
+        .level-stepper-label { font-size: 15px; font-weight: 500; color: var(--text-primary); cursor: pointer; }
+        .stepper-controls { display: flex; align-items: center; gap: 10px; }
+        .step-btn { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--brand-orange); background: transparent; color: var(--brand-orange); font-size: 18px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; user-select: none; }
+        .step-btn:hover { background: var(--brand-orange); color: white; }
+        .step-btn:disabled { border-color: #CBD5E0; color: #CBD5E0; cursor: not-allowed; background: transparent; }
+        .stepper-value { font-size: 16px; font-weight: 700; color: var(--text-primary); min-width: 14px; text-align: center; }
         .student-counter { font-size: 14px; font-weight: 700; color: var(--brand-orange); margin-left: 10px; display: inline-block; }
         /* ==========================================================================
            GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES (From index.html)
@@ -616,13 +622,6 @@
                 <span class="zh-hant">課程細節</span>
             </div>
 
-            <div class="form-group">
-               <label>
-    <span class="en">Student Mandarin Level(s) for Fall 2026 (Select all that apply)</span>
-    <span class="zh-hans">2026年秋季学生中文等级（可多选）</span>
-    <span class="zh-hant">2026年秋季學生中文等級（可多選）</span>
-    <span class="required-star">*</span>
-</label>
                 <div class="form-group">
                 <label style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
                     <div>
@@ -635,38 +634,72 @@
                 </label>
                 
                 <div class="checkbox-grid">
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="child_levels[]" id="l1" value="Level 1" onchange="updateStudentCounter()">
-                        <label for="l1">
+                    <div class="level-stepper-item">
+                        <span class="level-stepper-label">
                             <span class="en">Level 1 (Beginner)</span>
                             <span class="zh-hans">Level 1 (零基础 / 初学者)</span>
                             <span class="zh-hant">Level 1 (零基礎 / 初學者)</span>
-                        </label>
+                        </span>
+                        <div class="stepper-controls">
+                            <button type="button" class="step-btn" onclick="adjustCount('l1-val', -1)" id="l1-val-minus" disabled>&minus;</button>
+                            <span class="stepper-value" id="l1-val-display">0</span>
+                            <button type="button" class="step-btn" onclick="adjustCount('l1-val', 1)">&plus;</button>
+                            <input type="hidden" name="level_1_students" id="l1-val" value="0">
+                        </div>
                     </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="child_levels[]" id="l2" value="Level 2" onchange="updateStudentCounter()">
-                        <label for="l2">Level 2</label>
+
+                    <div class="level-stepper-item">
+                        <span class="level-stepper-label">Level 2</span>
+                        <div class="stepper-controls">
+                            <button type="button" class="step-btn" onclick="adjustCount('l2-val', -1)" id="l2-val-minus" disabled>&minus;</button>
+                            <span class="stepper-value" id="l2-val-display">0</span>
+                            <button type="button" class="step-btn" onclick="adjustCount('l2-val', 1)">&plus;</button>
+                            <input type="hidden" name="level_2_students" id="l2-val" value="0">
+                        </div>
                     </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="child_levels[]" id="l3" value="Level 3" onchange="updateStudentCounter()">
-                        <label for="l3">Level 3</label>
+
+                    <div class="level-stepper-item">
+                        <span class="level-stepper-label">Level 3</span>
+                        <div class="stepper-controls">
+                            <button type="button" class="step-btn" onclick="adjustCount('l3-val', -1)" id="l3-val-minus" disabled>&minus;</button>
+                            <span class="stepper-value" id="l3-val-display">0</span>
+                            <button type="button" class="step-btn" onclick="adjustCount('l3-val', 1)">&plus;</button>
+                            <input type="hidden" name="level_3_students" id="l3-val" value="0">
+                        </div>
                     </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="child_levels[]" id="l4" value="Level 4" onchange="updateStudentCounter()">
-                        <label for="l4">Level 4</label>
+
+                    <div class="level-stepper-item">
+                        <span class="level-stepper-label">Level 4</span>
+                        <div class="stepper-controls">
+                            <button type="button" class="step-btn" onclick="adjustCount('l4-val', -1)" id="l4-val-minus" disabled>&minus;</button>
+                            <span class="stepper-value" id="l4-val-display">0</span>
+                            <button type="button" class="step-btn" onclick="adjustCount('l4-val', 1)">&plus;</button>
+                            <input type="hidden" name="level_4_students" id="l4-val" value="0">
+                        </div>
                     </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="child_levels[]" id="l5" value="Level 5" onchange="updateStudentCounter()">
-                        <label for="l5">Level 5</label>
+
+                    <div class="level-stepper-item">
+                        <span class="level-stepper-label">Level 5</span>
+                        <div class="stepper-controls">
+                            <button type="button" class="step-btn" onclick="adjustCount('l5-val', -1)" id="l5-val-minus" disabled>&minus;</button>
+                            <span class="stepper-value" id="l5-val-display">0</span>
+                            <button type="button" class="step-btn" onclick="adjustCount('l5-val', 1)">&plus;</button>
+                            <input type="hidden" name="level_5_students" id="l5-val" value="0">
+                        </div>
                     </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="child_levels[]" id="l6" value="Level 6" onchange="updateStudentCounter()">
-                        <label for="l6">
+
+                    <div class="level-stepper-item">
+                        <span class="level-stepper-label">
                             <span class="en">Level 6 (Advanced)</span>
                             <span class="zh-hans">Level 6 (高年级熟练听说读写)</span>
                             <span class="zh-hant">Level 6 (高年級熟練聽說讀寫)</span>
-                        </label>
-                    </div>
+                        </span>
+                        <div class="stepper-controls">
+                            <button type="button" class="step-btn" onclick="adjustCount('l6-val', -1)" id="l6-val-minus" disabled>&minus;</button>
+                            <span class="stepper-value" id="l6-val-display">0</span>
+                            <button type="button" class="step-btn" onclick="adjustCount('l6-val', 1)">&plus;</button>
+                            <input type="hidden" name="level_6_students" id="l6-val" value="0">
+                        </div>
                 </div> </div> <input type="hidden" name="_redirect" value="https://www.unitymandarin.org/thank-you.html">
 
             <div class="form-group" style="margin-top: 25px; display: flex; justify-content: center;">
@@ -863,6 +896,53 @@
                 countDisplay.textContent = `（已選擇 ${checkedCount} 名學生）`;
             } else {
                 countDisplay.textContent = `(${checkedCount} Student${checkedCount > 1 ? 's' : ''} Selected)`;
+            }
+        } else {
+            countDisplay.textContent = '';
+        }
+    }
+
+    function adjustCount(inputId, change) {
+        const input = document.getElementById(inputId);
+        const display = document.getElementById(inputId + '-display');
+        const minusBtn = document.getElementById(inputId + '-minus');
+        
+        let currentVal = parseInt(input.value) || 0;
+        let newVal = currentVal + change;
+        
+        // Boundaries: Protect form from drop-downs slipping below 0 seats
+        if (newVal < 0) newVal = 0;
+        if (newVal > 5) newVal = 5; // Max 5 kids per individual row level
+        
+        input.value = newVal;
+        display.textContent = newVal;
+        
+        // Toggle the minus button status
+        minusBtn.disabled = (newVal === 0);
+        
+        // Run the master headcount function
+        calculateTotalStudents();
+    }
+
+    function calculateTotalStudents() {
+        const levels = ['l1-val', 'l2-val', 'l3-val', 'l4-val', 'l5-val', 'l6-val'];
+        let total = 0;
+        
+        levels.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) total += parseInt(el.value) || 0;
+        });
+        
+        const countDisplay = document.getElementById('live-student-count');
+        const currentLang = document.body.getAttribute('lang') || 'en';
+        
+        if (total > 0) {
+            if (currentLang === 'zh-hans') {
+                countDisplay.textContent = `（共选择了 ${total} 名学生）`;
+            } else if (currentLang === 'zh-hant') {
+                countDisplay.textContent = `（共選擇了 ${total} 名學生）`;
+            } else {
+                countDisplay.textContent = `(${total} Student${total > 1 ? 's' : ''} Selected)`;
             }
         } else {
             countDisplay.textContent = '';
