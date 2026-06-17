@@ -341,7 +341,7 @@
             color: var(--text-primary);
         }
 
-        input[type="email"] {
+        input[type="email"], textarea {
             width: 100%;
             padding: 14px;
             border: 1px solid #CBD5E0;
@@ -351,13 +351,29 @@
             font-family: var(--font-interface);
             transition: border-color 0.2s, box-shadow 0.2s;
             background-color: #FAFAFA;
+            resize: vertical;
         }
 
-        input:focus {
+        input:focus, textarea:focus {
             outline: none;
             border-color: var(--brand-orange);
             background-color: #FFFFFF;
             box-shadow: 0 0 0 3px var(--brand-orange-glow);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+            cursor: pointer;
         }
 
         .submit-btn {
@@ -570,7 +586,7 @@
             
             <input type="hidden" id="submitted-lang-tracker" name="submitted_language" value="en">
 
-                <div class="form-group">
+            <div class="form-group">
                 <label style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
                     <div>
                         <span class="en">Student Mandarin Level(s) for Fall 2026 (Select all that apply)</span>
@@ -672,6 +688,44 @@
                 <span class="en">Program Details</span>
                 <span class="zh-hans">课程细节</span>
                 <span class="zh-hant">課程細節</span>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="en">If Unity Mandarin is able to offer a Mandarin program at West Portal for the 2026–2027 school year, would you be interested in enrolling your child?</span>
+                    <span class="zh-hans">如果同心中文教育中心能够在 2026-2027 学年在 West Portal 开设中文项目，您是否有兴趣为您的孩子报名？</span>
+                    <span class="zh-hant">如果同心中文教育中心能夠在 2026-2027 學年在 West Portal 開設中文項目，您是否有興趣為您的孩子報名？</span>
+                    <span class="required-star">*</span>
+                </label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="interest_level" value="Yes" required>
+                        <span class="en">Yes</span>
+                        <span class="zh-hans">是</span>
+                        <span class="zh-hant">是</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="interest_level" value="Maybe" required>
+                        <span class="en">Maybe</span>
+                        <span class="zh-hans">可能</span>
+                        <span class="zh-hant">可能</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="interest_level" value="No" required>
+                        <span class="en">No</span>
+                        <span class="zh-hans">否</span>
+                        <span class="zh-hant">否</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="en">Optional Comments</span>
+                    <span class="zh-hans">补充意见（选填）</span>
+                    <span class="zh-hant">補充意見（選填）</span>
+                </label>
+                <textarea name="comments" rows="4" placeholder="..."></textarea>
             </div>
 
             <input type="hidden" name="_redirect" value="https://www.unitymandarin.org/thank-you.html">
