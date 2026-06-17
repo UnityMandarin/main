@@ -730,6 +730,11 @@
                 </div>
             </div>
         </form>
+        <div id="duplicate-container" class="error-msg" style="background-color: #FFFBEB; border: 1px solid #F59E0B; color: #B45309; padding: 30px; border-radius: 8px; font-weight: 600; text-align: center; display: none; margin-top: 40px; box-shadow: 0 4px 15px rgba(243, 141, 28, 0.1);">
+    <span class="en">You can only turn this form in once, please contact help@unitymandarin.org for questions or if you want to resend.</span>
+    <span class="zh-hans">您只能提交一次此表单，如有疑问或需要重新发送，请联系 help@unitymandarin.org。</span>
+    <span class="zh-hant">您只能提交一次此表單，如有疑問或需要重新發送，請聯繫 help@unitymandarin.org。</span>
+</div>
     </div>
 </main>
     
@@ -1011,6 +1016,59 @@
             countDisplay.textContent = '';
         }
     }
+
+    // Initialize saved language and enforce one-submit-per-email rule
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Handle Language Selector on load
+        const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
+        let defaultLangName = 'English';
+        if (savedLang === 'zh-hans') defaultLangName = '简体中文';
+        if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
+        switchLanguage(savedLang, defaultLangName);
+
+        // 2. Read the email parameter from the URL address bar (?email=parent@example.com)
+        const urlParams = new URLSearchParams(window.location.search);
+        const parentEmail = urlParams.get('email');
+
+        // ==========================================================================
+        // CODER OVERRIDE: Add emails here to let specific parents submit again!
+        // ==========================================================================
+        const allowedToResubmit = [
+            'test_parent@gmail.com',
+            'admin@unitymandarin.org'
+        ];
+
+        if (parentEmail) {
+            const decodedEmail = decodeURIComponent(parentEmail).toLowerCase().trim();
+            
+            // Look into the browser's local memory to see if this email has clicked submit before
+            const localSubmissionHistory = JSON.parse(localStorage.getItem('umc_submitted_emails') || '[]');
+            const hasSubmittedBefore = localSubmissionHistory.includes(decodedEmail);
+            const isWhitelisted = allowedToResubmit.map(e => e.toLowerCase().trim()).includes(decodedEmail);
+
+            if (hasSubmittedBefore && !isWhitelisted) {
+                // If they already submitted and aren't whitelisted, hide the form and show the warning
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('duplicate-container').style.display = 'block';
+            } else {
+                // Otherwise, automatically put their email into the form input box
+                const emailInput = document.querySelector('input[name="primary_email"]');
+                if (emailInput) {
+                    emailInput.value = decodedEmail;
+                }
+                
+                // Listen for the moment they click the Submit button
+                const formEl = document.querySelector('form');
+                formEl.addEventListener('submit', function() {
+                    // Add their email to the browser's "already submitted" memory bank before sending
+                    if (!localSubmissionHistory.includes(decodedEmail)) {
+                        localSubmissionHistory.push(decodedEmail);
+                        localStorage.setItem('umc_submitted_emails', JSON.stringify(localSubmissionHistory));
+                    }
+                });
+            }
+        }
+    });
 </script>
 </body>
 </html>
