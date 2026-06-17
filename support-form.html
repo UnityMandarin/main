@@ -15,8 +15,9 @@
         .step-btn:disabled { border-color: #CBD5E0; color: #CBD5E0; cursor: not-allowed; background: transparent; }
         .stepper-value { font-size: 16px; font-weight: 700; color: var(--text-primary); min-width: 14px; text-align: center; }
         .student-counter { font-size: 14px; font-weight: 700; color: var(--brand-orange); margin-left: 10px; display: inline-block; }
+        
         /* ==========================================================================
-           GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES (From index.html)
+           GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
            ========================================================================== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
@@ -51,9 +52,6 @@
             --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* ==========================================================================
-           BASE CORE BODY RESET & CANVAS GROUNDING
-           ========================================================================== */
         body {
             font-family: var(--font-interface);
             color: var(--text-main);
@@ -80,7 +78,7 @@
         body[lang="zh-hant"] .en, body[lang="zh-hant"] .zh-hans, body[lang="zh-hant"] .en-content, body[lang="zh-hant"] .zh-hans-content { display: none !important; }
 
         /* ==========================================================================
-           HEADER (From index.html)
+           HEADER
            ========================================================================== */
         header {
             background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
@@ -208,7 +206,6 @@
             }
         }
 
-        /* Dropdown Language Picker */
         .lang-dropdown { position: relative; }
         .lang-dropdown-btn {
             display: flex;
@@ -266,7 +263,6 @@
         }
         .lang-dropdown-menu button:hover { background: var(--brand-orange-subtle); color: var(--brand-orange); }
 
-        /* Mobile Menu Btn */
         .mobile-menu-btn {
             display: none;
             background: transparent;
@@ -290,13 +286,15 @@
         .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         /* ==========================================================================
-           FORM LAYOUT & STYLES (Adapted to brand colors)
+           FORM LAYOUT & STYLES
            ========================================================================== */
         .page-wrapper {
             max-width: 800px;
             margin: 40px auto 60px auto;
             padding: 0 20px;
             flex-grow: 1;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .form-container {
@@ -343,7 +341,6 @@
             color: var(--text-primary);
         }
 
-        /* Mobile-safe input sizing (16px prevents iOS zoom) */
         input[type="email"] {
             width: 100%;
             padding: 14px;
@@ -361,22 +358,6 @@
             border-color: var(--brand-orange);
             background-color: #FFFFFF;
             box-shadow: 0 0 0 3px var(--brand-orange-glow);
-        }
-
-        .radio-grid { margin-top: 8px; }
-
-        .radio-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .radio-item input {
-            margin-top: 4px;
-            margin-right: 12px;
-            transform: scale(1.2);
-            accent-color: var(--brand-orange);
         }
 
         .submit-btn {
@@ -402,8 +383,75 @@
 
         .required-star { color: #E53E3E; margin-left: 3px; }
 
+        .disclaimer {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            line-height: 1.5;
+        }
+        .disclaimer p { margin: 0 0 10px 0; font-size: 13px; color: var(--text-muted); }
+        .disclaimer p:last-child { margin-bottom: 0; }
+
         /* ==========================================================================
-           FOOTER (From index.html)
+           ERROR MESSAGES & RESPONSIVENESS
+           ========================================================================== */
+        .msg-container {
+            display: none;
+            padding: 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            width: 100%;
+        }
+        
+        .error-theme {
+            background-color: #FEF2F2;
+            border: 1px solid #F87171;
+            color: #DC2626;
+        }
+        
+        .warning-theme {
+            background-color: #FFFBEB;
+            border: 1px solid #F59E0B;
+            color: #B45309;
+        }
+
+        @media (max-width: 900px) {
+            .header-container { padding: 10px 15px; }
+            .logo-group img, header img { height: 36px; } 
+            .mobile-menu-btn { display: flex; }
+            .header-actions { order: 2; gap: 8px; } 
+            .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
+            .lang-dropdown-btn svg { width: 18px; height: 18px; }
+            
+            nav.nav-menu { 
+                order: 3; 
+                display: none; 
+                width: 100%; 
+                flex-direction: column; 
+                gap: 10px; 
+                padding: 20px 0; 
+                border-top: 1px solid rgba(88, 185, 131, 0.2); 
+                margin-top: 10px; 
+            }
+            nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
+            @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+            nav a { width: 100%; padding: 12px; font-size: 16px; }
+            nav a::after { display: none; }
+            nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+
+            .page-wrapper { margin: 25px auto; padding: 0 15px; }
+            .form-container { padding: 25px 20px; }
+            .msg-container { padding: 25px 20px; font-size: 0.95rem; }
+            h1 { font-size: 1.5rem; }
+        }
+
+        /* ==========================================================================
+           FOOTER
            ========================================================================== */
         footer {
             background-color: #142219;
@@ -452,57 +500,6 @@
             text-align: center;
             font-size: 13px;
             opacity: 0.5;
-        }
-
-        /* ==========================================================================
-           MOBILE RESPONSIVENESS
-           ========================================================================== */
-        @media (max-width: 900px) {
-            .header-container { padding: 10px 15px; }
-            .logo-group img, header img { height: 36px; } 
-            
-            .mobile-menu-btn { display: flex; }
-            .header-actions { order: 2; gap: 8px; } 
-            
-            .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
-            .lang-dropdown-btn svg { width: 18px; height: 18px; }
-            
-            nav.nav-menu { 
-                order: 3; 
-                display: none; 
-                width: 100%; 
-                flex-direction: column; 
-                gap: 10px; 
-                padding: 20px 0; 
-                border-top: 1px solid rgba(88, 185, 131, 0.2); 
-                margin-top: 10px; 
-            }
-            nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
-            @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-            nav a { width: 100%; padding: 12px; font-size: 16px; }
-            nav a::after { display: none; }
-            nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
-
-            .page-wrapper { margin: 25px auto; padding: 0 15px; }
-            .form-container { padding: 25px 20px; }
-            h1 { font-size: 1.5rem; }
-        }
-
-        .disclaimer {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 20px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 15px;
-            line-height: 1.5;
-        }
-        .disclaimer p {
-            margin: 0 0 10px 0;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        .disclaimer p:last-child {
-            margin-bottom: 0;
         }
    </style>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -582,7 +579,7 @@
 </header>
 
 <main class="page-wrapper">
-    <div class="form-container">
+    <div class="form-container" id="main-form-container">
         
         <h1>
             <span class="en">West Portal Family Interest & Support Form</span>
@@ -700,7 +697,10 @@
                             <button type="button" class="step-btn" onclick="adjustCount('l6-val', 1)">&plus;</button>
                             <input type="hidden" name="level_6_students" id="l6-val" value="0">
                         </div>
-                </div> </div> <input type="hidden" name="_redirect" value="https://www.unitymandarin.org/thank-you.html">
+                    </div>
+                </div> 
+            </div> 
+            <input type="hidden" name="_redirect" value="https://www.unitymandarin.org/thank-you.html">
 
             <div class="form-group" style="margin-top: 25px; display: flex; justify-content: center;">
                 <div class="cf-turnstile" data-sitekey="0x4AAAAAADmpKsQjVYckkZjU"></div>
@@ -730,25 +730,21 @@
                 </div>
             </div>
         </form>
-        <div id="duplicate-container" class="error-msg" style="background-color: #FFFBEB; border: 1px solid #F59E0B; color: #B45309; padding: 30px; border-radius: 8px; font-weight: 600; text-align: center; display: none; margin-top: 40px; box-shadow: 0 4px 15px rgba(243, 141, 28, 0.1);">
-    <span class="en">You can only turn this form in once, please contact help@unitymandarin.org for questions or if you want to resend.</span>
-    <span class="zh-hans">您只能提交一次此表单，如有疑问或需要重新发送，请联系 help@unitymandarin.org。</span>
-    <span class="zh-hant">您只能提交一次此表單，如有疑問或需要重新發送，請聯繫 help@unitymandarin.org。</span>
-</div>
     </div>
-</main>
     
-<div id="error-container" class="error-msg" style="background-color: #FEF2F2; border: 1px solid #F87171; color: #DC2626; padding: 30px; border-radius: 8px; font-weight: 600; text-align: center; display: none; margin-top: 40px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.1);">
-    <span class="en">Invalid or expired link. Please access this page through the official email received.</span>
-    <span class="zh-hans">链接无效或已过期。请通过您收到的官方邮件访问此页面。</span>
-    <span class="zh-hant">鏈接無效或已過期。請通過您收到的官方郵件訪問此頁面。</span>
-</div>
+    <div id="error-container" class="msg-container error-theme">
+        <span class="en">Invalid or expired link. Please access this page through the official email received.</span>
+        <span class="zh-hans">链接无效或已过期。请通过您收到的官方邮件访问此页面。</span>
+        <span class="zh-hant">鏈接無效或已過期。請通過您收到的官方郵件訪問此頁面。</span>
+    </div>
 
-<div id="duplicate-container" class="error-msg" style="background-color: #FFFBEB; border: 1px solid #F59E0B; color: #B45309; padding: 30px; border-radius: 8px; font-weight: 600; text-align: center; display: none; margin-top: 40px; box-shadow: 0 4px 15px rgba(243, 141, 28, 0.1); width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; box-sizing: border-box;">
-    <span class="en">You can only turn this form in once, please contact help@unitymandarin.org for questions or if you want to resend.</span>
-    <span class="zh-hans">您只能提交一次此表单，如有疑问或需要重新发送，请联系 help@unitymandarin.org。</span>
-    <span class="zh-hant">您只能提交一次此表單，如有疑問或需要重新發送，請聯繫 help@unitymandarin.org。</span>
-</div>
+    <div id="duplicate-container" class="msg-container warning-theme">
+        <span class="en">You can only turn this form in once, please contact help@unitymandarin.org for questions or if you want to resend.</span>
+        <span class="zh-hans">您只能提交一次此表单，如有疑问或需要重新发送，请联系 help@unitymandarin.org。</span>
+        <span class="zh-hant">您只能提交一次此表單，如有疑問或需要重新發送，請聯繫 help@unitymandarin.org。</span>
+    </div>
+
+</main>
     
 <footer>
     <div class="footer-grid">
@@ -890,67 +886,6 @@
         if (menuBtn) menuBtn.classList.toggle('is-active');
     }
 
-    // Initialize saved language on load
-    document.addEventListener("DOMContentLoaded", function() {
-        const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
-        let defaultLangName = 'English';
-        if (savedLang === 'zh-hans') defaultLangName = '简体中文';
-        if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
-        switchLanguage(savedLang, defaultLangName);
-
-        // URL Email Verification & Duplicate Control Logic
-        const urlParams = new URLSearchParams(window.location.search);
-        const parentEmail = urlParams.get('email');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        // ==========================================================================
-        // CODER CONTROLS: Add emails inside this array to let specific parents resubmit
-        // ==========================================================================
-        const allowedToResubmit = [
-            'parent_test@gmail.com',
-            'admin@unitymandarin.org'
-        ];
-
-        if (parentEmail && emailRegex.test(decodeURIComponent(parentEmail))) {
-            const decodedEmail = decodeURIComponent(parentEmail).toLowerCase().trim();
-            
-            // Check local tracking logs
-            const localSubmissionHistory = JSON.parse(localStorage.getItem('umc_submitted_emails') || '[]');
-            const hasSubmittedBefore = localSubmissionHistory.includes(decodedEmail);
-            const isWhitelisted = allowedToResubmit.map(e => e.toLowerCase().trim()).includes(decodedEmail);
-
-            if (hasSubmittedBefore && !isWhitelisted) {
-                // Block duplicate submissions
-                document.getElementById('form-container').style.display = 'none';
-                document.getElementById('duplicate-container').style.display = 'block';
-            } else {
-                // Create or ensure hidden input box exists inside the form to log email to Formspark
-                let hiddenEmailInput = document.getElementById('email-input');
-                if (!hiddenEmailInput) {
-                    hiddenEmailInput = document.createElement('input');
-                    hiddenEmailInput.type = 'hidden';
-                    hiddenEmailInput.id = 'email-input';
-                    hiddenEmailInput.name = 'email';
-                    document.querySelector('form').appendChild(hiddenEmailInput);
-                }
-                hiddenEmailInput.value = decodedEmail;
-                
-                // Save the submission to lock the form locally after they hit submit
-                const formEl = document.querySelector('form');
-                formEl.addEventListener('submit', function() {
-                    if (!localSubmissionHistory.includes(decodedEmail)) {
-                        localSubmissionHistory.push(decodedEmail);
-                        localStorage.setItem('umc_submitted_emails', JSON.stringify(localSubmissionHistory));
-                    }
-                });
-            }
-        } else {
-            // Bad URL entry point: Lock the user out
-            document.getElementById('form-container').style.display = 'none';
-            document.getElementById('error-container').style.display = 'block';
-        }
-    });
-    
     function updateStudentCounter() {
         // Find how many level boxes are checked
         const checkedCount = document.querySelectorAll('input[name="child_levels[]"]:checked').length;
@@ -1062,9 +997,9 @@
                 if (hasSubmittedBefore && !isWhitelisted) {
                     event.preventDefault(); // This command stops Formspark from receiving the form
                     
-                    // TARGET THE WHOLE PAGE WRAPPER TO CLEAR THE SCREEN CLEANLY
-                    const wrapper = document.querySelector('.page-wrapper');
-                    if (wrapper) wrapper.style.display = 'none'; 
+                    // TARGET ONLY THE FORM CONTAINER TO HIDE IT
+                    const formBox = document.getElementById('main-form-container');
+                    if (formBox) formBox.style.display = 'none'; 
                     
                     // Show the hidden error box safely
                     document.getElementById('duplicate-container').style.display = 'block'; 
@@ -1077,8 +1012,7 @@
                 }
             });
         }
+    }); // This was the missing bracket!
 </script>
 </body>
 </html>
-
-
