@@ -744,11 +744,12 @@
     <span class="zh-hant">鏈接無效或已過期。請通過您收到的官方郵件訪問此頁面。</span>
 </div>
 
-<div id="duplicate-container" class="error-msg" style="background-color: #FFFBEB; border: 1px solid #F59E0B; color: #B45309; padding: 30px; border-radius: 8px; font-weight: 600; text-align: center; display: none; margin-top: 40px; box-shadow: 0 4px 15px rgba(243, 141, 28, 0.1);">
+<div id="duplicate-container" class="error-msg" style="background-color: #FFFBEB; border: 1px solid #F59E0B; color: #B45309; padding: 30px; border-radius: 8px; font-weight: 600; text-align: center; display: none; margin-top: 40px; box-shadow: 0 4px 15px rgba(243, 141, 28, 0.1); width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; box-sizing: border-box;">
     <span class="en">You can only turn this form in once, please contact help@unitymandarin.org for questions or if you want to resend.</span>
     <span class="zh-hans">您只能提交一次此表单，如有疑问或需要重新发送，请联系 help@unitymandarin.org。</span>
     <span class="zh-hant">您只能提交一次此表單，如有疑問或需要重新發送，請聯繫 help@unitymandarin.org。</span>
 </div>
+    
 <footer>
     <div class="footer-grid">
         <div class="footer-col">
@@ -1060,8 +1061,13 @@
                 // If they already submitted and aren't whitelisted, STOP the form and show warning
                 if (hasSubmittedBefore && !isWhitelisted) {
                     event.preventDefault(); // This command stops Formspark from receiving the form
-                    document.querySelector('.form-container').style.display = 'none'; // Hide the white box
-                    document.getElementById('duplicate-container').style.display = 'block'; // Show error box
+                    
+                    // TARGET THE WHOLE PAGE WRAPPER TO CLEAR THE SCREEN CLEANLY
+                    const wrapper = document.querySelector('.page-wrapper');
+                    if (wrapper) wrapper.style.display = 'none'; 
+                    
+                    // Show the hidden error box safely
+                    document.getElementById('duplicate-container').style.display = 'block'; 
                 } else {
                     // It's a new email! Add it to the browser memory before Formspark sends it away
                     if (!localSubmissionHistory.includes(typedEmail)) {
@@ -1071,7 +1077,6 @@
                 }
             });
         }
-    });
 </script>
 </body>
 </html>
