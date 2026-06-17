@@ -953,7 +953,7 @@
         }
     }
 
-   // Initialize saved language and enforce one-submit-per-email rule
+   // Strict URL-based single submission control
     document.addEventListener("DOMContentLoaded", function() {
         // 1. Handle Language Selector on load
         const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
@@ -970,49 +970,55 @@
             'admin@unitymandarin.org'
         ];
 
-        // 2. Read the email parameter from the URL address bar (?email=parent@example.com)
+        // 2. Read and strictly validate the email parameter from the URL (?email=parent@example.com)
         const urlParams = new URLSearchParams(window.location.search);
         const urlEmail = urlParams.get('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        const formBox = document.getElementById('main-form-container');
+        const errorBox = document.getElementById('error-container');
+        const duplicateBox = document.getElementById('duplicate-container');
         const emailInputBox = document.querySelector('input[name="primary_email"]');
 
-        // If URL has an email, pre-fill the box
-        if (urlEmail && emailInputBox) {
-            emailInputBox.value = decodeURIComponent(urlEmail).toLowerCase().trim();
-        }
+        // Check if the URL has a structurally valid email address
+        if (urlEmail && emailRegex.test(decodeURIComponent(urlEmail).trim())) {
+            const decodedEmail = decodeURIComponent(urlEmail).toLowerCase().trim();
+            
+            // Check browser's local submission history
+            const localSubmissionHistory = JSON.parse(localStorage.getItem('umc_submitted_emails') || '[]');
+            const hasSubmittedBefore = localSubmissionHistory.includes(decodedEmail);
+            const isWhitelisted = allowedToResubmit.map(e => e.toLowerCase().trim()).includes(decodedEmail);
 
-        // 3. Intercept the Submit Button Click
-        const formEl = document.getElementById('interest-form');
-        
-        if (formEl) {
-            formEl.addEventListener('submit', function(event) {
-                // Grab whatever email is typed into the box at the exact moment they hit submit
-                const typedEmail = emailInputBox.value.toLowerCase().trim();
-                
-                // Look into the browser's local memory to see if this email has clicked submit before
-                const localSubmissionHistory = JSON.parse(localStorage.getItem('umc_submitted_emails') || '[]');
-                const hasSubmittedBefore = localSubmissionHistory.includes(typedEmail);
-                const isWhitelisted = allowedToResubmit.map(e => e.toLowerCase().trim()).includes(typedEmail);
-
-                // If they already submitted and aren't whitelisted, STOP the form and show warning
-                if (hasSubmittedBefore && !isWhitelisted) {
-                    event.preventDefault(); // This command stops Formspark from receiving the form
-                    
-                    // TARGET ONLY THE FORM CONTAINER TO HIDE IT
-                    const formBox = document.getElementById('main-form-container');
-                    if (formBox) formBox.style.display = 'none'; 
-                    
-                    // Show the hidden error box safely
-                    document.getElementById('duplicate-container').style.display = 'block'; 
-                } else {
-                    // It's a new email! Add it to the browser memory before Formspark sends it away
-                    if (!localSubmissionHistory.includes(typedEmail)) {
-                        localSubmissionHistory.push(typedEmail);
-                        localStorage.setItem('umc_submitted_emails', JSON.stringify(localSubmissionHistory));
-                    }
+            if (hasSubmittedBefore && !isWhitelisted) {
+                // Device already submitted this email -> Block
+                if (formBox) formBox.style.display = 'none';
+                if (duplicateBox) duplicateBox.style.display = 'block';
+            } else {
+                // Valid entry! Pre-fill the input field and lock it down so they cannot change it
+                if (emailInputBox) {
+                    emailInputBox.value = decodedEmail;
+                    emailInputBox.readOnly = true; // Prevents typing a different email
+                    emailInputBox.style.backgroundColor = '#E2E8F0'; // Styles it grayed-out
+                    emailInputBox.style.cursor = 'not-allowed';
                 }
-            });
+
+                // Track the submit action
+                const formEl = document.getElementById('interest-form');
+                if (formEl) {
+                    formEl.addEventListener('submit', function() {
+                        if (!localSubmissionHistory.includes(decodedEmail)) {
+                            localSubmissionHistory.push(decodedEmail);
+                            localStorage.setItem('umc_submitted_emails', JSON.stringify(localSubmissionHistory));
+                        }
+                    });
+                }
+            }
+        } else {
+            // CRITICAL: If they try to open a plain link without "?email=", lock them out completely.
+            if (formBox) formBox.style.display = 'none';
+            if (errorBox) errorBox.style.display = 'block';
         }
-    }); // This was the missing bracket!
+    });
 </script>
 </body>
 </html>
