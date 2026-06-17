@@ -957,13 +957,33 @@
         if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
         switchLanguage(savedLang, defaultLangName);
 
-        // Pre-fill email if present in URL (e.g., ?email=parent@example.com) for convenience
+        // Read and strictly validate the email parameter from the URL (?email=parent@example.com)
         const urlParams = new URLSearchParams(window.location.search);
         const urlEmail = urlParams.get('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        const formBox = document.getElementById('main-form-container');
         const emailInputBox = document.querySelector('input[name="primary_email"]');
 
-        if (urlEmail && emailInputBox) {
-            emailInputBox.value = decodeURIComponent(urlEmail).toLowerCase().trim();
+        // Check if the URL has a structurally valid email address
+        if (urlEmail && emailRegex.test(decodeURIComponent(urlEmail).trim())) {
+            const decodedEmail = decodeURIComponent(urlEmail).toLowerCase().trim();
+            
+            // Pre-fill the input field
+            if (emailInputBox) {
+                emailInputBox.value = decodedEmail;
+            }
+        } else {
+            // Block access completely if the link is accessed without a valid ?email= parameter
+            if (formBox) {
+                formBox.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #DC2626; font-weight: 600;">
+                        <p class="en">Invalid or unauthorized link. Please access this page through the official email received.</p>
+                        <p class="zh-hans" style="display: none;">链接无效或未授权。请通过您收到的官方邮件访问此页面。</p>
+                        <p class="zh-hant" style="display: none;">鏈接無效或未授權。請通過您收到的官方郵件訪問此頁面。</p>
+                    </div>
+                `;
+            }
         }
     });
 </script>
