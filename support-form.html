@@ -732,7 +732,18 @@
         </form>
     </div>
 </main>
+    
+<div id="error-container" class="error-msg" style="background-color: #FEF2F2; border: 1px solid #F87171; color: #DC2626; padding: 30px; border-radius: 8px; font-weight: 600; text-align: center; display: none; margin-top: 40px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.1);">
+    <span class="en">Invalid or expired link. Please access this page through the official email received.</span>
+    <span class="zh-hans">链接无效或已过期。请通过您收到的官方邮件访问此页面。</span>
+    <span class="zh-hant">鏈接無效或已過期。請通過您收到的官方郵件訪問此頁面。</span>
+</div>
 
+<div id="duplicate-container" class="error-msg" style="background-color: #FFFBEB; border: 1px solid #F59E0B; color: #B45309; padding: 30px; border-radius: 8px; font-weight: 600; text-align: center; display: none; margin-top: 40px; box-shadow: 0 4px 15px rgba(243, 141, 28, 0.1);">
+    <span class="en">You can only turn this form in once, please contact help@unitymandarin.org for questions or if you want to resend.</span>
+    <span class="zh-hans">您只能提交一次此表单，如有疑问或需要重新发送，请联系 help@unitymandarin.org。</span>
+    <span class="zh-hant">您只能提交一次此表單，如有疑問或需要重新發送，請聯繫 help@unitymandarin.org。</span>
+</div>
 <footer>
     <div class="footer-grid">
         <div class="footer-col">
@@ -880,6 +891,58 @@
         if (savedLang === 'zh-hans') defaultLangName = '简体中文';
         if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
         switchLanguage(savedLang, defaultLangName);
+
+        // URL Email Verification & Duplicate Control Logic
+        const urlParams = new URLSearchParams(window.location.search);
+        const parentEmail = urlParams.get('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // ==========================================================================
+        // CODER CONTROLS: Add emails inside this array to let specific parents resubmit
+        // ==========================================================================
+        const allowedToResubmit = [
+            'parent_test@gmail.com',
+            'admin@unitymandarin.org'
+        ];
+
+        if (parentEmail && emailRegex.test(decodeURIComponent(parentEmail))) {
+            const decodedEmail = decodeURIComponent(parentEmail).toLowerCase().trim();
+            
+            // Check local tracking logs
+            const localSubmissionHistory = JSON.parse(localStorage.getItem('umc_submitted_emails') || '[]');
+            const hasSubmittedBefore = localSubmissionHistory.includes(decodedEmail);
+            const isWhitelisted = allowedToResubmit.map(e => e.toLowerCase().trim()).includes(decodedEmail);
+
+            if (hasSubmittedBefore && !isWhitelisted) {
+                // Block duplicate submissions
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('duplicate-container').style.display = 'block';
+            } else {
+                // Create or ensure hidden input box exists inside the form to log email to Formspark
+                let hiddenEmailInput = document.getElementById('email-input');
+                if (!hiddenEmailInput) {
+                    hiddenEmailInput = document.createElement('input');
+                    hiddenEmailInput.type = 'hidden';
+                    hiddenEmailInput.id = 'email-input';
+                    hiddenEmailInput.name = 'email';
+                    document.querySelector('form').appendChild(hiddenEmailInput);
+                }
+                hiddenEmailInput.value = decodedEmail;
+                
+                // Save the submission to lock the form locally after they hit submit
+                const formEl = document.querySelector('form');
+                formEl.addEventListener('submit', function() {
+                    if (!localSubmissionHistory.includes(decodedEmail)) {
+                        localSubmissionHistory.push(decodedEmail);
+                        localStorage.setItem('umc_submitted_emails', JSON.stringify(localSubmissionHistory));
+                    }
+                });
+            }
+        } else {
+            // Bad URL entry point: Lock the user out
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('error-container').style.display = 'block';
+        }
     });
     
     function updateStudentCounter() {
