@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>West Portal Campus Preference Form - Unity Mandarin</title>
     <style>
+        .checkbox-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+        .checkbox-item { display: flex; align-items: flex-start; cursor: pointer; }
+        .checkbox-item input { margin-top: 4px; margin-right: 12px; transform: scale(1.2); accent-color: var(--brand-orange); }
+        .student-counter { font-size: 14px; font-weight: 700; color: var(--brand-orange); margin-left: 10px; display: inline-block; }
         /* ==========================================================================
            GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES (From index.html)
            ========================================================================== */
@@ -575,17 +579,17 @@
     <div class="form-container">
         
         <h1>
-            <span class="en">Unity Mandarin After-School Program Level Selection</span>
-            <span class="zh-hans">同心中文课后项目等级选择表</span>
-            <span class="zh-hant">同心中文課後項目等級選擇表</span>
+            <span class="en">West Portal Family Interest & Support Form</span>
+            <span class="zh-hans">West Portal 家庭意向与支持表</span>
+            <span class="zh-hant">West Portal 家庭意向與支持表</span>
         </h1>
 
         <p>
-            <span class="en">Please provide your email address and select your child's target Mandarin level for the upcoming school year.</span>
-            <span class="zh-hans">请提供您的电子邮箱，并为您的孩子选择下一学年的目标中文等级。</span>
-            <span class="zh-hant">請提供您的電子郵箱，並為您的孩子選擇下一學年的目標中文等級。</span>
+            <span class="en">Unity Mandarin Enrichment Center was founded by former West Portal Mandarin instructors, led by former Site Coordinator Ms. Wang. We are exploring the possibility of offering a Mandarin program at West Portal for the 2026–2027 school year and would appreciate your feedback.</span>
+            <span class="zh-hans">同心中文教育中心由原 West Portal 中文老师创办，并由前现场主管王老师领衔。我们正在探索于 2026–2027 学年在 West Portal 开设中文项目的可行性，并非常期待您的反馈。</span>
+            <span class="zh-hant">同心中文教育中心由原 West Portal 中文老師創辦，並由前現場主管王老師領銜。我們正在探索於 2026–2027 學年在 West Portal 開設中文項目的可行性，並非常期待您的反饋。</span>
         </p>
-
+        
         <form action="https://api.formspark.io/NqFNrvU3m" method="POST" class="form-body">
             
             <input type="hidden" id="submitted-lang-tracker" name="submitted_language" value="en">
@@ -613,39 +617,50 @@
             </div>
 
             <div class="form-group">
-                <label>
-                    <span class="en">Target Mandarin Level</span>
-                    <span class="zh-hans">期望入读的中文等级</span>
-                    <span class="zh-hant">期望入讀的中文等級</span>
-                    <span class="required-star">*</span>
+               <label>
+    <span class="en">Student Mandarin Level(s) for Fall 2026 (Select all that apply)</span>
+    <span class="zh-hans">2026年秋季学生中文等级（可多选）</span>
+    <span class="zh-hant">2026年秋季學生中文等級（可多選）</span>
+    <span class="required-star">*</span>
+</label>
+                <div class="form-group">
+                <label style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                    <div>
+                        <span class="en">Student Mandarin Level(s) for Fall 2026 (Select all that apply)</span>
+                        <span class="zh-hans">2026年秋季学生中文等级（可多选）</span>
+                        <span class="zh-hant">2026年秋季學生中文等級（可多選）</span>
+                        <span class="required-star">*</span>
+                    </div>
+                    <span id="live-student-count" class="student-counter"></span>
                 </label>
-                <div class="radio-grid">
-                    <div class="radio-item">
-                        <input type="radio" name="child_level" id="l1" value="Level 1" checked required>
+                
+                <div class="checkbox-grid">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="child_levels[]" id="l1" value="Level 1" onchange="updateStudentCounter()">
                         <label for="l1">
                             <span class="en">Level 1 (Beginner)</span>
                             <span class="zh-hans">Level 1 (零基础 / 初学者)</span>
                             <span class="zh-hant">Level 1 (零基礎 / 初學者)</span>
                         </label>
                     </div>
-                    <div class="radio-item">
-                        <input type="radio" name="child_level" id="l2" value="Level 2">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="child_levels[]" id="l2" value="Level 2" onchange="updateStudentCounter()">
                         <label for="l2">Level 2</label>
                     </div>
-                    <div class="radio-item">
-                        <input type="radio" name="child_level" id="l3" value="Level 3">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="child_levels[]" id="l3" value="Level 3" onchange="updateStudentCounter()">
                         <label for="l3">Level 3</label>
                     </div>
-                    <div class="radio-item">
-                        <input type="radio" name="child_level" id="l4" value="Level 4">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="child_levels[]" id="l4" value="Level 4" onchange="updateStudentCounter()">
                         <label for="l4">Level 4</label>
                     </div>
-                    <div class="radio-item">
-                        <input type="radio" name="child_level" id="l5" value="Level 5">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="child_levels[]" id="l5" value="Level 5" onchange="updateStudentCounter()">
                         <label for="l5">Level 5</label>
                     </div>
-                    <div class="radio-item">
-                        <input type="radio" name="child_level" id="l6" value="Level 6">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="child_levels[]" id="l6" value="Level 6" onchange="updateStudentCounter()">
                         <label for="l6">
                             <span class="en">Level 6 (Advanced)</span>
                             <span class="zh-hans">Level 6 (高年级熟练听说读写)</span>
@@ -833,6 +848,26 @@
         if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
         switchLanguage(savedLang, defaultLangName);
     });
+    
+    function updateStudentCounter() {
+        // Find how many level boxes are checked
+        const checkedCount = document.querySelectorAll('input[name="child_levels[]"]:checked').length;
+        const countDisplay = document.getElementById('live-student-count');
+        const currentLang = document.body.getAttribute('lang') || 'en';
+        
+        if (checkedCount > 0) {
+            // Check current page language to provide correct counter text
+            if (currentLang === 'zh-hans') {
+                countDisplay.textContent = `（已选择 ${checkedCount} 名学生）`;
+            } else if (currentLang === 'zh-hant') {
+                countDisplay.textContent = `（已選擇 ${checkedCount} 名學生）`;
+            } else {
+                countDisplay.textContent = `(${checkedCount} Student${checkedCount > 1 ? 's' : ''} Selected)`;
+            }
+        } else {
+            countDisplay.textContent = '';
+        }
+    }
 </script>
 </body>
 </html>
