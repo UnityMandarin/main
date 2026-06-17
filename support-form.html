@@ -596,7 +596,7 @@
             <span class="zh-hant">同心中文教育中心由原 West Portal 中文老師創辦，並由前現場主管王老師領銜。我們正在探索於 2026–2027 學年在 West Portal 開設中文項目的可行性，並非常期待您的反饋。</span>
         </p>
         
-        <form action="https://api.formspark.io/NqFNrvU3m" method="POST" class="form-body">
+        <form id="interest-form" action="https://api.formspark.io/NqFNrvU3m" method="POST" class="form-body">
             
             <input type="hidden" id="submitted-lang-tracker" name="submitted_language" value="en">
 
@@ -1017,7 +1017,7 @@
         }
     }
 
-    // Initialize saved language and enforce one-submit-per-email rule
+   // Initialize saved language and enforce one-submit-per-email rule
     document.addEventListener("DOMContentLoaded", function() {
         // 1. Handle Language Selector on load
         const savedLang = localStorage.getItem('umc_preferred_lang') || 'en';
@@ -1025,10 +1025,6 @@
         if (savedLang === 'zh-hans') defaultLangName = '简体中文';
         if (savedLang === 'zh-hant') defaultLangName = '繁體中文';
         switchLanguage(savedLang, defaultLangName);
-
-        // 2. Read the email parameter from the URL address bar (?email=parent@example.com)
-        const urlParams = new URLSearchParams(window.location.search);
-        const parentEmail = urlParams.get('email');
 
         // ==========================================================================
         // CODER OVERRIDE: Add emails here to let specific parents submit again!
@@ -1038,35 +1034,42 @@
             'admin@unitymandarin.org'
         ];
 
-        if (parentEmail) {
-            const decodedEmail = decodeURIComponent(parentEmail).toLowerCase().trim();
-            
-            // Look into the browser's local memory to see if this email has clicked submit before
-            const localSubmissionHistory = JSON.parse(localStorage.getItem('umc_submitted_emails') || '[]');
-            const hasSubmittedBefore = localSubmissionHistory.includes(decodedEmail);
-            const isWhitelisted = allowedToResubmit.map(e => e.toLowerCase().trim()).includes(decodedEmail);
+        // 2. Read the email parameter from the URL address bar (?email=parent@example.com)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlEmail = urlParams.get('email');
+        const emailInputBox = document.querySelector('input[name="primary_email"]');
 
-            if (hasSubmittedBefore && !isWhitelisted) {
-                // If they already submitted and aren't whitelisted, hide the form and show the warning
-                document.getElementById('form-container').style.display = 'none';
-                document.getElementById('duplicate-container').style.display = 'block';
-            } else {
-                // Otherwise, automatically put their email into the form input box
-                const emailInput = document.querySelector('input[name="primary_email"]');
-                if (emailInput) {
-                    emailInput.value = decodedEmail;
-                }
+        // If URL has an email, pre-fill the box
+        if (urlEmail && emailInputBox) {
+            emailInputBox.value = decodeURIComponent(urlEmail).toLowerCase().trim();
+        }
+
+        // 3. Intercept the Submit Button Click
+        const formEl = document.getElementById('interest-form');
+        
+        if (formEl) {
+            formEl.addEventListener('submit', function(event) {
+                // Grab whatever email is typed into the box at the exact moment they hit submit
+                const typedEmail = emailInputBox.value.toLowerCase().trim();
                 
-                // Listen for the moment they click the Submit button
-                const formEl = document.querySelector('form');
-                formEl.addEventListener('submit', function() {
-                    // Add their email to the browser's "already submitted" memory bank before sending
-                    if (!localSubmissionHistory.includes(decodedEmail)) {
-                        localSubmissionHistory.push(decodedEmail);
+                // Look into the browser's local memory to see if this email has clicked submit before
+                const localSubmissionHistory = JSON.parse(localStorage.getItem('umc_submitted_emails') || '[]');
+                const hasSubmittedBefore = localSubmissionHistory.includes(typedEmail);
+                const isWhitelisted = allowedToResubmit.map(e => e.toLowerCase().trim()).includes(typedEmail);
+
+                // If they already submitted and aren't whitelisted, STOP the form and show warning
+                if (hasSubmittedBefore && !isWhitelisted) {
+                    event.preventDefault(); // This command stops Formspark from receiving the form
+                    document.querySelector('.form-container').style.display = 'none'; // Hide the white box
+                    document.getElementById('duplicate-container').style.display = 'block'; // Show error box
+                } else {
+                    // It's a new email! Add it to the browser memory before Formspark sends it away
+                    if (!localSubmissionHistory.includes(typedEmail)) {
+                        localSubmissionHistory.push(typedEmail);
                         localStorage.setItem('umc_submitted_emails', JSON.stringify(localSubmissionHistory));
                     }
-                });
-            }
+                }
+            });
         }
     });
 </script>
