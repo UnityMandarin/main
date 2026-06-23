@@ -205,26 +205,20 @@
     }
 
     .success-card {
-        background-color: rgba(255, 255, 255, 0.95);
-        
-        /* BAMBOO PLACEMENT LAYER */
-        background-image: url('bamboo-sides.png');
-        background-repeat: no-repeat;
-        background-position: left center, right center;
-        background-size: contain;
-        
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(114, 208, 155, 0.4);
-        border-radius: 24px;
-        padding: 60px 80px; /* Increased side padding to keep text clear of bamboo graphic */
-        box-shadow: 0 25px 50px rgba(28, 51, 37, 0.08);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        opacity: 0;
-        animation: cardFadeUp 0.8s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-    }
+    background-color: rgba(255, 255, 255, 0.95);
+    
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(114, 208, 155, 0.4);
+    border-radius: 24px;
+    padding: 60px 40px; /* Optional: Reduced side padding since you no longer need to clear the bamboo graphics */
+    box-shadow: 0 25px 50px rgba(28, 51, 37, 0.08);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: cardFadeUp 0.8s 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
 
     .success-card::after {
         content: '';
