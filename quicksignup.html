@@ -6,7 +6,7 @@
     <title>Unity Mandarin 2026-2027 Quick Sign-Up</title>
     <style>
         /* ==========================================================================
-           GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES (Matched from preference form)
+           GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
            ========================================================================== */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap');
 
@@ -64,8 +64,13 @@
             line-height: 1.6;
         }
 
+        /* DOM i18n Controllers */
+        body[lang="en"] .zh-hans, body[lang="en"] .zh-hant, body[lang="en"] .zh-hans-content, body[lang="en"] .zh-hant-content { display: none !important; }
+        body[lang="zh-hans"] .en, body[lang="zh-hans"] .zh-hant, body[lang="zh-hans"] .en-content, body[lang="zh-hans"] .zh-hant-content { display: none !important; }
+        body[lang="zh-hant"] .en, body[lang="zh-hant"] .zh-hans, body[lang="zh-hant"] .en-content, body[lang="zh-hant"] .zh-hans-content { display: none !important; }
+
         /* ==========================================================================
-           HEADER
+           HEADER & NAVIGATION
            ========================================================================== */
         header {
             background: linear-gradient(to bottom, var(--mint-nav-core) 0%, var(--mint-nav-light) 100%) !important;
@@ -105,7 +110,7 @@
 
         .logo-group:hover { transform: translateY(-1px); }
 
-        .logo-group img {
+        .logo-group img, header img {
             height: 44px;
             width: auto;
             object-fit: contain;
@@ -114,14 +119,165 @@
             transition: var(--transition-smooth);
         }
 
-        .logo-text-group {
-            font-family: var(--font-editorial);
-            font-weight: 700;
-            color: var(--brand-orange);
-            font-size: 1.1rem;
-            line-height: 1.2;
-            margin-left: 10px;
+        nav.nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 4px; 
+            flex-grow: 1;
+            justify-content: flex-end;
+            margin-right: 15px;
         }
+
+        nav a {
+            font-family: var(--font-interface);
+            text-decoration: none;
+            color: var(--text-navbar-link);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.15px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            box-sizing: border-box;
+        }
+
+        nav a:hover {
+            color: var(--brand-orange);
+            background-color: var(--brand-orange-subtle);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 18px;
+            right: 18px;
+            height: 2px;
+            background-color: var(--brand-orange);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+        }
+
+        nav a:hover::after { transform: scaleX(1); }
+
+        nav a.active-page {
+            color: #FFFFFF;
+            background-color: var(--brand-orange);
+            box-shadow: 0 4px 12px var(--brand-orange-glow);
+        }
+        nav a.active-page::after { display: none; }
+
+        nav a[href*="contact"], nav a:last-of-type {
+            background-color: transparent;
+            border: 1.5px solid var(--brand-orange);
+            color: var(--brand-orange);
+            margin-left: 8px;
+            padding: 8px 20px;
+        }
+
+        nav a[href*="contact"]:hover, nav a:last-of-type:hover {
+            background-color: var(--brand-orange);
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px var(--brand-orange-glow);
+            transform: translateY(-1px);
+        }
+        nav a[href*="contact"]:hover::after, nav a:last-of-type:hover::after { display: none; }
+
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        @media (min-width: 901px) {
+            .header-actions {
+                border-left: 1px solid var(--mint-nav-border);
+                padding-left: 15px;
+                margin-left: 5px;
+            }
+        }
+
+        /* Dropdown Language Picker */
+        .lang-dropdown { position: relative; }
+        .lang-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text-navbar-link); 
+            border: none;
+            padding: 8px 12px;
+            font-family: var(--font-interface);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
+        }
+        .lang-dropdown-btn:hover { background-color: rgba(255, 255, 255, 0.4); color: var(--brand-orange); }
+        .lang-dropdown-btn svg { width: 16px; height: 16px; fill: currentColor; }
+        
+        .lang-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 12px;
+            background: #FFFFFF;
+            border: 1px solid var(--mint-nav-border);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            list-style: none;
+            padding: 8px 0;
+            min-width: 140px;
+            display: none;
+            flex-direction: column;
+            z-index: 2000;
+            transform-origin: top right;
+            animation: dropFade 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        @keyframes dropFade {
+            from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .lang-dropdown-menu.show { display: flex; }
+        .lang-dropdown-menu li { width: 100%; }
+        .lang-dropdown-menu button {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            font-family: var(--font-interface);
+            font-size: 14px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .lang-dropdown-menu button:hover { background: var(--brand-orange-subtle); color: var(--brand-orange); }
+
+        /* Mobile Menu Btn */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1001;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+        .mobile-menu-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .mobile-menu-btn.is-active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         /* ==========================================================================
            FORM LAYOUT & STYLES
@@ -314,7 +470,30 @@
            ========================================================================== */
         @media (max-width: 900px) {
             .header-container { padding: 10px 15px; }
-            .logo-group img { height: 36px; }
+            .logo-group img, header img { height: 36px; } 
+            
+            .mobile-menu-btn { display: flex; }
+            .header-actions { order: 2; gap: 8px; } 
+            
+            .lang-dropdown-btn { padding: 6px 8px; font-size: 13px; }
+            .lang-dropdown-btn svg { width: 18px; height: 18px; }
+            
+            nav.nav-menu { 
+                order: 3; 
+                display: none; 
+                width: 100%; 
+                flex-direction: column; 
+                gap: 10px; 
+                padding: 20px 0; 
+                border-top: 1px solid rgba(88, 185, 131, 0.2); 
+                margin-top: 10px; 
+            }
+            nav.nav-menu.is-open { display: flex; animation: slideDown 0.3s ease forwards; }
+            @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+            nav a { width: 100%; padding: 12px; font-size: 16px; }
+            nav a::after { display: none; }
+            nav a[href*="contact"], nav a:last-of-type { margin-left: 0; margin-top: 10px; }
+
             .page-wrapper { margin: 25px auto; padding: 0 15px; }
             .form-container { padding: 25px 20px; }
             h1 { font-size: 1.35rem; }
@@ -322,7 +501,7 @@
     </style>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
-<body>
+<body lang="en">
 
 <header>
     <div class="header-container">
@@ -492,5 +671,51 @@
     <p>&copy; 2026 Unity Mandarin Enrichment Center. All rights reserved.</p>
 </footer>
 
+<script>
+    function toggleLangMenu(event) {
+        if (event) event.stopPropagation();
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.toggle('show');
+    }
+
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('lang-menu');
+        const dropdown = document.querySelector('.lang-dropdown');
+        if (menu && dropdown && !dropdown.contains(event.target)) {
+            menu.classList.remove('show');
+        }
+    });
+
+    function switchLanguage(langCode, langName) {
+        document.body.setAttribute('lang', langCode);
+        
+        const allElements = document.querySelectorAll('.lang-el');
+        allElements.forEach(el => el.style.display = 'none');
+
+        const selectedElements = document.querySelectorAll('.' + langCode + '-content');
+        selectedElements.forEach(el => {
+            if (el.tagName === 'SPAN' || el.tagName === 'IMG' || el.tagName === 'A') {
+                el.style.display = 'inline-block';
+            } else {
+                el.style.display = 'block';
+            }
+        });
+
+        const currentLangText = document.getElementById('current-lang-text');
+        if (currentLangText && langName) {
+            currentLangText.textContent = langName;
+        }
+
+        const menu = document.getElementById('lang-menu');
+        if (menu) menu.classList.remove('show');
+    }
+
+    function toggleMobileMenu() {
+        const nav = document.getElementById('main-nav');
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        if (nav) nav.classList.toggle('is-open');
+        if (menuBtn) menuBtn.classList.toggle('is-active');
+    }
+</script>
 </body>
 </html>
