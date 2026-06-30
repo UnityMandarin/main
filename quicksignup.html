@@ -326,10 +326,72 @@
 
 <header>
     <div class="header-container">
-        <a href="index.html" class="logo-group" style="display:flex; align-items:center; text-decoration:none;">
-            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo">
-            <span class="logo-text-group">Unity Mandarin<br><span style="font-size:0.7rem; color:var(--text-muted); font-weight:500;">Enrichment Center</span></span>
+        <a href="index.html" class="logo-group" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+            <img src="your-logo-file.png" alt="Unity Mandarin Center Logo" class="lang-el en-content" style="height: 36px; width: auto; object-fit: contain;">
+            <img src="logotitle.png" alt="Unity Mandarin Center Title" class="lang-el en-content" style="height: 46px; width: auto; object-fit: contain;">
+            
+            <img src="your-logo-file.png" alt="同心中文教育中心图标" class="lang-el zh-hans-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心题字" class="lang-el zh-hans-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
+            
+            <img src="your-logo-file.png" alt="同心中文教育中心圖標" class="lang-el zh-hant-content" style="height: 36px; width: auto; object-fit: contain; display: none;">
+            <img src="logotitle.png" alt="同心中文教育中心題字" class="lang-el zh-hant-content" style="height: 46px; width: auto; object-fit: contain; display: none;">
         </a>
+
+        <nav id="main-nav" class="nav-menu">
+            <a href="index.html">
+                <span class="lang-el en-content">Home</span>
+                <span class="lang-el zh-hans-content" style="display: none;">首页</span>
+                <span class="lang-el zh-hant-content" style="display: none;">首頁</span>
+            </a>
+            <a href="about.html">
+                <span class="lang-el en-content">About Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">关于我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">關於我們</span>
+            </a>
+            <a href="program.html">
+                <span class="lang-el en-content">Program</span>
+                <span class="lang-el zh-hans-content" style="display: none;">课程架构</span>
+                <span class="lang-el zh-hant-content" style="display: none;">課程架構</span>
+            </a>
+            <a href="why-us.html">
+                <span class="lang-el en-content">Why Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">办学优势</span>
+                <span class="lang-el zh-hant-content" style="display: none;">辦學優勢</span>
+            </a>
+            <a href="joinus.html">
+                <span class="lang-el en-content">Join Us</span>
+                <span class="lang-el zh-hans-content" style="display: none;">加入我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">加入我們</span>
+            </a>
+            <a href="contact.html">
+                <span class="lang-el en-content">Contact</span>
+                <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
+                <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
+            </a>
+        </nav>
+
+        <div class="header-actions">
+            <div class="lang-dropdown">
+                <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleLangMenu(event)">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <span id="current-lang-text">English</span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+                <ul class="lang-dropdown-menu" id="lang-menu">
+                    <li><button onclick="switchLanguage('en', 'English')">English</button></li>
+                    <li><button onclick="switchLanguage('zh-hans', '简体中文')">简体中文</button></li>
+                    <li><button onclick="switchLanguage('zh-hant', '繁體中文')">繁體中文</button></li>
+                </ul>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </div>
 </header>
 
