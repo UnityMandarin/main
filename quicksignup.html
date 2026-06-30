@@ -464,7 +464,89 @@
             opacity: 0.85;
         }
         footer p:last-child { opacity: 0.5; margin-top: 14px; }
+        
+/* ==========================================================================
+           QUANTITY COUNTER STYLE RULES
+           ========================================================================== */
+        .quantity-grid {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
+        .plan-counter-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--mint-light);
+            border: 1px solid var(--mint-nav-border);
+            border-radius: 8px;
+            padding: 14px 18px;
+            transition: var(--transition-smooth);
+        }
+
+        .plan-counter-card:hover {
+            border-color: var(--brand-orange);
+            background-color: #FFF8F4;
+        }
+
+        .plan-counter-info {
+            flex-grow: 1;
+            margin-right: 16px;
+        }
+
+        .counter-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #FFFFFF;
+            border: 1px solid var(--mint-nav-border);
+            border-radius: 6px;
+            padding: 4px;
+        }
+
+        .counter-btn {
+            background-color: var(--mint-light);
+            border: 1px solid var(--mint-nav-border);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            user-select: none;
+        }
+
+        .counter-btn:hover {
+            background-color: var(--brand-orange);
+            color: #FFFFFF;
+            border-color: var(--brand-orange);
+        }
+
+        .counter-controls input[type="number"] {
+            width: 36px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            padding: 0;
+            margin: 0;
+            -moz-appearance: textfield;
+        }
+
+        .counter-controls input[type="number"]::-webkit-outer-spin-button,
+        .counter-controls input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
         /* ==========================================================================
            MOBILE RESPONSIVENESS
            ========================================================================== */
@@ -632,74 +714,55 @@
 
             <div class="form-group">
                 <label>
-                    <span class="lang-el en-content">Number of Children<span class="required-star">*</span></span>
-                    <span class="lang-el zh-hans-content" style="display: none;">报名孩子人数<span class="required-star">*</span></span>
-                    <span class="lang-el zh-hant-content" style="display: none;">報名孩子人數<span class="required-star">*</span></span>
+                    <label>
+    <span class="lang-el en-content">Preferred Schedule (2nd+ Child 10% Off)<span class="required-star">*</span></span>
+    <span class="lang-el zh-hans-content" style="display: none;">意向课时方案（第二位孩子起享 10% 优惠）<span class="required-star">*</span></span>
+    <span class="lang-el zh-hant-content" style="display: none;">意向課時方案（第二位孩子起享 10% 優惠）<span class="required-star">*</span></span>
+</label>
                 </label>
-                <select name="number_of_children" required>
-                    <option value="1">1 Child / 1个孩子 (Standard Rate)</option>
-                    <option value="2">2 Children / 2个孩子 (2nd Child 10% Off)</option>
-                    <option value="3">3 Children / 3个孩子 (Sibling Discount Applies)</option>
-                    <option value="4+">4+ Children / 4个以上 (Sibling Discount Applies)</option>
-                </select>
-            </div>
+               <div class="quantity-grid">
+    <!-- PLAN A COUNTER -->
+    <div class="plan-counter-card">
+        <div class="plan-counter-info">
+            <span class="option-title">
+                <span class="lang-el en-content">Plan A: Dismissal to 4:30 PM</span>
+                <span class="lang-el zh-hans-content" style="display: none;">方案 A：放学至下午 4:30</span>
+                <span class="lang-el zh-hant-content" style="display: none;">方案 A：放學至下午 4:30</span>
+            </span>
+            <span class="option-sub">
+                <span class="lang-el en-content">$300/mo ($2,550/yr) · 2-hr Mandarin Immersion + Cultural Arts</span>
+                <span class="lang-el zh-hans-content" style="display: none;">$300/月 ($2,550/年) · 2小时沉浸式中文 + 文化艺术</span>
+                <span class="lang-el zh-hant-content" style="display: none;">$300/月 ($2,550/年) · 2小時沉浸式中文 + 文化藝術</span>
+            </span>
+        </div>
+        <div class="counter-controls">
+            <button type="button" class="counter-btn" onclick="adjustCount('plan_a', -1)">−</button>
+            <input type="number" id="plan_a_qty" name="plan_a_quantity" value="0" min="0" readonly>
+            <button type="button" class="counter-btn" onclick="adjustCount('plan_a', 1)">+</button>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label>
-                    <span class="lang-el en-content">Preferred Schedule<span class="required-star">*</span></span>
-                    <span class="lang-el zh-hans-content" style="display: none;">意向课时方案<span class="required-star">*</span></span>
-                    <span class="lang-el zh-hant-content" style="display: none;">意向課時方案<span class="required-star">*</span></span>
-                </label>
-                <div class="radio-grid">
-                    <label class="radio-item">
-                        <input type="radio" name="plan_selection" value="Plan A (4:30 PM)" required>
-                        <span>
-                            <span class="option-title">
-                                <span class="lang-el en-content">Plan A: Dismissal to 4:30 PM</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">方案 A：放学至下午 4:30</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">方案 A：放學至下午 4:30</span>
-                            </span>
-                            <span class="option-sub">
-                                <span class="lang-el en-content">$300/mo ($2,550/yr) · 2-hr Mandarin Immersion + Cultural Arts</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">$300/月 ($2,550/年) · 2小时沉浸式中文 + 文化艺术</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">$300/月 ($2,550/年) · 2小時沉浸式中文 + 文化藝術</span>
-                            </span>
-                        </span>
-                    </label>
-
-                    <label class="radio-item">
-                        <input type="radio" name="plan_selection" value="Plan B (6:00 PM)">
-                        <span>
-                            <span class="option-title">
-                                <span class="lang-el en-content">Plan B: Dismissal to 6:00 PM</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">方案 B：放学至下午 6:00</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">方案 B：放學至下午 6:00</span>
-                            </span>
-                            <span class="option-sub">
-                                <span class="lang-el en-content">$450/mo ($3,825/yr) · Plan A + Homework Help & Extended Care</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">$450/月 ($3,825/年) · 方案A + 课后作业辅导 & 延时看护</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">$450/月 ($3,825/年) · 方案A + 課後作業輔導 & 延時看護</span>
-                            </span>
-                        </span>
-                    </label>
-
-                    <label class="radio-item">
-                        <input type="radio" name="plan_selection" value="Multiple/Undecided">
-                        <span>
-                            <span class="option-title">
-                                <span class="lang-el en-content">Multiple Plans / Not Sure Yet</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">多子女不同方案 / 暂未决定</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">多子女不同方案 / 暫未決定</span>
-                            </span>
-                            <span class="option-sub">
-                                <span class="lang-el en-content">Different plans for siblings, or need a follow-up call</span>
-                                <span class="lang-el zh-hans-content" style="display: none;">多子女不同方案，或需后续电话确认</span>
-                                <span class="lang-el zh-hant-content" style="display: none;">多子女不同方案，或需後續電話確認</span>
-                            </span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+    <!-- PLAN B COUNTER -->
+    <div class="plan-counter-card">
+        <div class="plan-counter-info">
+            <span class="option-title">
+                <span class="lang-el en-content">Plan B: Dismissal to 6:00 PM</span>
+                <span class="lang-el zh-hans-content" style="display: none;">方案 B：放学至下午 6:00</span>
+                <span class="lang-el zh-hant-content" style="display: none;">方案 B：放學至下午 6:00</span>
+            </span>
+            <span class="option-sub">
+                <span class="lang-el en-content">$450/mo ($3,825/yr) · Plan A + Homework Help & Extended Care</span>
+                <span class="lang-el zh-hans-content" style="display: none;">$450/月 ($3,825/年) · 方案A + 课后作业辅导 & 延时看护</span>
+                <span class="lang-el zh-hant-content" style="display: none;">$450/月 ($3,825/年) · 方案A + 課後作業輔導 & 延時看護</span>
+            </span>
+        </div>
+        <div class="counter-controls">
+            <button type="button" class="counter-btn" onclick="adjustCount('plan_b', -1)">−</button>
+            <input type="number" id="plan_b_qty" name="plan_b_quantity" value="0" min="0" readonly>
+            <button type="button" class="counter-btn" onclick="adjustCount('plan_b', 1)">+</button>
+        </div>
+    </div>
+</div>
 
             <div class="form-group">
                 <label>
@@ -791,6 +854,16 @@
         const menuBtn = document.querySelector('.mobile-menu-btn');
         if (nav) nav.classList.toggle('is-open');
         if (menuBtn) menuBtn.classList.toggle('is-active');
+    }
+
+    function adjustCount(planId, change) {
+        const input = document.getElementById(planId + '_qty');
+        if (input) {
+            let currentValue = parseInt(input.value) || 0;
+            let newValue = currentValue + change;
+            if (newValue < 0) newValue = 0;
+            input.value = newValue;
+        }
     }
 </script>
 </body>
