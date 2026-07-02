@@ -1,0 +1,56 @@
+{
+  "folders": [
+    {
+      "id": "f-fav",
+      "name": "Favorites",
+      "icon": "⭐",
+      "description": "Quick access to your absolute essentials."
+    },
+    {
+      "id": "f-dev",
+      "name": "Development Tools",
+      "icon": "💻",
+      "description": "Platforms, code sandboxes, and assets."
+    },
+    {
+      "id": "f-design",
+      "name": "Design & UX",
+      "icon": "🎨",
+      "description": "Curated styling visual references."
+    }
+  ],
+  "links": [
+    {
+      "id": "l-gh",
+      "folderId": "f-fav",
+      "title": "GitHub",
+      "url": "https://github.com",
+      "description": "Your code directory and version control engine.",
+      "tags": ["vcs", "code", "cloud"]
+    },
+    {
+      "id": "l-rd",
+      "folderId": "f-fav",
+      "title": "Raindrop.io",
+      "url": "https://raindrop.io",
+      "description": "All-in-one visual bookmark layout organizer.",
+      "tags": ["bookmark", "design"]
+    },
+    {
+      "id": "l-tw",
+      "folderId": "f-dev",
+      "title": "Tailwind CSS Documentation",
+      "url": "https://tailwindcss.com",
+      "description": "Modern, utility-first CSS styling frameworks.",
+      "tags": ["css", "frontend", "dev"]
+    },
+    {
+      "id": "l-bt",
+      "folderId": "f-design",
+      "title": "Bento.me",
+      "url": "https://bento.me",
+      "description": "Minimalist multi-link grid presentation profile boards.",
+      "tags": ["visual", "portfolio", "design"]
+    }
+  ]
+}
