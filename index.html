@@ -338,7 +338,93 @@
         display: block;
         filter: drop-shadow(0 20px 40px rgba(114, 208, 155, 0.25));
     }
+        .hero-inner {
+    width: 100%;
+    max-width: 1100px;
+    text-align: center;
+}
 
+.hero-copy {
+    max-width: 820px;
+    margin: 28px auto 0 auto;
+    padding: 0 20px;
+}
+
+.hero-copy h1 {
+    font-family: var(--font-editorial);
+    font-size: 42px;
+    line-height: 1.18;
+    color: var(--text-primary);
+    margin: 0 0 18px 0;
+}
+
+.hero-copy p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0 auto 26px auto;
+    max-width: 760px;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 160px;
+    padding: 13px 24px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.hero-btn.primary {
+    background-color: var(--brand-orange);
+    color: #FFFFFF;
+    box-shadow: 0 8px 22px var(--brand-orange-glow);
+}
+
+.hero-btn.primary:hover {
+    background-color: var(--brand-orange-hover);
+    transform: translateY(-2px);
+}
+
+.hero-btn.secondary {
+    background-color: #FFFFFF;
+    color: var(--brand-orange);
+    border: 1.5px solid var(--brand-orange);
+}
+
+.hero-btn.secondary:hover {
+    background-color: var(--brand-orange);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+}
+        
+.hero-copy h1 {
+    font-size: 30px;
+}
+
+.hero-copy p {
+    font-size: 16px;
+}
+
+.hero-actions {
+    gap: 10px;
+}
+
+.hero-btn {
+    width: 100%;
+    max-width: 260px;
+}
     /* =========================================
        CORE ACADEMIC APPROACH SECTION
        ========================================= */
@@ -827,7 +913,39 @@
 <main>
     <section class="hero-section">
         <img src="scroll-banner.png" class="hero-banner-img">
-    </section>
+        <section class="hero-section">
+    <div class="hero-inner">
+        <img src="scroll-banner.png" class="hero-banner-img" alt="Unity Mandarin Enrichment Center">
+
+        <div class="hero-copy">
+            <h1>
+                <span class="lang-el en-content">Helping Children Build Confidence Through Mandarin, Culture, and Community</span>
+                <span class="lang-el zh-hans-content" style="display: none;">通过中文、文化与社区连接，帮助孩子建立自信</span>
+                <span class="lang-el zh-hant-content" style="display: none;">通過中文、文化與社區連結，幫助孩子建立自信</span>
+            </h1>
+
+            <p>
+                <span class="lang-el en-content">Unity Mandarin Enrichment Center provides safe, structured, and engaging after-school Mandarin enrichment programs for elementary students in San Francisco.</span>
+                <span class="lang-el zh-hans-content" style="display: none;">Unity Mandarin Enrichment Center 为旧金山小学学生提供安全、有结构、富有参与感的课后中文 enrichment 项目。</span>
+                <span class="lang-el zh-hant-content" style="display: none;">Unity Mandarin Enrichment Center 為舊金山小學學生提供安全、有結構、富有參與感的課後中文 enrichment 項目。</span>
+            </p>
+
+            <div class="hero-actions">
+                <a href="program.html" class="hero-btn primary">
+                    <span class="lang-el en-content">Explore Programs</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">查看课程</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">查看課程</span>
+                </a>
+
+                <a href="contact.html" class="hero-btn secondary">
+                    <span class="lang-el en-content">Contact Us</span>
+                    <span class="lang-el zh-hans-content" style="display: none;">联系我们</span>
+                    <span class="lang-el zh-hant-content" style="display: none;">聯繫我們</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
  
     <section class="approach-block">
         <div class="section-header-group">
