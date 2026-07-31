@@ -18,6 +18,33 @@
     <title>Unity Mandarin Enrichment Center| TK–5 Mandarin After-School Enrichment in San Francisco</title>
 <meta name="description" content="Unity Mandarin provides structured, level-based TK–5 Mandarin after-school enrichment, homework support, and Chinese cultural learning in San Francisco.">
    <link rel="canonical" href="https://www.unitymandarin.org/">
+
+    <!-- Homepage discovery additions: social previews and local organization context -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Unity Mandarin Enrichment Center | TK–5 Mandarin Learning in San Francisco">
+    <meta property="og:description" content="Explore Mandarin practice, homework support, and Chinese cultural activities for TK–5 students in San Francisco.">
+    <meta property="og:url" content="https://www.unitymandarin.org/">
+    <meta property="og:image" content="https://www.unitymandarin.org/scroll-banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Unity Mandarin Enrichment Center">
+    <meta name="twitter:description" content="Mandarin learning, homework support, and cultural activities for TK–5 students in San Francisco.">
+    <meta name="theme-color" content="#D1F7DB">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Unity Mandarin Enrichment Center",
+      "url": "https://www.unitymandarin.org/",
+      "email": "info@unitymandarin.org",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Francisco",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      }
+    }
+    </script>
+
     <style>
     /* ==========================================================================
        GLOBAL DESIGN SYSTEM & ARCHITECTURAL VARIABLES
@@ -753,9 +780,188 @@
             padding: 18px;
         }
     }
+
+    /* ==========================================================================
+       HOMEPAGE ENGAGEMENT ADDITIONS
+       Existing homepage content remains in place.
+       ========================================================================== */
+    .skip-link {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 5000;
+        padding: 10px 16px;
+        color: #FFFFFF;
+        background: var(--text-primary);
+        border-radius: 8px;
+        transform: translateY(-150%);
+        transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .hero-section {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+    }
+
+    .hero-copy {
+        width: min(900px, 100%);
+        margin: 0 auto;
+    }
+
+    .hero-copy h1 {
+        margin: 0 0 16px;
+        color: var(--text-primary);
+        font-family: var(--font-editorial);
+        font-size: clamp(34px, 5vw, 60px);
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+    }
+
+    .hero-copy p {
+        max-width: 760px;
+        margin: 0 auto;
+        color: var(--text-secondary);
+        font-size: clamp(17px, 2vw, 21px);
+        line-height: 1.65;
+    }
+
+    .hero-actions, .family-cta-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 26px;
+    }
+
+    .homepage-btn {
+        min-width: 180px;
+        padding: 13px 22px;
+        border: 2px solid var(--brand-orange);
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .homepage-btn.primary {
+        color: #FFFFFF;
+        background: var(--brand-orange);
+        box-shadow: 0 8px 20px var(--brand-orange-glow);
+    }
+
+    .homepage-btn.secondary {
+        color: var(--brand-orange);
+        background: rgba(255, 255, 255, 0.72);
+    }
+
+    .homepage-btn:hover, .homepage-btn:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(28, 51, 37, 0.14);
+    }
+
+    .program-at-a-glance {
+        max-width: 1080px;
+        margin: 0 auto 24px;
+        padding: 0 24px;
+    }
+
+    .glance-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.76);
+        border: 1px solid rgba(88, 185, 131, 0.3);
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(28, 51, 37, 0.08);
+    }
+
+    .glance-item {
+        padding: 22px 16px;
+        color: var(--text-primary);
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        border-right: 1px solid rgba(88, 185, 131, 0.22);
+    }
+
+    .glance-item:last-child { border-right: 0; }
+
+    .family-next-step {
+        max-width: 1080px;
+        margin: 0 auto 90px;
+        padding: 0 24px;
+    }
+
+    .family-cta-card {
+        position: relative;
+        overflow: hidden;
+        padding: 48px clamp(22px, 6vw, 72px);
+        text-align: center;
+        background: linear-gradient(135deg, rgba(209, 247, 219, 0.94), rgba(255, 248, 232, 0.96));
+        border: 1px solid rgba(88, 185, 131, 0.32);
+        border-radius: 22px;
+        box-shadow: 0 18px 45px rgba(28, 51, 37, 0.1);
+    }
+
+    .family-cta-card::before, .family-cta-card::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(211, 84, 0, 0.06);
+        pointer-events: none;
+    }
+
+    .family-cta-card::before { top: -90px; left: -70px; }
+    .family-cta-card::after { right: -70px; bottom: -100px; }
+
+    .family-cta-card h2 {
+        position: relative;
+        margin: 0 0 14px;
+        color: var(--text-primary);
+        font-family: var(--font-editorial);
+        font-size: clamp(30px, 4vw, 44px);
+        line-height: 1.2;
+    }
+
+    .family-cta-card p {
+        position: relative;
+        max-width: 720px;
+        margin: 0 auto;
+        color: var(--text-secondary);
+        font-size: 18px;
+        line-height: 1.65;
+    }
+
+    .family-cta-actions { position: relative; }
+
+    @media (max-width: 900px) {
+        body { background-attachment: scroll; }
+        .hero-copy h1 { font-size: clamp(32px, 10vw, 44px); }
+        .glance-grid { grid-template-columns: repeat(2, 1fr); }
+        .glance-item:nth-child(2) { border-right: 0; }
+        .glance-item:nth-child(-n+2) { border-bottom: 1px solid rgba(88, 185, 131, 0.22); }
+        .family-cta-card { padding: 38px 20px; }
+    }
+
+    @media (max-width: 520px) {
+        .homepage-btn { width: 100%; box-sizing: border-box; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .homepage-btn, .skip-link { transition: none; }
+    }
+
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <header>
     <div class="header-container">
@@ -839,8 +1045,64 @@
 <main>
     <section class="hero-section">
         <img src="scroll-banner.png" class="hero-banner-img">
+
+        <!-- Added homepage introduction: specific, accurate, and action-focused -->
+        <div class="hero-copy">
+            <div class="lang-el en-content">
+                <h1>Mandarin Learning for TK–5 Students in San Francisco</h1>
+                <p>Unity Mandarin brings language practice, homework support, and cultural activities together in a structured after-school setting.</p>
+                <div class="hero-actions" aria-label="Homepage actions">
+                    <a class="homepage-btn primary" href="program.html">Explore Our Program</a>
+                    <a class="homepage-btn secondary" href="contact.html">Contact Our Team</a>
+                </div>
+            </div>
+            <div class="lang-el zh-hans-content" style="display: none;">
+                <h1>面向旧金山 TK–5 年级学生的中文学习</h1>
+                <p>同心中文教育中心在有序的课后环境中，将中文练习、作业辅导与文化活动结合起来。</p>
+                <div class="hero-actions" aria-label="首页操作">
+                    <a class="homepage-btn primary" href="program.html">了解课程</a>
+                    <a class="homepage-btn secondary" href="contact.html">联系我们</a>
+                </div>
+            </div>
+            <div class="lang-el zh-hant-content" style="display: none;">
+                <h1>面向舊金山 TK–5 年級學生的中文學習</h1>
+                <p>同心中文教育中心在有序的課後環境中，將中文練習、作業輔導與文化活動結合起來。</p>
+                <div class="hero-actions" aria-label="首頁操作">
+                    <a class="homepage-btn primary" href="program.html">了解課程</a>
+                    <a class="homepage-btn secondary" href="contact.html">聯繫我們</a>
+                </div>
+            </div>
+        </div>
+
 </section>
  
+
+    <!-- Added quick program overview -->
+    <section class="program-at-a-glance" aria-label="Program at a glance">
+        <div class="glance-grid">
+            <div class="glance-item">
+                <span class="lang-el en-content">TK–5 Students</span>
+                <span class="lang-el zh-hans-content" style="display: none;">TK–5 年级学生</span>
+                <span class="lang-el zh-hant-content" style="display: none;">TK–5 年級學生</span>
+            </div>
+            <div class="glance-item">
+                <span class="lang-el en-content">Mandarin Practice</span>
+                <span class="lang-el zh-hans-content" style="display: none;">中文练习</span>
+                <span class="lang-el zh-hant-content" style="display: none;">中文練習</span>
+            </div>
+            <div class="glance-item">
+                <span class="lang-el en-content">Homework Guidance</span>
+                <span class="lang-el zh-hans-content" style="display: none;">作业辅导</span>
+                <span class="lang-el zh-hant-content" style="display: none;">作業輔導</span>
+            </div>
+            <div class="glance-item">
+                <span class="lang-el en-content">Cultural Activities</span>
+                <span class="lang-el zh-hans-content" style="display: none;">文化活动</span>
+                <span class="lang-el zh-hant-content" style="display: none;">文化活動</span>
+            </div>
+        </div>
+    </section>
+
     <section class="approach-block">
         <div class="section-header-group">
             <h2 class="lang-el en-content">Our Approach</h2>
@@ -993,6 +1255,40 @@
             </article>
         </div>
     </section>
+
+    <!-- Added clear next step for interested families -->
+    <section class="family-next-step">
+        <div class="family-cta-card">
+            <div class="lang-el en-content">
+                <h2>Explore Whether Unity Mandarin Fits Your Family</h2>
+                <p>Every child has different learning needs. Review our program and approach, then contact our team with questions about the schedule, learning environment, or enrollment.</p>
+                <div class="family-cta-actions">
+                    <a class="homepage-btn primary" href="program.html">View Program Details</a>
+                    <a class="homepage-btn secondary" href="why-us.html">Learn More About Us</a>
+                    <a class="homepage-btn secondary" href="contact.html">Ask a Question</a>
+                </div>
+            </div>
+            <div class="lang-el zh-hans-content" style="display: none;">
+                <h2>了解同心中文是否适合您的家庭</h2>
+                <p>每个孩子的学习需求都不同。您可以先了解我们的课程与教学方法，再联系我们，询问时间安排、学习环境或报名信息。</p>
+                <div class="family-cta-actions">
+                    <a class="homepage-btn primary" href="program.html">查看课程详情</a>
+                    <a class="homepage-btn secondary" href="why-us.html">进一步了解我们</a>
+                    <a class="homepage-btn secondary" href="contact.html">提出问题</a>
+                </div>
+            </div>
+            <div class="lang-el zh-hant-content" style="display: none;">
+                <h2>了解同心中文是否適合您的家庭</h2>
+                <p>每個孩子的學習需求都不同。您可以先了解我們的課程與教學方法，再聯繫我們，詢問時間安排、學習環境或報名資訊。</p>
+                <div class="family-cta-actions">
+                    <a class="homepage-btn primary" href="program.html">查看課程詳情</a>
+                    <a class="homepage-btn secondary" href="why-us.html">進一步了解我們</a>
+                    <a class="homepage-btn secondary" href="contact.html">提出問題</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <footer>
@@ -1201,5 +1497,40 @@
         });
     });
 </script>
+
+<script>
+    // Added accessibility details without changing existing controls.
+    document.addEventListener('DOMContentLoaded', function () {
+        var main = document.querySelector('main');
+        if (main) main.id = 'main-content';
+
+        var heroImage = document.querySelector('.hero-banner-img');
+        if (heroImage) {
+            heroImage.alt = 'Unity Mandarin Center — Learn Mandarin, Connect Cultures';
+            heroImage.setAttribute('fetchpriority', 'high');
+        }
+
+        var mobileButton = document.querySelector('.mobile-menu-btn');
+        var mobileNav = document.getElementById('main-nav');
+        if (mobileButton) {
+            mobileButton.setAttribute('aria-label', 'Open or close navigation');
+            mobileButton.setAttribute('aria-controls', 'main-nav');
+            mobileButton.setAttribute('aria-expanded', 'false');
+            mobileButton.addEventListener('click', function () {
+                mobileButton.setAttribute('aria-expanded', mobileNav && mobileNav.classList.contains('is-open') ? 'true' : 'false');
+            });
+        }
+
+        var languageButton = document.querySelector('.lang-dropdown-btn');
+        var languageMenu = document.getElementById('lang-menu');
+        if (languageButton && languageMenu) {
+            languageButton.setAttribute('aria-controls', 'lang-menu');
+            languageButton.addEventListener('click', function () {
+                languageButton.setAttribute('aria-expanded', languageMenu.classList.contains('show') ? 'true' : 'false');
+            });
+        }
+    });
+</script>
+
 </body>
 </html>
