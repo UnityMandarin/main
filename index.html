@@ -957,7 +957,90 @@
     @media (prefers-reduced-motion: reduce) {
         .homepage-btn, .skip-link { transition: none; }
     }
+  .who-we-are {
+        max-width: 1080px;
+        margin: 45px auto 70px;
+        padding: 0 24px;
+    }
 
+    .who-we-are-card {
+        padding: 45px clamp(24px, 6vw, 70px);
+        text-align: center;
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(88, 185, 131, 0.3);
+        border-radius: 20px;
+        box-shadow: 0 16px 40px rgba(28, 51, 37, 0.09);
+    }
+
+    .who-we-are-label {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--brand-orange);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    .who-we-are h2 {
+        margin: 0 0 8px;
+        color: var(--text-primary);
+        font-family: var(--font-editorial);
+        font-size: clamp(30px, 4vw, 44px);
+        line-height: 1.2;
+    }
+
+    .who-we-are-tagline {
+        margin: 0 0 22px;
+        color: var(--brand-orange);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .who-we-are-description {
+        max-width: 850px;
+        margin: 0 auto;
+        color: var(--text-secondary);
+        font-size: 18px;
+        line-height: 1.75;
+    }
+
+    .who-we-are-link {
+        display: inline-block;
+        margin-top: 26px;
+        padding: 12px 22px;
+        color: var(--brand-orange);
+        background: transparent;
+        border: 2px solid var(--brand-orange);
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease,
+                    transform 0.2s ease;
+    }
+
+    .who-we-are-link:hover,
+    .who-we-are-link:focus-visible {
+        color: #FFFFFF;
+        background: var(--brand-orange);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+        .who-we-are {
+            margin: 30px auto 55px;
+            padding: 0 18px;
+        }
+
+        .who-we-are-card {
+            padding: 35px 20px;
+        }
+
+        .who-we-are-description {
+            font-size: 16px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -1049,7 +1132,6 @@
         <!-- Added homepage introduction: specific, accurate, and action-focused -->
         <div class="hero-copy">
             <div class="lang-el en-content">
-                <h1>Mandarin Learning for TK–5 Students in San Francisco</h1>
                 <p>Unity Mandarin brings language practice, homework support, and cultural activities together in a structured after-school setting.</p>
                 <div class="hero-actions" aria-label="Homepage actions">
                     <a class="homepage-btn primary" href="program.html">Explore Our Program</a>
@@ -1057,7 +1139,6 @@
                 </div>
             </div>
             <div class="lang-el zh-hans-content" style="display: none;">
-                <h1>面向旧金山 TK–5 年级学生的中文学习</h1>
                 <p>同心中文教育中心在有序的课后环境中，将中文练习、作业辅导与文化活动结合起来。</p>
                 <div class="hero-actions" aria-label="首页操作">
                     <a class="homepage-btn primary" href="program.html">了解课程</a>
@@ -1065,7 +1146,6 @@
                 </div>
             </div>
             <div class="lang-el zh-hant-content" style="display: none;">
-                <h1>面向舊金山 TK–5 年級學生的中文學習</h1>
                 <p>同心中文教育中心在有序的課後環境中，將中文練習、作業輔導與文化活動結合起來。</p>
                 <div class="hero-actions" aria-label="首頁操作">
                     <a class="homepage-btn primary" href="program.html">了解課程</a>
@@ -1102,6 +1182,80 @@
             </div>
         </div>
     </section>
+
+    <section class="who-we-are" aria-labelledby="who-we-are-heading">
+    <div class="who-we-are-card">
+
+        <div class="lang-el en-content">
+            <span class="who-we-are-label">Who We Are</span>
+
+            <h2 id="who-we-are-heading">
+                Unity Mandarin Enrichment Center
+            </h2>
+
+            <p class="who-we-are-tagline">
+                Founded by Parent Educators, Rooted in Community
+            </p>
+
+            <p class="who-we-are-description">
+                Unity Mandarin Enrichment Center (同心中文) is a San
+                Francisco-based nonprofit Mandarin enrichment program founded
+                by experienced educators, youth program leaders, and SFUSD
+                parent volunteers. We partner with local elementary schools to
+                offer structured and engaging after-school learning designed
+                to support TK–5 students academically, socially, and
+                culturally. Our community-based approach brings together
+                thoughtful Mandarin instruction, consistent routines, caring
+                supervision, and close partnership with schools and families.
+            </p>
+
+            <a class="who-we-are-link" href="about.html">
+                Learn More About Us
+            </a>
+        </div>
+
+        <div class="lang-el zh-hans-content" style="display: none;">
+            <span class="who-we-are-label">关于我们</span>
+
+            <h2>同心中文教育中心</h2>
+
+            <p class="who-we-are-tagline">
+                由家长教育工作者共同创立，扎根社区
+            </p>
+
+            <p class="who-we-are-description">
+                同心中文教育中心是一家位于旧金山的非营利中文教育机构，由经验丰富的教育工作者、青少年项目负责人和
+                SFUSD 家长志愿者共同创立。我们与本地小学合作，为 TK–5
+                年级学生提供有序而生动的课后学习，并从学业、社交和文化方面支持他们的成长。我们以社区为基础，将认真设计的中文教学、稳定的课堂常规、细心的学生照护，以及与学校和家庭的紧密合作结合起来。
+            </p>
+
+            <a class="who-we-are-link" href="about.html">
+                进一步了解我们
+            </a>
+        </div>
+
+        <div class="lang-el zh-hant-content" style="display: none;">
+            <span class="who-we-are-label">關於我們</span>
+
+            <h2>同心中文教育中心</h2>
+
+            <p class="who-we-are-tagline">
+                由家長教育工作者共同創立，扎根社區
+            </p>
+
+            <p class="who-we-are-description">
+                同心中文教育中心是一家位於舊金山的非營利中文教育機構，由經驗豐富的教育工作者、青少年項目負責人和
+                SFUSD 家長志願者共同創立。我們與本地小學合作，為 TK–5
+                年級學生提供有序而生動的課後學習，並從學業、社交和文化方面支持他們的成長。我們以社區為基礎，將認真設計的中文教學、穩定的課堂常規、細心的學生照護，以及與學校和家庭的緊密合作結合起來。
+            </p>
+
+            <a class="who-we-are-link" href="about.html">
+                進一步了解我們
+            </a>
+        </div>
+
+    </div>
+</section>
 
     <section class="approach-block">
         <div class="section-header-group">
